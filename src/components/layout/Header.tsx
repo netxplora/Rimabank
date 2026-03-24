@@ -66,7 +66,7 @@ export function Header() {
     <>
       {/* Top Bar */}
       <div className="bg-primary text-primary-foreground py-2 text-sm hidden md:block">
-        <div className="container mx-auto px-4 flex justify-between items-center">
+        <div className="w-full px-4 md:px-10 flex justify-between items-center">
           <div className="flex items-center gap-6">
             <a href="tel:+2348119477050" className="flex items-center gap-2 hover:text-accent transition-colors">
               <Phone className="h-4 w-4" />
@@ -92,10 +92,10 @@ export function Header() {
             : "bg-background"
         )}
       >
-        <div className="container mx-auto px-4">
+        <div className="w-full px-4 md:px-10">
           <div className="flex h-20 items-center justify-between">
             {/* Logo */}
-            <Link to="/" className="flex items-center gap-3">
+            <Link to="/" className="flex items-center gap-3 shrink-0 mr-12">
               <img src="/rima-logo.png" alt="Rivers MFB Logo" className="h-12 w-auto object-contain" />
               <div className="flex flex-col">
                 <span className="font-display text-xl font-bold text-primary">Rivers MFB</span>
@@ -104,7 +104,7 @@ export function Header() {
             </Link>
 
             {/* Desktop Navigation */}
-            <nav className="hidden lg:flex items-center gap-1">
+            <nav className="hidden lg:flex flex-1 items-center justify-between">
               {navigation.map((item) => (
                 <div
                   key={item.name}

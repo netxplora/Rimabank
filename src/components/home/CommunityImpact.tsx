@@ -63,11 +63,7 @@ export function CommunityImpact() {
               />
               <div className="absolute inset-0 bg-primary/20 mix-blend-multiply" />
             </div>
-            {/* Decal */}
-            <div className="relative mt-8 mx-auto w-[90%] max-w-[320px] md:w-auto md:mx-0 md:mt-0 md:absolute md:-bottom-6 md:-left-6 bg-card p-6 rounded-2xl border border-border shadow-xl md:max-w-[250px] z-10">
-              <p className="text-sm font-semibold italic text-primary">"Rima has been our backbone for over a decade. They understand our local needs."</p>
-              <div className="mt-2 text-xs font-bold">— Local SME Owner</div>
-            </div>
+
           </div>
         </div>
       </div>

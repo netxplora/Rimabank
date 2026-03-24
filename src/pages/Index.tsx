@@ -11,7 +11,7 @@ import { TestimonialsSection } from "@/components/home/TestimonialsSection";
 import { SecuritySection } from "@/components/home/SecuritySection";
 import { MobileAppCTA } from "@/components/home/MobileAppCTA";
 import { TrustIndicators } from "@/components/home/TrustIndicators";
-import { CommunityImpact } from "@/components/home/CommunityImpact";
+
 import { LoanCalculator } from "@/components/tools/LoanCalculator";
 import SavingsCalculator from "@/components/tools/SavingsCalculator";
 import { AccountRecommendationTool } from "@/components/tools/AccountRecommendationTool";
@@ -30,7 +30,7 @@ const Index = () => {
           <SavingsCalculator />
         </div>
       </div>
-      <CommunityImpact />
+
       <AccountRecommendationTool />
       <AgentBankingSection />
       <CardServicesSection />
