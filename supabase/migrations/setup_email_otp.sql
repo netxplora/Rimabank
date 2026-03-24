@@ -1,0 +1,34 @@
+-- ============================================================
+-- Setup: Enable Email Link Verification (Magic Link)
+-- ============================================================
+-- 
+-- IMPORTANT: To allow the "one-click" verification link to work,
+-- you MUST configure these settings in your Supabase Dashboard:
+--
+-- 1. Go to: Authentication → Email Templates → Magic Link
+--    Update the template to include a verification button or link.
+--    Use {{ .ConfirmationURL }} for the link.
+--
+--    Subject: "Verify Your Rivers MFB Account"
+--    Body (Sample HTML):
+--      <div style="font-family: sans-serif; max-width: 480px; margin: 0 auto;">
+--        <h2>Welcome to Rivers MFB</h2>
+--        <p>Tap the button below to verify your email and activate your account:</p>
+--        <a href="{{ .ConfirmationURL }}" style="display: block; padding: 16px; background: #0a0f1c; color: #fff; text-decoration: none; border-radius: 8px; text-align: center; font-weight: bold;">
+--          Verify My Account
+--        </a>
+--        <p>If you did not request this, please ignore this email.</p>
+--      </div>
+--
+-- 2. Go to: Authentication → URL Configuration
+--    Add "http://localhost:8080/open-account" (or your production URL)
+--    to the "Redirect URLs" list.
+--
+-- 3. Go to: Authentication → Providers → Email
+--    Ensure "Enable Email provider" is ON.
+--    Ensure "Confirm Email" is ON.
+--
+-- ============================================================
+-- The system will automatically detect the user's return from the 
+-- link and prompt them to download the app.
+-- ============================================================
