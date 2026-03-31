@@ -182,6 +182,143 @@ export default function DigitalBanking() {
         </div>
       </section>
 
+      {/* Getting Started Section - Step by Step */}
+      <section className="py-24 bg-muted/50 border-y border-border/50">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="font-display text-3xl md:text-4xl font-bold mb-4 text-foreground">
+              Get Started in <span className="text-primary italic">3 Simple Steps</span>
+            </h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              Setting up your digital banking with Rivers MFB is quick and entirely paperless.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-12 relative lg:px-12">
+            {/* Step 1 */}
+            <div className="relative z-10 text-center space-y-6">
+              <div className="w-20 h-20 bg-background rounded-full border-4 border-primary/10 flex items-center justify-center mx-auto shadow-xl">
+                <span className="text-3xl font-display font-bold text-primary">01</span>
+              </div>
+              <div className="space-y-3">
+                <h3 className="text-xl font-bold text-foreground">Download & Install</h3>
+                <p className="text-muted-foreground text-sm leading-relaxed px-4">
+                  Find 'Rivers MFB' on the Google Play Store or Apple App Store and install it.
+                </p>
+              </div>
+            </div>
+
+            {/* Step 2 */}
+            <div className="relative z-10 text-center space-y-6">
+              <div className="w-20 h-20 bg-background rounded-full border-4 border-primary/10 flex items-center justify-center mx-auto shadow-xl">
+                <span className="text-3xl font-display font-bold text-primary">02</span>
+              </div>
+              <div className="space-y-3">
+                <h3 className="text-xl font-bold text-foreground">Verify Identity</h3>
+                <p className="text-muted-foreground text-sm leading-relaxed px-4">
+                  Enter your BVN and valid ID details. Our system verifies your information instantly.
+                </p>
+              </div>
+            </div>
+
+            {/* Step 3 */}
+            <div className="relative z-10 text-center space-y-6">
+              <div className="w-20 h-20 bg-background rounded-full border-4 border-primary/10 flex items-center justify-center mx-auto shadow-xl">
+                <span className="text-3xl font-display font-bold text-primary">03</span>
+              </div>
+              <div className="space-y-3">
+                <h3 className="text-xl font-bold text-foreground">Link & Fund</h3>
+                <p className="text-muted-foreground text-sm leading-relaxed px-4">
+                  Fund your account and begin transacting immediately, 24/7.
+                </p>
+              </div>
+            </div>
+
+            {/* Connecting Lines (Desktop Only) */}
+            <div className="hidden lg:block absolute top-10 left-[25%] right-[25%] h-0.5 bg-gradient-to-r from-transparent via-primary/20 to-transparent -z-0" />
+          </div>
+        </div>
+      </section>
+
+      {/* Bill Payments Ecosystem - Detail Grid */}
+      <section className="py-24 bg-background">
+        <div className="container mx-auto px-4">
+          <div className="grid lg:grid-cols-2 gap-20 items-center">
+            <div className="relative order-2 lg:order-1">
+              <div className="relative z-10 grid grid-cols-2 gap-4">
+                <div className="space-y-4 pt-12">
+                  <div className="p-8 rounded-3xl bg-blue-50 border border-blue-100 flex flex-col items-center text-center shadow-sm">
+                    <Zap className="h-8 w-8 text-blue-600 mb-4" />
+                    <h4 className="font-bold text-blue-900">Electricity</h4>
+                    <p className="text-xs text-blue-700/70">Prepaid & Postpaid</p>
+                  </div>
+                  <div className="p-8 rounded-3xl bg-purple-50 border border-purple-100 flex flex-col items-center text-center shadow-sm">
+                    <SmartphoneNfc className="h-8 w-8 text-purple-600 mb-4" />
+                    <h4 className="font-bold text-purple-900">Data & Airtime</h4>
+                    <p className="text-xs text-purple-700/70">All Networks</p>
+                  </div>
+                </div>
+                <div className="space-y-4">
+                  <div className="p-8 rounded-3xl bg-orange-50 border border-orange-100 flex flex-col items-center text-center shadow-sm">
+                    <ReceiptText className="h-8 w-8 text-orange-600 mb-4" />
+                    <h4 className="font-bold text-orange-900">Cable TV</h4>
+                    <p className="text-xs text-orange-700/70">DSTV, GOTV & StarTimes</p>
+                  </div>
+                  <div className="p-8 rounded-3xl bg-emerald-50 border border-emerald-100 flex flex-col items-center text-center shadow-sm">
+                    <CheckCircle2 className="h-8 w-8 text-emerald-600 mb-4" />
+                    <h4 className="font-bold text-emerald-900">Tax & Levies</h4>
+                    <p className="text-xs text-emerald-700/70">Rivers State Services</p>
+                  </div>
+                </div>
+              </div>
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-primary/5 rounded-full blur-3xl -z-10" />
+            </div>
+
+            <div className="space-y-8 order-1 lg:order-2">
+              <h2 className="font-display text-3xl md:text-5xl font-bold text-foreground leading-tight">
+                An Ecosystem for Your <br />
+                <span className="text-primary italic">Daily Financial Life</span>
+              </h2>
+              <p className="text-muted-foreground text-lg leading-relaxed">
+                Stay on top of your responsibilities without moving an inch. We've 
+                integrated with leading service providers in Rivers State and nationwide 
+                to ensure your payments are always just a click away.
+              </p>
+              
+              <div className="space-y-4">
+                <div className="flex items-start gap-4">
+                  <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
+                    <CheckCircle2 className="h-5 w-5 text-primary" />
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-foreground">Scheduled Payments</h4>
+                    <p className="text-sm text-muted-foreground leading-tight">Never miss a deadline. Automate your monthly bills for peace of mind.</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-4">
+                  <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
+                    <CheckCircle2 className="h-5 w-5 text-primary" />
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-foreground">Instant Receipts</h4>
+                    <p className="text-sm text-muted-foreground leading-tight">Download valid proof-of-payment receipts for every transaction immediately.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="pt-6">
+                <Button variant="outline" size="lg" className="h-12 px-8" asChild>
+                  <Link to="/faq" className="flex items-center gap-2">
+                    Payment Status Guide
+                    <ArrowRight className="h-4 w-4" />
+                  </Link>
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Trust & Security Banner */}
       <section className="py-24 bg-primary text-primary-foreground relative overflow-hidden">
         <div className="absolute top-0 right-0 w-1/3 h-full bg-accent/5 -skew-x-12 translate-x-1/2" />
@@ -215,6 +352,55 @@ export default function DigitalBanking() {
                 </div>
                 <h4 className="font-bold">2-Factor Auth</h4>
                 <p className="text-sm text-primary-foreground/60">Robust double-layer security.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Security Tips Section */}
+      <section className="py-24 bg-muted/30">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto">
+            <h2 className="font-display text-3xl font-bold mb-12 text-center text-foreground">
+              Tips for <span className="text-secondary italic">Secure Digital Banking</span>
+            </h2>
+            <div className="grid md:grid-cols-2 gap-8">
+              <div className="flex gap-6 p-6 rounded-2xl bg-background shadow-sm border border-border">
+                <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center shrink-0">
+                  <ShieldCheck className="h-6 w-6 text-primary" />
+                </div>
+                <div className="space-y-2">
+                  <h4 className="font-bold">Protect Your PIN</h4>
+                  <p className="text-sm text-muted-foreground">Never share your transaction PIN or app password with anyone, including bank staff.</p>
+                </div>
+              </div>
+              <div className="flex gap-6 p-6 rounded-2xl bg-background shadow-sm border border-border">
+                <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center shrink-0">
+                  <ShieldCheck className="h-6 w-6 text-primary" />
+                </div>
+                <div className="space-y-2">
+                  <h4 className="font-bold">Use Biometrics</h4>
+                  <p className="text-sm text-muted-foreground">Enable fingerprint or face recognition for an extra layer of security beyond passwords.</p>
+                </div>
+              </div>
+              <div className="flex gap-6 p-6 rounded-2xl bg-background shadow-sm border border-border">
+                <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center shrink-0">
+                  <ShieldCheck className="h-6 w-6 text-primary" />
+                </div>
+                <div className="space-y-2">
+                  <h4 className="font-bold">Watch for Phishing</h4>
+                  <p className="text-sm text-muted-foreground">Rivers MFB will never ask for your sensitive details via SMS, Email, or Phone calls.</p>
+                </div>
+              </div>
+              <div className="flex gap-6 p-6 rounded-2xl bg-background shadow-sm border border-border">
+                <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center shrink-0">
+                  <ShieldCheck className="h-6 w-6 text-primary" />
+                </div>
+                <div className="space-y-2">
+                  <h4 className="font-bold">Update Regularly</h4>
+                  <p className="text-sm text-muted-foreground">Always ensure you are using the latest version of our app to receive critical security patches.</p>
+                </div>
               </div>
             </div>
           </div>
