@@ -101,7 +101,7 @@ export function SMEBankingSection() {
 
             <div className="flex flex-col sm:flex-row gap-4">
               <Button variant="default" size="lg" asChild>
-                <Link to="/business-banking">
+                <Link to="/business-banking/sme">
                   Explore SME Solutions
                   <ArrowRight className="h-5 w-5" />
                 </Link>

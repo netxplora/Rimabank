@@ -51,7 +51,7 @@ export function AgentBankingSection() {
                 </Link>
               </Button>
               <Button variant="heroOutline" size="lg" asChild>
-                <Link to="/products">
+                <Link to="/agent-banking">
                   Become an Agent
                 </Link>
               </Button>

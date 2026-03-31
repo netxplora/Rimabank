@@ -18,6 +18,7 @@ const quickLinks = [
   { name: "Careers", href: "/careers" },
   { name: "Financial Education", href: "/education" },
   { name: "Support Hub", href: "/support" },
+  { name: "Locate Branches", href: "/branches" },
   { name: "Downloads", href: "/downloads" },
   { name: "FAQ", href: "/faq" },
 ];
@@ -33,7 +34,7 @@ const company = [
 const products = [
   { name: "Savings Account", href: "/personal-banking/savings" },
   { name: "Current Account", href: "/personal-banking/current" },
-  { name: "SME Banking", href: "/business-banking" },
+  { name: "SME Banking", href: "/business-banking/sme" },
   { name: "Personal Loans", href: "/loans" },
   { name: "Agent Banking", href: "/agent-banking" },
 ];

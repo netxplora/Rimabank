@@ -12,8 +12,6 @@ import { SecuritySection } from "@/components/home/SecuritySection";
 import { MobileAppCTA } from "@/components/home/MobileAppCTA";
 import { TrustIndicators } from "@/components/home/TrustIndicators";
 
-import { LoanCalculator } from "@/components/tools/LoanCalculator";
-import SavingsCalculator from "@/components/tools/SavingsCalculator";
 import { AccountRecommendationTool } from "@/components/tools/AccountRecommendationTool";
 
 const Index = () => {
@@ -24,12 +22,7 @@ const Index = () => {
       <QuickActions />
       <AboutSnapshot />
       <ServicesOverview />
-      <div className="container mx-auto px-4 mt-12 mb-24">
-        <div className="grid lg:grid-cols-2 gap-8 xl:gap-12 items-stretch">
-          <LoanCalculator />
-          <SavingsCalculator />
-        </div>
-      </div>
+      <div className="py-12" />
 
       <AccountRecommendationTool />
       <AgentBankingSection />

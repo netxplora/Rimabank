@@ -17,13 +17,17 @@ import Legal from "./pages/Legal";
 import NotFound from "./pages/NotFound";
 import FAQ from "./pages/FAQ";
 import SavingsAccount from "./pages/banking/SavingsAccount";
+import BusinessBanking from "./pages/BusinessBanking";
 import SMEBanking from "./pages/banking/SMEBanking";
 import StudentBanking from "./pages/banking/StudentBanking";
 import LoanServices from "./pages/banking/LoanServices";
 import FinancialEducation from "./pages/FinancialEducation";
 import Careers from "./pages/Careers";
 import CurrentAccount from "./pages/banking/CurrentAccount";
-import AgentBanking from "./pages/Products"; // Placeholder
+import PersonalBanking from "./pages/PersonalBanking";
+import AgentBanking from "./pages/AgentBanking";
+import CorporateBanking from "./pages/banking/CorporateBanking";
+import Support from "./pages/Support";
 
 const queryClient = new QueryClient();
 
@@ -36,11 +40,13 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/about" element={<About />} />
-          <Route path="/personal-banking" element={<SavingsAccount />} />
+          <Route path="/personal-banking" element={<PersonalBanking />} />
           <Route path="/personal-banking/savings" element={<SavingsAccount />} />
           <Route path="/personal-banking/current" element={<CurrentAccount />} />
           <Route path="/personal-banking/student" element={<StudentBanking />} />
-          <Route path="/business-banking" element={<SMEBanking />} />
+          <Route path="/business-banking" element={<BusinessBanking />} />
+          <Route path="/business-banking/sme" element={<SMEBanking />} />
+          <Route path="/business-banking/corporate" element={<CorporateBanking />} />
           <Route path="/products/sme" element={<SMEBanking />} />
           <Route path="/products/student" element={<StudentBanking />} />
           <Route path="/loans" element={<LoanServices />} />
@@ -61,7 +67,7 @@ const App = () => (
           <Route path="/faq" element={<FAQ />} />
           <Route path="/education" element={<FinancialEducation />} />
           <Route path="/careers" element={<Careers />} />
-          <Route path="/support" element={<Contact />} />
+          <Route path="/support" element={<Support />} />
 
           <Route path="*" element={<NotFound />} />
         </Routes>

@@ -13,39 +13,45 @@ import { Button } from "@/components/ui/button";
 const services = [
   {
     icon: Wallet,
-    title: "Savings Accounts",
-    description: "Grow your wealth with competitive interest rates and flexible savings options tailored to your goals.",
+    title: "Savings",
+    description: "Grow your wealth with competitive interest rates and flexible savings options.",
     href: "/personal-banking/savings",
     features: ["High Interest Rates", "No Minimum Balance", "Easy Withdrawals"],
   },
   {
     icon: TrendingUp,
-    title: "Personal Loans",
-    description: "Quick access to funds for personal needs, emergencies, or investments with flexible repayment terms.",
+    title: "Loans",
+    description: "Quick access to funds for personal or business needs with flexible repayment.",
     href: "/loans",
-    features: ["Low Interest Rates", "Quick Approval", "Flexible Terms"],
+    features: ["Quick Approval", "Minimal Documentation", "Competitive Rates"],
   },
   {
     icon: Briefcase,
-    title: "SME Banking",
-    description: "Comprehensive banking solutions designed to help your business grow and thrive in today's market.",
-    href: "/business-banking",
-    features: ["Business Accounts", "Trade Finance", "Working Capital"],
+    title: "Business Banking",
+    description: "Tailored solutions for SMEs and growing enterprises in Rivers State.",
+    href: "/business-banking/sme",
+    features: ["Business Accounts", "Trade Finance", "Relationship Managers"],
+  },
+  {
+    icon: Building2,
+    title: "Corporate Banking",
+    description: "Enterprise-grade financial solutions for established corporations.",
+    href: "/business-banking/corporate",
+    features: ["Institutional Support", "Custom Credit", "Cash Management"],
+  },
+  {
+    icon: Users,
+    title: "Agent Banking",
+    description: "Bring banking to your community and earn as a Rima Agent.",
+    href: "/agent-banking",
+    features: ["POS Terminals", "Bill Payments", "Extra Income"],
   },
   {
     icon: GraduationCap,
     title: "Student Banking",
-    description: "Special accounts and loans for students to manage their finances while pursuing education.",
+    description: "Special accounts designed for the modern student's lifestyle.",
     href: "/personal-banking/student",
     features: ["Zero Fees", "Study Loans", "Campus Cards"],
-  },
-
-  {
-    icon: Building2,
-    title: "Current Accounts",
-    description: "Seamless daily banking with unlimited transactions and digital banking access.",
-    href: "/personal-banking/current",
-    features: ["Unlimited Transactions", "Debit Cards", "Cheque Books"],
   },
 ];
 
@@ -61,7 +67,7 @@ export function ServicesOverview() {
             Banking Solutions for Everyone
           </h2>
           <p className="text-muted-foreground text-lg max-w-3xl mx-auto">
-            From personal savings to business financing, we offer comprehensive banking
+            From personal savings to institutional financing, we offer comprehensive banking
             services designed to meet the diverse needs of our community.
           </p>
         </div>

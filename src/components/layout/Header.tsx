@@ -19,17 +19,17 @@ const navigation = [
     name: "Business Banking",
     href: "/business-banking",
     children: [
-      { name: "SME Banking", href: "/business-banking" },
-      { name: "Corporate Accounts", href: "/business-banking" },
+      { name: "SME Banking", href: "/business-banking/sme" },
+      { name: "Corporate Accounts", href: "/business-banking/corporate" },
     ]
   },
   {
     name: "Loans",
     href: "/loans",
     children: [
-      { name: "Micro Loans", href: "/loans" },
-      { name: "Business Loans", href: "/loans" },
-      { name: "Personal Loans", href: "/loans" },
+      { name: "Micro Loans", href: "/loans#loan-types" },
+      { name: "Business Loans", href: "/loans#loan-types" },
+      { name: "Personal Loans", href: "/loans#loan-types" },
     ]
   },
   { name: "Digital Banking", href: "/digital-banking" },
