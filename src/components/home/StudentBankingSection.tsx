@@ -79,7 +79,7 @@ export function StudentBankingSection() {
                   <GraduationCap className="h-8 w-8" />
                 </div>
                 <div>
-                  <h3 className="font-display text-xl font-semibold">Rivers MFB Student Account</h3>
+                  <h3 className="font-display text-xl font-semibold">Rima MFB Student Account</h3>
                   <p className="text-secondary-foreground/70">For students aged 16+</p>
                 </div>
               </div>

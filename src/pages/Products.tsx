@@ -91,8 +91,8 @@ export default function Products() {
         {/* Background Image */}
         <div className="absolute inset-0 z-0">
           <img
-            src="/images/media-sme.png"
-            alt="Rivers MFB Products"
+            src="/images/hero-home.png"
+            alt="About Rima MFB"
             className="w-full h-full object-cover opacity-20 mix-blend-overlay"
           />
         </div>

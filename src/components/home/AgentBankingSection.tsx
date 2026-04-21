@@ -13,16 +13,14 @@ export function AgentBankingSection() {
           {/* Content */}
           <div className="text-primary-foreground">
             <span className="text-accent font-medium text-sm uppercase tracking-wider">
-              Agent & POS Banking
+              Agency & Intermediary Banking
             </span>
             <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold mt-3 mb-6">
-              Banking Services{" "}
-              <span className="text-accent">Near You</span>
+              Accessible Financial{" "}
+              <span className="text-accent">Infrastructure</span>
             </h2>
             <p className="text-primary-foreground/80 text-lg mb-8 leading-relaxed">
-              Access essential banking services through our network of trusted agents 
-              and POS terminals across Rivers State. Deposit, withdraw, transfer, and 
-              pay bills right in your neighborhood.
+              Leverage our extensive network of certified agents and secure POS terminals for streamlined daily transactions. Bridge the financial gap in local communities while establishing a reliable, structured revenue stream as an authorized representative.
             </p>
 
             <div className="grid sm:grid-cols-3 gap-6 mb-10">

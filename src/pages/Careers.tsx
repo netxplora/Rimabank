@@ -31,21 +31,20 @@ const jobOpenings = [
 export default function Careers() {
   return (
     <Layout>
-      <section className="relative bg-primary text-primary-foreground py-20 lg:py-32 overflow-hidden">
+      <section className="relative bg-gradient-hero text-primary-foreground py-20 lg:py-32 overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img
-            src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80"
-            alt="Work at RIMA"
-            className="w-full h-full object-cover opacity-10"
+            src="/images/hero-home.png"
+            alt="Careers at Rima MFB"
+            className="w-full h-full object-cover opacity-20 mix-blend-overlay"
           />
         </div>
         <div className="container mx-auto px-4 relative z-10 text-center">
           <h1 className="font-display text-4xl md:text-5xl lg:text-7xl font-bold mb-6">
-            Join the <span className="text-secondary">RIMA Family</span>
+            Join the <span className="text-secondary italic">Rima Family</span>
           </h1>
           <p className="text-xl text-primary-foreground/80 max-w-2xl mx-auto leading-relaxed">
-            We are always looking for people who care about their community as much as we do. 
-            Build your career while building Rivers State.
+            Professional excellence meets community impact. Build your career with the leading microfinance institution in Rivers State.
           </p>
         </div>
       </section>

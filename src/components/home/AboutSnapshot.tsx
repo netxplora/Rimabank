@@ -19,16 +19,16 @@ export function AboutSnapshot() {
           {/* Content */}
           <div>
             <span className="text-secondary font-medium text-sm uppercase tracking-wider">
-              About Rivers MFB
+              About Rima MFB
             </span>
             <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mt-3 mb-6">
               Your Trusted Partner in{" "}
               <span className="text-primary">Financial Growth</span>
             </h2>
             <p className="text-muted-foreground text-lg mb-8 leading-relaxed">
-              Rivers MFB is a CBN-licensed microfinance institution
+              Rima MFB is a CBN-licensed microfinance institution
               dedicated to empowering individuals, students, traders, SMEs, and communities
-              across Rivers State. We believe in making banking accessible, simple, and
+              across the region. We believe in making banking accessible, simple, and
               beneficial for everyone.
             </p>
 
@@ -58,8 +58,8 @@ export function AboutSnapshot() {
             <div className="relative rounded-2xl overflow-hidden shadow-2xl">
               <div className="aspect-[4/3] relative">
                 <img
-                  src="/images/hero-about.png"
-                  alt="Rivers MFB Team"
+                  src="/images/hero-home.png"
+                  alt="Rima MFB Team"
                   className="w-full h-full object-cover"
                 />
                 <div className="absolute inset-0 bg-primary/20 mix-blend-overlay" />

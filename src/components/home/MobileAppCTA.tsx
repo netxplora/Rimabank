@@ -20,7 +20,7 @@ export function MobileAppCTA() {
               <span className="text-accent">Anytime</span>
             </h2>
             <p className="text-primary-foreground/80 text-lg mb-8 leading-relaxed">
-              Download the Rivers MFB Mobile App and enjoy banking at your fingertips.
+              Download the Rima MFB Mobile App and enjoy banking at your fingertips.
               Transfer funds, pay bills, check balances, and more – all from your smartphone.
             </p>
 
@@ -59,7 +59,7 @@ export function MobileAppCTA() {
               <div className="relative z-20 transform hover:rotate-2 transition-transform duration-500">
                 <img
                   src="/images/Mobile-App.png"
-                  alt="Rivers MFB Mobile App"
+                  alt="Rima MFB Mobile App"
                   className="w-full h-auto drop-shadow-2xl rounded-[2.5rem]"
                 />
               </div>

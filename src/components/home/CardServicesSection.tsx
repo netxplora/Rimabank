@@ -31,7 +31,7 @@ export function CardServicesSection() {
               <div className="relative z-20 transform hover:scale-105 transition-transform duration-500">
                 <img
                   src="/images/atm-card.png"
-                  alt="Rivers MFB ATM Card"
+                  alt="Rima MFB ATM Card"
                   className="w-full h-auto drop-shadow-2xl rounded-2xl"
                 />
               </div>
@@ -49,7 +49,7 @@ export function CardServicesSection() {
               <span className="text-primary">Your Way</span>
             </h2>
             <p className="text-muted-foreground text-lg mb-8 leading-relaxed">
-              Experience the convenience of modern card services with Rivers MFB debit cards.
+              Experience the convenience of modern card services with Rima MFB debit cards.
               Shop online, pay at POS terminals, and withdraw cash from ATMs nationwide.
             </p>
 

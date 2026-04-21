@@ -52,9 +52,14 @@ const articles = [
 export default function FinancialEducation() {
   return (
     <Layout>
-      {/* Hero */}
-      <section className="bg-primary py-20 lg:py-32 text-primary-foreground relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-1/3 h-full bg-secondary/10 skew-x-12 translate-x-20" />
+      <section className="relative bg-gradient-hero text-primary-foreground py-20 lg:py-32 overflow-hidden">
+        <div className="absolute inset-0 z-0">
+          <img
+            src="/images/hero-home.png"
+            alt="Rima MFB Financial Education"
+            className="w-full h-full object-cover opacity-20 mix-blend-overlay"
+          />
+        </div>
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-3xl">
             <h1 className="font-display text-4xl md:text-5xl lg:text-7xl font-bold mb-6">

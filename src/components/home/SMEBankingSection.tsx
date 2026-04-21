@@ -5,18 +5,18 @@ import { Button } from "@/components/ui/button";
 const smeServices = [
   {
     icon: Building,
-    title: "Business Accounts",
-    description: "Tailored current accounts for businesses of all sizes",
+    title: "Corporate Accounts",
+    description: "Structured current accounts for domestic and international operations",
   },
   {
     icon: TrendingUp,
-    title: "Working Capital Loans",
-    description: "Quick access to funds to grow your business",
+    title: "Commercial Credit",
+    description: "Scalable funding solutions to accelerate business expansion",
   },
   {
     icon: BarChart3,
-    title: "Trade Finance",
-    description: "Support for import, export, and local trade",
+    title: "Trade & Supply Chain",
+    description: "Comprehensive financial backing for complex supply chains",
   },
 ];
 
@@ -36,9 +36,9 @@ export function SMEBankingSection() {
                   </div>
                   <div>
                     <h3 className="font-display text-xl font-semibold text-foreground">
-                      SME Growth Package
+                      Enterprise Support
                     </h3>
-                    <p className="text-muted-foreground">Designed for Nigerian businesses</p>
+                    <p className="text-muted-foreground">Engineered for scaling businesses</p>
                   </div>
                 </div>
 
@@ -64,7 +64,7 @@ export function SMEBankingSection() {
               {/* Floating Stats */}
               <div className="absolute -bottom-4 -right-4 bg-gradient-secondary text-secondary-foreground p-6 rounded-xl shadow-lg hidden md:block">
                 <p className="text-3xl font-bold">₦2B+</p>
-                <p className="text-sm text-secondary-foreground/70">SME Loans Disbursed</p>
+                <p className="text-sm text-secondary-foreground/70">Commercial Capital Deployed</p>
               </div>
             </div>
           </div>
@@ -72,25 +72,23 @@ export function SMEBankingSection() {
           {/* Content */}
           <div className="order-1 lg:order-2">
             <span className="text-secondary font-medium text-sm uppercase tracking-wider">
-              SME & Business Banking
+              Commercial Banking
             </span>
             <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mt-3 mb-6">
-              Powering Your{" "}
-              <span className="text-primary">Business Growth</span>
+              Empowering Your{" "}
+              <span className="text-primary">Corporate Growth</span>
             </h2>
             <p className="text-muted-foreground text-lg mb-8 leading-relaxed">
-              From micro-enterprises to growing SMEs, we provide the financial 
-              tools and support you need to scale your business. Access working 
-              capital, trade finance, and dedicated business banking services.
+              From growing SMEs to established corporations, we provide the robust financial structure required to scale operations efficiently. Partner with us to access dynamic working capital, targeted trade finance, and specialized advisory services.
             </p>
 
             <ul className="space-y-3 mb-10">
               {[
-                "Competitive loan rates from 18% p.a.",
-                "Loans up to ₦50 million",
-                "Flexible repayment terms",
-                "Dedicated relationship managers",
-                "Quick approval process",
+                "Competitive commercial credit from 18% p.a.",
+                "Customized funding up to ₦50 million",
+                "Structured repayment timelines",
+                "Dedicated relationship management teams",
+                "Streamlined application and approval",
               ].map((item) => (
                 <li key={item} className="flex items-center gap-3 text-foreground">
                   <div className="w-2 h-2 rounded-full bg-secondary" />

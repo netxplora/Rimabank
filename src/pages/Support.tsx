@@ -7,25 +7,25 @@ import { Link } from "react-router-dom";
 export default function Support() {
   const supportChannels = [
     {
-      title: "Email Support",
-      description: "Send us a message and we'll get back to you within 24 hours.",
-      contact: "info@riversmfb.com",
+      title: "Electronic Support",
+      description: "Direct your inquiries to our dedicated support desk for a response within 24 business hours.",
+      contact: "support@rimabank.com",
       icon: Mail,
-      link: "mailto:info@riversmfb.com",
-      cta: "Email Us"
+      link: "mailto:support@rimabank.com",
+      cta: "Compose Email"
     },
     {
-      title: "Customer Hotline",
-      description: "Call our 24/7 support line for immediate assistance.",
+      title: "Support Hotline",
+      description: "Access our 24/7 dedicated telephone support for immediate operational assistance.",
       contact: "+234 811 947 7050",
       icon: Phone,
       link: "tel:+2348119477050",
       cta: "Call Now"
     },
     {
-        title: "Visit a Branch",
-        description: "Speak directly with our team at any of our branches.",
-        contact: "11 Branches across Rivers State",
+        title: "Branch Network",
+        description: "Engage with our relationship managers at any of our established branches.",
+        contact: "11 Regional Branches",
         icon: MapPin,
         link: "/branches",
         cta: "Locate Branch"
@@ -33,28 +33,35 @@ export default function Support() {
   ];
 
   const resources = [
-    { name: "Frequently Asked Questions", href: "/faq", icon: HelpCircle },
-    { name: "Security Tips", href: "/legal", icon: ShieldCheck },
-    { name: "Report a Problem", href: "/complaints", icon: HeartPulse },
-    { name: "Download Forms", href: "/downloads", icon: ExternalLink },
+    { name: "Support Knowledge Base", href: "/faq", icon: HelpCircle },
+    { name: "Information Security Protocols", href: "/legal", icon: ShieldCheck },
+    { name: "Formal Dispute Resolution", href: "/complaints", icon: HeartPulse },
+    { name: "Operational Documents & Forms", href: "/downloads", icon: ExternalLink },
   ];
 
   return (
     <Layout>
       {/* Hero */}
-      <section className="bg-primary text-primary-foreground py-20 lg:py-32">
-        <div className="container mx-auto px-4 text-center">
+      <section className="relative bg-gradient-hero text-primary-foreground py-20 lg:py-32 overflow-hidden">
+        {/* Background Image */}
+        <div className="absolute inset-0 z-0">
+          <img
+            src="/images/hero-home.png"
+            alt="Rima MFB Support"
+            className="w-full h-full object-cover opacity-20 mix-blend-overlay"
+          />
+        </div>
+        <div className="container mx-auto px-4 relative z-10 text-center">
           <h1 className="font-display text-4xl md:text-5xl lg:text-7xl font-bold mb-6">
-            How can we help?
+            Client <span className="text-secondary italic">Support Services</span>
           </h1>
           <p className="text-xl text-primary-foreground/80 max-w-2xl mx-auto mb-12">
-            Our support team is here to ensure you have a seamless banking experience with Rivers MFB. 
-            Choose a channel that works best for you.
+            Rima Microfinance Bank provides dedicated support infrastructure to ensure your banking operations remain uninterrupted and secure.
           </p>
           <div className="max-w-md mx-auto relative group">
             <input 
                 type="text" 
-                placeholder="Search for answers..." 
+                placeholder="Search resources..." 
                 className="w-full bg-white/10 border border-white/20 rounded-2xl py-4 px-6 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-secondary/50 focus:bg-white/20 transition-all font-medium pr-12" 
             />
             <Link to="/faq" className="absolute right-4 top-1/2 -translate-y-1/2 p-2 hover:bg-white/10 rounded-lg transition-colors">
@@ -89,8 +96,8 @@ export default function Support() {
 
           <div className="flex flex-col lg:flex-row gap-16 items-start">
              <div className="lg:w-1/3 text-left">
-                <h2 className="text-3xl font-display font-bold mb-6">Quick Resources</h2>
-                <p className="text-muted-foreground mb-8">Access helpful guides and tools to manage your account efficiently.</p>
+                <h2 className="text-3xl font-display font-bold mb-6">Support Resources</h2>
+                <p className="text-muted-foreground mb-8">Access essential documentation and technical guides for efficient account management.</p>
                 <div className="space-y-3">
                     {resources.map((res, i) => (
                         <Link 
@@ -110,31 +117,30 @@ export default function Support() {
 
              <div className="lg:w-2/3">
                 <div className="bg-slate-50/50 rounded-3xl p-8 md:p-12 border border-slate-200 shadow-sm">
-                    <h3 className="text-2xl font-bold mb-8">Security & Verification</h3>
+                    <h3 className="text-2xl font-bold mb-8">Security & Operational Verification</h3>
                     <div className="grid sm:grid-cols-2 gap-8">
                         <div className="space-y-4">
                             <div className="p-3 bg-red-100 text-red-600 rounded-xl w-fit">
                                 <ShieldCheck className="h-6 w-6" />
                             </div>
-                            <h4 className="font-bold text-lg">Phishing Alerts</h4>
+                            <h4 className="font-bold text-lg">Fraud Awareness</h4>
                             <p className="text-sm text-muted-foreground leading-relaxed">
-                                Rivers MFB will <strong>never</strong> ask for your PIN, password, or BVN over the phone or email. 
-                                Report any suspicious calls immediately.
+                                Rima Microfinance Bank will <strong>never</strong> request your PIN, password, or BVN via telephone or electronic mail. 
+                                Report suspicious interactions immediately to our fraud desk.
                             </p>
                         </div>
                         <div className="space-y-4">
                             <div className="p-3 bg-secondary/10 text-secondary rounded-xl w-fit">
                                 <Smartphone className="h-6 w-6" />
                             </div>
-                            <h4 className="font-bold text-lg">Transaction Disputes</h4>
+                            <h4 className="font-bold text-lg">Transaction Dispute Resolution</h4>
                             <p className="text-sm text-muted-foreground leading-relaxed">
-                                If you experience a failed transaction but were debited, don't worry. 
-                                Most reversals happen within 24 hours. If not, log a ticket below.
+                                Failed transactions with active debits are typically reversed within 24 business hours. If the discrepancy persists, initiate a formal dispute ticket.
                             </p>
                         </div>
                     </div>
                     <Button variant="outline" className="mt-12 w-full sm:w-auto" asChild>
-                        <Link to="/complaints">Log a Complaint</Link>
+                        <Link to="/complaints">Initiate Formal Complaint</Link>
                     </Button>
                 </div>
              </div>

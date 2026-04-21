@@ -59,15 +59,21 @@ export default function Media() {
 
   return (
     <Layout>
-      {/* Hero Section */}
-      <section className="bg-gradient-hero text-primary-foreground py-20 lg:py-32">
-        <div className="container mx-auto px-4">
+      <section className="relative bg-gradient-hero text-primary-foreground py-20 lg:py-32 overflow-hidden">
+        <div className="absolute inset-0 z-0">
+          <img
+            src="/images/hero-home.png"
+            alt="Rima MFB News"
+            className="w-full h-full object-cover opacity-20 mix-blend-overlay"
+          />
+        </div>
+        <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-3xl">
-            <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
-              News & Media
+            <h1 className="font-display text-4xl md:text-5xl lg:text-7xl font-bold mb-6">
+              News & <span className="text-secondary">Media</span>
             </h1>
-            <p className="text-xl text-primary-foreground/80">
-              Stay updated with the latest news, announcements, and stories from Rivers MFB.
+            <p className="text-xl text-primary-foreground/80 leading-relaxed">
+              Stay updated with the latest institutional news, corporate announcements, and success stories from Rima Microfinance Bank.
             </p>
           </div>
         </div>

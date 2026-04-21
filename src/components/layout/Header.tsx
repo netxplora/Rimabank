@@ -72,9 +72,9 @@ export function Header() {
               <Phone className="h-4 w-4" />
               <span>+234 811 947 7050</span>
             </a>
-            <a href="mailto:info@riversmfb.com" className="flex items-center gap-2 hover:text-accent transition-colors">
+            <a href="mailto:info@rimamfb.com" className="flex items-center gap-2 hover:text-accent transition-colors">
               <Mail className="h-4 w-4" />
-              <span>info@riversmfb.com</span>
+              <span>info@rimamfb.com</span>
             </a>
           </div>
           <div className="flex items-center gap-4">
@@ -96,9 +96,9 @@ export function Header() {
           <div className="flex h-20 items-center justify-between">
             {/* Logo */}
             <Link to="/" className="flex items-center gap-3 shrink-0 mr-12">
-              <img src="/rima-logo.png" alt="Rivers MFB Logo" className="h-12 w-auto object-contain" />
+              <img src="/rima-logo.png" alt="Rima MFB Logo" className="h-12 w-auto object-contain" />
               <div className="flex flex-col">
-                <span className="font-display text-xl font-bold text-primary">Rivers MFB</span>
+                <span className="font-display text-xl font-bold text-primary">Rima MFB</span>
                 <span className="text-xs text-muted-foreground">Microfinance Bank</span>
               </div>
             </Link>

@@ -89,16 +89,16 @@ export default function Contact() {
       <section className="relative bg-gradient-hero text-primary-foreground py-20 lg:py-32 overflow-hidden">
         {/* Background Image */}
         <div className="absolute inset-0 z-0">
-          <img
-            src="/images/hero-home.png"
-            alt="Contact Rivers MFB"
-            className="w-full h-full object-cover opacity-20 mix-blend-overlay"
-          />
+            <img
+              src="/images/hero-home.png"
+              alt="Contact Rima MFB"
+              className="w-full h-full object-cover opacity-20 mix-blend-overlay"
+            />
         </div>
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-3xl">
             <h1 className="font-display text-4xl md:text-5xl lg:text-7xl font-bold mb-6">
-              Let's <span className="text-secondary">Talk</span>
+              Connect with <span className="text-secondary italic">Rima Bank</span>
             </h1>
             <p className="text-xl text-primary-foreground/80 leading-relaxed">
               Whether you're looking to open an account, apply for a loan, or just need financial advice, our team is ready to support you.
@@ -217,13 +217,13 @@ export default function Contact() {
                         <p className="font-medium">+234 811 947 7050</p>
                       </div>
                     </a>
-                    <a href="mailto:info@riversmfb.com" className="flex items-center gap-4 hover:text-accent transition-colors">
+                    <a href="mailto:info@rimamfb.com" className="flex items-center gap-4 hover:text-accent transition-colors">
                       <div className="w-10 h-10 rounded-lg bg-primary-foreground/10 flex items-center justify-center">
                         <Mail className="h-5 w-5" />
                       </div>
                       <div>
                         <p className="text-sm text-primary-foreground/60">Email</p>
-                        <p className="font-medium">info@riversmfb.com</p>
+                        <p className="font-medium">info@rimamfb.com</p>
                       </div>
                     </a>
                     <div className="flex items-center gap-4">

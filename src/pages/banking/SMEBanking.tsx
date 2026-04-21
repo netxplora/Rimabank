@@ -4,29 +4,29 @@ import { Briefcase } from "lucide-react";
 export default function SMEBanking() {
   return (
     <BankingServiceLayout
-      title="SME / Business Banking"
-      subtitle="Empowering Enterprises"
-      description="Fuel the growth of your business with our tailored SME solutions. We understand the local market and provide more than just banking—we provide a partnership for success."
+      title="SME & Enterprise Banking"
+      subtitle="Strategic Business Support"
+      description="Fuel the expansion of your business with our structured SME solutions. Rima Bank integrates deep local market expertise with institucional-grade financial infrastructure to provide a sustainable partnership for enterprise growth."
       icon={Briefcase}
-      image="https://images.unsplash.com/photo-1664575602554-2087b04935a5?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80"
-      whoItIsFor="Small to Medium-sized Enterprises, sole traders, and startups in Rivers State."
+      image="/images/hero-home.png"
+      whoItIsFor="Small to Medium-sized Enterprises, sole proprietorships, and established startups in Rivers State."
       benefits={[
-        "Quick access to SME credit facilities",
-        "Business advisory and mentorship support",
-        "Dedicated Relationship Manager",
-        "Higher daily transaction limits",
-        "POS terminals for easy collections",
-        "Trade finance and payroll management"
+        "Structured access to SME liquid credit facilities",
+        "Strategic business advisory and mentorship support",
+        "Dedicated Enterprise Relationship Management",
+        "Enhanced daily transaction limits for high-volume operations",
+        "Secure POS terminals for efficient revenue collection",
+        "Consolidated trade finance and payroll settlement"
       ]}
       requirements={[
-        "CAC Registration Documents",
-        "Passport photos of Directors",
-        "BVN of all signatories",
-        "Proof of business address",
-        "TIN (Tax Identification Number)",
-        "Search report from CAC"
+        "Valid CAC Registration Documents (Form 1.1 / Form CO7 / Form CO2)",
+        "Certified passport photographs of Directors/Signatories",
+        "Verified BVN for all Account Signatories",
+        "Proof of Business Operational Address (Utility Bill < 3 Months)",
+        "Verified Tax Identification Number (TIN)",
+        "Current CAC Status Search Report"
       ]}
-      fees="Competitive transaction rates"
+      fees="Custom-tailored commercial transaction rates"
     />
   );
 }

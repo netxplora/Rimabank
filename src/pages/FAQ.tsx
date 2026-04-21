@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 const accountFaqs = [
     {
         q: "What do I need to open a Savings Account?",
-        a: "To open a Savings Account with Rivers MFB, you need: 1. A valid government-issued ID (NIN, Voter's Card, International Passport, or Driver's License) 2. Your Bank Verification Number (BVN) 3. A recent utility bill (not older than 3 months) 4. Two passport photographs."
+        a: "To initiate an account relationship with Rima MFB, you require: 1. A valid government-issued identification (NIN, Voter's Card, International Passport, or Driver's License) 2. Your Bank Verification Number (BVN) 3. A recent utility bill (not older than 3 months) 4. Two recent biometric passport photographs."
     },
     {
         q: "Can I open an account online without visiting the branch?",
@@ -15,7 +15,7 @@ const accountFaqs = [
     },
     {
         q: "Are there any fees for opening an account?",
-        a: "No, opening a basic Savings or Current Account with Rivers MFB is completely free. We do not charge an account opening fee."
+        a: "No, the initiation of a standard Savings or Current Account with Rima MFB is executed without any administrative fees. We do not impose an account opening tariff."
     },
     {
         q: "How do I upgrade my KYC Tier?",
@@ -26,7 +26,7 @@ const accountFaqs = [
 const loanFaqs = [
     {
         q: "Who is eligible for a personal or SME loan?",
-        a: "Any active customer who has operated an account with us for at least 3 months is eligible. For SME loans, your business must be registered and functional within Rivers State."
+        a: "Any active accountholder who has maintained a consistent relationship with us for a minimum of 3 months is eligible for credit assessment. For SME facilities, your enterprise must be registered and operational within Rivers State."
     },
     {
         q: "What is the interest rate on your loans?",
@@ -73,8 +73,8 @@ export default function FAQ() {
                             Frequently Asked Questions
                         </h1>
                         <p className="text-xl text-slate-600 max-w-2xl mx-auto">
-                            Everything you need to know about banking with Rivers MFB.
-                            Can't find the answer you're looking for? Support is just a click away.
+                            Comprehensive information regarding your banking relationship with Rima MFB.
+                            If your inquiry requires further clarification, our support team is available for immediate assistance.
                         </p>
                     </div>
 

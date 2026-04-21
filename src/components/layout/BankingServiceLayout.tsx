@@ -32,7 +32,7 @@ export function BankingServiceLayout({
   children
 }: BankingServiceLayoutProps) {
   useEffect(() => {
-    document.title = `${title} | Rivers Microfinance Bank`;
+    document.title = `${title} | Rima Microfinance Bank`;
   }, [title]);
 
   return (

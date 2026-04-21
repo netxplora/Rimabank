@@ -9,60 +9,60 @@ export default function LoanServices() {
   const loanTypes = [
     {
       id: "microloan",
-      title: "Microloans",
+      title: "Micro-Credit Facilities",
       icon: Users,
-      description: "Quick, low-collateral loans for individuals and small traders to manage immediate financial needs or grow small-scale businesses.",
+      description: "Accessible credit designed for individuals and sole proprietors requiring immediate liquidity without complex collateral structures.",
       benefits: [
-        "No heavy collateral required",
-        "Approval within 24 hours",
-        "Weekly or monthly repayment options",
-        "Progressive loan limits based on repayment history"
+        "Streamlined collateral requirements",
+        "Expedited 24-hour approval processing",
+        "Structured weekly/monthly repayment cycles",
+        "Dynamic limit increases based on repayment accuracy"
       ],
-      whoItIsFor: "Market traders, artisans, and small-scale entrepreneurs."
+      whoItIsFor: "Independent traders, artisans, and sole proprietorships."
     },
     {
       id: "business",
-      title: "Business Loans",
+      title: "Commercial Loans",
       icon: Briefcase,
-      description: "Strategic financing for SMEs to scale operations, acquire assets, or manage working capital efficiently.",
+      description: "Strategic commercial financing engineered for registered enterprises to optimize working capital and acquire operational assets.",
       benefits: [
-        "Higher credit limits up to ₦10 million",
-        "Flexible tenors up to 24 months",
-        "Injective business advisory services",
-        "Competitive interest rates"
+        "Substantial credit limits up to ₦10 million",
+        "Extended repayment tenors up to 24 months",
+        "Integrated financial advisory support",
+        "Competitive commercial interest rates"
       ],
-      whoItIsFor: "Registered SMEs, corporate organizations, and expanding businesses."
+      whoItIsFor: "Registered SMEs, corporate entities, and expanding ventures."
     },
     {
       id: "personal",
-      title: "Personal Loans",
+      title: "Retail Credit",
       icon: CreditCard,
-      description: "Tailored credit facilities for salary earners and individuals to meet personal goals and handle emergencies.",
+      description: "Customized personal credit structures for formally employed individuals to manage unbudgeted expenses and personal objectives.",
       benefits: [
-        "Salary advance options",
-        "Automated monthly deductions",
-        "No hidden processing fees",
-        "Refinancing options available"
+        "Structured salary advance frameworks",
+        "Automated direct debit repayment",
+        "Transparent processing fees",
+        "Flexible refinancing alternatives"
       ],
-      whoItIsFor: "Public and private sector salary earners."
+      whoItIsFor: "Verified public and private sector salary earners."
     }
   ];
 
   return (
     <BankingServiceLayout
-      title="Loan Services"
-      subtitle="Financial Empowerment"
-      description="Whether you're starting a business, scaling one, or meeting personal commitments, our credit solutions are designed to be fast, fair, and flexible."
+      title="Credit & Loan Services"
+      subtitle="Strategic Capital Solutions"
+      description="Whether you require working capital to expand commercial operations or structured financing for personal commitments, our credit facilities are engineered to be accessible, transparent, and highly responsive."
       icon={TrendingUp}
-      image="https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80"
-      whoItIsFor="Salary earners, registered businesses, and active Rima bank account holders."
+      image="/images/hero-home.png"
+      whoItIsFor="Formally employed professionals, registered businesses, and active Rima Bank accountholders."
       benefits={[
-        "Quick approval in 24-48 hours",
-        "Minimal documentation",
-        "Flexible repayment plans (up to 24 months)",
-        "Competitive interest rates",
-        "No hidden processing fees",
-        "Automated repayment options"
+        "Expedited processing within 24-48 hours",
+        "Streamlined documentation requirements",
+        "Customizable repayment structures (up to 24 months)",
+        "Competitive annualized interest rates",
+        "Absolute transparency in fee structures",
+        "Automated direct debit integration"
       ]}
       requirements={[
         "3 months bank statements",
@@ -75,7 +75,7 @@ export default function LoanServices() {
     >
       <div className="mt-16 space-y-16">
         <section id="loan-types">
-          <h2 className="text-3xl font-display font-bold mb-8 text-center">Our Loan Categories</h2>
+          <h2 className="text-3xl font-display font-bold mb-8 text-center">Comprehensive Credit Facilities</h2>
           <div className="grid md:grid-cols-3 gap-8">
             {loanTypes.map((loan) => (
               <Card key={loan.id} className="border-none shadow-lg hover:shadow-xl transition-shadow bg-background/50 backdrop-blur-sm">
@@ -97,6 +97,11 @@ export default function LoanServices() {
                         </li>
                       ))}
                     </ul>
+                    <img 
+                      src="/images/hero-home.png" 
+                      alt="Institutional Strategy Session" 
+                      className="rounded-2xl shadow-xl w-full"
+                    />
                   </div>
                   <p className="text-xs italic text-muted-foreground pt-4 border-t border-border/50">
                     Target: {loan.whoItIsFor}
@@ -108,7 +113,7 @@ export default function LoanServices() {
         </section>
 
         <section id="loan-calculators">
-          <h2 className="text-3xl font-display font-bold mb-8 text-center text-foreground">Fast Loan Estimator & Savings Forecast</h2>
+          <h2 className="text-3xl font-display font-bold mb-8 text-center text-foreground">Financial Projection Utilities</h2>
           <div className="grid lg:grid-cols-2 gap-8 xl:gap-12 items-stretch">
             <LoanCalculator />
             <SavingsCalculator />

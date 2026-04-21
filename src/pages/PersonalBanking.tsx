@@ -7,41 +7,41 @@ import { Link } from "react-router-dom";
 const personalServices = [
   {
     id: "savings",
-    title: "Savings Accounts",
+    title: "Savings & Deposits",
     icon: Wallet,
-    description: "Grow your wealth with competitive interest rates and zero hidden charges. Perfect for reaching your long-term goals.",
+    description: "Build financial stability with structured deposit accounts offering competitive interest yields and zero hidden maintenance fees.",
     href: "/personal-banking/savings",
     benefits: [
-      "Up to 4% p.a. interest rate",
-      "Zero maintenance fees",
-      "Free instant debit card",
-      "24/7 Mobile access"
+      "Competitive annualized interest rates",
+      "No mandatory monthly maintenance fees",
+      "Complimentary debit card issuance",
+      "Secure 24/7 digital access"
     ]
   },
   {
     id: "current",
-    title: "Current Accounts",
+    title: "Retail Current Accounts",
     icon: CreditCard,
-    description: "Seamless daily banking with unlimited transactions, overdraft facilities, and professional support.",
+    description: "Facilitate seamless daily transactions with high-volume capacity, accessible overdraft facilities, and priority support.",
     href: "/personal-banking/current",
     benefits: [
-      "Zero hidden transfer charges",
-      "Personalized cheque books",
-      "Overdraft facilities",
-      "Real-time SMS/Email alerts"
+      "Transparent transaction fee structure",
+      "Personalized cheque book issuance",
+      "Accessible overdraft facilities",
+      "Instant transaction notifications"
     ]
   },
   {
     id: "student",
-    title: "Student Banking",
+    title: "Student & Youth Banking",
     icon: GraduationCap,
-    description: "Empowering the next generation with zero-fee accounts, study loans, and campus-focused benefits.",
+    description: "Foundational financial accounts providing zero-fee structures and support for educational capital requirements.",
     href: "/personal-banking/student",
     benefits: [
-      "₦0 monthly maintenance fees",
-      "Free student debit card",
-      "Educational support loans",
-      "Campus discounts"
+      "Zero monthly maintenance fees",
+      "Complimentary youth debit card",
+      "Educational credit support",
+      "Partner merchant discounts"
     ]
   }
 ];
@@ -49,16 +49,22 @@ const personalServices = [
 export default function PersonalBanking() {
   return (
     <Layout>
-      <section className="bg-gradient-hero text-primary-foreground py-20 lg:py-32 relative overflow-hidden">
-        <div className="absolute inset-0 bg-hero-pattern opacity-10" />
+      <section className="relative bg-gradient-hero text-primary-foreground py-20 lg:py-32 overflow-hidden">
+        {/* Background Image */}
+        <div className="absolute inset-0 z-0">
+          <img
+            src="/images/hero-home.png"
+            alt="Personal Banking Rima"
+            className="w-full h-full object-cover opacity-20 mix-blend-overlay"
+          />
+        </div>
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-3xl">
             <h1 className="font-display text-4xl md:text-5xl lg:text-7xl font-bold mb-6">
-              Banking Built for <span className="text-secondary italic">Your Lifestyle</span>
+              Retail Banking for <span className="text-secondary italic">Your Financial Goals</span>
             </h1>
             <p className="text-xl text-primary-foreground/80 mb-8 leading-relaxed">
-              Explore our range of personalized banking solutions designed to help you save, 
-              spend, and thrive in every stage of your life.
+              Explore our comprehensive range of retail banking products structured to provide absolute security, optimal returns on deposits, and seamless transaction execution.
             </p>
           </div>
         </div>
@@ -68,11 +74,10 @@ export default function PersonalBanking() {
         <div className="container mx-auto px-4">
           <div className="text-center mb-16 max-w-3xl mx-auto">
             <h2 className="font-display text-3xl md:text-4xl font-bold mb-6">
-              Tailored Solutions for Your <span className="text-primary italic">Personal Needs</span>
+              Structured Products for <span className="text-primary italic">Individual Needs</span>
             </h2>
             <p className="text-muted-foreground text-lg">
-              Whether you're starting your financial journey or looking for premium banking services, 
-              we have the right account for you.
+              Our retail offerings are engineered to provide maximum financial efficiency, whether you are managing daily expenses or accumulating long-term capital.
             </p>
           </div>
 
@@ -111,7 +116,7 @@ export default function PersonalBanking() {
                   <div className="pt-6 border-t border-border/50">
                     <Button variant="default" className="w-full h-12" asChild>
                       <Link to={service.href} className="flex items-center justify-center gap-2">
-                        Expolore {service.title}
+                        Explore {service.title}
                         <ArrowRight className="h-4 w-4" />
                       </Link>
                     </Button>
@@ -130,8 +135,8 @@ export default function PersonalBanking() {
             <div className="relative">
               <div className="z-10 relative bg-background rounded-3xl p-4 shadow-2xl border border-border">
                 <img 
-                  src="https://images.unsplash.com/photo-1563906267088-b029e7101114?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" 
-                  alt="Banking App" 
+                  src="/images/hero-home.png" 
+                  alt="Banking with Rima Bank" 
                   className="rounded-2xl w-full h-[500px] object-cover"
                 />
               </div>
@@ -141,12 +146,11 @@ export default function PersonalBanking() {
 
             <div className="space-y-8">
               <h2 className="font-display text-3xl md:text-5xl font-bold leading-tight">
-                Modern Banking for the <br />
-                <span className="text-primary italic">Modern Life</span>
+                Modern Banking for <br />
+                <span className="text-primary italic">Optimal Management</span>
               </h2>
               <p className="text-muted-foreground text-lg leading-relaxed">
-                We believe banking should be effortless. That's why every personal account comes with
-                world-class digital tools and exceptional support.
+                We believe financial management should be efficient and highly secure. Every retail account integrates our robust digital infrastructure with dedicated customer support.
               </p>
               
               <div className="grid sm:grid-cols-2 gap-8 pt-4">

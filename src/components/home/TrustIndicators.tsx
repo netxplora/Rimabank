@@ -5,7 +5,7 @@ const indicators = [
     icon: Building,
     label: "Years of Excellence",
     value: "25+",
-    description: "Deeply rooted in the Rivers community."
+    description: "Deeply rooted in the community."
   },
   {
     icon: Users,
@@ -17,7 +17,7 @@ const indicators = [
     icon: Globe,
     label: "Branch Network",
     value: "11",
-    description: "Strategic locations across the state."
+    description: "Strategic regional locations."
   },
   {
     icon: Shield,

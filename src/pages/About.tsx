@@ -84,15 +84,15 @@ export default function About() {
         {/* Background Image */}
         <div className="absolute inset-0 z-0">
           <img
-            src="/images/hero-about.png"
-            alt="About Rivers MFB"
+            src="/images/hero-home.png"
+            alt="About Rima MFB"
             className="w-full h-full object-cover opacity-20 mix-blend-overlay"
           />
         </div>
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-4xl">
             <h1 className="font-display text-4xl md:text-5xl lg:text-7xl font-bold mb-6">
-              Empowering Rivers State <span className="text-secondary">Since 2009</span>
+              Rima MFB: Empowering <span className="text-secondary italic">Since 2009</span>
             </h1>
             <p className="text-xl md:text-2xl text-primary-foreground/80 leading-relaxed font-light">
               We started with a simple belief: that every hardworking individual in our community 

@@ -13,45 +13,45 @@ import { Button } from "@/components/ui/button";
 const services = [
   {
     icon: Wallet,
-    title: "Savings",
-    description: "Grow your wealth with competitive interest rates and flexible savings options.",
+    title: "Savings & Deposits",
+    description: "Secure your financial future with structured savings plans offering competitive, reliable interest yields.",
     href: "/personal-banking/savings",
-    features: ["High Interest Rates", "No Minimum Balance", "Easy Withdrawals"],
+    features: ["Competitive Interest Rates", "Principal Security", "On-Demand Access"],
   },
   {
     icon: TrendingUp,
-    title: "Loans",
-    description: "Quick access to funds for personal or business needs with flexible repayment.",
+    title: "Credit & Loans",
+    description: "Accessible credit facilities structured to support personal expenditures and strategic business investments.",
     href: "/loans",
-    features: ["Quick Approval", "Minimal Documentation", "Competitive Rates"],
+    features: ["Streamlined Approval", "Transparent Terms", "Flexible Repayment"],
   },
   {
     icon: Briefcase,
-    title: "Business Banking",
-    description: "Tailored solutions for SMEs and growing enterprises in Rivers State.",
+    title: "SME Banking",
+    description: "Dedicated financial logistics and operational support for growing small and medium-sized enterprises.",
     href: "/business-banking/sme",
-    features: ["Business Accounts", "Trade Finance", "Relationship Managers"],
+    features: ["Operating Accounts", "Working Capital Finance", "Payroll Services"],
   },
   {
     icon: Building2,
-    title: "Corporate Banking",
-    description: "Enterprise-grade financial solutions for established corporations.",
+    title: "Corporate Finance",
+    description: "Institutional-grade financial architecture for established corporations and large-scale operations.",
     href: "/business-banking/corporate",
-    features: ["Institutional Support", "Custom Credit", "Cash Management"],
+    features: ["Trade Finance", "Cash Management", "Dedicated Coverage"],
   },
   {
     icon: Users,
-    title: "Agent Banking",
-    description: "Bring banking to your community and earn as a Rima Agent.",
+    title: "Agency Banking",
+    description: "Expand financial inclusion while generating reliable revenue streams as an authorized local representative.",
     href: "/agent-banking",
-    features: ["POS Terminals", "Bill Payments", "Extra Income"],
+    features: ["Secure POS Infrastructure", "Commissions Management", "Technical Support"],
   },
   {
     icon: GraduationCap,
-    title: "Student Banking",
-    description: "Special accounts designed for the modern student's lifestyle.",
+    title: "Youth & Student Accounts",
+    description: "Foundational banking solutions designed to build financial literacy and secure early-stage capital.",
     href: "/personal-banking/student",
-    features: ["Zero Fees", "Study Loans", "Campus Cards"],
+    features: ["Zero Maintenance Fees", "Educational Loans", "Debit Card Access"],
   },
 ];
 
@@ -61,14 +61,13 @@ export function ServicesOverview() {
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <span className="text-secondary font-medium text-sm uppercase tracking-wider">
-            Our Services
+            Our Expertise
           </span>
           <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mt-3 mb-4">
-            Banking Solutions for Everyone
+            Comprehensive Banking Solutions
           </h2>
           <p className="text-muted-foreground text-lg max-w-3xl mx-auto">
-            From personal savings to institutional financing, we offer comprehensive banking
-            services designed to meet the diverse needs of our community.
+            Rima Microfinance Bank provides structured financial products designed to support individual wealth generation, facilitate business operations, and secure long-term capital management for our clients.
           </p>
         </div>
 

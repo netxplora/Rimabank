@@ -9,39 +9,39 @@ const businessServices = [
     id: "sme",
     title: "SME Banking",
     icon: Briefcase,
-    description: "Tailored for success. From micro-enterprises to growing SMEs, we provide the capital and tools you need to scale your business in Rivers State.",
+    description: "Structured capital and operational tools designed to facilitate scalable and efficient business expansion for growing enterprises.",
     href: "/business-banking/sme",
     benefits: [
-      "Quick SME credit facilities",
-      "Business advisory & mentorship",
-      "Dedicated Relationship Managers",
-      "Higher transaction limits"
+      "Streamlined commercial credit facilities",
+      "Strategic financial advisory services",
+      "Dedicated relationship management",
+      "High-volume transaction capacity"
     ]
   },
   {
     id: "corporate",
     title: "Corporate Accounts",
     icon: Building2,
-    description: "Enterprise-grade solutions for established corporations and public sector institutions. Secure, reliable, and integrated financial services.",
+    description: "Institutional-grade financial infrastructure for established companies and public sector organizations requiring complex fund management.",
     href: "/business-banking/corporate",
     benefits: [
-      "Institutional cash management",
-      "Trade finance & LCs",
-      "Customized credit lines",
-      "Expert relationship support"
+      "Advanced cash management solutions",
+      "Structured trade finance & LCs",
+      "Customized working capital lines",
+      "Executive relationship support"
     ]
   },
   {
     id: "investments",
-    title: "Business Investments",
+    title: "Commercial Treasury",
     icon: TrendingUp,
-    description: "Make your idle business funds work harder with our competitive fixed deposit and treasury bills options tailored for business accounts.",
+    description: "Optimize corporate liquidity with competitive fixed deposit structures and treasury instruments designed for institutional accounts.",
     href: "#",
     benefits: [
-      "Competitive ROI",
-      "Flexible tenors",
-      "Collateral for loans",
-      "Instant liquidity options"
+      "Competitive institutional yields",
+      "Customizable maturity structures",
+      "Cash backing for credit facilities",
+      "On-demand liquidity management"
     ]
   }
 ];
@@ -49,16 +49,23 @@ const businessServices = [
 export default function BusinessBanking() {
   return (
     <Layout>
-      <section className="bg-gradient-hero text-primary-foreground py-20 lg:py-32 relative overflow-hidden">
-        <div className="absolute inset-0 bg-hero-pattern opacity-10" />
+      <section className="relative bg-gradient-hero text-primary-foreground py-20 lg:py-32 overflow-hidden">
+        {/* Background Image */}
+        <div className="absolute inset-0 z-0">
+          <img
+            src="/images/hero-home.png"
+            alt="Business Banking Rima"
+            className="w-full h-full object-cover opacity-20 mix-blend-overlay"
+          />
+        </div>
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-3xl">
             <h1 className="font-display text-4xl md:text-5xl lg:text-7xl font-bold mb-6">
-              Partnering for Your <span className="text-secondary italic">Business Success</span>
+              Strategic Partnership for <span className="text-secondary italic">Corporate Growth</span>
             </h1>
             <p className="text-xl text-primary-foreground/80 mb-8 leading-relaxed">
-              From local startups to large scale corporations, Rivers Microfinance Bank provides the 
-              strategic banking solutions and expert guidance needed to thrive in Nigeria's dynamic economy.
+              From registered SMEs to large-scale corporations, Rima Microfinance Bank provides the 
+              structured banking architecture and expert guidance required to operate efficiently in a dynamic economy.
             </p>
           </div>
         </div>
@@ -68,11 +75,11 @@ export default function BusinessBanking() {
         <div className="container mx-auto px-4">
           <div className="text-center mb-16 max-w-3xl mx-auto">
             <h2 className="font-display text-3xl md:text-4xl font-bold mb-6">
-              Empowering Enterprises at <span className="text-primary italic">Every Scale</span>
+              Comprehensive Support for <span className="text-primary italic">Every Stage</span>
             </h2>
             <p className="text-muted-foreground text-lg">
-              We offer comprehensive business banking products designed specifically for the unique 
-              challenges faced by businesses across Rivers State.
+              We offer structured commercial banking products engineered specifically for the operational 
+              requirements of modern incorporated entities.
             </p>
           </div>
 
@@ -130,16 +137,16 @@ export default function BusinessBanking() {
             <div className="space-y-8">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold uppercase tracking-widest">
                 <ShieldCheck className="h-4 w-4" />
-                Trusted by 5,000+ Rivers Businesses
+                Trusted by Established Businesses
               </div>
               <h2 className="font-display text-3xl md:text-5xl font-bold leading-tight">
                 Corporate Banking with <br />
                 <span className="text-primary italic">Absolute Integrity</span>
               </h2>
               <p className="text-muted-foreground text-lg leading-relaxed">
-                As a CBN-Licensed Microfinance Bank, we combine high-level security with the flexibility 
-                needed to support fast-moving businesses. Our solutions are designed to automate your 
-                financial processes and minimize risks.
+                As a licensed financial institution, we combine high-level operational security with the structural 
+                flexibility required by dynamic markets. Our infrastructure is designed to automate corporate 
+                financial processes securely and precisely.
               </p>
               
               <ul className="space-y-5 pt-4">
@@ -168,8 +175,8 @@ export default function BusinessBanking() {
             <div className="relative">
               <div className="z-10 relative bg-background rounded-3xl p-4 shadow-2xl border border-border">
                 <img 
-                  src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" 
-                  alt="Business Planning" 
+                  src="/images/hero-home.png" 
+                  alt="Corporate Banking with Rima Bank" 
                   className="rounded-2xl w-full h-[500px] object-cover"
                 />
               </div>

@@ -54,7 +54,7 @@ export function Footer() {
         <div className="container mx-auto px-4 py-12">
           <div className="max-w-4xl mx-auto text-center">
             <h3 className="font-display text-2xl md:text-3xl font-semibold mb-3">
-              Stay Updated with Rivers MFB
+              Stay Updated with Rima MFB
             </h3>
             <p className="text-primary-foreground/70 mb-6">
               Subscribe to our newsletter for the latest news, updates, and financial tips.
@@ -80,23 +80,23 @@ export function Footer() {
           {/* Brand Column */}
           <div className="lg:col-span-2">
             <Link to="/" className="flex items-center gap-3 mb-6">
-              <img src="/rima-logo.png" alt="Rivers MFB Logo" className="h-12 w-auto object-contain bg-white/10 rounded-lg p-1" />
+              <img src="/rima-logo.png" alt="Rima MFB Logo" className="h-12 w-auto object-contain bg-white/10 rounded-lg p-1" />
               <div className="flex flex-col">
-                <span className="font-display text-xl font-bold text-primary-foreground">Rivers MFB</span>
+                <span className="font-display text-xl font-bold text-primary-foreground">Rima MFB</span>
                 <span className="text-xs text-primary-foreground/60">Microfinance Bank</span>
               </div>
             </Link>
             <p className="text-primary-foreground/70 mb-6 max-w-sm">
-              Empowering Rivers Dreams, One Banking Solution at a Time. A CBN-licensed microfinance bank serving individuals, students, traders, SMEs, and communities across Rivers State.
+              Empowering Rima Dreams, One Banking Solution at a Time. A CBN-licensed microfinance bank serving individuals, students, traders, SMEs, and communities.
             </p>
             <div className="space-y-3">
               <a href="tel:+2348119477050" className="flex items-center gap-3 text-primary-foreground/70 hover:text-accent transition-colors">
                 <Phone className="h-5 w-5" />
                 <span>+234 811 947 7050</span>
               </a>
-              <a href="mailto:info@riversmfb.com" className="flex items-center gap-3 text-primary-foreground/70 hover:text-accent transition-colors">
+              <a href="mailto:info@rimamfb.com" className="flex items-center gap-3 text-primary-foreground/70 hover:text-accent transition-colors">
                 <Mail className="h-5 w-5" />
-                <span>info@riversmfb.com</span>
+                <span>info@rimamfb.com</span>
               </a>
               <div className="flex items-start gap-3 text-primary-foreground/70">
                 <MapPin className="h-5 w-5 shrink-0 mt-0.5" />
@@ -167,7 +167,7 @@ export function Footer() {
         <div className="container mx-auto px-4 py-6">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <p className="text-sm text-primary-foreground/60">
-              © {new Date().getFullYear()} Rivers Microfinance Bank. All rights reserved. Licensed by the Central Bank of Nigeria.
+              © {new Date().getFullYear()} Rima Microfinance Bank. All rights reserved. Licensed by the Central Bank of Nigeria.
             </p>
             <div className="flex items-center gap-4">
               <a href="#" className="p-2 rounded-full bg-primary-foreground/10 hover:bg-accent hover:text-accent-foreground transition-colors">

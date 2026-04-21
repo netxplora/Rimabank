@@ -7,13 +7,20 @@ import { Download, FileText, Smartphone, Shield } from "lucide-react";
 export default function Downloads() {
     return (
         <Layout>
-            <section className="bg-gradient-hero text-primary-foreground py-16">
-                <div className="container mx-auto px-4 text-center">
-                    <h1 className="font-display text-3xl md:text-5xl font-bold mb-4">
-                        Downloads & Resources
+            <section className="relative bg-gradient-hero text-primary-foreground py-20 lg:py-32 overflow-hidden">
+                <div className="absolute inset-0 z-0">
+                    <img
+                        src="/images/hero-home.png"
+                        alt="Rima MFB Downloads"
+                        className="w-full h-full object-cover opacity-20 mix-blend-overlay"
+                    />
+                </div>
+                <div className="container mx-auto px-4 relative z-10 text-center">
+                    <h1 className="font-display text-4xl md:text-5xl lg:text-7xl font-bold mb-6">
+                        Downloads & <span className="text-secondary">Resources</span>
                     </h1>
-                    <p className="text-xl text-primary-foreground/80 max-w-2xl mx-auto">
-                        Access forms, applications, and important regulatory documents.
+                    <p className="text-xl text-primary-foreground/80 max-w-2xl mx-auto leading-relaxed">
+                        Access official forms, applications, and important regulatory documents from Rima Microfinance Bank.
                     </p>
                 </div>
             </section>

@@ -37,7 +37,7 @@ export default function DigitalBanking() {
         {/* Background Image */}
         <div className="absolute inset-0 z-0">
           <img
-            src="/images/hero-digital.png"
+            src="/images/hero-home.png"
             alt="Digital Banking Experience"
             className="w-full h-full object-cover opacity-20 mix-blend-overlay"
           />
@@ -45,11 +45,10 @@ export default function DigitalBanking() {
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-3xl">
             <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
-              Digital Banking Redefined
+              Digital Banking Solutions
             </h1>
             <p className="text-xl text-primary-foreground/80 mb-8 leading-relaxed">
-              Experience the future of finance with Rivers Microfinance Bank. Our digital-first
-              approach brings seamless, secure, and instant banking services right to your pocket.
+              Experience precise financial management with Rima Microfinance Bank. Our digital infrastructure delivers secure, instantaneous, and comprehensive banking services tailored to your mobile environment.
             </p>
             <div className="flex flex-wrap gap-4">
               <Button variant="accent" size="lg" className="h-14 px-8 text-lg" asChild>
@@ -74,13 +73,11 @@ export default function DigitalBanking() {
                 Available on iOS & Android
               </div>
               <h2 className="font-display text-3xl md:text-5xl font-bold text-foreground leading-tight">
-                Banking in Your Pocket, <br />
-                <span className="text-primary italic">Always and Forever</span>
+                Financial Management, <br />
+                <span className="text-primary italic">At Your Fingertips</span>
               </h2>
               <p className="text-muted-foreground text-lg leading-relaxed">
-                We've designed our mobile experience to be more than just a tool—it's your private
-                financial hub. Secure, fast, and remarkably easy to use, the Rivers MFB app is
-                built for the rhythms of your daily life.
+                Our mobile platform is engineered to function as your comprehensive financial command center. Developed for reliability and high-speed execution, the Rima Bank application integrates seamlessly with your daily operational requirements.
               </p>
 
               <div className="grid sm:grid-cols-2 gap-6 pt-4">
@@ -105,9 +102,9 @@ export default function DigitalBanking() {
             <div className="relative flex justify-center lg:justify-end">
               <div className="relative z-10 animate-fade-in">
                 <img
-                  src="/images/Mobile-App.png"
-                  alt="Rivers MFB Mobile App"
-                  className="w-full max-w-[550px] h-auto drop-shadow-[0_35px_60px_-15px_rgba(0,0,0,0.3)] transform lg:rotate-2 hover:rotate-0 transition-transform duration-700"
+                  src="/images/hero-home.png"
+                  alt="Rima Bank Digital Interface"
+                  className="w-full max-w-[550px] h-auto drop-shadow-[0_35px_60px_-15px_rgba(0,0,0,0.3)] transform lg:rotate-2 hover:rotate-0 transition-transform duration-700 rounded-3xl"
                 />
               </div>
               {/* Decorative Glow */}
@@ -122,10 +119,10 @@ export default function DigitalBanking() {
         <div className="container mx-auto px-4">
           <div className="text-center mb-16 max-w-3xl mx-auto">
             <h2 className="font-display text-3xl md:text-4xl font-bold mb-6">
-              Powerful Features for Your <span className="text-primary">Financial Freedom</span>
+              Advanced Digital <span className="text-primary">Capabilities</span>
             </h2>
             <p className="text-muted-foreground text-lg">
-              Everything you need to manage, save, and grow your money is just a tap away.
+              Comprehensive tools designed to facilitate efficient capital management and financial growth.
             </p>
           </div>
 
@@ -133,20 +130,20 @@ export default function DigitalBanking() {
             {[
               {
                 icon: WalletCards,
-                title: "Instant Transfers",
-                description: "Send money instantly to any commercial or microfinance bank in Nigeria.",
+                title: "Instant Fund Settlement",
+                description: "Execute real-time transfers to any licensed commercial or microfinance institution nationwide.",
                 color: "bg-blue-600/10 text-blue-600"
               },
               {
                 icon: ReceiptText,
-                title: "Utility Payments",
-                description: "Manage all your bills—electricity, data, cable, and more—from one place.",
+                title: "Utility Settlement",
+                description: "Manage and settle recurring obligations including energy, data, and telecommunications.",
                 color: "bg-purple-600/10 text-purple-600"
               },
               {
                 icon: HandCoins,
-                title: "App-Based Loans",
-                description: "Access quick loans based on your transaction history with zero paperwork.",
+                title: "Retail Credit Access",
+                description: "Access structured micro-credit facilities based on verified transaction history.",
                 color: "bg-emerald-600/10 text-emerald-600"
               },
               {
@@ -163,8 +160,8 @@ export default function DigitalBanking() {
               },
               {
                 icon: Zap,
-                title: "Smart Spending",
-                description: "Get real-time insights into your spending habits with automated categorization.",
+                title: "Spending Analytics",
+                description: "Gain precise insights into your expenditure patterns with automated transaction categorization.",
                 color: "bg-amber-600/10 text-amber-600"
               }
             ].map((feature, index) => (
@@ -187,10 +184,10 @@ export default function DigitalBanking() {
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="font-display text-3xl md:text-4xl font-bold mb-4 text-foreground">
-              Get Started in <span className="text-primary italic">3 Simple Steps</span>
+              Onboarding <span className="text-primary italic">Process</span>
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              Setting up your digital banking with Rivers MFB is quick and entirely paperless.
+              Initiate your digital banking relationship via our streamlined, paperless enrollment protocol.
             </p>
           </div>
 
@@ -203,7 +200,7 @@ export default function DigitalBanking() {
               <div className="space-y-3">
                 <h3 className="text-xl font-bold text-foreground">Download & Install</h3>
                 <p className="text-muted-foreground text-sm leading-relaxed px-4">
-                  Find 'Rivers MFB' on the Google Play Store or Apple App Store and install it.
+                  Find 'Rima MFB' on the Google Play Store or Apple App Store and install it.
                 </p>
               </div>
             </div>
@@ -229,7 +226,7 @@ export default function DigitalBanking() {
               <div className="space-y-3">
                 <h3 className="text-xl font-bold text-foreground">Link & Fund</h3>
                 <p className="text-muted-foreground text-sm leading-relaxed px-4">
-                  Fund your account and begin transacting immediately, 24/7.
+                  Fund your account and commence secure financial transactions immediately.
                 </p>
               </div>
             </div>
@@ -267,7 +264,7 @@ export default function DigitalBanking() {
                   <div className="p-8 rounded-3xl bg-emerald-50 border border-emerald-100 flex flex-col items-center text-center shadow-sm">
                     <CheckCircle2 className="h-8 w-8 text-emerald-600 mb-4" />
                     <h4 className="font-bold text-emerald-900">Tax & Levies</h4>
-                    <p className="text-xs text-emerald-700/70">Rivers State Services</p>
+                    <p className="text-xs text-emerald-700/70">Official State Services</p>
                   </div>
                 </div>
               </div>
@@ -276,13 +273,11 @@ export default function DigitalBanking() {
 
             <div className="space-y-8 order-1 lg:order-2">
               <h2 className="font-display text-3xl md:text-5xl font-bold text-foreground leading-tight">
-                An Ecosystem for Your <br />
-                <span className="text-primary italic">Daily Financial Life</span>
+                Integrated Payment <br />
+                <span className="text-primary italic">Ecosystem</span>
               </h2>
               <p className="text-muted-foreground text-lg leading-relaxed">
-                Stay on top of your responsibilities without moving an inch. We've 
-                integrated with leading service providers in Rivers State and nationwide 
-                to ensure your payments are always just a click away.
+                Maintain operational efficiency with our integrated service provider network. We facilitate seamless settlement for regional and nationwide obligations directly from your dashboard.
               </p>
               
               <div className="space-y-4">
@@ -300,8 +295,8 @@ export default function DigitalBanking() {
                     <CheckCircle2 className="h-5 w-5 text-primary" />
                   </div>
                   <div>
-                    <h4 className="font-bold text-foreground">Instant Receipts</h4>
-                    <p className="text-sm text-muted-foreground leading-tight">Download valid proof-of-payment receipts for every transaction immediately.</p>
+                    <h4 className="font-bold text-foreground">Electronic Receipts</h4>
+                    <p className="text-sm text-muted-foreground leading-tight">Generate and download official transaction confirmations for every settled obligation.</p>
                   </div>
                 </div>
               </div>
@@ -390,7 +385,7 @@ export default function DigitalBanking() {
                 </div>
                 <div className="space-y-2">
                   <h4 className="font-bold">Watch for Phishing</h4>
-                  <p className="text-sm text-muted-foreground">Rivers MFB will never ask for your sensitive details via SMS, Email, or Phone calls.</p>
+                  <p className="text-sm text-muted-foreground">Rima MFB will never ask for your sensitive details via SMS, Email, or Phone calls.</p>
                 </div>
               </div>
               <div className="flex gap-6 p-6 rounded-2xl bg-background shadow-sm border border-border">
@@ -414,11 +409,10 @@ export default function DigitalBanking() {
             <div className="absolute inset-0 bg-hero-pattern opacity-10" />
             <div className="relative z-10">
               <h2 className="font-display text-4xl md:text-5xl font-bold mb-6">
-                Ready to Upgrade Your Life?
+                Commence Your Digital Banking Experience
               </h2>
               <p className="text-lg text-primary-foreground/80 mb-12 max-w-2xl mx-auto leading-relaxed">
-                Join thousands of customers banking with Rivers MFB. Download our app today
-                and take full control of your financial future.
+                Join our established network of corporate and retail clients. Deploy the Rima Bank application to optimize your financial operations.
               </p>
 
               <div className="flex flex-col sm:flex-row gap-6 justify-center">

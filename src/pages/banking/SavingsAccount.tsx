@@ -4,28 +4,28 @@ import { Wallet } from "lucide-react";
 export default function SavingsAccount() {
   return (
     <BankingServiceLayout
-      title="Savings Accounts"
-      subtitle="Personal Banking"
-      description="Start your journey towards financial freedom. Our savings accounts are designed to help you grow your wealth with competitive interest rates and zero hidden charges."
+      title="Structured Savings Solutions"
+      subtitle="Retail Banking Services"
+      description="Secure your financial future with our range of personal savings repositories. Rima Bank delivers competitive, reliable interest yields paired with absolute transparency in account management."
       icon={Wallet}
-      image="https://images.unsplash.com/photo-1579621909532-6720d293d0bb?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80"
-      whoItIsFor="Individuals, families, and goal-oriented savers residing in Rivers State."
+      image="/images/hero-home.png"
+      whoItIsFor="Individuals, households, and goal-oriented savers seeking a reliable financial foundation."
       benefits={[
-        "Up to 4% p.a. interest rate",
-        "Zero account maintenance fees",
-        "Free instant debit card on issuance",
-        "24/7 Mobile and Internet Banking access",
-        "Quarterly interest payment to your account",
-        "Access to emergency loan facilities"
+        "Tiered interest yields up to 4% per annum",
+        "Zero hidden maintenance or administrative fees",
+        "Complimentary electronic debit card issuance",
+        "24/7 Access via Web and Mobile App infrastructure",
+        "Automated quarterly interest crediting",
+        "Expedited eligibility for retail credit facilities"
       ]}
       requirements={[
-        "Completed Account Opening Form",
-        "Two (2) recent Passport Photographs",
-        "Valid ID (National ID, International Passport, or Voter's Card)",
-        "Utility Bill (not older than 3 months)",
-        "Minimum opening balance of ₦2,000"
+        "Duly executed Personal Account Opening Form",
+        "Two (2) recent biometric passport photographs",
+        "Valid Government Issue ID (NIN, PVC, or Passport)",
+        "Proof of Residence (Utility Bill < 3 Months)",
+        "Initial deposit of ₦2,000 for account activation"
       ]}
-      fees="No monthly maintenance fees"
+      fees="No recurring maintenance or debit fees"
     />
   );
 }

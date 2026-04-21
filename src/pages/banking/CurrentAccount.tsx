@@ -4,28 +4,28 @@ import { CreditCard } from "lucide-react";
 export default function CurrentAccount() {
   return (
     <BankingServiceLayout
-      title="Current Account"
-      subtitle="Everyday Banking"
-      description="The perfect companion for your daily financial transactions. Flexible, reliable, and designed to keep your money moving as fast as you do."
+      title="Strategic Liquidity Accounts"
+      subtitle="Retail Banking Services"
+      description="Optimized infrastructure for your daily financial operations. Flexible, reliable, and engineered to facilitate seamless capital movement for individuals and sole practitioners."
       icon={CreditCard}
-      image="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80"
-      whoItIsFor="Individuals, sole traders, and professionals who require frequent access to their funds and more advanced banking features."
+      image="/images/hero-home.png"
+      whoItIsFor="Professionals, sole-proprietors, and individuals requiring an unrestricted, high-velocity transaction environment."
       benefits={[
-        "No monthly maintenance fees (for minimum balance)",
-        "Zero hidden charges on transfers",
-        "Free personalized cheque book on request",
-        "Access to overdraft facilities",
-        "Unlimited monthly withdrawals",
-        "Real-time SMS and Email alerts"
+        "Zero recurring maintenance fees (subject to minimum balance)",
+        "Flat-rate transaction settlement with no hidden charges",
+        "Complimentary personalized cheque book issuance",
+        "Eligibility for structured overdraft facilities",
+        "Unrestricted monthly transaction frequency",
+        "Real-time electronic alerts via SMS and Email"
       ]}
       requirements={[
-        "Valid Government ID (NIN, PVC, Passport)",
-        "Proof of address (Utility bill)",
-        "Two (2) external references",
-        "Two (2) passport photographs",
-        "Initial opening deposit"
+        "Valid Government Issue ID (NIN, PVC, or Passport)",
+        "Verified Proof of Residence (Utility Bill < 3 Months)",
+        "Two (2) independent external references",
+        "Two (2) recent biometric passport photographs",
+        "Initial capital deposit for account activation"
       ]}
-      fees="No monthly maintenance fee"
+      fees="No monthly maintenance/administrative fees"
     />
   );
 }

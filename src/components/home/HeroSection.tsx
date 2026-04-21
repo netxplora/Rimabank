@@ -28,15 +28,14 @@ export function HeroSection() {
 
           {/* Heading */}
           <h1 className="font-display text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-primary-foreground mb-6 leading-tight animate-fade-in" style={{ animationDelay: '0.1s' }}>
-            Traditional Banking,{" "}
-            <span className="text-secondary">Community Heart</span>{" "}
-            Digital Future
+            Secure Banking,{" "}
+            <span className="text-secondary">Community Focused</span>{" "}
+            Proven Results
           </h1>
 
           {/* Subheading */}
           <p className="text-lg md:text-xl text-primary-foreground/80 mb-10 max-w-2xl animate-fade-in" style={{ animationDelay: '0.2s' }}>
-            Join over 50,000 customers who trust Rivers MFB for their personal and business growth. 
-            We provide the tools you need to build the life you want in Rivers State.
+            Join over 50,000 customers who partner with Rima Microfinance Bank. We deliver secure, accessible, and structured financial solutions designed to support personal stability and business expansion.
           </p>
 
           {/* CTAs */}

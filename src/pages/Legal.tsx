@@ -13,7 +13,7 @@ const legalContent = {
 
                 <section>
                     <p className="text-lg font-medium leading-relaxed">
-                        At Rivers Microfinance Bank ("Rivers MFB", "we", "us", or "our"), safeguarding your privacy is fundamental to our service.
+                        At Rima Microfinance Bank ("Rima MFB", "we", "us", or "our"), safeguarding your privacy is fundamental to our service.
                         This Privacy Policy comprehensively details how we collect, use, process, and protect your personal and financial information
                         when you utilize our banking platforms, mobile applications, website, and branch services.
                     </p>
@@ -90,7 +90,7 @@ const legalContent = {
 
                 <div className="bg-slate-50 p-6 rounded-xl mt-8 border border-slate-100">
                     <h4 className="font-bold text-slate-900 mb-2">Questions about your privacy?</h4>
-                    <p className="text-sm">Contact our Data Protection Officer at <a href="mailto:dpo@riversmfb.com" className="text-primary hover:underline">dpo@riversmfb.com</a></p>
+                    <p className="text-sm">Contact our Data Protection Officer at <a href="mailto:dpo@rimamfb.com" className="text-primary hover:underline">dpo@rimamfb.com</a></p>
                 </div>
             </div>
         )
@@ -104,7 +104,7 @@ const legalContent = {
 
                 <section>
                     <p className="text-lg font-medium leading-relaxed">
-                        Welcome to Rivers Microfinance Bank. By opening an account, accessing our digital platforms, or using our services,
+                        Welcome to Rima Microfinance Bank. By opening an account, accessing our digital platforms, or using our services,
                         you agree to be legally bound by these Terms of Service. Please read them carefully.
                     </p>
                 </section>
@@ -127,7 +127,7 @@ const legalContent = {
                         Digital Banking and Security
                     </h3>
                     <ul className="list-disc pl-6 space-y-2">
-                        <li><strong>Credential Security:</strong> You are solely responsible for keeping your PIN, passwords, and OTPs confidential. Rivers MFB will NEVER ask for your PIN or password.</li>
+                        <li><strong>Credential Security:</strong> You are solely responsible for keeping your PIN, passwords, and OTPs confidential. Rima MFB will NEVER ask for your PIN or password.</li>
                         <li><strong>Unauthorized Access:</strong> You must notify us immediately if you suspect unauthorized access to your account or if your card/device is lost or stolen.</li>
                         <li><strong>Liability:</strong> We are not liable for losses resulting from your negligence in protecting your credentials.</li>
                     </ul>
@@ -191,7 +191,7 @@ const legalContent = {
 
                 <section>
                     <p className="text-lg font-medium leading-relaxed">
-                        Rivers Microfinance Bank utilizes cookies and similar tracking technologies to ensure our website functions securely and efficiently,
+                        Rima Microfinance Bank utilizes cookies and similar tracking technologies to ensure our website functions securely and efficiently,
                         and to provide you with a tailored browsing experience.
                     </p>
                 </section>
@@ -249,7 +249,7 @@ const legalContent = {
 
                 <section>
                     <p className="text-lg font-medium leading-relaxed">
-                        At Rivers Microfinance Bank, your satisfaction is our priority. However, we understand that issues may occasionally arise.
+                        At Rima Microfinance Bank, your satisfaction is our priority. However, we understand that issues may occasionally arise.
                         We have established a robust, transparent, and fair complaints resolution mechanism to ensure your grievances are addressed promptly.
                     </p>
                 </section>
@@ -265,7 +265,7 @@ const legalContent = {
                             <Mail className="h-6 w-6 text-primary shrink-0" />
                             <div>
                                 <h4 className="font-bold text-slate-900">Email Support</h4>
-                                <p className="text-sm">complaints@riversmfb.com</p>
+                                <p className="text-sm">complaints@rimamfb.com</p>
                             </div>
                         </div>
                         <div className="border border-slate-200 p-4 rounded-lg flex items-start gap-4">

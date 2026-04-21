@@ -5,58 +5,58 @@ import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 export default function CorporateBanking() {
   const corporateBenefits = [
     {
-      title: "Customized Financing",
-      description: "Tailored credit facilities designed for large-scale operations and projects.",
+      title: "Strategic Credit Facilities",
+      description: "Customized institutional-grade financing engineered for large-scale operations and capital projects.",
       icon: TrendingUp,
     },
     {
-      title: "Cash Management",
-      description: "Optimized liquidity and multi-level transaction approvals for tight control.",
+      title: "Liquidity Management",
+      description: "Optimized corporate treasury solutions with multi-level approval hierarchies for precise control.",
       icon: ShieldCheck,
     },
     {
-      title: "Trade Finance",
-      description: "Import/Export support, Letters of Credit, and specialized trade advisory.",
+      title: "Trade & Supply Chain",
+      description: "Comprehensive import/export support, Letters of Credit, and specialized trade advisory services.",
       icon: Globe,
     },
     {
-      title: "Payroll & Collections",
-      description: "Seamless payroll automation and efficient revenue collection systems.",
+      title: "Institution Collections",
+      description: "Streamlined payroll automation and efficient revenue collection systems for public and private sectors.",
       icon: Building2,
     },
   ];
 
   return (
     <BankingServiceLayout
-      title="Corporate Banking"
+      title="Corporate & Institutional Banking"
       subtitle="Institutional Excellence"
-      description="Fueling the engines of Rivers State's economy. We offer enterprise-grade financial solutions for established corporations, public sector institutions, and large-scale developers."
+      description="Powering the structural engines of the regional economy. Rima Bank delivers enterprise-grade financial infrastructure for established corporations, public sector institutions, and large-scale developers."
       icon={Briefcase}
-      image="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80"
-      whoItIsFor="Large corporations, government agencies, multi-national firms, and major development projects."
+      image="/images/hero-home.png"
+      whoItIsFor="Registered corporations, government agencies, multi-national firms, and major infrastructure projects."
       benefits={[
-        "Dedicated Corporate Relationship Manager",
-        "High-volume transaction processing capabilities",
-        "Preferential interest rates on deposits and loans",
-        "Integration with corporate ERP systems",
-        "Specialized treasury and investment services",
-        "Priority branch service and board-level advisory"
+        "Dedicated Corporate Relationship Management",
+        "High-volume electronic fund settlement",
+        "Preferential interest structures on deposits and credit",
+        "Strategic integration with corporate ERP systems",
+        "Advanced treasury and investment advisory",
+        "Executive-level priority banking services"
       ]}
       requirements={[
-        "Board Resolution to open account",
-        "Constitutional documents (CAC Form 1.1, Article of Association)",
-        "TIN and VAT certificates",
-        "Valid IDs of Directors and Signatories",
-        "Search report from CAC",
-        "Evidence of registration with SCUML (as applicable)"
+        "Board Resolution authorizing account opening",
+        "Constitutional status documents (CAC Form 1.1, Memorandum & Articles of Association)",
+        "Tax Identification Number (TIN) & VAT Documentation",
+        "Valid Identification for Directors and Authorized Signatories",
+        "Verified CAC Search Report",
+        "Evidence of SCUML registration (where mandatory)"
       ]}
       fees="Custom fee structure based on volume"
     >
       <div className="mt-16 space-y-16">
         <section id="corporate-services">
           <div className="text-center max-w-3xl mx-auto mb-16">
-            <h2 className="text-3xl md:text-4xl font-display font-bold mb-4">Enterprise-Ready Solutions</h2>
-            <p className="text-muted-foreground">We understand the complexities of corporate operations and provide the stability you need to succeed.</p>
+            <h2 className="text-3xl md:text-4xl font-display font-bold mb-4">Institutional-Grade Solutions</h2>
+            <p className="text-muted-foreground">We recognize the complexities of corporate operations and provide the stable financial infrastructure necessary for institutional success.</p>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {corporateBenefits.map((benefit, idx) => (
@@ -78,10 +78,9 @@ export default function CorporateBanking() {
         <section id="relationship-management" className="bg-primary/5 rounded-[3rem] p-8 md:p-16 border border-primary/10">
           <div className="flex flex-col lg:flex-row gap-12 items-center">
             <div className="lg:w-1/2">
-              <h2 className="text-3xl md:text-4xl font-display font-bold mb-6">Dedicated Support</h2>
+              <h2 className="text-3xl md:text-4xl font-display font-bold mb-6">Strategic Relationship Management</h2>
               <p className="text-slate-600 mb-6 text-lg leading-relaxed">
-                As a corporate partner, you gain direct access to our senior management team and a dedicated Relationship Manager 
-                who understands your industry's specific challenges and opportunities.
+                As a corporate partner, your institution receives specialized attention from our executive management and dedicated relationship managers equipped to navigate industry-specific challenges.
               </p>
               <div className="space-y-4">
                 <div className="flex gap-4">
@@ -94,8 +93,8 @@ export default function CorporateBanking() {
             </div>
             <div className="lg:w-1/2">
                <img 
-                  src="https://images.unsplash.com/photo-1600880212319-7524e2d20a3e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" 
-                  alt="Business Meeting" 
+                  src="/images/hero-home.png" 
+                  alt="Institutional Strategy Session" 
                   className="rounded-2xl shadow-xl w-full"
                 />
             </div>

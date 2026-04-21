@@ -26,16 +26,23 @@ export default function WhistleBlowing() {
 
     return (
         <Layout>
-            <section className="bg-slate-900 text-white py-16">
-                <div className="container mx-auto px-4 text-center">
-                    <div className="inline-flex items-center justify-center p-3 bg-red-500/20 rounded-full mb-4">
-                        <ShieldCheck className="h-8 w-8 text-red-500" />
+            <section className="relative bg-slate-900 text-white py-20 lg:py-32 overflow-hidden">
+                <div className="absolute inset-0 z-0">
+                    <img
+                        src="/images/hero-home.png"
+                        alt="Rima MFB Whistle Blowing"
+                        className="w-full h-full object-cover opacity-10 mix-blend-overlay"
+                    />
+                </div>
+                <div className="container mx-auto px-4 relative z-10 text-center">
+                    <div className="inline-flex items-center justify-center p-3 bg-red-500/20 rounded-full mb-6">
+                        <ShieldCheck className="h-10 w-10 text-red-500" />
                     </div>
-                    <h1 className="font-display text-3xl md:text-5xl font-bold mb-4">
-                        Whistle Blowing Channel
+                    <h1 className="font-display text-4xl md:text-5xl lg:text-7xl font-bold mb-6">
+                        Whistle Blowing <span className="text-red-500">Channel</span>
                     </h1>
-                    <p className="text-xl text-white/80 max-w-2xl mx-auto">
-                        Report unethical conduct, fraud, or violations securely and confidentially.
+                    <p className="text-xl text-white/80 max-w-2xl mx-auto leading-relaxed">
+                        Report unethical conduct, fraud, or violations securely and confidentially. Your integrity protects our institution.
                     </p>
                 </div>
             </section>

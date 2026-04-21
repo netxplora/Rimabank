@@ -4,28 +4,28 @@ import { GraduationCap } from "lucide-react";
 export default function StudentBanking() {
   return (
     <BankingServiceLayout
-      title="Student Banking"
-      subtitle="The Future Starts Now"
-      description="Modern banking for the modern student. Manage your allowance, pay for studies, and build your financial literacy before you even graduate."
+      title="Foundational Financial Solutions"
+      subtitle="Retail Banking Services"
+      description="Modern banking infrastructure for the next generation of professionals. Manage educational capital and daily operational costs with a structured, zero-fee environment."
       icon={GraduationCap}
-      image="https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80"
-      whoItIsFor="Full-time students in tertiary institutions across Rivers State."
+      image="/images/hero-home.png"
+      whoItIsFor="Full-time students in tertiary institutions seeking financial autonomy."
       benefits={[
-        "Zero monthly maintenance fees",
-        "Free student debit card",
-        "Campus-only discounts and deals",
-        "Access to educational support loans",
-        "Mobile app with spending tracker",
-        "Financial literacy workshops"
+        "Zero recurring maintenance or administrative fees",
+        "Complimentary student debit card issuance",
+        "Exclusive access to educational support credit",
+        "Digital expenditure tracking via mobile app",
+        "Eligibility for youth entrepreneurship grants",
+        "Quarterly financial literacy Masterclasses"
       ]}
       requirements={[
-        "Valid Student ID card",
-        "Proof of admission",
-        "Passport photograph",
-        "Zero minimum balance required",
-        "BVN enrollment"
+        "Valid Institutional Identification card",
+        "Verified Proof of Admission (Current Session)",
+        "Two (2) recent biometric passport photographs",
+        "Personal BVN enrollment",
+        "Zero initial capital deposit required"
       ]}
-      fees="₦0 Monthly Fees"
+      fees="No recurring maintenance/administrative fees"
     />
   );
 }
