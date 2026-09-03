@@ -37,9 +37,9 @@ const indicators = [
 
 export function TrustIndicators() {
   return (
-    <section className="py-16 bg-white border-b border-[#e7dcdb]/60">
-      <div className="max-w-[1200px] mx-auto px-6">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+    <section className="py-12 md:py-16 bg-white border-b border-[#e7dcdb]/60">
+      <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
           {indicators.map((item, index) => (
             <div 
               key={index} 
