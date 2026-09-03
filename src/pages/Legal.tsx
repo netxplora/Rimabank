@@ -1,6 +1,6 @@
 import { Layout } from "@/components/layout/Layout";
 import { useLocation } from "react-router-dom";
-import { Mail, Phone, MapPin, ShieldAlert, BookOpen, AlertCircle, MessageSquare, ArrowRight } from "lucide-react";
+import { ShieldAlert, BookOpen, AlertCircle, MessageSquare, ArrowRight } from "lucide-react";
 import { useState, useEffect } from "react";
 
 const legalContent = {
@@ -60,7 +60,7 @@ const legalContent = {
           </ul>
         </section>
 
-        <div className="p-6 rounded-cards bg-[#fdedea] border border-[#e7dcdb] mt-8">
+        <div className="p-6 rounded-2xl bg-[#fdedea] border border-[#e7dcdb] mt-8">
           <h4 className="font-heading text-xs font-bold text-[#360802] mb-1">Data Protection Officer</h4>
           <p className="text-[11px] text-[#ababab]">
             Direct inquiries regarding your privacy rights to <a href="mailto:dpo@rimamfb.com" className="text-[#f73b20] font-semibold underline">dpo@rimamfb.com</a>.
@@ -173,7 +173,7 @@ const legalContent = {
           </ul>
         </section>
 
-        <div className="p-6 rounded-cards bg-white border border-[#e7dcdb] shadow-lift space-y-2 mt-6">
+        <div className="p-6 rounded-2xl bg-white border border-[#e7dcdb] shadow-lift space-y-2 mt-6">
           <h4 className="font-heading text-xs font-bold text-[#360802]">Escalation Contact</h4>
           <p className="text-[11px] text-[#ababab]">
             If a dispute remains unresolved after 14 days, you may escalate the matter directly to the Central Bank of Nigeria Consumer Protection Department via <a href="mailto:cpd@cbn.gov.ng" className="text-[#f73b20] underline">cpd@cbn.gov.ng</a>.
@@ -200,20 +200,20 @@ export default function Legal() {
   return (
     <Layout>
       {/* Editorial Hero */}
-      <section className="relative bg-white pt-12 pb-20 lg:pt-16 lg:pb-28 border-b border-[#e7dcdb]/60 overflow-hidden">
+      <section className="relative bg-white pt-12 pb-16 lg:pt-16 lg:pb-20 border-b border-[#e7dcdb]/60 overflow-hidden">
         <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#fdedea] rounded-full blur-3xl -z-10 opacity-70 pointer-events-none" />
 
-        <div className="max-w-[1200px] mx-auto px-6">
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
           <div className="max-w-3xl space-y-6">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-pills bg-[#fdedea] border border-[#e7dcdb] text-[#360802] text-xs font-semibold uppercase tracking-ui">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#fdedea] border border-[#e7dcdb] text-[#360802] text-xs font-semibold uppercase tracking-wider">
               <span>Regulatory Governance</span>
             </div>
 
-            <h1 className="font-heading text-4xl sm:text-6xl lg:text-7xl font-medium text-[#360802] tracking-tight leading-[0.98]">
+            <h1 className="font-heading text-4xl sm:text-5xl lg:text-6xl font-semibold text-[#360802] tracking-tight leading-[1.05]">
               Legal & <span className="text-[#f73b20]">regulatory disclosures</span>.
             </h1>
 
-            <p className="text-[#360802]/80 text-lg md:text-xl font-normal leading-relaxed">
+            <p className="text-[#360802]/80 text-base sm:text-lg leading-relaxed">
               Statutory operational policies, data protection frameworks, and customer dispute resolution standards.
             </p>
           </div>
@@ -221,21 +221,22 @@ export default function Legal() {
       </section>
 
       {/* Main Content Area */}
-      <section className="py-24 bg-white border-b border-[#e7dcdb]/60">
-        <div className="max-w-[1200px] mx-auto px-6">
-          <div className="grid lg:grid-cols-12 gap-12 items-start">
+      <section className="py-16 md:py-20 bg-white border-b border-[#e7dcdb]/60">
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+            
             {/* Sidebar Tabs (4 cols) */}
-            <div className="lg:col-span-4 space-y-2 sticky top-28">
-              <span className="text-xs font-semibold uppercase tracking-ui text-[#ababab] block mb-3 px-4">
+            <div className="lg:col-span-4 space-y-2 lg:sticky lg:top-24">
+              <span className="text-xs font-semibold uppercase tracking-wider text-[#ababab] block mb-3 px-3">
                 Legal Documents
               </span>
               {(Object.keys(legalContent) as TabKey[]).map((key) => (
                 <button
                   key={key}
                   onClick={() => setActiveTab(key)}
-                  className={`flex items-center justify-between w-full px-5 py-3.5 rounded-xl text-xs font-semibold transition-all ${
+                  className={`flex items-center justify-between w-full px-5 py-3.5 rounded-2xl text-xs font-semibold transition-all ${
                     activeTab === key
-                      ? "bg-[#360802] text-white shadow-soft"
+                      ? "bg-[#360802] text-white shadow-md transform -translate-y-0.5"
                       : "bg-white text-[#360802]/80 hover:bg-[#fdedea] border border-[#e7dcdb]"
                   }`}
                 >
@@ -247,9 +248,9 @@ export default function Legal() {
 
             {/* Content Display (8 cols) */}
             <div className="lg:col-span-8">
-              <div className="p-8 lg:p-12 rounded-cards bg-white border border-[#e7dcdb] shadow-lift space-y-6">
-                <div className="flex items-center gap-3 pb-6 border-b border-[#e7dcdb]/60">
-                  <div className="w-10 h-10 rounded-xl bg-[#fdedea] flex items-center justify-center">
+              <div className="card-3d p-6 sm:p-10 lg:p-12 rounded-3xl bg-white border border-[#e7dcdb] shadow-3d space-y-6">
+                <div className="flex items-center gap-3 pb-5 border-b border-[#e7dcdb]/60">
+                  <div className="w-10 h-10 rounded-xl bg-[#fdedea] flex items-center justify-center shadow-xs">
                     {legalContent[activeTab].icon}
                   </div>
                   <h2 className="font-heading text-2xl font-semibold text-[#360802]">
@@ -262,6 +263,7 @@ export default function Legal() {
                 </div>
               </div>
             </div>
+
           </div>
         </div>
       </section>

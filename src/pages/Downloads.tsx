@@ -1,5 +1,4 @@
 import { Layout } from "@/components/layout/Layout";
-import { Button } from "@/components/ui/button";
 import { Download, FileText, Smartphone, Shield, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -7,37 +6,38 @@ export default function Downloads() {
   return (
     <Layout>
       {/* Editorial Hero */}
-      <section className="relative bg-white pt-12 pb-20 lg:pt-16 lg:pb-28 border-b border-[#e7dcdb]/60 overflow-hidden">
+      <section className="relative bg-white pt-12 pb-16 lg:pt-16 lg:pb-20 border-b border-[#e7dcdb]/60 overflow-hidden">
         <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#fdedea] rounded-full blur-3xl -z-10 opacity-70 pointer-events-none" />
 
-        <div className="max-w-[1200px] mx-auto px-6">
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
           <div className="max-w-3xl space-y-6">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-pills bg-[#fdedea] border border-[#e7dcdb] text-[#360802] text-xs font-semibold uppercase tracking-ui">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#fdedea] border border-[#e7dcdb] text-[#360802] text-xs font-semibold uppercase tracking-wider">
               <span>Official Resources</span>
             </div>
 
-            <h1 className="font-heading text-4xl sm:text-6xl lg:text-7xl font-medium text-[#360802] tracking-tight leading-[0.98]">
+            <h1 className="font-heading text-4xl sm:text-5xl lg:text-6xl font-semibold text-[#360802] tracking-tight leading-[1.05]">
               Forms, documents & <span className="text-[#f73b20]">downloads</span>.
             </h1>
 
-            <p className="text-[#360802]/80 text-lg md:text-xl font-normal leading-relaxed">
+            <p className="text-[#360802]/80 text-base sm:text-lg leading-relaxed">
               Access official account opening packages, loan application mandates, and regulatory policy documents.
             </p>
           </div>
         </div>
       </section>
 
-      {/* Main Downloads Section */}
-      <section className="py-24 bg-white border-b border-[#e7dcdb]/60">
-        <div className="max-w-[1200px] mx-auto px-6">
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {/* Mobile Applications */}
-            <div className="p-8 rounded-cards bg-white border border-[#e7dcdb] shadow-lift flex flex-col justify-between">
+      {/* 3-Column Responsive Downloads Grid */}
+      <section className="py-16 md:py-20 bg-white border-b border-[#e7dcdb]/60">
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+            
+            {/* Mobile Applications 3D Card */}
+            <div className="card-3d p-7 sm:p-8 rounded-2xl bg-white border border-[#e7dcdb] shadow-3d hover:border-[#f73b20]/40 flex flex-col justify-between">
               <div>
-                <div className="w-12 h-12 rounded-xl bg-[#e7dcdb] text-[#477ee9] flex items-center justify-center mb-6">
+                <div className="w-12 h-12 rounded-xl bg-[#e7dcdb] text-[#477ee9] flex items-center justify-center mb-6 shadow-sm">
                   <Smartphone className="h-6 w-6" />
                 </div>
-                <h3 className="font-heading text-xl font-medium text-[#360802] mb-2">Mobile Applications</h3>
+                <h3 className="font-heading text-xl font-semibold text-[#360802] mb-2">Mobile Applications</h3>
                 <p className="text-xs text-[#ababab] leading-relaxed mb-6">
                   Direct installers for mobile banking on iOS and Android smartphones.
                 </p>
@@ -45,7 +45,7 @@ export default function Downloads() {
                 <div className="space-y-3">
                   <a
                     href="#download-android"
-                    className="flex items-center justify-between p-3.5 rounded-xl bg-[#fdedea] border border-[#e7dcdb] text-xs font-semibold text-[#360802] hover:border-[#f73b20] transition-colors"
+                    className="flex items-center justify-between p-3.5 rounded-xl bg-[#fdedea] border border-[#e7dcdb] text-xs font-semibold text-[#360802] hover:border-[#f73b20] transition-colors shadow-xs"
                   >
                     <span className="flex items-center gap-2">
                       <Download className="h-4 w-4 text-[#f73b20]" />
@@ -56,7 +56,7 @@ export default function Downloads() {
 
                   <a
                     href="#download-ios"
-                    className="flex items-center justify-between p-3.5 rounded-xl bg-[#fdedea] border border-[#e7dcdb] text-xs font-semibold text-[#360802] hover:border-[#f73b20] transition-colors"
+                    className="flex items-center justify-between p-3.5 rounded-xl bg-[#fdedea] border border-[#e7dcdb] text-xs font-semibold text-[#360802] hover:border-[#f73b20] transition-colors shadow-xs"
                   >
                     <span className="flex items-center gap-2">
                       <Download className="h-4 w-4 text-[#f73b20]" />
@@ -68,13 +68,13 @@ export default function Downloads() {
               </div>
             </div>
 
-            {/* Account Opening Forms */}
-            <div className="p-8 rounded-cards bg-white border border-[#e7dcdb] shadow-lift flex flex-col justify-between">
+            {/* Account Opening Forms 3D Card */}
+            <div className="card-3d p-7 sm:p-8 rounded-2xl bg-white border border-[#e7dcdb] shadow-3d hover:border-[#f73b20]/40 flex flex-col justify-between">
               <div>
-                <div className="w-12 h-12 rounded-xl bg-[#bcffbb] text-[#34c771] flex items-center justify-center mb-6">
+                <div className="w-12 h-12 rounded-xl bg-[#bcffbb] text-[#34c771] flex items-center justify-center mb-6 shadow-sm">
                   <FileText className="h-6 w-6" />
                 </div>
-                <h3 className="font-heading text-xl font-medium text-[#360802] mb-2">Account Opening Forms</h3>
+                <h3 className="font-heading text-xl font-semibold text-[#360802] mb-2">Account Opening Forms</h3>
                 <p className="text-xs text-[#ababab] leading-relaxed mb-6">
                   Printable forms for offline branch account origination and mandate changes.
                 </p>
@@ -82,7 +82,7 @@ export default function Downloads() {
                 <div className="space-y-3">
                   <a
                     href="#"
-                    className="flex items-center justify-between p-3.5 rounded-xl bg-[#fdedea] border border-[#e7dcdb] text-xs font-semibold text-[#360802] hover:border-[#f73b20] transition-colors"
+                    className="flex items-center justify-between p-3.5 rounded-xl bg-[#fdedea] border border-[#e7dcdb] text-xs font-semibold text-[#360802] hover:border-[#f73b20] transition-colors shadow-xs"
                   >
                     <span className="flex items-center gap-2">
                       <FileText className="h-4 w-4 text-[#34c771]" />
@@ -93,7 +93,7 @@ export default function Downloads() {
 
                   <a
                     href="#"
-                    className="flex items-center justify-between p-3.5 rounded-xl bg-[#fdedea] border border-[#e7dcdb] text-xs font-semibold text-[#360802] hover:border-[#f73b20] transition-colors"
+                    className="flex items-center justify-between p-3.5 rounded-xl bg-[#fdedea] border border-[#e7dcdb] text-xs font-semibold text-[#360802] hover:border-[#f73b20] transition-colors shadow-xs"
                   >
                     <span className="flex items-center gap-2">
                       <FileText className="h-4 w-4 text-[#34c771]" />
@@ -104,7 +104,7 @@ export default function Downloads() {
 
                   <a
                     href="#"
-                    className="flex items-center justify-between p-3.5 rounded-xl bg-[#fdedea] border border-[#e7dcdb] text-xs font-semibold text-[#360802] hover:border-[#f73b20] transition-colors"
+                    className="flex items-center justify-between p-3.5 rounded-xl bg-[#fdedea] border border-[#e7dcdb] text-xs font-semibold text-[#360802] hover:border-[#f73b20] transition-colors shadow-xs"
                   >
                     <span className="flex items-center gap-2">
                       <FileText className="h-4 w-4 text-[#34c771]" />
@@ -116,13 +116,13 @@ export default function Downloads() {
               </div>
             </div>
 
-            {/* Regulatory Disclosures */}
-            <div className="p-8 rounded-cards bg-white border border-[#e7dcdb] shadow-lift flex flex-col justify-between">
+            {/* Regulatory Disclosures 3D Card */}
+            <div className="card-3d p-7 sm:p-8 rounded-2xl bg-white border border-[#e7dcdb] shadow-3d hover:border-[#f73b20]/40 flex flex-col justify-between">
               <div>
-                <div className="w-12 h-12 rounded-xl bg-[#fdedea] text-[#f73b20] flex items-center justify-center mb-6">
+                <div className="w-12 h-12 rounded-xl bg-[#fdedea] text-[#f73b20] flex items-center justify-center mb-6 shadow-sm">
                   <Shield className="h-6 w-6" />
                 </div>
-                <h3 className="font-heading text-xl font-medium text-[#360802] mb-2">Policies & Disclosures</h3>
+                <h3 className="font-heading text-xl font-semibold text-[#360802] mb-2">Policies & Disclosures</h3>
                 <p className="text-xs text-[#ababab] leading-relaxed mb-6">
                   Statutory customer protection frameworks and regulatory guidelines.
                 </p>
@@ -130,7 +130,7 @@ export default function Downloads() {
                 <div className="space-y-3">
                   <Link
                     to="/terms"
-                    className="flex items-center justify-between p-3.5 rounded-xl bg-[#fdedea] border border-[#e7dcdb] text-xs font-semibold text-[#360802] hover:border-[#f73b20] transition-colors"
+                    className="flex items-center justify-between p-3.5 rounded-xl bg-[#fdedea] border border-[#e7dcdb] text-xs font-semibold text-[#360802] hover:border-[#f73b20] transition-colors shadow-xs"
                   >
                     <span className="flex items-center gap-2">
                       <FileText className="h-4 w-4 text-[#f73b20]" />
@@ -141,7 +141,7 @@ export default function Downloads() {
 
                   <Link
                     to="/privacy"
-                    className="flex items-center justify-between p-3.5 rounded-xl bg-[#fdedea] border border-[#e7dcdb] text-xs font-semibold text-[#360802] hover:border-[#f73b20] transition-colors"
+                    className="flex items-center justify-between p-3.5 rounded-xl bg-[#fdedea] border border-[#e7dcdb] text-xs font-semibold text-[#360802] hover:border-[#f73b20] transition-colors shadow-xs"
                   >
                     <span className="flex items-center gap-2">
                       <FileText className="h-4 w-4 text-[#f73b20]" />
@@ -152,7 +152,7 @@ export default function Downloads() {
 
                   <a
                     href="#"
-                    className="flex items-center justify-between p-3.5 rounded-xl bg-[#fdedea] border border-[#e7dcdb] text-xs font-semibold text-[#360802] hover:border-[#f73b20] transition-colors"
+                    className="flex items-center justify-between p-3.5 rounded-xl bg-[#fdedea] border border-[#e7dcdb] text-xs font-semibold text-[#360802] hover:border-[#f73b20] transition-colors shadow-xs"
                   >
                     <span className="flex items-center gap-2">
                       <FileText className="h-4 w-4 text-[#f73b20]" />
@@ -163,6 +163,7 @@ export default function Downloads() {
                 </div>
               </div>
             </div>
+
           </div>
         </div>
       </section>

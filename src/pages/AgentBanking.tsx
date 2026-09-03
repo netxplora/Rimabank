@@ -96,32 +96,54 @@ export default function AgentBanking() {
         </div>
       </section>
 
-      {/* 4-Column Partner Advantages Grid */}
-      <section className="py-16 md:py-20 bg-white border-b border-[#e7dcdb]/60">
+      {/* Partner Advantages Grid — Mobile-First */}
+      <section className="py-10 md:py-20 bg-white border-b border-[#e7dcdb]/60">
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
-          <div className="max-w-2xl mb-12">
-            <span className="text-xs font-semibold uppercase tracking-wider text-[#f73b20] block mb-2">
+          <div className="mb-7 md:mb-12">
+            <span className="text-[10px] font-semibold uppercase tracking-wider text-[#f73b20] block mb-1.5">
               Partner Advantages
             </span>
-            <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-semibold text-[#360802] tracking-tight leading-[1.08]">
+            <h2 className="font-heading text-xl sm:text-3xl lg:text-5xl font-semibold text-[#360802] tracking-tight leading-[1.08]">
               Commercial benefits of partnering with Rima MFB.
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {/* Mobile: 2-col compact grid */}
+          <div className="grid grid-cols-2 gap-3 sm:hidden">
             {agentBenefits.map((benefit, idx) => (
-              <div 
-                key={idx} 
-                className="card-3d p-7 rounded-2xl bg-white border border-[#e7dcdb] shadow-3d hover:border-[#f73b20]/30 flex flex-col justify-between"
+              <div
+                key={idx}
+                className="rounded-xl bg-white border border-[#e7dcdb] p-3.5 flex flex-col gap-2.5"
               >
+                <div
+                  className="w-9 h-9 rounded-lg flex items-center justify-center shadow-sm"
+                  style={{ backgroundColor: benefit.bg, color: benefit.color }}
+                >
+                  <benefit.icon className="h-4.5 w-4.5" />
+                </div>
                 <div>
-                  <div 
-                    className="w-12 h-12 rounded-xl flex items-center justify-center mb-5 shadow-sm"
-                    style={{ backgroundColor: benefit.bg, color: benefit.color }}
-                  >
-                    <benefit.icon className="h-6 w-6" />
-                  </div>
-                  <h3 className="font-heading text-base font-semibold text-[#360802] mb-2">{benefit.title}</h3>
+                  <h3 className="font-heading text-[11px] font-semibold text-[#360802] leading-snug mb-0.5">{benefit.title}</h3>
+                  <p className="text-[10px] text-[#ababab] leading-snug">{benefit.description}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Tablet / Desktop: 4-col rich cards */}
+          <div className="hidden sm:grid grid-cols-2 lg:grid-cols-4 gap-5">
+            {agentBenefits.map((benefit, idx) => (
+              <div
+                key={idx}
+                className="card-3d p-6 rounded-2xl bg-white border border-[#e7dcdb] shadow-3d hover:border-[#f73b20]/30 flex flex-col gap-4"
+              >
+                <div
+                  className="w-11 h-11 rounded-xl flex items-center justify-center shadow-sm"
+                  style={{ backgroundColor: benefit.bg, color: benefit.color }}
+                >
+                  <benefit.icon className="h-5 w-5" />
+                </div>
+                <div>
+                  <h3 className="font-heading text-sm font-semibold text-[#360802] mb-1.5">{benefit.title}</h3>
                   <p className="text-xs text-[#ababab] leading-relaxed">{benefit.description}</p>
                 </div>
               </div>

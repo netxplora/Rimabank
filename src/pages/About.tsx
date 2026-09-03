@@ -111,25 +111,50 @@ export default function About() {
         </div>
       </section>
 
-      {/* Mission & Vision Grid */}
-      <section className="py-16 md:py-20 bg-white border-b border-[#e7dcdb]/60">
+      {/* Mission & Vision — Mobile-First */}
+      <section className="py-10 md:py-20 bg-white border-b border-[#e7dcdb]/60">
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
-            <div className="card-3d p-8 rounded-2xl bg-white border border-[#e7dcdb] shadow-3d">
-              <div className="w-12 h-12 rounded-xl bg-[#bcffbb] text-[#34c771] flex items-center justify-center mb-6 shadow-sm">
-                <Target className="h-6 w-6" />
+          {/* Mobile: stacked compact cards */}
+          <div className="flex flex-col gap-3 sm:hidden">
+            <div className="rounded-xl bg-white border border-[#e7dcdb] p-4 flex items-start gap-3">
+              <div className="w-9 h-9 rounded-lg bg-[#bcffbb] text-[#34c771] flex items-center justify-center shrink-0">
+                <Target className="h-4 w-4" />
               </div>
-              <h2 className="font-heading text-2xl font-semibold text-[#360802] mb-3">Our Mission</h2>
+              <div>
+                <h2 className="font-heading text-sm font-semibold text-[#360802] mb-1">Our Mission</h2>
+                <p className="text-[#360802]/75 text-[11px] leading-relaxed">
+                  To deliver accessible, dependable, and sustainable financial services that enable individuals, small businesses, and institutions to achieve financial stability and economic growth.
+                </p>
+              </div>
+            </div>
+            <div className="rounded-xl bg-white border border-[#e7dcdb] p-4 flex items-start gap-3">
+              <div className="w-9 h-9 rounded-lg bg-[#fdedea] text-[#f73b20] flex items-center justify-center shrink-0">
+                <Eye className="h-4 w-4" />
+              </div>
+              <div>
+                <h2 className="font-heading text-sm font-semibold text-[#360802] mb-1">Our Vision</h2>
+                <p className="text-[#360802]/75 text-[11px] leading-relaxed">
+                  To be the primary microfinance bank in Rivers State, recognized for regulatory discipline, technological stability, and lasting community impact.
+                </p>
+              </div>
+            </div>
+          </div>
+          {/* Desktop: side-by-side 3D cards */}
+          <div className="hidden sm:grid grid-cols-2 gap-5 lg:gap-8">
+            <div className="card-3d p-7 rounded-2xl bg-white border border-[#e7dcdb] shadow-3d">
+              <div className="w-11 h-11 rounded-xl bg-[#bcffbb] text-[#34c771] flex items-center justify-center mb-5 shadow-sm">
+                <Target className="h-5 w-5" />
+              </div>
+              <h2 className="font-heading text-xl lg:text-2xl font-semibold text-[#360802] mb-2.5">Our Mission</h2>
               <p className="text-[#360802]/75 text-sm leading-relaxed">
                 To deliver accessible, dependable, and sustainable financial services that enable individuals, small businesses, and institutions to achieve financial stability and economic growth.
               </p>
             </div>
-
-            <div className="card-3d p-8 rounded-2xl bg-white border border-[#e7dcdb] shadow-3d">
-              <div className="w-12 h-12 rounded-xl bg-[#fdedea] text-[#f73b20] flex items-center justify-center mb-6 shadow-sm">
-                <Eye className="h-6 w-6" />
+            <div className="card-3d p-7 rounded-2xl bg-white border border-[#e7dcdb] shadow-3d">
+              <div className="w-11 h-11 rounded-xl bg-[#fdedea] text-[#f73b20] flex items-center justify-center mb-5 shadow-sm">
+                <Eye className="h-5 w-5" />
               </div>
-              <h2 className="font-heading text-2xl font-semibold text-[#360802] mb-3">Our Vision</h2>
+              <h2 className="font-heading text-xl lg:text-2xl font-semibold text-[#360802] mb-2.5">Our Vision</h2>
               <p className="text-[#360802]/75 text-sm leading-relaxed">
                 To be the primary microfinance bank in Rivers State, recognized for regulatory discipline, technological stability, and lasting community impact.
               </p>
@@ -138,29 +163,46 @@ export default function About() {
         </div>
       </section>
 
-      {/* Core Values 3-Column Grid */}
-      <section className="py-16 md:py-20 bg-white border-b border-[#e7dcdb]/60">
+      {/* Institutional Values — Mobile-First */}
+      <section className="py-10 md:py-20 bg-white border-b border-[#e7dcdb]/60">
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
-          <div className="max-w-2xl mb-12">
-            <span className="text-xs font-semibold uppercase tracking-wider text-[#f73b20] block mb-2">
+          <div className="mb-6 md:mb-12">
+            <span className="text-[10px] font-semibold uppercase tracking-wider text-[#f73b20] block mb-1.5">
               Institutional Values
             </span>
-            <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-semibold text-[#360802] tracking-tight leading-[1.08]">
+            <h2 className="font-heading text-xl sm:text-3xl lg:text-5xl font-semibold text-[#360802] tracking-tight leading-[1.08]">
               The principles guiding our banking operations.
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {/* Mobile: 2-column compact grid */}
+          <div className="grid grid-cols-2 gap-3 sm:hidden">
             {coreValues.map((value) => (
-              <div key={value.title} className="card-3d p-7 rounded-2xl bg-white border border-[#e7dcdb] shadow-3d hover:border-[#f73b20]/30 flex flex-col justify-between">
+              <div key={value.title} className="rounded-xl bg-white border border-[#e7dcdb] p-3.5 flex flex-col gap-2">
+                <div
+                  className="w-8 h-8 rounded-lg flex items-center justify-center"
+                  style={{ backgroundColor: value.bg, color: value.color }}
+                >
+                  <value.icon className="h-3.5 w-3.5" />
+                </div>
+                <h3 className="font-heading text-[11px] font-semibold text-[#360802] leading-snug">{value.title}</h3>
+                <p className="text-[10px] text-[#ababab] leading-snug">{value.description}</p>
+              </div>
+            ))}
+          </div>
+
+          {/* Tablet / Desktop: 3-column rich cards */}
+          <div className="hidden sm:grid grid-cols-2 lg:grid-cols-3 gap-5">
+            {coreValues.map((value) => (
+              <div key={value.title} className="card-3d p-6 rounded-2xl bg-white border border-[#e7dcdb] shadow-3d hover:border-[#f73b20]/30 flex flex-col gap-3">
+                <div
+                  className="w-10 h-10 rounded-xl flex items-center justify-center shadow-sm"
+                  style={{ backgroundColor: value.bg, color: value.color }}
+                >
+                  <value.icon className="h-5 w-5" />
+                </div>
                 <div>
-                  <div 
-                    className="w-12 h-12 rounded-xl flex items-center justify-center mb-5 shadow-sm"
-                    style={{ backgroundColor: value.bg, color: value.color }}
-                  >
-                    <value.icon className="h-6 w-6" />
-                  </div>
-                  <h3 className="font-heading text-base font-semibold text-[#360802] mb-2">{value.title}</h3>
+                  <h3 className="font-heading text-sm font-semibold text-[#360802] mb-1.5">{value.title}</h3>
                   <p className="text-xs text-[#ababab] leading-relaxed">{value.description}</p>
                 </div>
               </div>
@@ -169,17 +211,17 @@ export default function About() {
         </div>
       </section>
 
-      {/* Leadership Section */}
-      <section className="py-16 md:py-20 bg-white border-b border-[#e7dcdb]/60">
+      {/* Corporate Governance — Mobile-First */}
+      <section className="py-10 md:py-20 bg-white border-b border-[#e7dcdb]/60">
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
-          <div className="max-w-2xl mb-12">
-            <span className="text-xs font-semibold uppercase tracking-wider text-[#f73b20] block mb-2">
+          <div className="mb-6 md:mb-12">
+            <span className="text-[10px] font-semibold uppercase tracking-wider text-[#f73b20] block mb-1.5">
               Corporate Governance
             </span>
-            <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-semibold text-[#360802] tracking-tight leading-[1.08]">
+            <h2 className="font-heading text-xl sm:text-3xl lg:text-5xl font-semibold text-[#360802] tracking-tight leading-[1.08]">
               Experienced executive leadership.
             </h2>
-            <p className="text-[#360802]/70 text-sm mt-3">
+            <p className="text-[#360802]/70 text-xs sm:text-sm mt-2">
               Guided by experienced financial professionals with decades of combined banking expertise and regulatory knowledge.
             </p>
           </div>

@@ -79,35 +79,36 @@ export default function LoanServices() {
       fees="Interest from 2.5% monthly"
       ctaText="Apply for Credit"
     >
-      <div className="mt-12 space-y-16">
+      <div className="mt-8 space-y-14">
+        
         {/* Credit Facilities Grid */}
         <section id="loan-types">
-          <div className="mb-8">
-            <span className="text-xs font-semibold uppercase tracking-ui text-[#f73b20] block mb-1">
+          <div className="mb-6">
+            <span className="text-xs font-semibold uppercase tracking-wider text-[#f73b20] block mb-1">
               Credit Categories
             </span>
-            <h2 className="text-2xl lg:text-3xl font-heading font-medium text-[#360802]">
+            <h2 className="text-2xl lg:text-3xl font-heading font-semibold text-[#360802]">
               Structured Credit Facilities
             </h2>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {loanTypes.map((loan) => (
               <div 
                 key={loan.id} 
-                className="p-6 rounded-cards bg-white border border-[#e7dcdb] shadow-lift flex flex-col justify-between hover:border-[#f73b20]/30 transition-all duration-300"
+                className="card-3d p-6 rounded-2xl bg-white border border-[#e7dcdb] shadow-3d flex flex-col justify-between hover:border-[#f73b20]/30 transition-all duration-300"
               >
                 <div>
                   <div 
-                    className="w-12 h-12 rounded-xl flex items-center justify-center mb-6"
+                    className="w-12 h-12 rounded-xl flex items-center justify-center mb-5 shadow-sm"
                     style={{ backgroundColor: loan.bg, color: loan.accent }}
                   >
                     <loan.icon className="h-6 w-6" />
                   </div>
-                  <h3 className="font-heading text-lg font-semibold text-[#360802] mb-2">{loan.title}</h3>
-                  <p className="text-xs text-[#ababab] leading-relaxed mb-6">{loan.description}</p>
+                  <h3 className="font-heading text-base font-semibold text-[#360802] mb-2">{loan.title}</h3>
+                  <p className="text-xs text-[#ababab] leading-relaxed mb-5">{loan.description}</p>
 
-                  <div className="space-y-2 mb-6 pt-4 border-t border-[#e7dcdb]/60">
+                  <div className="space-y-2 mb-5 pt-3 border-t border-[#e7dcdb]/60">
                     {loan.benefits.map((benefit, i) => (
                       <div key={i} className="flex items-start gap-2 text-xs text-[#360802]">
                         <CheckCircle2 className="h-3.5 w-3.5 text-[#34c771] shrink-0 mt-0.5" />
@@ -125,26 +126,26 @@ export default function LoanServices() {
           </div>
         </section>
 
-        {/* Financial Calculators */}
+        {/* Financial Calculators 2-Column Grid */}
         <section id="loan-calculators">
-          <div className="mb-8">
-            <span className="text-xs font-semibold uppercase tracking-ui text-[#f73b20] block mb-1">
+          <div className="mb-6">
+            <span className="text-xs font-semibold uppercase tracking-wider text-[#f73b20] block mb-1">
               Interactive Tools
             </span>
-            <h2 className="text-2xl lg:text-3xl font-heading font-medium text-[#360802]">
+            <h2 className="text-2xl lg:text-3xl font-heading font-semibold text-[#360802]">
               Financial Projection Calculators
             </h2>
           </div>
-          <div className="grid lg:grid-cols-2 gap-8 items-stretch">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-stretch">
             <LoanCalculator />
             <SavingsCalculator />
           </div>
         </section>
 
-        {/* Loan FAQ */}
+        {/* Loan FAQ 3D Card */}
         <section id="loan-faq" className="space-y-4">
-          <h2 className="text-2xl font-heading font-medium text-[#360802]">Credit & Loan FAQs</h2>
-          <div className="rounded-cards bg-white border border-[#e7dcdb] p-4 shadow-lift">
+          <h2 className="text-2xl font-heading font-semibold text-[#360802]">Credit & Loan FAQs</h2>
+          <div className="card-3d rounded-2xl bg-white border border-[#e7dcdb] p-3 sm:p-5 shadow-3d">
             <Accordion type="single" collapsible className="w-full">
               <AccordionItem value="item-1" className="border-b border-[#e7dcdb]/60 px-2">
                 <AccordionTrigger className="font-heading text-sm font-medium text-[#360802] hover:text-[#f73b20] py-4">

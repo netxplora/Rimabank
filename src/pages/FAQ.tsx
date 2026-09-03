@@ -1,6 +1,6 @@
 import { Layout } from "@/components/layout/Layout";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { HelpCircle, Shield, CreditCard, Building2, Smartphone, ArrowRight } from "lucide-react";
+import { CreditCard, Building2, Smartphone, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 
@@ -61,20 +61,20 @@ export default function FAQ() {
   return (
     <Layout>
       {/* Editorial Hero */}
-      <section className="relative bg-white pt-12 pb-20 lg:pt-16 lg:pb-28 border-b border-[#e7dcdb]/60 overflow-hidden">
+      <section className="relative bg-white pt-12 pb-16 lg:pt-16 lg:pb-20 border-b border-[#e7dcdb]/60 overflow-hidden">
         <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#fdedea] rounded-full blur-3xl -z-10 opacity-70 pointer-events-none" />
 
-        <div className="max-w-[1200px] mx-auto px-6">
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
           <div className="max-w-3xl space-y-6">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-pills bg-[#fdedea] border border-[#e7dcdb] text-[#360802] text-xs font-semibold uppercase tracking-ui">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#fdedea] border border-[#e7dcdb] text-[#360802] text-xs font-semibold uppercase tracking-wider">
               <span>Knowledge Base & Support</span>
             </div>
 
-            <h1 className="font-heading text-4xl sm:text-6xl lg:text-7xl font-medium text-[#360802] tracking-tight leading-[0.98]">
+            <h1 className="font-heading text-4xl sm:text-5xl lg:text-6xl font-semibold text-[#360802] tracking-tight leading-[1.05]">
               Frequently asked <span className="text-[#f73b20]">questions</span>.
             </h1>
 
-            <p className="text-[#360802]/80 text-lg md:text-xl font-normal leading-relaxed">
+            <p className="text-[#360802]/80 text-base sm:text-lg leading-relaxed">
               Find answers regarding account documentation, loan facilities, debit card security, and regulatory deposit guarantees.
             </p>
           </div>
@@ -82,37 +82,39 @@ export default function FAQ() {
       </section>
 
       {/* Main FAQ Content */}
-      <section className="py-24 bg-white border-b border-[#e7dcdb]/60">
-        <div className="max-w-[1200px] mx-auto px-6">
-          <div className="grid md:grid-cols-12 gap-12 items-start">
+      <section className="py-16 md:py-20 bg-white border-b border-[#e7dcdb]/60">
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+            
             {/* Category Navigation (4 cols) */}
-            <div className="md:col-span-4 sticky top-28 space-y-2 hidden md:block">
-              <span className="text-xs font-semibold uppercase tracking-ui text-[#ababab] block mb-4 px-4">
+            <div className="lg:col-span-4 lg:sticky lg:top-24 space-y-2 hidden lg:block">
+              <span className="text-xs font-semibold uppercase tracking-wider text-[#ababab] block mb-3 px-3">
                 Topics
               </span>
-              <a href="#accounts" className="flex items-center gap-3 px-4 py-3 rounded-xl bg-[#fdedea] text-[#360802] font-semibold text-xs transition-colors shadow-sm">
+              <a href="#accounts" className="flex items-center gap-3 px-4 py-3 rounded-2xl bg-[#fdedea] text-[#360802] font-semibold text-xs transition-colors shadow-xs">
                 <Building2 className="h-4 w-4 text-[#f73b20]" />
                 <span>Account Opening & KYC</span>
               </a>
-              <a href="#loans" className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-[#fdedea] text-[#360802]/80 hover:text-[#f73b20] font-medium text-xs transition-colors">
+              <a href="#loans" className="flex items-center gap-3 px-4 py-3 rounded-2xl hover:bg-[#fdedea] text-[#360802]/80 hover:text-[#f73b20] font-medium text-xs transition-colors">
                 <CreditCard className="h-4 w-4 text-[#34c771]" />
                 <span>Credit & Loan Facilities</span>
               </a>
-              <a href="#digital" className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-[#fdedea] text-[#360802]/80 hover:text-[#f73b20] font-medium text-xs transition-colors">
+              <a href="#digital" className="flex items-center gap-3 px-4 py-3 rounded-2xl hover:bg-[#fdedea] text-[#360802]/80 hover:text-[#f73b20] font-medium text-xs transition-colors">
                 <Smartphone className="h-4 w-4 text-[#477ee9]" />
                 <span>Digital Banking & Security</span>
               </a>
             </div>
 
             {/* Accordion List (8 cols) */}
-            <div className="md:col-span-8 space-y-12">
+            <div className="lg:col-span-8 space-y-10">
+              
               {/* Account section */}
               <div id="accounts" className="space-y-4">
                 <h3 className="font-heading text-xl font-semibold text-[#360802] flex items-center gap-2">
                   <Building2 className="h-5 w-5 text-[#f73b20]" />
                   Account Opening & KYC
                 </h3>
-                <div className="rounded-cards bg-white border border-[#e7dcdb] p-4 shadow-lift">
+                <div className="card-3d rounded-2xl bg-white border border-[#e7dcdb] p-3 sm:p-5 shadow-3d">
                   <Accordion type="single" collapsible className="w-full">
                     {accountFaqs.map((faq, i) => (
                       <AccordionItem key={i} value={`account-${i}`} className="border-b border-[#e7dcdb]/60 last:border-b-0 px-2">
@@ -134,7 +136,7 @@ export default function FAQ() {
                   <CreditCard className="h-5 w-5 text-[#34c771]" />
                   Credit & Loan Facilities
                 </h3>
-                <div className="rounded-cards bg-white border border-[#e7dcdb] p-4 shadow-lift">
+                <div className="card-3d rounded-2xl bg-white border border-[#e7dcdb] p-3 sm:p-5 shadow-3d">
                   <Accordion type="single" collapsible className="w-full">
                     {loanFaqs.map((faq, i) => (
                       <AccordionItem key={i} value={`loan-${i}`} className="border-b border-[#e7dcdb]/60 last:border-b-0 px-2">
@@ -156,7 +158,7 @@ export default function FAQ() {
                   <Smartphone className="h-5 w-5 text-[#477ee9]" />
                   Digital Banking & Security
                 </h3>
-                <div className="rounded-cards bg-white border border-[#e7dcdb] p-4 shadow-lift">
+                <div className="card-3d rounded-2xl bg-white border border-[#e7dcdb] p-3 sm:p-5 shadow-3d">
                   <Accordion type="single" collapsible className="w-full">
                     {digitalFaqs.map((faq, i) => (
                       <AccordionItem key={i} value={`digital-${i}`} className="border-b border-[#e7dcdb]/60 last:border-b-0 px-2">
@@ -171,29 +173,35 @@ export default function FAQ() {
                   </Accordion>
                 </div>
               </div>
+
             </div>
           </div>
         </div>
       </section>
 
       {/* Still Have Questions CTA */}
-      <section className="py-20 bg-[#fdedea]">
-        <div className="max-w-[1200px] mx-auto px-6 text-center">
+      <section className="py-16 md:py-20 bg-gradient-to-b from-[#fdedea] to-white">
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 text-center">
           <div className="max-w-2xl mx-auto space-y-4">
-            <h3 className="font-heading text-2xl md:text-3xl font-medium text-[#360802]">
+            <h3 className="font-heading text-2xl md:text-3xl font-semibold text-[#360802]">
               Need further assistance?
             </h3>
-            <p className="text-xs text-[#ababab] leading-relaxed">
+            <p className="text-xs sm:text-sm text-[#ababab] leading-relaxed">
               Our customer service team is ready to answer questions regarding account upgrades, credit approvals, or card issuance.
             </p>
-            <div className="pt-2 flex justify-center gap-4">
-              <Button variant="pill" size="lg" asChild className="shadow-brand">
+            <div className="pt-2 flex flex-wrap justify-center gap-4">
+              <Button
+                variant="pill"
+                size="lg"
+                asChild
+                className="bg-[#f73b20] hover:bg-[#f84d35] text-white shadow-3d-orange transform hover:-translate-y-0.5 transition-all"
+              >
                 <Link to="/contact">
                   Contact Customer Desk
-                  <ArrowRight className="h-4 w-4 ml-1" />
+                  <ArrowRight className="h-4 w-4 ml-1.5" />
                 </Link>
               </Button>
-              <Button variant="outlineNeutral" size="lg" asChild className="rounded-buttons bg-white">
+              <Button variant="outlineNeutral" size="lg" asChild className="rounded-full bg-white">
                 <Link to="/branches">
                   Visit a Branch
                 </Link>

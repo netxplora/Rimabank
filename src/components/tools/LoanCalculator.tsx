@@ -18,20 +18,20 @@ export function LoanCalculator() {
   }, [amount, months, rate]);
 
   return (
-    <div className="w-full h-full flex flex-col bg-white rounded-cards border border-[#e7dcdb] p-8 lg:p-10 shadow-lift">
-      <div className="flex items-center gap-3 mb-8">
-        <div className="w-10 h-10 rounded-xl bg-[#fdedea] text-[#f73b20] flex items-center justify-center">
+    <div className="card-3d w-full h-full flex flex-col bg-white rounded-2xl border border-[#e7dcdb] p-6 sm:p-8 lg:p-10 shadow-3d">
+      <div className="flex items-center gap-3 mb-6">
+        <div className="w-10 h-10 rounded-xl bg-[#fdedea] text-[#f73b20] flex items-center justify-center shadow-xs">
           <Calculator className="h-5 w-5" />
         </div>
         <div>
-          <h3 className="font-heading text-xl font-medium text-[#360802]">Credit Payment Estimator</h3>
+          <h3 className="font-heading text-lg sm:text-xl font-semibold text-[#360802]">Credit Payment Estimator</h3>
           <p className="text-[11px] text-[#ababab]">Estimate monthly principal and interest commitments</p>
         </div>
       </div>
 
-      <div className="space-y-8 flex-1 flex flex-col justify-between">
-        <div className="grid sm:grid-cols-2 gap-6">
-          <div className="space-y-3">
+      <div className="space-y-6 flex-1 flex flex-col justify-between">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+          <div className="space-y-2.5">
             <Label htmlFor="amount" className="text-xs font-semibold text-[#360802]">
               Loan Amount (₦)
             </Label>
@@ -42,7 +42,7 @@ export function LoanCalculator() {
                 type="number"
                 value={amount}
                 onChange={(e) => setAmount(Number(e.target.value))}
-                className="pl-8 h-11 text-sm font-semibold bg-[#fdedea]/40 border-[#e7dcdb] rounded-inputs text-[#360802] focus:border-[#f73b20]"
+                className="pl-8 h-10 text-xs font-semibold bg-[#fdedea]/40 border-[#e7dcdb] rounded-xl text-[#360802] focus:border-[#f73b20]"
               />
             </div>
             <input 
@@ -56,7 +56,7 @@ export function LoanCalculator() {
             />
           </div>
 
-          <div className="space-y-3">
+          <div className="space-y-2.5">
             <Label htmlFor="months" className="text-xs font-semibold text-[#360802]">
               Tenor (Months)
             </Label>
@@ -66,7 +66,7 @@ export function LoanCalculator() {
                 type="number"
                 value={months}
                 onChange={(e) => setMonths(Number(e.target.value))}
-                className="h-11 text-sm font-semibold bg-[#fdedea]/40 border-[#e7dcdb] rounded-inputs text-[#360802] focus:border-[#f73b20]"
+                className="h-10 text-xs font-semibold bg-[#fdedea]/40 border-[#e7dcdb] rounded-xl text-[#360802] focus:border-[#f73b20]"
               />
               <span className="absolute right-3.5 top-1/2 -translate-y-1/2 text-xs text-[#ababab]">Months</span>
             </div>
@@ -83,39 +83,44 @@ export function LoanCalculator() {
         </div>
 
         {/* Repayment Breakdown Display */}
-        <div className="bg-[#360802] text-white rounded-2xl p-8 flex flex-col justify-between shadow-soft space-y-6">
+        <div className="bg-gradient-to-br from-[#360802] to-[#450b03] text-white rounded-2xl p-6 sm:p-8 flex flex-col justify-between shadow-3d-lift space-y-5 border border-white/10">
           <div>
-            <span className="text-[10px] font-semibold uppercase tracking-ui text-[#f73b20] block mb-2">
+            <span className="text-[10px] font-bold uppercase tracking-wider text-[#f73b20] block mb-1">
               Estimated Monthly Repayment
             </span>
-            <div className="flex items-baseline gap-2">
-              <span className="text-2xl text-white/50">₦</span>
-              <span className="font-heading text-4xl sm:text-5xl font-medium tracking-tight text-white">
+            <div className="flex items-baseline gap-1.5">
+              <span className="text-2xl text-white/50 font-bold">₦</span>
+              <span className="font-heading text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight text-white">
                 {monthlyPayment.toLocaleString(undefined, { maximumFractionDigits: 0 })}
               </span>
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-4 pt-6 border-t border-white/10 text-xs">
+          <div className="grid grid-cols-2 gap-4 pt-4 border-t border-white/10 text-xs">
             <div>
-              <span className="text-[10px] uppercase font-semibold text-white/40 block mb-1">Total Repayment</span>
-              <span className="font-heading text-base font-semibold text-white">
+              <span className="text-[10px] uppercase font-bold text-white/50 block mb-0.5">Total Repayment</span>
+              <span className="font-heading text-sm sm:text-base font-bold text-white">
                 ₦{(monthlyPayment * months).toLocaleString(undefined, { maximumFractionDigits: 0 })}
               </span>
             </div>
             <div>
-              <span className="text-[10px] uppercase font-semibold text-white/40 block mb-1">Total Interest Cost</span>
-              <span className="font-heading text-base font-semibold text-[#34c771]">
+              <span className="text-[10px] uppercase font-bold text-white/50 block mb-0.5">Total Interest Cost</span>
+              <span className="font-heading text-sm sm:text-base font-bold text-[#34c771]">
                 +₦{((monthlyPayment * months) - amount).toLocaleString(undefined, { maximumFractionDigits: 0 })}
               </span>
             </div>
           </div>
 
           <div className="pt-2">
-            <Button variant="pill" size="default" className="w-full shadow-brand" asChild>
+            <Button
+              variant="pill"
+              size="default"
+              className="w-full bg-[#f73b20] hover:bg-[#f84d35] text-white shadow-3d-orange transform hover:-translate-y-0.5 transition-all"
+              asChild
+            >
               <Link to="/contact">
                 Apply for Facility
-                <ArrowRight className="h-4 w-4 ml-1" />
+                <ArrowRight className="h-4 w-4 ml-1.5" />
               </Link>
             </Button>
           </div>

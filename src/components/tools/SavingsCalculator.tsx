@@ -28,19 +28,19 @@ export default function SavingsCalculator() {
   }, [initialDeposit, monthlyContribution, duration, interestRate]);
 
   return (
-    <div className="w-full h-full flex flex-col bg-white rounded-cards border border-[#e7dcdb] p-8 lg:p-10 shadow-lift">
-      <div className="flex items-center gap-3 mb-8">
-        <div className="w-10 h-10 rounded-xl bg-[#bcffbb] text-[#34c771] flex items-center justify-center">
+    <div className="card-3d w-full h-full flex flex-col bg-white rounded-2xl border border-[#e7dcdb] p-6 sm:p-8 lg:p-10 shadow-3d">
+      <div className="flex items-center gap-3 mb-6">
+        <div className="w-10 h-10 rounded-xl bg-[#bcffbb] text-[#34c771] flex items-center justify-center shadow-xs">
           <PiggyBank className="h-5 w-5" />
         </div>
         <div>
-          <h3 className="font-heading text-xl font-medium text-[#360802]">Savings Yield Projection</h3>
+          <h3 className="font-heading text-lg sm:text-xl font-semibold text-[#360802]">Savings Yield Projection</h3>
           <p className="text-[11px] text-[#ababab]">Forecast compounding returns on target and fixed deposits</p>
         </div>
       </div>
 
-      <div className="space-y-8 flex-1 flex flex-col justify-between">
-        <div className="grid sm:grid-cols-3 gap-4">
+      <div className="space-y-6 flex-1 flex flex-col justify-between">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <div className="space-y-2">
             <div className="flex justify-between text-xs">
               <Label className="text-xs font-semibold text-[#360802]">Initial Deposit</Label>
@@ -49,7 +49,7 @@ export default function SavingsCalculator() {
               type="number" 
               value={initialDeposit} 
               onChange={(e) => setInitialDeposit(Number(e.target.value))}
-              className="bg-[#fdedea]/40 border-[#e7dcdb] h-10 text-xs font-semibold rounded-inputs text-[#360802] focus:border-[#34c771]"
+              className="bg-[#fdedea]/40 border-[#e7dcdb] h-10 text-xs font-semibold rounded-xl text-[#360802] focus:border-[#34c771]"
             />
           </div>
 
@@ -84,29 +84,29 @@ export default function SavingsCalculator() {
         </div>
 
         {/* Total Estimated Balance Box */}
-        <div className="p-8 rounded-2xl bg-[#fdedea] border border-[#e7dcdb] space-y-6">
+        <div className="p-6 sm:p-8 rounded-2xl bg-gradient-to-br from-[#fdedea] to-white border border-[#e7dcdb] space-y-4 shadow-sm">
           <div>
-            <span className="text-[10px] font-semibold uppercase tracking-ui text-[#360802]/60 block mb-2">
+            <span className="text-[10px] font-bold uppercase tracking-wider text-[#360802]/70 block mb-1">
               Total Projected Balance
             </span>
-            <div className="flex items-baseline gap-2">
-              <span className="text-2xl text-[#360802]/40">₦</span>
-              <span className="font-heading text-4xl sm:text-5xl font-medium tracking-tight text-[#360802]">
+            <div className="flex items-baseline gap-1.5">
+              <span className="text-2xl text-[#360802]/50 font-bold">₦</span>
+              <span className="font-heading text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight text-[#360802]">
                 {totalSavings.toLocaleString(undefined, { maximumFractionDigits: 0 })}
               </span>
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-4 pt-6 border-t border-[#e7dcdb] text-xs">
+          <div className="grid grid-cols-2 gap-4 pt-4 border-t border-[#e7dcdb] text-xs">
             <div>
-              <span className="text-[10px] uppercase font-semibold text-[#ababab] block mb-1">Interest Earned</span>
-              <span className="font-heading text-base font-semibold text-[#34c771]">
+              <span className="text-[10px] uppercase font-bold text-[#ababab] block mb-0.5">Interest Earned</span>
+              <span className="font-heading text-sm sm:text-base font-bold text-[#34c771]">
                 +₦{totalInterest.toLocaleString(undefined, { maximumFractionDigits: 0 })}
               </span>
             </div>
             <div>
-              <span className="text-[10px] uppercase font-semibold text-[#ababab] block mb-1">Annual Yield</span>
-              <span className="font-heading text-base font-semibold text-[#360802]">
+              <span className="text-[10px] uppercase font-bold text-[#ababab] block mb-0.5">Annual Yield</span>
+              <span className="font-heading text-sm sm:text-base font-bold text-[#360802]">
                 {interestRate}% Fixed
               </span>
             </div>

@@ -2,7 +2,7 @@ import { Layout } from "@/components/layout/Layout";
 import { useParams, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Calendar, ArrowLeft, Loader2, Share2, Facebook, Twitter, Link as LinkIcon, Newspaper, ArrowRight } from "lucide-react";
+import { Calendar, ArrowLeft, Loader2, Facebook, Twitter, Link as LinkIcon, Newspaper } from "lucide-react";
 import { toast } from "sonner";
 import DOMPurify from "dompurify";
 
@@ -85,7 +85,11 @@ export default function MediaPost() {
           <Newspaper className="h-12 w-12 text-[#ababab] mb-4" />
           <h1 className="font-heading text-2xl font-semibold text-[#360802] mb-2">Article Not Found</h1>
           <p className="text-xs text-[#ababab] mb-6">The article you're seeking may have expired or moved.</p>
-          <Button variant="pill" asChild className="shadow-brand">
+          <Button
+            variant="pill"
+            asChild
+            className="bg-[#f73b20] hover:bg-[#f84d35] text-white shadow-3d-orange"
+          >
             <Link to="/media">
               <ArrowLeft className="h-4 w-4 mr-1.5" />
               Return to Media Hub
@@ -98,10 +102,10 @@ export default function MediaPost() {
 
   return (
     <Layout>
-      <article className="pb-24 bg-white">
+      <article className="pb-20 bg-white">
         {/* Editorial Article Header */}
         <section className="relative bg-white pt-10 pb-12 border-b border-[#e7dcdb]/60">
-          <div className="max-w-[1000px] mx-auto px-6 space-y-6">
+          <div className="max-w-[1000px] mx-auto px-4 sm:px-6 space-y-6">
             <Link 
               to="/media" 
               className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#f73b20] hover:text-[#f84d35] transition-colors"
@@ -111,11 +115,11 @@ export default function MediaPost() {
             </Link>
 
             <div className="space-y-4">
-              <span className="text-[10px] uppercase font-semibold tracking-ui px-2.5 py-1 rounded-pills bg-[#fdedea] text-[#f73b20] inline-block">
+              <span className="text-[10px] uppercase font-bold tracking-wider px-3 py-1 rounded-full bg-[#fdedea] text-[#f73b20] border border-[#e7dcdb] inline-block">
                 {post.category}
               </span>
 
-              <h1 className="font-heading text-3xl sm:text-5xl font-medium text-[#360802] tracking-tight leading-[1.05]">
+              <h1 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-semibold text-[#360802] tracking-tight leading-[1.08]">
                 {post.title}
               </h1>
 
@@ -132,10 +136,10 @@ export default function MediaPost() {
         </section>
 
         {/* Featured Image */}
-        <div className="max-w-[1000px] mx-auto px-6 py-8">
-          <div className="rounded-cards overflow-hidden aspect-[16/9] shadow-lift border border-[#e7dcdb]">
+        <div className="max-w-[1000px] mx-auto px-4 sm:px-6 py-8">
+          <div className="card-3d rounded-2xl overflow-hidden aspect-[16/9] shadow-3d border border-[#e7dcdb]">
             <img
-              src={post.featured_image || 'https://images.unsplash.com/photo-1579621970588-a35d0e7ab9b6?auto=format&fit=crop&q=80'}
+              src={post.featured_image || '/images/media-sme.png'}
               alt={post.title}
               className="w-full h-full object-cover"
             />
@@ -143,7 +147,7 @@ export default function MediaPost() {
         </div>
 
         {/* Article Body */}
-        <div className="max-w-[800px] mx-auto px-6 mt-4">
+        <div className="max-w-[800px] mx-auto px-4 sm:px-6 mt-4">
           <div 
             className="prose prose-sm max-w-none text-[#360802]/85 text-sm leading-relaxed prose-headings:font-heading prose-headings:text-[#360802] prose-a:text-[#f73b20]"
             dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(post.content) }}
@@ -156,7 +160,7 @@ export default function MediaPost() {
               <Button 
                 variant="outlineNeutral" 
                 size="sm" 
-                className="h-8 px-3 text-xs" 
+                className="h-8 px-3 text-xs rounded-full" 
                 onClick={() => window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`, '_blank')}
               >
                 <Facebook className="h-3.5 w-3.5 mr-1" />
@@ -165,7 +169,7 @@ export default function MediaPost() {
               <Button 
                 variant="outlineNeutral" 
                 size="sm" 
-                className="h-8 px-3 text-xs" 
+                className="h-8 px-3 text-xs rounded-full" 
                 onClick={() => window.open(`https://twitter.com/intent/tweet?url=${encodeURIComponent(window.location.href)}&text=${encodeURIComponent(post.title)}`, '_blank')}
               >
                 <Twitter className="h-3.5 w-3.5 mr-1" />
@@ -174,7 +178,7 @@ export default function MediaPost() {
               <Button 
                 variant="outlineNeutral" 
                 size="sm" 
-                className="h-8 px-3 text-xs" 
+                className="h-8 px-3 text-xs rounded-full" 
                 onClick={copyLink}
               >
                 <LinkIcon className="h-3.5 w-3.5 mr-1" />

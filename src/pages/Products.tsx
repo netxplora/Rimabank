@@ -6,13 +6,10 @@ import {
   CreditCard,
   TrendingUp,
   GraduationCap,
-  Users,
   ArrowRight,
   CheckCircle2,
-  Percent,
   Clock,
-  Shield,
-  Store
+  Shield
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -110,20 +107,20 @@ export default function Products() {
   return (
     <Layout>
       {/* Editorial Hero */}
-      <section className="relative bg-white pt-12 pb-20 lg:pt-16 lg:pb-28 border-b border-[#e7dcdb]/60 overflow-hidden">
+      <section className="relative bg-white pt-12 pb-16 lg:pt-16 lg:pb-20 border-b border-[#e7dcdb]/60 overflow-hidden">
         <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#fdedea] rounded-full blur-3xl -z-10 opacity-70 pointer-events-none" />
 
-        <div className="max-w-[1200px] mx-auto px-6">
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
           <div className="max-w-3xl space-y-6">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-pills bg-[#fdedea] border border-[#e7dcdb] text-[#360802] text-xs font-semibold uppercase tracking-ui">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#fdedea] border border-[#e7dcdb] text-[#360802] text-xs font-semibold uppercase tracking-wider">
               <span>Complete Product Catalog</span>
             </div>
 
-            <h1 className="font-heading text-4xl sm:text-6xl lg:text-7xl font-medium text-[#360802] tracking-tight leading-[0.98]">
+            <h1 className="font-heading text-4xl sm:text-5xl lg:text-6xl font-semibold text-[#360802] tracking-tight leading-[1.05]">
               Banking solutions for <span className="text-[#f73b20]">every requirement</span>.
             </h1>
 
-            <p className="text-[#360802]/80 text-lg md:text-xl font-normal leading-relaxed">
+            <p className="text-[#360802]/80 text-base sm:text-lg leading-relaxed">
               Explore structured personal deposit accounts, commercial working capital lines, and agency banking infrastructure.
             </p>
           </div>
@@ -131,41 +128,41 @@ export default function Products() {
       </section>
 
       {/* Main Tabbed Products Section */}
-      <section className="py-24 bg-white border-b border-[#e7dcdb]/60">
-        <div className="max-w-[1200px] mx-auto px-6">
+      <section className="py-16 md:py-20 bg-white border-b border-[#e7dcdb]/60">
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
           <Tabs defaultValue="savings" className="w-full">
-            <div className="flex justify-center mb-16">
-              <TabsList className="bg-[#fdedea] p-1.5 rounded-pills border border-[#e7dcdb] h-auto flex flex-wrap gap-1">
-                <TabsTrigger value="savings" className="rounded-pills px-6 py-2.5 text-xs font-semibold uppercase tracking-ui data-[state=active]:bg-[#360802] data-[state=active]:text-white transition-colors">
+            <div className="flex justify-center mb-12">
+              <TabsList className="bg-[#fdedea] p-1.5 rounded-full border border-[#e7dcdb] h-auto flex flex-wrap gap-1">
+                <TabsTrigger value="savings" className="rounded-full px-5 sm:px-6 py-2.5 text-xs font-semibold uppercase tracking-wider data-[state=active]:bg-[#360802] data-[state=active]:text-white transition-all">
                   Savings & Deposits
                 </TabsTrigger>
-                <TabsTrigger value="loans" className="rounded-pills px-6 py-2.5 text-xs font-semibold uppercase tracking-ui data-[state=active]:bg-[#360802] data-[state=active]:text-white transition-colors">
+                <TabsTrigger value="loans" className="rounded-full px-5 sm:px-6 py-2.5 text-xs font-semibold uppercase tracking-wider data-[state=active]:bg-[#360802] data-[state=active]:text-white transition-all">
                   Credit & Loans
                 </TabsTrigger>
-                <TabsTrigger value="accounts" className="rounded-pills px-6 py-2.5 text-xs font-semibold uppercase tracking-ui data-[state=active]:bg-[#360802] data-[state=active]:text-white transition-colors">
+                <TabsTrigger value="accounts" className="rounded-full px-5 sm:px-6 py-2.5 text-xs font-semibold uppercase tracking-wider data-[state=active]:bg-[#360802] data-[state=active]:text-white transition-all">
                   Checking Accounts
                 </TabsTrigger>
               </TabsList>
             </div>
 
             <TabsContent value="savings" className="space-y-8 animate-fade-in">
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
                 {savingsProducts.map((product) => (
-                  <div key={product.name} className="p-8 rounded-cards bg-white border border-[#e7dcdb] shadow-lift flex flex-col justify-between hover:border-[#f73b20]/30 transition-all duration-300">
+                  <div key={product.name} className="card-3d p-7 sm:p-8 rounded-2xl bg-white border border-[#e7dcdb] shadow-3d flex flex-col justify-between hover:border-[#f73b20]/30 transition-all duration-300">
                     <div>
                       <div className="flex items-center justify-between mb-6">
                         <div 
-                          className="w-12 h-12 rounded-xl flex items-center justify-center"
+                          className="w-12 h-12 rounded-xl flex items-center justify-center shadow-sm"
                           style={{ backgroundColor: product.bg, color: product.accent }}
                         >
                           <product.icon className="h-6 w-6" />
                         </div>
-                        <span className="font-heading font-bold text-xs text-[#34c771] bg-[#bcffbb] px-2.5 py-1 rounded-pills">
+                        <span className="font-heading font-bold text-xs text-[#34c771] bg-[#bcffbb] px-3 py-1 rounded-full border border-black/5">
                           {product.rate}
                         </span>
                       </div>
 
-                      <h3 className="font-heading text-xl font-medium text-[#360802] mb-2">{product.name}</h3>
+                      <h3 className="font-heading text-xl font-semibold text-[#360802] mb-2">{product.name}</h3>
                       <p className="text-xs text-[#ababab] leading-relaxed mb-6">{product.description}</p>
 
                       <ul className="space-y-2.5 mb-8 pt-4 border-t border-[#e7dcdb]/60">
@@ -179,10 +176,15 @@ export default function Products() {
                     </div>
 
                     <div className="pt-4 border-t border-[#e7dcdb]">
-                      <Button variant="pill" size="default" className="w-full shadow-brand" asChild>
+                      <Button
+                        variant="pill"
+                        size="default"
+                        className="w-full bg-[#f73b20] hover:bg-[#f84d35] text-white shadow-3d-orange transform hover:-translate-y-0.5 transition-all"
+                        asChild
+                      >
                         <Link to="/contact">
                           Open Account
-                          <ArrowRight className="h-3.5 w-3.5 ml-1" />
+                          <ArrowRight className="h-3.5 w-3.5 ml-1.5" />
                         </Link>
                       </Button>
                     </div>
@@ -192,23 +194,23 @@ export default function Products() {
             </TabsContent>
 
             <TabsContent value="loans" className="space-y-8 animate-fade-in">
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
                 {loanProducts.map((product) => (
-                  <div key={product.name} className="p-8 rounded-cards bg-white border border-[#e7dcdb] shadow-lift flex flex-col justify-between hover:border-[#f73b20]/30 transition-all duration-300">
+                  <div key={product.name} className="card-3d p-7 sm:p-8 rounded-2xl bg-white border border-[#e7dcdb] shadow-3d flex flex-col justify-between hover:border-[#f73b20]/30 transition-all duration-300">
                     <div>
                       <div className="flex items-center justify-between mb-6">
                         <div 
-                          className="w-12 h-12 rounded-xl flex items-center justify-center"
+                          className="w-12 h-12 rounded-xl flex items-center justify-center shadow-sm"
                           style={{ backgroundColor: product.bg, color: product.accent }}
                         >
                           <product.icon className="h-6 w-6" />
                         </div>
-                        <span className="font-heading font-bold text-xs text-[#fb2d54] bg-[#fdedea] px-2.5 py-1 rounded-pills">
+                        <span className="font-heading font-bold text-xs text-[#fb2d54] bg-[#fdedea] px-3 py-1 rounded-full border border-black/5">
                           {product.rate}
                         </span>
                       </div>
 
-                      <h3 className="font-heading text-xl font-medium text-[#360802] mb-2">{product.name}</h3>
+                      <h3 className="font-heading text-xl font-semibold text-[#360802] mb-2">{product.name}</h3>
                       <p className="text-xs text-[#ababab] leading-relaxed mb-6">{product.description}</p>
 
                       <ul className="space-y-2.5 mb-8 pt-4 border-t border-[#e7dcdb]/60">
@@ -222,10 +224,15 @@ export default function Products() {
                     </div>
 
                     <div className="pt-4 border-t border-[#e7dcdb]">
-                      <Button variant="pill" size="default" className="w-full shadow-brand" asChild>
+                      <Button
+                        variant="pill"
+                        size="default"
+                        className="w-full bg-[#f73b20] hover:bg-[#f84d35] text-white shadow-3d-orange transform hover:-translate-y-0.5 transition-all"
+                        asChild
+                      >
                         <Link to="/loans">
                           Apply for Facility
-                          <ArrowRight className="h-3.5 w-3.5 ml-1" />
+                          <ArrowRight className="h-3.5 w-3.5 ml-1.5" />
                         </Link>
                       </Button>
                     </div>
@@ -235,23 +242,23 @@ export default function Products() {
             </TabsContent>
 
             <TabsContent value="accounts" className="space-y-8 animate-fade-in">
-              <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 max-w-4xl mx-auto">
                 {accountTypes.map((product) => (
-                  <div key={product.name} className="p-8 rounded-cards bg-white border border-[#e7dcdb] shadow-lift flex flex-col justify-between hover:border-[#f73b20]/30 transition-all duration-300">
+                  <div key={product.name} className="card-3d p-7 sm:p-8 rounded-2xl bg-white border border-[#e7dcdb] shadow-3d flex flex-col justify-between hover:border-[#f73b20]/30 transition-all duration-300">
                     <div>
                       <div className="flex items-center justify-between mb-6">
                         <div 
-                          className="w-12 h-12 rounded-xl flex items-center justify-center"
+                          className="w-12 h-12 rounded-xl flex items-center justify-center shadow-sm"
                           style={{ backgroundColor: product.bg, color: product.accent }}
                         >
                           <product.icon className="h-6 w-6" />
                         </div>
-                        <span className="text-[10px] uppercase font-semibold text-[#ababab]">
+                        <span className="text-[10px] uppercase font-bold text-[#ababab] bg-[#fdedea] px-2.5 py-1 rounded-full">
                           Min. Balance: {product.minBalance}
                         </span>
                       </div>
 
-                      <h3 className="font-heading text-xl font-medium text-[#360802] mb-2">{product.name}</h3>
+                      <h3 className="font-heading text-xl font-semibold text-[#360802] mb-2">{product.name}</h3>
                       <p className="text-xs text-[#ababab] leading-relaxed mb-6">{product.description}</p>
 
                       <ul className="space-y-2.5 mb-8 pt-4 border-t border-[#e7dcdb]/60">
@@ -265,10 +272,15 @@ export default function Products() {
                     </div>
 
                     <div className="pt-4 border-t border-[#e7dcdb]">
-                      <Button variant="pill" size="default" className="w-full shadow-brand" asChild>
+                      <Button
+                        variant="pill"
+                        size="default"
+                        className="w-full bg-[#f73b20] hover:bg-[#f84d35] text-white shadow-3d-orange transform hover:-translate-y-0.5 transition-all"
+                        asChild
+                      >
                         <Link to="/contact">
                           Open Account
-                          <ArrowRight className="h-3.5 w-3.5 ml-1" />
+                          <ArrowRight className="h-3.5 w-3.5 ml-1.5" />
                         </Link>
                       </Button>
                     </div>
