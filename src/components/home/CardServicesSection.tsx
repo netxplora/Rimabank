@@ -1,82 +1,109 @@
 import { Link } from "react-router-dom";
-import { CreditCard, Smartphone, Shield, Zap, ArrowRight } from "lucide-react";
+import { CreditCard, Shield, Zap, Smartphone, ArrowRight, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const cardFeatures = [
   {
     icon: Zap,
-    title: "Instant Issuance",
-    description: "Get your debit card instantly at any of our branches",
+    title: "Instant Branch Issuance",
+    description: "Receive and activate your debit card immediately upon account opening at any branch.",
+    color: "#f73b20",
+    bg: "#fdedea"
   },
   {
     icon: Shield,
-    title: "Secure Transactions",
-    description: "Enhanced security with PIN and chip technology",
+    title: "EMV Chip & PIN Security",
+    description: "Industry-standard cryptographic microchip protecting against unauthorized card cloning.",
+    color: "#34c771",
+    bg: "#bcffbb"
   },
   {
     icon: Smartphone,
-    title: "Mobile Wallet",
-    description: "Link your card to mobile payment apps",
+    title: "Nationwide ATM & POS Access",
+    description: "Withdraw cash and make merchant purchases across all Nigerian commercial banks and retail POS terminals.",
+    color: "#477ee9",
+    bg: "#e7dcdb"
   },
 ];
 
 export function CardServicesSection() {
   return (
-    <section className="py-20 bg-muted/30">
-      <div className="container mx-auto px-4">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* Card Visual */}
-          <div className="relative order-2 lg:order-1">
-            <div className="relative max-w-md mx-auto">
-              <div className="relative z-20 transform hover:scale-105 transition-transform duration-500">
-                <img
-                  src="/images/atm-card.png"
-                  alt="Rima MFB ATM Card"
-                  className="w-full h-auto drop-shadow-2xl rounded-2xl"
-                />
+    <section className="py-24 bg-white border-b border-[#e7dcdb]/60">
+      <div className="max-w-[1200px] mx-auto px-6">
+        <div className="grid lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+          {/* Visual Card Showcase (5 cols) */}
+          <div className="lg:col-span-5 order-2 lg:order-1">
+            <div className="rounded-cards bg-[#fdedea] border border-[#e7dcdb] p-8 shadow-lift flex flex-col items-center text-center">
+              {/* Card visual container */}
+              <div className="w-full max-w-sm rounded-2xl bg-[#360802] p-6 text-white text-left shadow-soft relative overflow-hidden mb-6">
+                <div className="flex justify-between items-start mb-8">
+                  <div>
+                    <span className="text-[10px] text-white/50 uppercase tracking-widest block">Rima Bank</span>
+                    <span className="font-heading text-base font-medium">Debit Card</span>
+                  </div>
+                  <div className="w-8 h-8 rounded-lg bg-[#f73b20] flex items-center justify-center font-bold text-xs">
+                    R
+                  </div>
+                </div>
+
+                <div className="w-9 h-7 rounded bg-amber-400/80 mb-6 flex items-center justify-center">
+                  <div className="w-6 h-4 border border-black/40 rounded-sm"></div>
+                </div>
+
+                <div className="font-mono text-sm tracking-widest text-white/90 mb-4">
+                  5399 &bull;&bull;&bull;&bull; &bull;&bull;&bull;&bull; 8821
+                </div>
+
+                <div className="flex justify-between items-end text-[10px] text-white/60">
+                  <span>VALID THRU: 12/28</span>
+                  <span className="font-bold text-white tracking-widest text-xs">VERVE</span>
+                </div>
               </div>
-              <div className="absolute -bottom-6 -right-6 w-full h-full bg-primary/10 rounded-2xl -z-10 blur-2xl" />
+
+              <div className="space-y-2">
+                <div className="text-xs font-semibold text-[#360802]">Linked to Personal or Business Accounts</div>
+                <p className="text-xs text-[#ababab]">Zero annual card maintenance charge on basic savings tier.</p>
+              </div>
             </div>
           </div>
 
-          {/* Content */}
-          <div className="order-1 lg:order-2">
-            <span className="text-secondary font-medium text-sm uppercase tracking-wider">
-              Card Services
+          {/* Content Column (7 cols) */}
+          <div className="lg:col-span-7 order-1 lg:order-2 space-y-6">
+            <span className="text-xs font-semibold uppercase tracking-ui text-[#f73b20] block">
+              Payment Instruments
             </span>
-            <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mt-3 mb-6">
-              Your Card,{" "}
-              <span className="text-primary">Your Way</span>
+            <h2 className="font-heading text-3xl md:text-5xl font-medium text-[#360802] tracking-tight leading-[1.05]">
+              Secure payment access whenever and wherever you need it.
             </h2>
-            <p className="text-muted-foreground text-lg mb-8 leading-relaxed">
-              Experience the convenience of modern card services with Rima MFB debit cards.
-              Shop online, pay at POS terminals, and withdraw cash from ATMs nationwide.
+            <p className="text-[#360802]/80 text-base leading-relaxed">
+              Rima MFB debit cards allow seamless in-store purchases, utility settlements, and cash withdrawals across all ATMs throughout Nigeria.
             </p>
 
-            <div className="space-y-6 mb-10">
-              {cardFeatures.map((feature, index) => (
-                <div
-                  key={feature.title}
-                  className="flex items-start gap-4 animate-fade-in"
-                  style={{ animationDelay: `${index * 0.1}s` }}
-                >
-                  <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
-                    <feature.icon className="h-6 w-6 text-primary" />
+            <div className="space-y-4 pt-2">
+              {cardFeatures.map((item, index) => (
+                <div key={index} className="flex items-start gap-4 p-4 rounded-xl bg-white border border-[#e7dcdb] shadow-lift">
+                  <div 
+                    className="w-10 h-10 rounded-lg flex items-center justify-center shrink-0"
+                    style={{ backgroundColor: item.bg, color: item.color }}
+                  >
+                    <item.icon className="h-5 w-5" />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-foreground mb-1">{feature.title}</h3>
-                    <p className="text-muted-foreground text-sm">{feature.description}</p>
+                    <h3 className="text-sm font-semibold text-[#360802]">{item.title}</h3>
+                    <p className="text-xs text-[#ababab] mt-0.5 leading-normal">{item.description}</p>
                   </div>
                 </div>
               ))}
             </div>
 
-            <Button variant="default" size="lg" asChild>
-              <Link to="/products">
-                Request Your Card
-                <ArrowRight className="h-5 w-5" />
-              </Link>
-            </Button>
+            <div className="pt-2">
+              <Button variant="pill" size="lg" asChild className="shadow-brand">
+                <Link to="/contact">
+                  Request Card at Branch
+                  <ArrowRight className="h-4 w-4 ml-1" />
+                </Link>
+              </Button>
+            </div>
           </div>
         </div>
       </div>

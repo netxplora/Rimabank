@@ -13,108 +13,143 @@ import { Button } from "@/components/ui/button";
 const services = [
   {
     icon: Wallet,
-    title: "Savings & Deposits",
-    description: "Secure your financial future with structured savings plans offering competitive, reliable interest yields.",
+    title: "Savings & Fixed Deposits",
+    category: "Funding",
+    accentColor: "#34c771",
+    washBg: "#bcffbb",
+    description: "Structured personal deposit plans offering steady annual interest yields, zero maintenance fees, and capital security.",
     href: "/personal-banking/savings",
-    features: ["Competitive Interest Rates", "Principal Security", "On-Demand Access"],
+    features: ["Competitive Annual Interest", "Flexible Tenure Options", "Immediate Liquidity"],
   },
   {
     icon: TrendingUp,
-    title: "Credit & Loans",
-    description: "Accessible credit facilities structured to support personal expenditures and strategic business investments.",
+    title: "Credit & Micro Loans",
+    category: "Credit",
+    accentColor: "#fb2d54",
+    washBg: "#fdedea",
+    description: "Accessible business credit and personal working capital structured with transparent rates and realistic repayment schedules.",
     href: "/loans",
-    features: ["Streamlined Approval", "Transparent Terms", "Flexible Repayment"],
+    features: ["Streamlined Documentation", "Fast Disbursement", "No Hidden Charges"],
   },
   {
     icon: Briefcase,
-    title: "SME Banking",
-    description: "Dedicated financial logistics and operational support for growing small and medium-sized enterprises.",
+    title: "SME Commercial Banking",
+    category: "Enterprise",
+    accentColor: "#f73b20",
+    washBg: "#fdedea",
+    description: "Tailored commercial checking accounts, merchant services, and dedicated financial advisory for regional businesses.",
     href: "/business-banking/sme",
-    features: ["Operating Accounts", "Working Capital Finance", "Payroll Services"],
+    features: ["Dedicated Relationship Officer", "High Limit POS Terminals", "Payroll Integration"],
   },
   {
     icon: Building2,
-    title: "Corporate Finance",
-    description: "Institutional-grade financial architecture for established corporations and large-scale operations.",
+    title: "Corporate Banking",
+    category: "Institutional",
+    accentColor: "#360802",
+    washBg: "#e7dcdb",
+    description: "Institutional cash management, structured trade financing, and treasury solutions for established corporations.",
     href: "/business-banking/corporate",
-    features: ["Trade Finance", "Cash Management", "Dedicated Coverage"],
+    features: ["Cash Flow Management", "Trade Credit Lines", "Institutional Support"],
   },
   {
     icon: Users,
-    title: "Agency Banking",
-    description: "Expand financial inclusion while generating reliable revenue streams as an authorized local representative.",
+    title: "Agency Banking Network",
+    category: "Transfers",
+    accentColor: "#477ee9",
+    washBg: "#e7dcdb",
+    description: "Convenient neighborhood financial outlets providing cash deposits, inter-bank transfers, and utility payments.",
     href: "/agent-banking",
-    features: ["Secure POS Infrastructure", "Commissions Management", "Technical Support"],
+    features: ["Neighborhood Coverage", "Zero Transfer Delays", "POS Operator Programs"],
   },
   {
     icon: GraduationCap,
     title: "Youth & Student Accounts",
-    description: "Foundational banking solutions designed to build financial literacy and secure early-stage capital.",
+    category: "Education",
+    accentColor: "#34c771",
+    washBg: "#f5ffbb",
+    description: "Specialized zero-fee accounts designed for secondary and tertiary students to manage allowances and develop financial discipline.",
     href: "/personal-banking/student",
-    features: ["Zero Maintenance Fees", "Educational Loans", "Debit Card Access"],
+    features: ["Zero Maintenance Fees", "Instant Debit Card", "Educational Study Loans"],
   },
 ];
 
 export function ServicesOverview() {
   return (
-    <section className="py-20 bg-background">
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
-          <span className="text-secondary font-medium text-sm uppercase tracking-wider">
-            Our Expertise
-          </span>
-          <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mt-3 mb-4">
-            Comprehensive Banking Solutions
-          </h2>
-          <p className="text-muted-foreground text-lg max-w-3xl mx-auto">
-            Rima Microfinance Bank provides structured financial products designed to support individual wealth generation, facilitate business operations, and secure long-term capital management for our clients.
+    <section className="py-24 bg-white border-b border-[#e7dcdb]/60">
+      <div className="max-w-[1200px] mx-auto px-6">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+          <div className="max-w-2xl">
+            <span className="text-xs font-semibold uppercase tracking-ui text-[#f73b20] block mb-2">
+              Financial Infrastructure
+            </span>
+            <h2 className="font-heading text-3xl md:text-5xl font-medium text-[#360802] tracking-tight leading-[1.05]">
+              Structured banking services designed for every stage of life.
+            </h2>
+          </div>
+          <p className="text-[#ababab] text-sm max-w-sm">
+            Explore our comprehensive suite of personal accounts, commercial loans, and community banking channels.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {services.map((service, index) => (
             <div
               key={service.title}
-              className="group bg-card rounded-2xl border border-border p-8 hover:border-primary/30 hover:shadow-xl transition-all duration-300 animate-fade-in"
-              style={{ animationDelay: `${index * 0.1}s` }}
+              className="rounded-cards bg-white border border-[#e7dcdb] p-8 shadow-lift hover:border-[#f73b20]/40 transition-all duration-300 flex flex-col justify-between group"
             >
-              <div className="w-14 h-14 rounded-xl bg-gradient-primary flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                <service.icon className="h-7 w-7 text-primary-foreground" />
+              <div>
+                <div className="flex items-center justify-between mb-6">
+                  <div
+                    className="w-12 h-12 rounded-xl flex items-center justify-center transition-transform group-hover:scale-105"
+                    style={{ backgroundColor: service.washBg, color: service.accentColor }}
+                  >
+                    <service.icon className="h-6 w-6" />
+                  </div>
+                  <span 
+                    className="text-[10px] font-semibold uppercase tracking-ui px-2.5 py-1 rounded-pills"
+                    style={{ backgroundColor: service.washBg, color: service.accentColor }}
+                  >
+                    {service.category}
+                  </span>
+                </div>
+
+                <h3 className="font-heading text-xl font-medium text-[#360802] mb-3 group-hover:text-[#f73b20] transition-colors">
+                  {service.title}
+                </h3>
+
+                <p className="text-[#360802]/70 text-sm leading-relaxed mb-6">
+                  {service.description}
+                </p>
+
+                <ul className="space-y-2 mb-8 pt-4 border-t border-[#e7dcdb]/60">
+                  {service.features.map((feature) => (
+                    <li key={feature} className="flex items-center gap-2 text-xs font-medium text-[#360802]">
+                      <span 
+                        className="w-1.5 h-1.5 rounded-full shrink-0"
+                        style={{ backgroundColor: service.accentColor }}
+                      />
+                      {feature}
+                    </li>
+                  ))}
+                </ul>
               </div>
-
-              <h3 className="font-display text-xl font-semibold text-foreground mb-3 group-hover:text-primary transition-colors">
-                {service.title}
-              </h3>
-
-              <p className="text-muted-foreground mb-6">
-                {service.description}
-              </p>
-
-              <ul className="space-y-2 mb-6">
-                {service.features.map((feature) => (
-                  <li key={feature} className="flex items-center gap-2 text-sm text-foreground">
-                    <div className="w-1.5 h-1.5 rounded-full bg-secondary" />
-                    {feature}
-                  </li>
-                ))}
-              </ul>
 
               <Link
                 to={service.href}
-                className="inline-flex items-center gap-2 text-primary font-medium hover:gap-3 transition-all"
+                className="inline-flex items-center justify-between w-full pt-4 border-t border-[#e7dcdb] text-xs font-semibold uppercase tracking-ui text-[#f73b20] group-hover:text-[#f84d35]"
               >
-                Learn More
-                <ArrowRight className="h-4 w-4" />
+                <span>Learn Details</span>
+                <ArrowRight className="h-4 w-4 transform group-hover:translate-x-1 transition-transform" />
               </Link>
             </div>
           ))}
         </div>
 
-        <div className="text-center mt-12">
-          <Button variant="outline" size="lg" asChild>
-            <Link to="/products">
-              View All Products
-              <ArrowRight className="h-5 w-5" />
+        <div className="mt-16 text-center">
+          <Button variant="outlineNeutral" size="lg" asChild className="rounded-buttons">
+            <Link to="/personal-banking">
+              View Complete Product Catalog
+              <ArrowRight className="h-4 w-4 ml-2" />
             </Link>
           </Button>
         </div>

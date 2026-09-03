@@ -1,7 +1,7 @@
 import { ReactNode, useEffect } from "react";
 import { Layout } from "./Layout";
 import { Button } from "@/components/ui/button";
-import { CheckCircle, ArrowRight, LucideIcon } from "lucide-react";
+import { CheckCircle2, ArrowRight, LucideIcon, ShieldCheck, HelpCircle } from "lucide-react";
 import { Link } from "react-router-dom";
 
 interface BankingServiceLayoutProps {
@@ -28,7 +28,7 @@ export function BankingServiceLayout({
   benefits,
   requirements,
   fees,
-  ctaText = "Apply Now",
+  ctaText = "Open Account",
   children
 }: BankingServiceLayoutProps) {
   useEffect(() => {
@@ -37,98 +37,130 @@ export function BankingServiceLayout({
 
   return (
     <Layout>
-      {/* Hero */}
-      <section className="relative bg-primary text-primary-foreground py-20 lg:py-32 overflow-hidden">
-        <div className="absolute inset-0 z-0">
-          <img
-            src={image}
-            alt={title}
-            className="w-full h-full object-cover opacity-20 mix-blend-overlay"
-          />
-        </div>
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary-foreground/10 border border-primary-foreground/20 mb-6">
-              <Icon className="h-4 w-4 text-secondary" />
-              <span className="text-sm font-medium">{subtitle}</span>
+      {/* Editorial Service Hero */}
+      <section className="relative bg-white pt-12 pb-20 lg:pt-16 lg:pb-24 border-b border-[#e7dcdb]/60 overflow-hidden">
+        <div className="absolute top-0 right-0 w-[450px] h-[450px] bg-[#fdedea] rounded-full blur-3xl -z-10 opacity-60 pointer-events-none" />
+
+        <div className="max-w-[1200px] mx-auto px-6">
+          <div className="max-w-3xl space-y-6">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-pills bg-[#fdedea] border border-[#e7dcdb] text-xs font-semibold uppercase tracking-ui text-[#360802]">
+              <Icon className="h-3.5 w-3.5 text-[#f73b20]" />
+              <span>{subtitle}</span>
             </div>
-            <h1 className="font-display text-4xl md:text-5xl lg:text-7xl font-bold mb-6">
+
+            <h1 className="font-heading text-4xl sm:text-5xl lg:text-6xl font-medium text-[#360802] tracking-tight leading-[1.02]">
               {title}
             </h1>
-            <p className="text-xl text-primary-foreground/80 leading-relaxed">
+
+            <p className="text-[#360802]/80 text-lg leading-relaxed">
               {description}
             </p>
+
+            <div className="pt-2 flex flex-wrap items-center gap-4">
+              <Button variant="pill" size="lg" asChild className="shadow-brand">
+                <Link to="/contact">
+                  {ctaText}
+                  <ArrowRight className="h-4 w-4 ml-1" />
+                </Link>
+              </Button>
+              <Button variant="outlineNeutral" size="lg" asChild className="rounded-buttons">
+                <Link to="/branches">
+                  Locate Branch
+                </Link>
+              </Button>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Content */}
-      <section className="py-24 bg-background">
-        <div className="container mx-auto px-4">
-          <div className="grid lg:grid-cols-3 gap-16">
-            <div className="lg:col-span-2 space-y-12">
-              <div>
-                <h2 className="text-3xl font-display font-bold mb-6">Overview</h2>
-                <div className="prose prose-lg text-muted-foreground max-w-none">
-                  <p>{description}</p>
-                  <p className="mt-4">
-                    Designed specifically for <span className="text-foreground font-semibold">{whoItIsFor}</span>, 
-                    this product ensures your financial goals are within reach with the support of a community-focused bank.
-                  </p>
+      {/* Main Content Area */}
+      <section className="py-20 bg-white border-b border-[#e7dcdb]/60">
+        <div className="max-w-[1200px] mx-auto px-6">
+          <div className="grid lg:grid-cols-12 gap-12 lg:gap-16">
+            {/* Left Content (8 cols) */}
+            <div className="lg:col-span-8 space-y-12">
+              {/* Product Overview */}
+              <div className="p-8 rounded-cards bg-white border border-[#e7dcdb] shadow-lift space-y-4">
+                <h2 className="font-heading text-2xl font-medium text-[#360802] tracking-tight">
+                  Product Overview
+                </h2>
+                <p className="text-[#360802]/80 text-sm leading-relaxed">
+                  {description}
+                </p>
+                <div className="pt-2 p-4 rounded-xl bg-[#fdedea] border border-[#e7dcdb] text-xs text-[#360802]">
+                  <span className="font-bold">Target Customer: </span>
+                  {whoItIsFor}
                 </div>
               </div>
 
-              <div>
-                <h3 className="text-2xl font-display font-bold mb-6">Key Benefits</h3>
-                <div className="grid md:grid-cols-2 gap-4">
+              {/* Key Benefits */}
+              <div className="space-y-6">
+                <h3 className="font-heading text-2xl font-medium text-[#360802] tracking-tight">
+                  Key Features & Advantages
+                </h3>
+                <div className="grid sm:grid-cols-2 gap-4">
                   {benefits.map((benefit, idx) => (
-                    <div key={idx} className="flex gap-3 p-4 rounded-xl bg-muted/50 border border-border/50">
-                      <CheckCircle className="h-5 w-5 text-secondary shrink-0 mt-0.5" />
-                      <span className="font-medium">{benefit}</span>
+                    <div key={idx} className="p-5 rounded-cards bg-white border border-[#e7dcdb] shadow-lift flex items-start gap-3">
+                      <CheckCircle2 className="h-5 w-5 text-[#34c771] shrink-0 mt-0.5" />
+                      <span className="text-xs font-semibold text-[#360802] leading-snug">{benefit}</span>
                     </div>
                   ))}
                 </div>
               </div>
 
+              {/* Children custom page slots */}
               {children}
 
-              <div className="p-8 md:p-12 rounded-[2rem] bg-secondary/5 border border-secondary/10">
-                <div className="flex flex-col md:flex-row gap-8 items-center">
-                  <div className="flex-1">
-                    <h3 className="text-2xl font-bold mb-2">Ready to get started?</h3>
-                    <p className="text-muted-foreground">Visit our nearest branch or contact an advisor today to open your account.</p>
-                  </div>
-                  <Button size="xl" className="px-10 shrink-0" asChild>
-                    <Link to="/contact">
-                      {ctaText}
-                      <ArrowRight className="ml-2 h-5 w-5" />
-                    </Link>
-                  </Button>
+              {/* Action Banner */}
+              <div className="p-8 md:p-10 rounded-cards bg-[#360802] text-white shadow-soft flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+                <div className="max-w-md">
+                  <h3 className="font-heading text-xl font-semibold text-white mb-1">
+                    Ready to open your account?
+                  </h3>
+                  <p className="text-xs text-white/70 leading-relaxed">
+                    Visit any of our regional branches with your identification documents or submit an inquiry online.
+                  </p>
                 </div>
+                <Button variant="pill" size="lg" asChild className="bg-[#f73b20] hover:bg-[#f84d35] shrink-0">
+                  <Link to="/contact">
+                    {ctaText}
+                    <ArrowRight className="h-4 w-4 ml-1" />
+                  </Link>
+                </Button>
               </div>
             </div>
 
-            <div className="space-y-8">
-              <div className="bg-card border border-border rounded-2xl p-8 sticky top-24">
-                <h4 className="text-xl font-bold mb-6">Requirements</h4>
-                <ul className="space-y-4 mb-8">
+            {/* Right Sticky Sidebar (4 cols) */}
+            <div className="lg:col-span-4 space-y-6">
+              {/* Requirements Card */}
+              <div className="rounded-cards bg-white border border-[#e7dcdb] p-6 lg:p-8 shadow-lift sticky top-28">
+                <div className="flex items-center gap-2 pb-4 border-b border-[#e7dcdb] mb-6">
+                  <ShieldCheck className="h-5 w-5 text-[#f73b20]" />
+                  <h4 className="font-heading text-base font-semibold text-[#360802]">
+                    Requirements
+                  </h4>
+                </div>
+
+                <ul className="space-y-3.5 mb-8">
                   {requirements.map((req, idx) => (
-                    <li key={idx} className="flex gap-3 text-sm text-muted-foreground">
-                      <div className="w-1.5 h-1.5 rounded-full bg-primary mt-1.5 shrink-0" />
+                    <li key={idx} className="flex items-start gap-2.5 text-xs text-[#360802]/80 leading-relaxed">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#f73b20] shrink-0 mt-1.5" />
                       {req}
                     </li>
                   ))}
                 </ul>
-                
+
                 {fees && (
-                  <div className="pt-6 border-t border-border">
-                    <div className="text-sm font-semibold text-foreground mb-1">Fees & Rates</div>
-                    <div className="text-2xl font-bold text-primary">{fees}</div>
+                  <div className="pt-4 pb-6 border-t border-[#e7dcdb]">
+                    <div className="text-xs text-[#ababab] font-medium uppercase tracking-ui">Schedule of Fees</div>
+                    <div className="text-xl font-heading font-bold text-[#360802] mt-0.5">{fees}</div>
                   </div>
                 )}
 
-                <Button variant="outline" className="w-full mt-8" asChild>
-                  <Link to="/support">Download Application Forms</Link>
+                <Button variant="outlineNeutral" className="w-full rounded-buttons text-xs" asChild>
+                  <Link to="/downloads">
+                    Download Account Application Forms
+                  </Link>
                 </Button>
               </div>
             </div>

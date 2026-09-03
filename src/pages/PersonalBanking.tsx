@@ -1,47 +1,55 @@
 import { Layout } from "@/components/layout/Layout";
-import { Wallet, CreditCard, GraduationCap, CheckCircle, ArrowRight } from "lucide-react";
+import { Wallet, CreditCard, GraduationCap, CheckCircle2, ArrowRight, ShieldCheck, Landmark } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Link } from "react-router-dom";
 
 const personalServices = [
   {
     id: "savings",
-    title: "Savings & Deposits",
+    title: "Savings & Fixed Deposits",
     icon: Wallet,
-    description: "Build financial stability with structured deposit accounts offering competitive interest yields and zero hidden maintenance fees.",
+    category: "Yield & Accumulation",
+    bg: "#bcffbb",
+    accent: "#34c771",
+    description: "Build capital with structured deposit plans offering competitive annualized interest yields and zero hidden maintenance fees.",
     href: "/personal-banking/savings",
     benefits: [
-      "Competitive annualized interest rates",
-      "No mandatory monthly maintenance fees",
-      "Complimentary debit card issuance",
-      "Secure 24/7 digital access"
+      "Competitive annual interest rates",
+      "Zero mandatory monthly maintenance charges",
+      "Free instant debit card issuance at branch",
+      "Immediate liquidity and flexible tenure"
     ]
   },
   {
     id: "current",
-    title: "Retail Current Accounts",
+    title: "Personal Current Accounts",
     icon: CreditCard,
-    description: "Facilitate seamless daily transactions with high-volume capacity, accessible overdraft facilities, and priority support.",
+    category: "Daily Liquidity",
+    bg: "#e7dcdb",
+    accent: "#477ee9",
+    description: "Designed for day-to-day liquidity, salary deposits, personalized cheque books, and seamless digital transaction capacity.",
     href: "/personal-banking/current",
     benefits: [
-      "Transparent transaction fee structure",
-      "Personalized cheque book issuance",
-      "Accessible overdraft facilities",
-      "Instant transaction notifications"
+      "Transparent schedule of banking fees",
+      "Personalized cheque book provision",
+      "Eligible for overdraft facilities",
+      "Instant SMS and email notifications"
     ]
   },
   {
     id: "student",
-    title: "Student & Youth Banking",
+    title: "Student & Campus Accounts",
     icon: GraduationCap,
-    description: "Foundational financial accounts providing zero-fee structures and support for educational capital requirements.",
+    category: "Youth & Study",
+    bg: "#f5ffbb",
+    accent: "#360802",
+    description: "Foundational banking accounts for secondary and university students with zero maintenance fees and study loan access.",
     href: "/personal-banking/student",
     benefits: [
-      "Zero monthly maintenance fees",
-      "Complimentary youth debit card",
-      "Educational credit support",
-      "Partner merchant discounts"
+      "₦0 Monthly maintenance charges",
+      "Free student debit card",
+      "Access to educational micro-credit",
+      "Mobile banking on iOS and Android"
     ]
   }
 ];
@@ -49,131 +57,130 @@ const personalServices = [
 export default function PersonalBanking() {
   return (
     <Layout>
-      <section className="relative bg-gradient-hero text-primary-foreground py-20 lg:py-32 overflow-hidden">
-        {/* Background Image */}
-        <div className="absolute inset-0 z-0">
-          <img
-            src="/images/hero-home.png"
-            alt="Personal Banking Rima"
-            className="w-full h-full object-cover opacity-20 mix-blend-overlay"
-          />
-        </div>
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="max-w-3xl">
-            <h1 className="font-display text-4xl md:text-5xl lg:text-7xl font-bold mb-6">
-              Retail Banking for <span className="text-secondary italic">Your Financial Goals</span>
+      {/* Editorial Hero */}
+      <section className="relative bg-white pt-12 pb-20 lg:pt-16 lg:pb-28 border-b border-[#e7dcdb]/60 overflow-hidden">
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#fdedea] rounded-full blur-3xl -z-10 opacity-70 pointer-events-none" />
+
+        <div className="max-w-[1200px] mx-auto px-6">
+          <div className="max-w-3xl space-y-6">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-pills bg-[#fdedea] border border-[#e7dcdb] text-[#360802] text-xs font-semibold uppercase tracking-ui">
+              <span>Personal Banking Services</span>
+            </div>
+
+            <h1 className="font-heading text-4xl sm:text-6xl lg:text-7xl font-medium text-[#360802] tracking-tight leading-[0.98]">
+              Personal accounts structured for <span className="text-[#f73b20]">clarity</span> and <span className="text-[#f73b20]">security</span>.
             </h1>
-            <p className="text-xl text-primary-foreground/80 mb-8 leading-relaxed">
-              Explore our comprehensive range of retail banking products structured to provide absolute security, optimal returns on deposits, and seamless transaction execution.
+
+            <p className="text-[#360802]/80 text-lg md:text-xl font-normal leading-relaxed">
+              Explore our range of personal deposit and checking accounts structured with zero hidden charges, competitive interest yields, and instant digital transfers.
             </p>
+
+            <div className="pt-2 flex flex-wrap items-center gap-4">
+              <Button variant="pill" size="lg" asChild className="shadow-brand">
+                <Link to="/contact">
+                  Open an Account
+                  <ArrowRight className="h-4 w-4 ml-1" />
+                </Link>
+              </Button>
+              <Button variant="outlineNeutral" size="lg" asChild className="rounded-buttons">
+                <Link to="/branches">
+                  Locate Nearest Branch
+                </Link>
+              </Button>
+            </div>
           </div>
         </div>
       </section>
 
-      <section className="py-24 bg-background">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16 max-w-3xl mx-auto">
-            <h2 className="font-display text-3xl md:text-4xl font-bold mb-6">
-              Structured Products for <span className="text-primary italic">Individual Needs</span>
+      {/* Account Products Grid */}
+      <section className="py-24 bg-white border-b border-[#e7dcdb]/60">
+        <div className="max-w-[1200px] mx-auto px-6">
+          <div className="max-w-2xl mb-16">
+            <span className="text-xs font-semibold uppercase tracking-ui text-[#f73b20] block mb-2">
+              Product Portfolio
+            </span>
+            <h2 className="font-heading text-3xl md:text-5xl font-medium text-[#360802] tracking-tight leading-[1.05]">
+              Choose the account matching your lifestyle.
             </h2>
-            <p className="text-muted-foreground text-lg">
-              Our retail offerings are engineered to provide maximum financial efficiency, whether you are managing daily expenses or accumulating long-term capital.
-            </p>
           </div>
 
           <div className="grid lg:grid-cols-3 gap-8">
-            {personalServices.map((service, index) => (
-              <Card 
+            {personalServices.map((service) => (
+              <div 
                 key={service.id} 
-                className="group hover:shadow-2xl transition-all duration-500 border-none bg-card shadow-lg overflow-hidden animate-fade-in"
-                style={{ animationDelay: `${index * 0.1}s` }}
+                className="p-8 rounded-cards bg-white border border-[#e7dcdb] shadow-lift flex flex-col justify-between hover:border-[#f73b20]/30 transition-all duration-300"
               >
-                <CardHeader className="relative pb-0">
-                  <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500">
-                    <service.icon className="h-8 w-8 text-primary" />
+                <div>
+                  <div className="flex items-center justify-between mb-6">
+                    <div 
+                      className="w-12 h-12 rounded-xl flex items-center justify-center"
+                      style={{ backgroundColor: service.bg, color: service.accent }}
+                    >
+                      <service.icon className="h-6 w-6" />
+                    </div>
+                    <span 
+                      className="text-[10px] font-semibold uppercase tracking-ui px-2.5 py-1 rounded-pills"
+                      style={{ backgroundColor: service.bg, color: service.accent }}
+                    >
+                      {service.category}
+                    </span>
                   </div>
-                  <CardTitle className="text-2xl font-bold mb-2 group-hover:text-primary transition-colors">
+
+                  <h3 className="font-heading text-xl font-medium text-[#360802] mb-3">
                     {service.title}
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-6">
-                  <p className="text-muted-foreground leading-relaxed">
+                  </h3>
+
+                  <p className="text-xs text-[#ababab] leading-relaxed mb-6">
                     {service.description}
                   </p>
                   
-                  <div className="space-y-3">
-                    <p className="text-xs font-bold uppercase tracking-widest text-primary">Key Highlights</p>
-                    <ul className="space-y-2">
-                      {service.benefits.map((benefit, i) => (
-                        <li key={i} className="flex items-center gap-3 text-sm text-foreground/80">
-                          <CheckCircle className="h-4 w-4 text-secondary shrink-0" />
-                          <span>{benefit}</span>
-                        </li>
-                      ))}
-                    </ul>
+                  <div className="space-y-2.5 mb-8 pt-4 border-t border-[#e7dcdb]/60">
+                    {service.benefits.map((benefit, i) => (
+                      <div key={i} className="flex items-start gap-2.5 text-xs text-[#360802]">
+                        <CheckCircle2 className="h-4 w-4 text-[#34c771] shrink-0 mt-0.5" />
+                        <span>{benefit}</span>
+                      </div>
+                    ))}
                   </div>
+                </div>
 
-                  <div className="pt-6 border-t border-border/50">
-                    <Button variant="default" className="w-full h-12" asChild>
-                      <Link to={service.href} className="flex items-center justify-center gap-2">
-                        Explore {service.title}
-                        <ArrowRight className="h-4 w-4" />
-                      </Link>
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
+                <div className="pt-4 border-t border-[#e7dcdb]">
+                  <Button variant="pill" size="default" className="w-full shadow-brand" asChild>
+                    <Link to={service.href}>
+                      Explore Account Details
+                      <ArrowRight className="h-4 w-4 ml-1" />
+                    </Link>
+                  </Button>
+                </div>
+              </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Feature Showcase */}
-      <section className="py-24 bg-muted/30 relative overflow-hidden">
-        <div className="container mx-auto px-4">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
-            <div className="relative">
-              <div className="z-10 relative bg-background rounded-3xl p-4 shadow-2xl border border-border">
-                <img 
-                  src="/images/hero-home.png" 
-                  alt="Banking with Rima Bank" 
-                  className="rounded-2xl w-full h-[500px] object-cover"
-                />
+      {/* Trust Banner */}
+      <section className="py-20 bg-[#fdedea] border-b border-[#e7dcdb]/60">
+        <div className="max-w-[1200px] mx-auto px-6">
+          <div className="grid md:grid-cols-3 gap-8">
+            <div className="flex items-start gap-4">
+              <ShieldCheck className="h-6 w-6 text-[#34c771] shrink-0 mt-1" />
+              <div>
+                <h4 className="font-heading text-base font-semibold text-[#360802] mb-1">Central Bank Licensed</h4>
+                <p className="text-xs text-[#ababab]">Strict adherence to CBN financial safety ratios and consumer protection guidelines.</p>
               </div>
-              <div className="absolute -top-12 -right-12 w-64 h-64 bg-primary/20 rounded-full blur-3xl -z-10" />
-              <div className="absolute -bottom-12 -left-12 w-64 h-64 bg-secondary/20 rounded-full blur-3xl -z-10" />
             </div>
-
-            <div className="space-y-8">
-              <h2 className="font-display text-3xl md:text-5xl font-bold leading-tight">
-                Modern Banking for <br />
-                <span className="text-primary italic">Optimal Management</span>
-              </h2>
-              <p className="text-muted-foreground text-lg leading-relaxed">
-                We believe financial management should be efficient and highly secure. Every retail account integrates our robust digital infrastructure with dedicated customer support.
-              </p>
-              
-              <div className="grid sm:grid-cols-2 gap-8 pt-4">
-                <div className="space-y-4">
-                  <div className="w-12 h-12 rounded-xl bg-secondary/10 flex items-center justify-center">
-                    <CheckCircle className="h-6 w-6 text-secondary" />
-                  </div>
-                  <h4 className="text-lg font-bold">Secure Transactions</h4>
-                  <p className="text-sm text-muted-foreground">End-to-end encryption for all your financial data.</p>
-                </div>
-                <div className="space-y-4">
-                  <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
-                    <CheckCircle className="h-6 w-6 text-primary" />
-                  </div>
-                  <h4 className="text-lg font-bold">24/7 Access</h4>
-                  <p className="text-sm text-muted-foreground">Manage your finances anytime, anywhere in the world.</p>
-                </div>
+            <div className="flex items-start gap-4">
+              <Landmark className="h-6 w-6 text-[#477ee9] shrink-0 mt-1" />
+              <div>
+                <h4 className="font-heading text-base font-semibold text-[#360802] mb-1">NDIC Insured</h4>
+                <p className="text-xs text-[#ababab]">Eligible customer deposits insured up to the maximum regulatory thresholds.</p>
               </div>
-
-              <div className="pt-8">
-                <Button size="lg" className="h-14 px-10 rounded-full text-lg shadow-xl hover:shadow-2xl transition-all" asChild>
-                  <Link to="/digital-banking">Get Started Online</Link>
-                </Button>
+            </div>
+            <div className="flex items-start gap-4">
+              <CreditCard className="h-6 w-6 text-[#f73b20] shrink-0 mt-1" />
+              <div>
+                <h4 className="font-heading text-base font-semibold text-[#360802] mb-1">Nationwide Interoperability</h4>
+                <p className="text-xs text-[#ababab]">Direct card and POS settlement across all Nigerian commercial bank ATMs and switches.</p>
               </div>
             </div>
           </div>

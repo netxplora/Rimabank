@@ -1,73 +1,90 @@
-import { Link } from "react-router-dom";
-import { Download, Star } from "lucide-react";
+import { Download, Smartphone, Star, ShieldCheck, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export function MobileAppCTA() {
   return (
-    <section className="py-20 bg-gradient-hero relative overflow-hidden">
-      {/* Background Pattern */}
-      <div className="absolute inset-0 bg-hero-pattern opacity-20" />
+    <section className="py-24 bg-white">
+      <div className="max-w-[1200px] mx-auto px-6">
+        <div className="rounded-cards bg-[#fdedea] border border-[#e7dcdb] p-8 lg:p-16 shadow-lift relative overflow-hidden">
+          <div className="grid lg:grid-cols-12 gap-12 items-center">
+            {/* Left Content (7 cols) */}
+            <div className="lg:col-span-7 space-y-6">
+              <span className="text-xs font-semibold uppercase tracking-ui text-[#f73b20] block">
+                Digital Mobile Banking
+              </span>
+              <h2 className="font-heading text-3xl md:text-5xl font-medium text-[#360802] tracking-tight leading-[1.05]">
+                Manage your accounts from any mobile device.
+              </h2>
+              <p className="text-[#360802]/80 text-base leading-relaxed max-w-xl">
+                Transfer funds instantly, generate account statements, pay utility bills, and monitor account balances with the Rima MFB Mobile Banking application.
+              </p>
 
-      <div className="container mx-auto px-4 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* Content */}
-          <div className="text-primary-foreground">
-            <span className="text-accent font-medium text-sm uppercase tracking-wider">
-              Mobile Banking
-            </span>
-            <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold mt-3 mb-6">
-              Bank Anywhere,{" "}
-              <span className="text-accent">Anytime</span>
-            </h2>
-            <p className="text-primary-foreground/80 text-lg mb-8 leading-relaxed">
-              Download the Rima MFB Mobile App and enjoy banking at your fingertips.
-              Transfer funds, pay bills, check balances, and more – all from your smartphone.
-            </p>
-
-            <div className="flex items-center gap-2 mb-8">
-              <div className="flex">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="h-5 w-5 fill-accent text-accent" />
-                ))}
-              </div>
-              <span className="text-primary-foreground/80">4.8 rating on app stores</span>
-            </div>
-
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Button variant="accent" size="lg" asChild>
-                <a href="#">
-                  <Download className="h-5 w-5" />
-                  Download for iOS
-                </a>
-              </Button>
-              <Button variant="heroOutline" size="lg" asChild>
-                <a href="#">
-                  <Download className="h-5 w-5" />
-                  Download for Android
-                </a>
-              </Button>
-            </div>
-
-            <p className="text-sm text-primary-foreground/60 mt-6">
-              * Available on iOS 12+ and Android 8+
-            </p>
-          </div>
-
-          {/* Phone Mockup */}
-          <div className="relative flex justify-center">
-            <div className="relative max-w-[320px] lg:max-w-none">
-              <div className="relative z-20 transform hover:rotate-2 transition-transform duration-500">
-                <img
-                  src="/images/Mobile-App.png"
-                  alt="Rima MFB Mobile App"
-                  className="w-full h-auto drop-shadow-2xl rounded-[2.5rem]"
-                />
+              <div className="flex items-center gap-4 text-xs font-medium text-[#360802] py-1">
+                <div className="flex text-[#f73b20]">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} className="h-4 w-4 fill-current" />
+                  ))}
+                </div>
+                <span>4.8 / 5.0 Rating from customer reviews</span>
               </div>
 
-              {/* Decorative background element for depth */}
-              <div className="absolute -bottom-10 -left-10 w-full h-full bg-accent/10 rounded-[3rem] -z-10 blur-3xl" />
+              <div className="pt-2 flex flex-wrap items-center gap-4">
+                <Button variant="pill" size="lg" asChild className="shadow-brand">
+                  <a href="#download-ios">
+                    <Download className="h-4 w-4 mr-1" />
+                    Download for iOS
+                  </a>
+                </Button>
+                <Button variant="outlineNeutral" size="lg" asChild className="rounded-buttons bg-white">
+                  <a href="#download-android">
+                    <Download className="h-4 w-4 mr-1" />
+                    Download for Android
+                  </a>
+                </Button>
+              </div>
 
+              <p className="text-[11px] text-[#ababab]">
+                * Compatible with iOS 13+ and Android 8+. Protected by biometric authentication.
+              </p>
+            </div>
 
+            {/* Right Graphic (5 cols) */}
+            <div className="lg:col-span-5 flex justify-center">
+              <div className="w-full max-w-xs rounded-[2rem] bg-[#360802] p-4 text-white shadow-soft border-4 border-white">
+                <div className="bg-black/40 rounded-[1.5rem] p-5 space-y-4">
+                  {/* Top phone header */}
+                  <div className="flex justify-between items-center text-[10px] text-white/60">
+                    <span>9:41 AM</span>
+                    <div className="flex items-center gap-1">
+                      <span>5G</span>
+                      <div className="w-4 h-2 border border-white/60 rounded-xs"></div>
+                    </div>
+                  </div>
+
+                  {/* App interface mock */}
+                  <div className="pt-2">
+                    <div className="text-[10px] uppercase text-white/50">Welcome back</div>
+                    <div className="font-heading text-sm font-semibold">Rivers MFB Mobile</div>
+                  </div>
+
+                  <div className="bg-white/10 rounded-xl p-4 border border-white/10">
+                    <div className="text-[10px] text-white/60">Available Balance</div>
+                    <div className="font-heading text-xl font-bold text-white mt-0.5">₦ 840,250.00</div>
+                    <div className="text-[9px] text-[#34c771] mt-1">● Active Account (Tier 3)</div>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-2 pt-1">
+                    <div className="bg-white/5 rounded-lg p-2.5 text-center text-[10px]">
+                      <div className="text-[#f73b20] font-bold">Transfer</div>
+                      <div className="text-white/40">Instant</div>
+                    </div>
+                    <div className="bg-white/5 rounded-lg p-2.5 text-center text-[10px]">
+                      <div className="text-[#34c771] font-bold">Airtime</div>
+                      <div className="text-white/40">Top up</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>

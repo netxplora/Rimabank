@@ -4,77 +4,108 @@ import {
   Building2,
   Smartphone,
   Download,
-  ShieldAlert
+  ShieldAlert,
+  ArrowRight
 } from "lucide-react";
 
 const actions = [
   {
     icon: Wallet,
-    title: "Loans",
-    description: "Personal & SME loans",
+    title: "Credit & Loans",
+    description: "SME and personal facilities",
     href: "/loans",
-    color: "bg-success/10 text-success",
+    color: "#34c771",
+    bg: "#bcffbb",
+    badge: "Fast Approvals"
   },
   {
     icon: Building2,
-    title: "Locate Branch",
-    description: "Find nearest branch",
+    title: "Branch Network",
+    description: "Find an authorized branch",
     href: "/branches",
-    color: "bg-warning/20 text-warning-foreground",
+    color: "#f73b20",
+    bg: "#fdedea",
+    badge: "Regional Access"
   },
   {
     icon: Smartphone,
     title: "Digital Banking",
-    description: "Bank from anywhere",
+    description: "24/7 web & mobile transfers",
     href: "/digital-banking",
-    color: "bg-info/10 text-info",
+    color: "#477ee9",
+    bg: "#e7dcdb",
+    badge: "Instant Settlements"
   },
   {
     icon: Download,
-    title: "Downloads",
-    description: "Apps & Forms",
+    title: "Documents & Forms",
+    description: "Account & loan documents",
     href: "/downloads",
-    color: "bg-primary/10 text-primary",
+    color: "#360802",
+    bg: "#f5ffbb",
+    badge: "Direct Download"
   },
   {
     icon: ShieldAlert,
-    title: "Whistle Blowing",
-    description: "Report safely",
+    title: "Whistleblowing",
+    description: "Confidential ethical reports",
     href: "/whistle-blowing",
-    color: "bg-destructive/10 text-destructive",
+    color: "#fb2d54",
+    bg: "#fdedea",
+    badge: "Protected Portal"
   },
 ];
 
 export function QuickActions() {
   return (
-    <section className="py-16 bg-background">
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-12">
-          <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-4">
-            Quick Actions
-          </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
-            Access our most popular services with just one click
+    <section className="py-20 bg-white border-b border-[#e7dcdb]/60">
+      <div className="max-w-[1200px] mx-auto px-6">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
+          <div>
+            <span className="text-xs font-semibold uppercase tracking-ui text-[#f73b20] block mb-2">
+              Instant Access
+            </span>
+            <h2 className="font-heading text-3xl md:text-4xl font-medium text-[#360802] tracking-tight leading-tight">
+              Essential banking operations.
+            </h2>
+          </div>
+          <p className="text-[#ababab] text-sm max-w-md">
+            Direct shortcuts to account services, compliance resources, and branch support.
           </p>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
           {actions.map((action, index) => (
             <Link
               key={action.title}
               to={action.href}
-              className="group p-6 bg-card rounded-xl border border-border hover:border-primary/30 hover:shadow-lg transition-all duration-300 text-center animate-fade-in"
-              style={{ animationDelay: `${index * 0.1}s` }}
+              className="p-6 rounded-cards bg-white border border-[#e7dcdb] hover:border-[#f73b20]/40 shadow-lift transition-all duration-300 group flex flex-col justify-between"
             >
-              <div className={`w-14 h-14 mx-auto rounded-xl ${action.color} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
-                <action.icon className="h-7 w-7" />
+              <div>
+                <div className="flex items-center justify-between mb-6">
+                  <div 
+                    className="w-12 h-12 rounded-xl flex items-center justify-center transition-transform group-hover:scale-105"
+                    style={{ backgroundColor: action.bg, color: action.color }}
+                  >
+                    <action.icon className="h-6 w-6" />
+                  </div>
+                  <span className="text-[10px] font-semibold uppercase tracking-ui text-[#ababab] group-hover:text-[#f73b20] transition-colors">
+                    {action.badge}
+                  </span>
+                </div>
+
+                <h3 className="font-heading text-lg font-semibold text-[#360802] mb-1 group-hover:text-[#f73b20] transition-colors">
+                  {action.title}
+                </h3>
+                <p className="text-xs text-[#ababab] leading-relaxed">
+                  {action.description}
+                </p>
               </div>
-              <h3 className="font-semibold text-foreground mb-1 group-hover:text-primary transition-colors">
-                {action.title}
-              </h3>
-              <p className="text-xs text-muted-foreground">
-                {action.description}
-              </p>
+
+              <div className="mt-6 pt-3 border-t border-[#e7dcdb]/60 flex items-center justify-between text-xs font-medium text-[#f73b20]">
+                <span>Access</span>
+                <ArrowRight className="h-3.5 w-3.5 transform group-hover:translate-x-1 transition-transform" />
+              </div>
             </Link>
           ))}
         </div>

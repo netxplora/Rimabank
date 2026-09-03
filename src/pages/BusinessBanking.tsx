@@ -1,47 +1,55 @@
 import { Layout } from "@/components/layout/Layout";
-import { Briefcase, Building2, TrendingUp, CheckCircle, ArrowRight, ShieldCheck } from "lucide-react";
+import { Briefcase, Building2, TrendingUp, CheckCircle2, ArrowRight, ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Link } from "react-router-dom";
 
 const businessServices = [
   {
     id: "sme",
-    title: "SME Banking",
+    title: "SME Commercial Banking",
     icon: Briefcase,
-    description: "Structured capital and operational tools designed to facilitate scalable and efficient business expansion for growing enterprises.",
+    category: "Growing Enterprises",
+    bg: "#fdedea",
+    accent: "#f73b20",
+    description: "Structured capital, low-commission merchant POS terminals, and operational support designed for retailers, contractors, and manufacturers.",
     href: "/business-banking/sme",
     benefits: [
-      "Streamlined commercial credit facilities",
-      "Strategic financial advisory services",
-      "Dedicated relationship management",
-      "High-volume transaction capacity"
+      "Streamlined commercial credit assessment",
+      "Dedicated corporate relationship officer",
+      "High-limit daily electronic transaction volume",
+      "Customized working capital overdraft lines"
     ]
   },
   {
     id: "corporate",
     title: "Corporate Accounts",
     icon: Building2,
-    description: "Institutional-grade financial infrastructure for established companies and public sector organizations requiring complex fund management.",
+    category: "Large Operations",
+    bg: "#e7dcdb",
+    accent: "#360802",
+    description: "Financial structure for established corporate entities and institutions requiring multi-signatory accounts and bulk cash flows.",
     href: "/business-banking/corporate",
     benefits: [
-      "Advanced cash management solutions",
-      "Structured trade finance & LCs",
-      "Customized working capital lines",
-      "Executive relationship support"
+      "Automated multi-tier payroll disbursement",
+      "Structured trade finance and contractor credit",
+      "Customized institutional treasury terms",
+      "Priority branch and executive desk support"
     ]
   },
   {
     id: "investments",
-    title: "Commercial Treasury",
+    title: "Commercial Fixed Deposits",
     icon: TrendingUp,
-    description: "Optimize corporate liquidity with competitive fixed deposit structures and treasury instruments designed for institutional accounts.",
-    href: "#",
+    category: "Treasury Yield",
+    bg: "#bcffbb",
+    accent: "#34c771",
+    description: "Optimize corporate idle liquidity with secure, fixed-tenure deposit placements providing guaranteed yields and collateral backing.",
+    href: "/personal-banking/savings",
     benefits: [
-      "Competitive institutional yields",
-      "Customizable maturity structures",
-      "Cash backing for credit facilities",
-      "On-demand liquidity management"
+      "Competitive institutional interest yields",
+      "Flexible maturity tenures (30 to 365 days)",
+      "Usable as collateral for credit lines",
+      "Immediate quarterly or end-of-tenure interest payouts"
     ]
   }
 ];
@@ -49,139 +57,167 @@ const businessServices = [
 export default function BusinessBanking() {
   return (
     <Layout>
-      <section className="relative bg-gradient-hero text-primary-foreground py-20 lg:py-32 overflow-hidden">
-        {/* Background Image */}
-        <div className="absolute inset-0 z-0">
-          <img
-            src="/images/hero-home.png"
-            alt="Business Banking Rima"
-            className="w-full h-full object-cover opacity-20 mix-blend-overlay"
-          />
-        </div>
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="max-w-3xl">
-            <h1 className="font-display text-4xl md:text-5xl lg:text-7xl font-bold mb-6">
-              Strategic Partnership for <span className="text-secondary italic">Corporate Growth</span>
+      {/* Editorial Hero */}
+      <section className="relative bg-white pt-12 pb-20 lg:pt-16 lg:pb-28 border-b border-[#e7dcdb]/60 overflow-hidden">
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#fdedea] rounded-full blur-3xl -z-10 opacity-70 pointer-events-none" />
+
+        <div className="max-w-[1200px] mx-auto px-6">
+          <div className="max-w-3xl space-y-6">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-pills bg-[#fdedea] border border-[#e7dcdb] text-[#360802] text-xs font-semibold uppercase tracking-ui">
+              <span>Commercial & Business Banking</span>
+            </div>
+
+            <h1 className="font-heading text-4xl sm:text-6xl lg:text-7xl font-medium text-[#360802] tracking-tight leading-[0.98]">
+              Banking partnership built for <span className="text-[#f73b20]">enterprise scale</span>.
             </h1>
-            <p className="text-xl text-primary-foreground/80 mb-8 leading-relaxed">
-              From registered SMEs to large-scale corporations, Rima Microfinance Bank provides the 
-              structured banking architecture and expert guidance required to operate efficiently in a dynamic economy.
+
+            <p className="text-[#360802]/80 text-lg md:text-xl font-normal leading-relaxed">
+              From growing SMEs to established corporations, Rima MFB provides the structured commercial banking architecture required to operate with efficiency and financial security.
             </p>
+
+            <div className="pt-2 flex flex-wrap items-center gap-4">
+              <Button variant="pill" size="lg" asChild className="shadow-brand">
+                <Link to="/contact">
+                  Open Business Account
+                  <ArrowRight className="h-4 w-4 ml-1" />
+                </Link>
+              </Button>
+              <Button variant="outlineNeutral" size="lg" asChild className="rounded-buttons">
+                <Link to="/branches">
+                  Meet a Relationship Officer
+                </Link>
+              </Button>
+            </div>
           </div>
         </div>
       </section>
 
-      <section className="py-24 bg-background">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16 max-w-3xl mx-auto">
-            <h2 className="font-display text-3xl md:text-4xl font-bold mb-6">
-              Comprehensive Support for <span className="text-primary italic">Every Stage</span>
+      {/* Services Grid */}
+      <section className="py-24 bg-white border-b border-[#e7dcdb]/60">
+        <div className="max-w-[1200px] mx-auto px-6">
+          <div className="max-w-2xl mb-16">
+            <span className="text-xs font-semibold uppercase tracking-ui text-[#f73b20] block mb-2">
+              Commercial Products
+            </span>
+            <h2 className="font-heading text-3xl md:text-5xl font-medium text-[#360802] tracking-tight leading-[1.05]">
+              Structured solutions for enterprise operations.
             </h2>
-            <p className="text-muted-foreground text-lg">
-              We offer structured commercial banking products engineered specifically for the operational 
-              requirements of modern incorporated entities.
-            </p>
           </div>
 
           <div className="grid lg:grid-cols-3 gap-8">
-            {businessServices.map((service, index) => (
-              <Card 
+            {businessServices.map((service) => (
+              <div 
                 key={service.id} 
-                className="group hover:shadow-2xl transition-all duration-500 border-none bg-card shadow-lg overflow-hidden animate-fade-in"
-                style={{ animationDelay: `${index * 0.1}s` }}
+                className="p-8 rounded-cards bg-white border border-[#e7dcdb] shadow-lift flex flex-col justify-between hover:border-[#f73b20]/30 transition-all duration-300"
               >
-                <CardHeader className="relative pb-0">
-                  <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500">
-                    <service.icon className="h-8 w-8 text-primary" />
+                <div>
+                  <div className="flex items-center justify-between mb-6">
+                    <div 
+                      className="w-12 h-12 rounded-xl flex items-center justify-center"
+                      style={{ backgroundColor: service.bg, color: service.accent }}
+                    >
+                      <service.icon className="h-6 w-6" />
+                    </div>
+                    <span 
+                      className="text-[10px] font-semibold uppercase tracking-ui px-2.5 py-1 rounded-pills"
+                      style={{ backgroundColor: service.bg, color: service.accent }}
+                    >
+                      {service.category}
+                    </span>
                   </div>
-                  <CardTitle className="text-2xl font-bold mb-2 group-hover:text-primary transition-colors">
+
+                  <h3 className="font-heading text-xl font-medium text-[#360802] mb-3">
                     {service.title}
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-6">
-                  <p className="text-muted-foreground leading-relaxed">
+                  </h3>
+
+                  <p className="text-xs text-[#ababab] leading-relaxed mb-6">
                     {service.description}
                   </p>
                   
-                  <div className="space-y-3">
-                    <p className="text-xs font-bold uppercase tracking-widest text-primary">Key Benefits</p>
-                    <ul className="space-y-2">
-                      {service.benefits.map((benefit, i) => (
-                        <li key={i} className="flex items-center gap-3 text-sm text-foreground/80">
-                          <CheckCircle className="h-4 w-4 text-secondary shrink-0" />
-                          <span>{benefit}</span>
-                        </li>
-                      ))}
-                    </ul>
+                  <div className="space-y-2.5 mb-8 pt-4 border-t border-[#e7dcdb]/60">
+                    {service.benefits.map((benefit, i) => (
+                      <div key={i} className="flex items-start gap-2.5 text-xs text-[#360802]">
+                        <CheckCircle2 className="h-4 w-4 text-[#34c771] shrink-0 mt-0.5" />
+                        <span>{benefit}</span>
+                      </div>
+                    ))}
                   </div>
+                </div>
 
-                  <div className="pt-6 border-t border-border/50">
-                    <Button variant="default" className="w-full h-12" asChild>
-                      <Link to={service.href} className="flex items-center justify-center gap-2">
-                        {service.id === 'investments' ? 'Coming Soon' : `Learn More about ${service.title}`}
-                        <ArrowRight className="h-4 w-4" />
-                      </Link>
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
+                <div className="pt-4 border-t border-[#e7dcdb]">
+                  <Button variant="pill" size="default" className="w-full shadow-brand" asChild>
+                    <Link to={service.href}>
+                      Explore Solutions
+                      <ArrowRight className="h-4 w-4 ml-1" />
+                    </Link>
+                  </Button>
+                </div>
+              </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Trust & Security Feature */}
-      <section className="py-24 bg-muted/30 relative overflow-hidden">
-        <div className="container mx-auto px-4">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
-            <div className="space-y-8">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold uppercase tracking-widest">
-                <ShieldCheck className="h-4 w-4" />
-                Trusted by Established Businesses
-              </div>
-              <h2 className="font-display text-3xl md:text-5xl font-bold leading-tight">
-                Corporate Banking with <br />
-                <span className="text-primary italic">Absolute Integrity</span>
+      {/* Corporate Capabilities Section */}
+      <section className="py-24 bg-[#fdedea] border-b border-[#e7dcdb]/60">
+        <div className="max-w-[1200px] mx-auto px-6">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div className="space-y-6">
+              <span className="text-xs font-semibold uppercase tracking-ui text-[#f73b20] block">
+                Operational Capabilities
+              </span>
+              <h2 className="font-heading text-3xl md:text-5xl font-medium text-[#360802] tracking-tight leading-[1.05]">
+                Corporate infrastructure designed for high transaction velocity.
               </h2>
-              <p className="text-muted-foreground text-lg leading-relaxed">
-                As a licensed financial institution, we combine high-level operational security with the structural 
-                flexibility required by dynamic markets. Our infrastructure is designed to automate corporate 
-                financial processes securely and precisely.
+              <p className="text-[#360802]/80 text-sm leading-relaxed">
+                We provide the banking tools required by medium and large enterprises to automate supplier transactions, manage staff payrolls, and maintain liquidity balances.
               </p>
-              
-              <ul className="space-y-5 pt-4">
-                {[
-                  "Automated Payroll Services",
-                  "Bulk Vendor Payments & Transfers",
-                  "POS Deployment with Real-time Settlement",
-                  "Digital Corporate Portals for Internal Approval Flows"
-                ].map((item, i) => (
-                  <li key={i} className="flex items-center gap-4 text-foreground/90 font-medium">
-                    <div className="w-6 h-6 rounded-full bg-secondary flex items-center justify-center text-secondary-foreground shrink-0">
-                      <CheckCircle className="h-4 w-4" />
-                    </div>
-                    {item}
-                  </li>
-                ))}
-              </ul>
 
-              <div className="pt-8">
-                <Button size="lg" className="h-14 px-10 rounded-full text-lg shadow-xl hover:shadow-2xl transition-all" asChild>
-                  <Link to="/contact">Open a Business Account</Link>
+              <div className="space-y-3 pt-2">
+                {[
+                  "Automated bulk staff payroll distribution",
+                  "Fast settlement merchant POS terminal infrastructure",
+                  "Direct vendor transfers with instant digital receipts",
+                  "Customized trade finance and short-term working capital"
+                ].map((item, i) => (
+                  <div key={i} className="flex items-center gap-3 text-xs font-medium text-[#360802]">
+                    <CheckCircle2 className="h-4 w-4 text-[#34c771] shrink-0" />
+                    <span>{item}</span>
+                  </div>
+                ))}
+              </div>
+
+              <div className="pt-4">
+                <Button variant="pill" size="lg" asChild className="shadow-brand">
+                  <Link to="/contact">
+                    Open a Corporate Account
+                    <ArrowRight className="h-4 w-4 ml-1" />
+                  </Link>
                 </Button>
               </div>
             </div>
 
-            <div className="relative">
-              <div className="z-10 relative bg-background rounded-3xl p-4 shadow-2xl border border-border">
-                <img 
-                  src="/images/hero-home.png" 
-                  alt="Corporate Banking with Rima Bank" 
-                  className="rounded-2xl w-full h-[500px] object-cover"
-                />
+            <div className="rounded-cards bg-white border border-[#e7dcdb] p-8 shadow-lift space-y-6">
+              <div className="flex items-center gap-3 pb-4 border-b border-[#e7dcdb]">
+                <ShieldCheck className="h-6 w-6 text-[#f73b20]" />
+                <div>
+                  <h4 className="font-heading text-base font-bold text-[#360802]">Institutional Account Desk</h4>
+                  <p className="text-xs text-[#ababab]">Dedicated Relationship Management</p>
+                </div>
               </div>
-              <div className="absolute -top-12 -left-12 w-64 h-64 bg-primary/20 rounded-full blur-3xl -z-10" />
-              <div className="absolute -bottom-12 -right-12 w-64 h-64 bg-secondary/20 rounded-full blur-3xl -z-10" />
+
+              <div className="space-y-3 text-xs text-[#360802]/80">
+                <p>Every commercial account is assigned an accredited relationship manager based in Port Harcourt to ensure prompt resolution of trade finance and operational requests.</p>
+                <div className="p-4 rounded-xl bg-[#fdedea] border border-[#e7dcdb]">
+                  <span className="font-semibold text-[#360802] block mb-1">Documentation Requirements:</span>
+                  <ul className="list-disc pl-4 space-y-1 text-[#ababab]">
+                    <li>CAC Certificate of Incorporation</li>
+                    <li>Status Report / Memorandum & Articles</li>
+                    <li>Board Resolution for Account Opening</li>
+                    <li>Valid National ID of Authorized Signatories</li>
+                  </ul>
+                </div>
+              </div>
             </div>
           </div>
         </div>

@@ -1,144 +1,176 @@
 import { Layout } from "@/components/layout/Layout";
-import { Store, Users, DollarSign, Smartphone, CheckCircle, ArrowRight } from "lucide-react";
+import { Store, Users, DollarSign, Smartphone, CheckCircle2, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Link } from "react-router-dom";
 
 export default function AgentBanking() {
   const agentBenefits = [
     {
-      title: "Incremental Revenue",
-      description: "Generate structured commission-based income on every transaction processed via our secure infrastructure.",
+      title: "Direct Commission Revenue",
+      description: "Earn consistent transaction fee commissions on every cash deposit, withdrawal, and utility bill processed.",
       icon: DollarSign,
+      bg: "#bcffbb",
+      color: "#34c771"
     },
     {
-      title: "Operational Expansion",
-      description: "Leverage increased consumer footfall as our banking services integrate with your existing business operations.",
+      title: "Increased Store Footfall",
+      description: "Attract more neighborhood customers to your retail premises as an authorized financial service center.",
       icon: Store,
+      bg: "#fdedea",
+      color: "#f73b20"
     },
     {
-      title: "Financial Inclusion",
-      description: "Facilitate essential financial access in underserved communities as an authorized local representative.",
+      title: "Community Service Hub",
+      description: "Provide vital cash and payment access in residential clusters distant from commercial bank branches.",
       icon: Users,
+      bg: "#e7dcdb",
+      color: "#477ee9"
     },
     {
-      title: "Consolidated Infrastructure",
-      description: "Utilize our secure, streamlined POS terminals and digital platforms for precise transaction management.",
+      title: "Certified POS Infrastructure",
+      description: "Receive a robust, NIBSS-connected POS device with high transaction reliability and prompt technical support.",
       icon: Smartphone,
+      bg: "#f5ffbb",
+      color: "#360802"
     },
   ];
 
   return (
     <Layout>
-      {/* Hero Section */}
-      <section className="relative bg-gradient-hero text-primary-foreground py-20 lg:py-32 overflow-hidden">
-        <div className="absolute inset-0 z-0">
-          <img
-            src="/images/rivers-agent-hero.png"
-            alt="Agency Banking Infrastructure"
-            className="w-full h-full object-cover opacity-20 mix-blend-overlay"
-          />
-        </div>
-        <div className="container mx-auto px-4 relative z-10 text-center max-w-4xl">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary-foreground/10 border border-primary-foreground/20 mb-6">
-            <Store className="h-4 w-4 text-secondary" />
-            <span className="text-sm font-medium">Authorized Financial Representative</span>
+      {/* Editorial Hero */}
+      <section className="relative bg-white pt-12 pb-20 lg:pt-16 lg:pb-28 border-b border-[#e7dcdb]/60 overflow-hidden">
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#fdedea] rounded-full blur-3xl -z-10 opacity-70 pointer-events-none" />
+
+        <div className="max-w-[1200px] mx-auto px-6">
+          <div className="max-w-3xl space-y-6">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-pills bg-[#fdedea] border border-[#e7dcdb] text-[#360802] text-xs font-semibold uppercase tracking-ui">
+              <span>Agency Banking Network</span>
+            </div>
+
+            <h1 className="font-heading text-4xl sm:text-6xl lg:text-7xl font-medium text-[#360802] tracking-tight leading-[0.98]">
+              Become an authorized <span className="text-[#f73b20]">Rima MFB Agent</span>.
+            </h1>
+
+            <p className="text-[#360802]/80 text-lg md:text-xl font-normal leading-relaxed">
+              Partner with a CBN-licensed microfinance bank to deliver cash deposits, withdrawals, and bill settlements within your local community while earning steady commission income.
+            </p>
+
+            <div className="pt-2 flex flex-wrap items-center gap-4">
+              <Button variant="pill" size="lg" asChild className="shadow-brand">
+                <Link to="/contact">
+                  Apply for POS Terminal
+                  <ArrowRight className="h-4 w-4 ml-1" />
+                </Link>
+              </Button>
+              <Button variant="outlineNeutral" size="lg" asChild className="rounded-buttons">
+                <Link to="/branches">
+                  Locate Branch Agent Desk
+                </Link>
+              </Button>
+            </div>
           </div>
-          <h1 className="font-display text-4xl md:text-5xl lg:text-7xl font-bold mb-6">
-            Agency Banking Network
-          </h1>
-          <p className="text-xl text-primary-foreground/80 leading-relaxed mb-8">
-            Partner with Rima Microfinance Bank to establish a secure financial access point within your local community while optimizing your business revenue.
-          </p>
-          <Button size="xl" className="px-10" asChild>
-            <Link to="/contact">Join the Network</Link>
-          </Button>
         </div>
       </section>
 
       {/* Benefits Grid */}
-      <section className="py-24 bg-background">
-        <div className="container mx-auto px-4">
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <h2 className="text-3xl md:text-4xl font-display font-bold mb-4">Strategic Partnership Benefits</h2>
-            <p className="text-muted-foreground">Our agency model is engineered to provide sustainable business growth through structured support and proven financial technology.</p>
+      <section className="py-24 bg-white border-b border-[#e7dcdb]/60">
+        <div className="max-w-[1200px] mx-auto px-6">
+          <div className="max-w-2xl mb-16">
+            <span className="text-xs font-semibold uppercase tracking-ui text-[#f73b20] block mb-2">
+              Partner Advantages
+            </span>
+            <h2 className="font-heading text-3xl md:text-5xl font-medium text-[#360802] tracking-tight leading-[1.05]">
+              Commercial benefits of partnering with Rima MFB.
+            </h2>
           </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {agentBenefits.map((benefit, idx) => (
-              <Card key={idx} className="border-none shadow-lg hover:shadow-xl transition-shadow bg-muted/30">
-                <CardHeader>
-                  <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center mb-2">
-                    <benefit.icon className="h-6 w-6 text-primary" />
+              <div 
+                key={idx} 
+                className="p-8 rounded-cards bg-white border border-[#e7dcdb] shadow-lift hover:border-[#f73b20]/30 transition-all duration-300 flex flex-col justify-between"
+              >
+                <div>
+                  <div 
+                    className="w-12 h-12 rounded-xl flex items-center justify-center mb-6"
+                    style={{ backgroundColor: benefit.bg, color: benefit.color }}
+                  >
+                    <benefit.icon className="h-6 w-6" />
                   </div>
-                  <CardTitle className="text-lg">{benefit.title}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-sm text-muted-foreground">{benefit.description}</p>
-                </CardContent>
-              </Card>
+                  <h3 className="font-heading text-lg font-semibold text-[#360802] mb-2">{benefit.title}</h3>
+                  <p className="text-xs text-[#ababab] leading-relaxed">{benefit.description}</p>
+                </div>
+              </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Services Section */}
-      <section className="py-24 bg-muted/20">
-        <div className="container mx-auto px-4">
-          <div className="flex flex-col lg:flex-row gap-16 items-center">
-            <div className="lg:w-1/2">
-              <h2 className="text-3xl md:text-4xl font-display font-bold mb-6">Services You Can Provide</h2>
-              <div className="space-y-4">
+      {/* Authorized Services Section */}
+      <section className="py-24 bg-[#fdedea] border-b border-[#e7dcdb]/60">
+        <div className="max-w-[1200px] mx-auto px-6">
+          <div className="grid lg:grid-cols-12 gap-12 items-center">
+            <div className="lg:col-span-6 space-y-6">
+              <span className="text-xs font-semibold uppercase tracking-ui text-[#f73b20] block">
+                Transaction Menu
+              </span>
+              <h2 className="font-heading text-3xl md:text-5xl font-medium text-[#360802] tracking-tight leading-[1.05]">
+                Services you will offer to your customers.
+              </h2>
+              <p className="text-[#360802]/80 text-sm leading-relaxed">
+                As a certified agent, you will be equipped with a high-speed terminal configured for immediate settlement across all major payment types.
+              </p>
+
+              <div className="space-y-3 pt-2">
                 {[
-                  "Account Origination & Enrollment",
-                  "Structured Cash Deposits & Withdrawals",
-                  "Consolidated Fund Transfers (Local & Interbank)",
-                  "Electronic Bill Payment Settlement",
-                  "Electronic Airtime & Data Distribution",
-                  "Identity Verification (BVN) Enrollment Support"
+                  "Cash deposits into any Nigerian bank account",
+                  "Instant cash withdrawals via Debit Card PIN",
+                  "Inter-bank fund transfers with printed confirmation",
+                  "PHED electricity bill settlement and meter token generation",
+                  "Airtime, data, and Cable TV recharge",
+                  "Customer balance inquiries and mini-statements"
                 ].map((service, idx) => (
-                  <div key={idx} className="flex gap-3 items-center">
-                    <CheckCircle className="h-5 w-5 text-secondary shrink-0" />
-                    <span className="font-medium">{service}</span>
+                  <div key={idx} className="flex items-center gap-3 text-xs font-medium text-[#360802]">
+                    <CheckCircle2 className="h-4 w-4 text-[#34c771] shrink-0" />
+                    <span>{service}</span>
                   </div>
                 ))}
               </div>
-              <Button className="mt-8" size="lg" asChild>
-                <Link to="/contact"> Get Started <ArrowRight className="ml-2 h-4 w-4" /> </Link>
-              </Button>
-            </div>
-            <div className="lg:w-1/2">
-              <div className="rounded-3xl overflow-hidden shadow-2xl relative group border-4 border-white/10">
-                <img 
-                  src="/images/rivers-agent-hero.png" 
-                  alt="POS Terminal and Merchant Services" 
-                  className="w-full h-[400px] object-cover transform group-hover:scale-105 transition-transform duration-700" 
-                />
-                <div className="absolute inset-0 bg-primary/20 mix-blend-overlay" />
+
+              <div className="pt-4">
+                <Button variant="pill" size="lg" asChild className="shadow-brand">
+                  <Link to="/contact">
+                    Become an Agent Now
+                    <ArrowRight className="h-4 w-4 ml-1" />
+                  </Link>
+                </Button>
               </div>
             </div>
-          </div>
-        </div>
-      </section>
 
-      {/* FAQ/How it works */}
-      <section className="py-24 bg-background">
-        <div className="container mx-auto px-4 max-w-4xl">
-          <h2 className="text-3xl font-display font-bold mb-12 text-center">Operational Integration Lifecycle</h2>
-          <div className="grid md:grid-cols-3 gap-8">
-            <div className="text-center">
-              <div className="w-12 h-12 bg-primary text-white rounded-full flex items-center justify-center mx-auto mb-4 font-bold text-xl">1</div>
-              <h3 className="font-bold mb-2">Application</h3>
-              <p className="text-sm text-muted-foreground">Submit a formal application via our regional branches or digital portal.</p>
-            </div>
-            <div className="text-center">
-              <div className="w-12 h-12 bg-primary text-white rounded-full flex items-center justify-center mx-auto mb-4 font-bold text-xl">2</div>
-              <h3 className="font-bold mb-2">Verification</h3>
-              <p className="text-sm text-muted-foreground">Our compliance team will execute an on-site inspection and KYC verification.</p>
-            </div>
-            <div className="text-center">
-              <div className="w-12 h-12 bg-primary text-white rounded-full flex items-center justify-center mx-auto mb-4 font-bold text-xl">3</div>
-              <h3 className="font-bold mb-2">Operationalization</h3>
-              <p className="text-sm text-muted-foreground">Deploy our secure POS infrastructure and commence transaction processing.</p>
+            <div className="lg:col-span-6">
+              <div className="rounded-cards bg-white border border-[#e7dcdb] p-8 shadow-lift space-y-6">
+                <h3 className="font-heading text-lg font-bold text-[#360802] pb-4 border-b border-[#e7dcdb]">
+                  Agent Eligibility Criteria
+                </h3>
+                <ul className="space-y-3 text-xs text-[#360802]/80">
+                  <li className="flex items-start gap-2">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#f73b20] shrink-0 mt-1.5" />
+                    <span>Existing physical commercial premise, shop, or retail outlet.</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#f73b20] shrink-0 mt-1.5" />
+                    <span>Valid National Identification Number (NIN) or Voter's Card.</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#f73b20] shrink-0 mt-1.5" />
+                    <span>Recent utility bill (Electricity or Water) of the business location.</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#f73b20] shrink-0 mt-1.5" />
+                    <span>Minimum working float capital for daily cash operations.</span>
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
         </div>
