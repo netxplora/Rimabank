@@ -51,7 +51,7 @@ export default function Careers() {
         </div>
       </section>
 
-      {/* Workplace Culture 3-Column Grid */}
+      {/* Workplace Culture 3-Column Grid — Open Layout */}
       <section className="py-16 md:py-20 bg-white border-b border-[#e7dcdb]/60">
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
           <div className="max-w-2xl mb-12">
@@ -63,32 +63,32 @@ export default function Careers() {
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
-            <div className="card-3d p-8 rounded-2xl bg-white border border-[#e7dcdb] shadow-3d space-y-4">
-              <div className="w-12 h-12 rounded-xl bg-[#bcffbb] text-[#34c771] flex items-center justify-center shadow-sm">
-                <Heart className="h-6 w-6" />
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 border-t border-[#e7dcdb]/80 pt-10">
+            <div className="flex flex-col justify-start">
+              <div className="w-10 h-10 rounded-xl bg-[#bcffbb] text-[#34c771] flex items-center justify-center mb-4">
+                <Heart className="h-5 w-5" />
               </div>
-              <h3 className="font-heading text-lg font-semibold text-[#360802]">Community Impact</h3>
+              <h3 className="font-heading text-base font-semibold text-[#360802] mb-1.5">Community Impact</h3>
               <p className="text-xs text-[#ababab] leading-relaxed">
                 Directly support local business owners, students, and families in accessing structured banking capital.
               </p>
             </div>
 
-            <div className="card-3d p-8 rounded-2xl bg-white border border-[#e7dcdb] shadow-3d space-y-4">
-              <div className="w-12 h-12 rounded-xl bg-[#fdedea] text-[#f73b20] flex items-center justify-center shadow-sm">
-                <GraduationCap className="h-6 w-6" />
+            <div className="flex flex-col justify-start">
+              <div className="w-10 h-10 rounded-xl bg-[#fdedea] text-[#f73b20] flex items-center justify-center mb-4">
+                <GraduationCap className="h-5 w-5" />
               </div>
-              <h3 className="font-heading text-lg font-semibold text-[#360802]">Professional Development</h3>
+              <h3 className="font-heading text-base font-semibold text-[#360802] mb-1.5">Professional Development</h3>
               <p className="text-xs text-[#ababab] leading-relaxed">
                 Structured banking training, regulatory compliance certifications, and clear internal leadership pathways.
               </p>
             </div>
 
-            <div className="card-3d p-8 rounded-2xl bg-white border border-[#e7dcdb] shadow-3d space-y-4">
-              <div className="w-12 h-12 rounded-xl bg-[#e7dcdb] text-[#477ee9] flex items-center justify-center shadow-sm">
-                <Users className="h-6 w-6" />
+            <div className="flex flex-col justify-start">
+              <div className="w-10 h-10 rounded-xl bg-[#e7dcdb] text-[#477ee9] flex items-center justify-center mb-4">
+                <Users className="h-5 w-5" />
               </div>
-              <h3 className="font-heading text-lg font-semibold text-[#360802]">Collaborative Culture</h3>
+              <h3 className="font-heading text-base font-semibold text-[#360802] mb-1.5">Collaborative Culture</h3>
               <p className="text-xs text-[#ababab] leading-relaxed">
                 Work alongside experienced banking executives in an ethical, transparent, and merit-driven environment.
               </p>
@@ -97,36 +97,36 @@ export default function Careers() {
         </div>
       </section>
 
-      {/* Current Job Openings Grid */}
-      <section className="py-16 md:py-20 bg-gradient-to-b from-[#fdedea]/50 to-white border-b border-[#e7dcdb]/60">
+      {/* Current Job Openings — Open Divided List */}
+      <section className="py-16 md:py-20 bg-gradient-to-b from-[#fdedea]/40 to-white border-b border-[#e7dcdb]/60">
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
-          <div className="max-w-2xl mb-10">
+          <div className="max-w-2xl mb-8">
             <span className="text-xs font-semibold uppercase tracking-wider text-[#f73b20] block mb-2">
               Available Positions
             </span>
-            <h2 className="font-heading text-3xl sm:text-4xl font-semibold text-[#360802] tracking-tight leading-tight">
+            <h2 className="font-heading text-2xl sm:text-3xl font-semibold text-[#360802] tracking-tight leading-tight">
               Current Open Roles
             </h2>
           </div>
 
-          <div className="space-y-4 max-w-4xl">
+          <div className="divide-y divide-[#e7dcdb]/80 border-t border-b border-[#e7dcdb]/80 max-w-4xl">
             {jobOpenings.map((job) => (
               <div 
                 key={job.id} 
-                className="card-3d p-6 md:p-8 rounded-2xl bg-white border border-[#e7dcdb] shadow-3d flex flex-col md:flex-row justify-between items-start md:items-center gap-6"
+                className="py-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-5"
               >
-                <div className="space-y-2">
-                  <h3 className="font-heading text-lg font-semibold text-[#360802]">{job.title}</h3>
+                <div className="space-y-1.5">
+                  <h3 className="font-heading text-base font-semibold text-[#360802]">{job.title}</h3>
                   <div className="flex items-center gap-4 text-xs text-[#ababab]">
                     <span className="flex items-center gap-1.5"><MapPin className="h-3.5 w-3.5 text-[#f73b20]" /> {job.location}</span>
                     <span className="flex items-center gap-1.5"><Clock className="h-3.5 w-3.5 text-[#34c771]" /> {job.type}</span>
                   </div>
-                  <p className="text-xs text-[#360802]/70 leading-relaxed pt-1">{job.description}</p>
+                  <p className="text-xs text-[#360802]/70 leading-relaxed pt-0.5">{job.description}</p>
                 </div>
                 <Button
                   variant="pill"
                   size="default"
-                  className="shrink-0 bg-[#f73b20] hover:bg-[#f84d35] text-white shadow-3d-orange transform hover:-translate-y-0.5 transition-all"
+                  className="shrink-0 bg-[#f73b20] hover:bg-[#f84d35] text-white shadow-3d-orange transform hover:-translate-y-0.5 transition-all text-xs"
                   asChild
                 >
                   <Link to={`/contact?subject=Career+Application+-+${encodeURIComponent(job.title)}`}>

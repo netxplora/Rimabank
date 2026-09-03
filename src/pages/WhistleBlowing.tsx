@@ -48,32 +48,32 @@ export default function WhistleBlowing() {
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14">
             
-            {/* Info Sidebar (4 cols) */}
+            {/* Info Sidebar (4 cols) — Open Layout */}
             <div className="lg:col-span-4 space-y-6">
-              <div className="card-3d p-7 sm:p-8 rounded-2xl bg-white border border-[#e7dcdb] shadow-3d space-y-4">
+              <div className="space-y-3 pb-6 border-b border-[#e7dcdb]/80">
                 <h3 className="font-heading text-lg font-semibold text-[#360802]">Reportable Issues</h3>
-                <ul className="space-y-2.5 text-xs text-[#360802]/85">
-                  <li className="flex items-center gap-2.5 p-1.5 rounded-lg hover:bg-[#fdedea]/50">
-                    <span className="w-2 h-2 rounded-full bg-[#fb2d54] shrink-0" />
+                <ul className="space-y-2 text-xs text-[#360802]/85">
+                  <li className="flex items-center gap-2.5 py-1">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#fb2d54] shrink-0" />
                     <span>Financial fraud & unauthorized debits</span>
                   </li>
-                  <li className="flex items-center gap-2.5 p-1.5 rounded-lg hover:bg-[#fdedea]/50">
-                    <span className="w-2 h-2 rounded-full bg-[#fb2d54] shrink-0" />
+                  <li className="flex items-center gap-2.5 py-1">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#fb2d54] shrink-0" />
                     <span>Bribery, extortion, or conflicts of interest</span>
                   </li>
-                  <li className="flex items-center gap-2.5 p-1.5 rounded-lg hover:bg-[#fdedea]/50">
-                    <span className="w-2 h-2 rounded-full bg-[#fb2d54] shrink-0" />
+                  <li className="flex items-center gap-2.5 py-1">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#fb2d54] shrink-0" />
                     <span>Breach of Central Bank guidelines</span>
                   </li>
-                  <li className="flex items-center gap-2.5 p-1.5 rounded-lg hover:bg-[#fdedea]/50">
-                    <span className="w-2 h-2 rounded-full bg-[#fb2d54] shrink-0" />
+                  <li className="flex items-center gap-2.5 py-1">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#fb2d54] shrink-0" />
                     <span>Workplace harassment or discrimination</span>
                   </li>
                 </ul>
               </div>
 
-              <div className="card-3d p-7 sm:p-8 rounded-2xl bg-gradient-to-br from-[#fdedea] to-white border border-[#e7dcdb] shadow-3d space-y-3">
-                <div className="flex items-center gap-2 text-xs font-bold text-[#360802]">
+              <div className="space-y-2">
+                <div className="flex items-center gap-2 text-xs font-semibold text-[#360802]">
                   <ShieldCheck className="h-4 w-4 text-[#34c771]" />
                   <span>Whistleblower Protection</span>
                 </div>
@@ -85,7 +85,7 @@ export default function WhistleBlowing() {
 
             {/* Reporting Form (8 cols) */}
             <div className="lg:col-span-8">
-              <div className="card-3d p-6 sm:p-10 rounded-3xl bg-white border border-[#e7dcdb] shadow-3d space-y-6">
+              <div className="rounded-2xl bg-white border border-[#e7dcdb] p-6 sm:p-8 space-y-6">
                 <div>
                   <h2 className="font-heading text-2xl font-semibold text-[#360802] tracking-tight">
                     Submit a Confidential Incident Report

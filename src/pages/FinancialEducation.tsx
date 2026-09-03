@@ -119,45 +119,46 @@ export default function FinancialEducation() {
       {/* Articles Grid */}
       <section className="py-16 md:py-20 bg-white border-b border-[#e7dcdb]/60">
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
-            {filteredArticles.map((article, idx) => (
-              <div
-                key={idx}
-                className="card-3d rounded-2xl bg-white border border-[#e7dcdb] shadow-3d p-6 sm:p-8 hover:border-[#f73b20]/30 transition-all duration-300 flex flex-col justify-between group"
-              >
-                <div>
-                  <div className="flex items-center justify-between pb-4 border-b border-[#e7dcdb]/60 mb-5">
-                    <span className="text-[10px] uppercase font-bold tracking-wider px-2.5 py-1 rounded-full bg-[#fdedea] text-[#f73b20] border border-[#e7dcdb]">
-                      {article.category}
-                    </span>
-                    <span className="text-xs text-[#ababab]">{article.date}</span>
-                  </div>
-
-                  <div className="flex items-start gap-4 mb-4">
-                    <div 
-                      className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 shadow-sm"
-                      style={{ backgroundColor: article.bg, color: article.color }}
-                    >
-                      <article.icon className="h-5 w-5" />
-                    </div>
-                    <h3 className="font-heading text-lg font-semibold text-[#360802] group-hover:text-[#f73b20] transition-colors leading-snug">
-                      {article.title}
-                    </h3>
-                  </div>
-
-                  <p className="text-xs text-[#ababab] leading-relaxed mb-6">
-                    {article.description}
-                  </p>
-                </div>
-
-                <div className="pt-4 border-t border-[#e7dcdb]/60">
-                  <span className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-[#f73b20] group-hover:text-[#f84d35]">
-                    Read Full Article <ArrowRight className="h-3.5 w-3.5 transform group-hover:translate-x-1.5 transition-transform" />
+        {/* Open 2-Column Articles Layout (No heavy card containers) */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-12">
+          {filteredArticles.map((article, idx) => (
+            <div
+              key={idx}
+              className="flex flex-col justify-between group border-t border-[#e7dcdb]/80 pt-6"
+            >
+              <div>
+                <div className="flex items-center justify-between mb-4">
+                  <span className="text-[10px] uppercase font-bold tracking-wider px-2.5 py-0.5 rounded-full bg-[#fdedea] text-[#f73b20]">
+                    {article.category}
                   </span>
+                  <span className="text-xs text-[#ababab]">{article.date}</span>
                 </div>
+
+                <div className="flex items-start gap-3.5 mb-3">
+                  <div 
+                    className="w-9 h-9 rounded-lg flex items-center justify-center shrink-0 mt-0.5"
+                    style={{ backgroundColor: article.bg, color: article.color }}
+                  >
+                    <article.icon className="h-4.5 w-4.5" />
+                  </div>
+                  <h3 className="font-heading text-lg font-semibold text-[#360802] group-hover:text-[#f73b20] transition-colors leading-snug">
+                    {article.title}
+                  </h3>
+                </div>
+
+                <p className="text-xs text-[#ababab] leading-relaxed mb-5">
+                  {article.description}
+                </p>
               </div>
-            ))}
-          </div>
+
+              <div className="pt-3 border-t border-[#e7dcdb]/60">
+                <span className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-[#f73b20] group-hover:text-[#f84d35]">
+                  Read Full Article <ArrowRight className="h-3.5 w-3.5 transform group-hover:translate-x-1.5 transition-transform" />
+                </span>
+              </div>
+            </div>
+          ))}
+        </div>
         </div>
       </section>
     </Layout>
