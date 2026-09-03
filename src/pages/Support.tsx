@@ -71,22 +71,23 @@ export default function Support() {
       <section className="py-16 md:py-20 bg-white border-b border-[#e7dcdb]/60">
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 mb-16">
+          {/* Support Channels — Open 3-Column Layout (No heavy card containers) */}
+          <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-[#e7dcdb]/80 border-t border-b border-[#e7dcdb]/80 py-4 mb-16">
             {supportChannels.map((channel, idx) => (
               <div 
                 key={idx} 
-                className="card-3d p-7 sm:p-8 rounded-2xl bg-white border border-[#e7dcdb] shadow-3d flex flex-col justify-between hover:border-[#f73b20]/30 transition-all duration-300"
+                className="py-8 md:p-6 lg:p-8 flex flex-col justify-between"
               >
                 <div>
                   <div 
-                    className="w-12 h-12 rounded-xl flex items-center justify-center mb-6 shadow-sm"
+                    className="w-10 h-10 rounded-xl flex items-center justify-center mb-4"
                     style={{ backgroundColor: channel.bg, color: channel.color }}
                   >
-                    <channel.icon className="h-6 w-6" />
+                    <channel.icon className="h-5 w-5" />
                   </div>
-                  <h3 className="font-heading text-xl font-semibold text-[#360802] mb-2">{channel.title}</h3>
-                  <p className="text-xs text-[#ababab] leading-relaxed mb-4">{channel.description}</p>
-                  <p className="font-heading text-sm font-bold text-[#360802] mb-6">{channel.contact}</p>
+                  <h3 className="font-heading text-lg font-semibold text-[#360802] mb-1.5">{channel.title}</h3>
+                  <p className="text-xs text-[#ababab] leading-relaxed mb-3">{channel.description}</p>
+                  <p className="font-heading text-sm font-bold text-[#360802] mb-5">{channel.contact}</p>
                 </div>
                 <div>
                   <Button 
@@ -116,12 +117,12 @@ export default function Support() {
                 </h3>
               </div>
 
-              <div className="space-y-3">
+              <div className="divide-y divide-[#e7dcdb]/70 border-t border-b border-[#e7dcdb]/70">
                 {resources.map((res, i) => (
                   <Link 
                     key={i} 
                     to={res.href} 
-                    className="card-3d flex items-center justify-between p-4 rounded-2xl bg-white border border-[#e7dcdb] shadow-3d hover:border-[#f73b20]/30 transition-all text-xs font-semibold text-[#360802] group"
+                    className="flex items-center justify-between py-3.5 text-xs font-semibold text-[#360802] hover:text-[#f73b20] transition-colors group"
                   >
                     <div className="flex items-center gap-3">
                       <res.icon className="h-4 w-4 text-[#f73b20]" />

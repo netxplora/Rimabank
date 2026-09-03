@@ -29,142 +29,143 @@ export default function Downloads() {
       {/* 3-Column Responsive Downloads Grid */}
       <section className="py-16 md:py-20 bg-white border-b border-[#e7dcdb]/60">
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-            
-            {/* Mobile Applications 3D Card */}
-            <div className="card-3d p-7 sm:p-8 rounded-2xl bg-white border border-[#e7dcdb] shadow-3d hover:border-[#f73b20]/40 flex flex-col justify-between">
-              <div>
-                <div className="w-12 h-12 rounded-xl bg-[#e7dcdb] text-[#477ee9] flex items-center justify-center mb-6 shadow-sm">
-                  <Smartphone className="h-6 w-6" />
-                </div>
-                <h3 className="font-heading text-xl font-semibold text-[#360802] mb-2">Mobile Applications</h3>
-                <p className="text-xs text-[#ababab] leading-relaxed mb-6">
-                  Direct installers for mobile banking on iOS and Android smartphones.
-                </p>
+        {/* Open 3-Column Downloads Layout (No heavy card containers) */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10 border-t border-[#e7dcdb]/80 pt-10">
+          
+          {/* Mobile Applications */}
+          <div className="flex flex-col justify-between">
+            <div>
+              <div className="w-10 h-10 rounded-xl bg-[#e7dcdb] text-[#477ee9] flex items-center justify-center mb-4">
+                <Smartphone className="h-5 w-5" />
+              </div>
+              <h3 className="font-heading text-lg font-semibold text-[#360802] mb-1.5">Mobile Applications</h3>
+              <p className="text-xs text-[#ababab] leading-relaxed mb-5">
+                Direct installers for mobile banking on iOS and Android smartphones.
+              </p>
 
-                <div className="space-y-3">
-                  <a
-                    href="#download-android"
-                    className="flex items-center justify-between p-3.5 rounded-xl bg-[#fdedea] border border-[#e7dcdb] text-xs font-semibold text-[#360802] hover:border-[#f73b20] transition-colors shadow-xs"
-                  >
-                    <span className="flex items-center gap-2">
-                      <Download className="h-4 w-4 text-[#f73b20]" />
-                      Android Package (APK)
-                    </span>
-                    <span className="text-[10px] text-[#ababab]">v2.4.1</span>
-                  </a>
+              <div className="divide-y divide-[#e7dcdb]/70 border-t border-b border-[#e7dcdb]/70">
+                <a
+                  href="#download-android"
+                  className="flex items-center justify-between py-3 text-xs font-semibold text-[#360802] hover:text-[#f73b20] transition-colors"
+                >
+                  <span className="flex items-center gap-2">
+                    <Download className="h-4 w-4 text-[#f73b20]" />
+                    Android Package (APK)
+                  </span>
+                  <span className="text-[10px] text-[#ababab]">v2.4.1</span>
+                </a>
 
-                  <a
-                    href="#download-ios"
-                    className="flex items-center justify-between p-3.5 rounded-xl bg-[#fdedea] border border-[#e7dcdb] text-xs font-semibold text-[#360802] hover:border-[#f73b20] transition-colors shadow-xs"
-                  >
-                    <span className="flex items-center gap-2">
-                      <Download className="h-4 w-4 text-[#f73b20]" />
-                      Apple iOS App Store
-                    </span>
-                    <span className="text-[10px] text-[#ababab]">iOS 13+</span>
-                  </a>
-                </div>
+                <a
+                  href="#download-ios"
+                  className="flex items-center justify-between py-3 text-xs font-semibold text-[#360802] hover:text-[#f73b20] transition-colors"
+                >
+                  <span className="flex items-center gap-2">
+                    <Download className="h-4 w-4 text-[#f73b20]" />
+                    Apple iOS App Store
+                  </span>
+                  <span className="text-[10px] text-[#ababab]">iOS 13+</span>
+                </a>
               </div>
             </div>
-
-            {/* Account Opening Forms 3D Card */}
-            <div className="card-3d p-7 sm:p-8 rounded-2xl bg-white border border-[#e7dcdb] shadow-3d hover:border-[#f73b20]/40 flex flex-col justify-between">
-              <div>
-                <div className="w-12 h-12 rounded-xl bg-[#bcffbb] text-[#34c771] flex items-center justify-center mb-6 shadow-sm">
-                  <FileText className="h-6 w-6" />
-                </div>
-                <h3 className="font-heading text-xl font-semibold text-[#360802] mb-2">Account Opening Forms</h3>
-                <p className="text-xs text-[#ababab] leading-relaxed mb-6">
-                  Printable forms for offline branch account origination and mandate changes.
-                </p>
-
-                <div className="space-y-3">
-                  <a
-                    href="#"
-                    className="flex items-center justify-between p-3.5 rounded-xl bg-[#fdedea] border border-[#e7dcdb] text-xs font-semibold text-[#360802] hover:border-[#f73b20] transition-colors shadow-xs"
-                  >
-                    <span className="flex items-center gap-2">
-                      <FileText className="h-4 w-4 text-[#34c771]" />
-                      Individual Account Form (PDF)
-                    </span>
-                    <span className="text-[10px] text-[#ababab]">1.2 MB</span>
-                  </a>
-
-                  <a
-                    href="#"
-                    className="flex items-center justify-between p-3.5 rounded-xl bg-[#fdedea] border border-[#e7dcdb] text-xs font-semibold text-[#360802] hover:border-[#f73b20] transition-colors shadow-xs"
-                  >
-                    <span className="flex items-center gap-2">
-                      <FileText className="h-4 w-4 text-[#34c771]" />
-                      Corporate Account Form (PDF)
-                    </span>
-                    <span className="text-[10px] text-[#ababab]">1.8 MB</span>
-                  </a>
-
-                  <a
-                    href="#"
-                    className="flex items-center justify-between p-3.5 rounded-xl bg-[#fdedea] border border-[#e7dcdb] text-xs font-semibold text-[#360802] hover:border-[#f73b20] transition-colors shadow-xs"
-                  >
-                    <span className="flex items-center gap-2">
-                      <FileText className="h-4 w-4 text-[#34c771]" />
-                      Mandate Update Form (PDF)
-                    </span>
-                    <span className="text-[10px] text-[#ababab]">0.8 MB</span>
-                  </a>
-                </div>
-              </div>
-            </div>
-
-            {/* Regulatory Disclosures 3D Card */}
-            <div className="card-3d p-7 sm:p-8 rounded-2xl bg-white border border-[#e7dcdb] shadow-3d hover:border-[#f73b20]/40 flex flex-col justify-between">
-              <div>
-                <div className="w-12 h-12 rounded-xl bg-[#fdedea] text-[#f73b20] flex items-center justify-center mb-6 shadow-sm">
-                  <Shield className="h-6 w-6" />
-                </div>
-                <h3 className="font-heading text-xl font-semibold text-[#360802] mb-2">Policies & Disclosures</h3>
-                <p className="text-xs text-[#ababab] leading-relaxed mb-6">
-                  Statutory customer protection frameworks and regulatory guidelines.
-                </p>
-
-                <div className="space-y-3">
-                  <Link
-                    to="/terms"
-                    className="flex items-center justify-between p-3.5 rounded-xl bg-[#fdedea] border border-[#e7dcdb] text-xs font-semibold text-[#360802] hover:border-[#f73b20] transition-colors shadow-xs"
-                  >
-                    <span className="flex items-center gap-2">
-                      <FileText className="h-4 w-4 text-[#f73b20]" />
-                      General Terms & Conditions
-                    </span>
-                    <ArrowRight className="h-3.5 w-3.5 text-[#f73b20]" />
-                  </Link>
-
-                  <Link
-                    to="/privacy"
-                    className="flex items-center justify-between p-3.5 rounded-xl bg-[#fdedea] border border-[#e7dcdb] text-xs font-semibold text-[#360802] hover:border-[#f73b20] transition-colors shadow-xs"
-                  >
-                    <span className="flex items-center gap-2">
-                      <FileText className="h-4 w-4 text-[#f73b20]" />
-                      Privacy & Data Protection Policy
-                    </span>
-                    <ArrowRight className="h-3.5 w-3.5 text-[#f73b20]" />
-                  </Link>
-
-                  <a
-                    href="#"
-                    className="flex items-center justify-between p-3.5 rounded-xl bg-[#fdedea] border border-[#e7dcdb] text-xs font-semibold text-[#360802] hover:border-[#f73b20] transition-colors shadow-xs"
-                  >
-                    <span className="flex items-center gap-2">
-                      <FileText className="h-4 w-4 text-[#f73b20]" />
-                      CBN Consumer Protection Guide
-                    </span>
-                    <span className="text-[10px] text-[#ababab]">2.1 MB</span>
-                  </a>
-                </div>
-              </div>
-            </div>
-
           </div>
+
+          {/* Account Opening Forms */}
+          <div className="flex flex-col justify-between">
+            <div>
+              <div className="w-10 h-10 rounded-xl bg-[#bcffbb] text-[#34c771] flex items-center justify-center mb-4">
+                <FileText className="h-5 w-5" />
+              </div>
+              <h3 className="font-heading text-lg font-semibold text-[#360802] mb-1.5">Account Opening Forms</h3>
+              <p className="text-xs text-[#ababab] leading-relaxed mb-5">
+                Printable forms for offline branch account origination and mandate changes.
+              </p>
+
+              <div className="divide-y divide-[#e7dcdb]/70 border-t border-b border-[#e7dcdb]/70">
+                <a
+                  href="#"
+                  className="flex items-center justify-between py-3 text-xs font-semibold text-[#360802] hover:text-[#f73b20] transition-colors"
+                >
+                  <span className="flex items-center gap-2">
+                    <FileText className="h-4 w-4 text-[#34c771]" />
+                    Individual Account Form (PDF)
+                  </span>
+                  <span className="text-[10px] text-[#ababab]">1.2 MB</span>
+                </a>
+
+                <a
+                  href="#"
+                  className="flex items-center justify-between py-3 text-xs font-semibold text-[#360802] hover:text-[#f73b20] transition-colors"
+                >
+                  <span className="flex items-center gap-2">
+                    <FileText className="h-4 w-4 text-[#34c771]" />
+                    Corporate Account Form (PDF)
+                  </span>
+                  <span className="text-[10px] text-[#ababab]">1.8 MB</span>
+                </a>
+
+                <a
+                  href="#"
+                  className="flex items-center justify-between py-3 text-xs font-semibold text-[#360802] hover:text-[#f73b20] transition-colors"
+                >
+                  <span className="flex items-center gap-2">
+                    <FileText className="h-4 w-4 text-[#34c771]" />
+                    Mandate Update Form (PDF)
+                  </span>
+                  <span className="text-[10px] text-[#ababab]">0.8 MB</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          {/* Policies & Disclosures */}
+          <div className="flex flex-col justify-between">
+            <div>
+              <div className="w-10 h-10 rounded-xl bg-[#fdedea] text-[#f73b20] flex items-center justify-center mb-4">
+                <Shield className="h-5 w-5" />
+              </div>
+              <h3 className="font-heading text-lg font-semibold text-[#360802] mb-1.5">Policies & Disclosures</h3>
+              <p className="text-xs text-[#ababab] leading-relaxed mb-5">
+                Statutory customer protection frameworks and regulatory guidelines.
+              </p>
+
+              <div className="divide-y divide-[#e7dcdb]/70 border-t border-b border-[#e7dcdb]/70">
+                <Link
+                  to="/terms"
+                  className="flex items-center justify-between py-3 text-xs font-semibold text-[#360802] hover:text-[#f73b20] transition-colors"
+                >
+                  <span className="flex items-center gap-2">
+                    <FileText className="h-4 w-4 text-[#f73b20]" />
+                    General Terms & Conditions
+                  </span>
+                  <ArrowRight className="h-3.5 w-3.5 text-[#f73b20]" />
+                </Link>
+
+                <Link
+                  to="/privacy"
+                  className="flex items-center justify-between py-3 text-xs font-semibold text-[#360802] hover:text-[#f73b20] transition-colors"
+                >
+                  <span className="flex items-center gap-2">
+                    <FileText className="h-4 w-4 text-[#f73b20]" />
+                    Privacy & Data Protection Policy
+                  </span>
+                  <ArrowRight className="h-3.5 w-3.5 text-[#f73b20]" />
+                </Link>
+
+                <a
+                  href="#"
+                  className="flex items-center justify-between py-3 text-xs font-semibold text-[#360802] hover:text-[#f73b20] transition-colors"
+                >
+                  <span className="flex items-center gap-2">
+                    <FileText className="h-4 w-4 text-[#f73b20]" />
+                    CBN Consumer Protection Guide
+                  </span>
+                  <span className="text-[10px] text-[#ababab]">2.1 MB</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+        </div>
         </div>
       </section>
     </Layout>

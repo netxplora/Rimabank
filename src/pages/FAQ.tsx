@@ -109,69 +109,63 @@ export default function FAQ() {
             <div className="lg:col-span-8 space-y-10">
               
               {/* Account section */}
-              <div id="accounts" className="space-y-4">
-                <h3 className="font-heading text-xl font-semibold text-[#360802] flex items-center gap-2">
-                  <Building2 className="h-5 w-5 text-[#f73b20]" />
+              <div id="accounts" className="space-y-3">
+                <h3 className="font-heading text-lg font-semibold text-[#360802] flex items-center gap-2 pb-2 border-b border-[#e7dcdb]">
+                  <Building2 className="h-4.5 w-4.5 text-[#f73b20]" />
                   Account Opening & KYC
                 </h3>
-                <div className="card-3d rounded-2xl bg-white border border-[#e7dcdb] p-3 sm:p-5 shadow-3d">
-                  <Accordion type="single" collapsible className="w-full">
-                    {accountFaqs.map((faq, i) => (
-                      <AccordionItem key={i} value={`account-${i}`} className="border-b border-[#e7dcdb]/60 last:border-b-0 px-2">
-                        <AccordionTrigger className="text-left font-heading font-medium text-sm text-[#360802] hover:text-[#f73b20] py-4">
-                          {faq.q}
-                        </AccordionTrigger>
-                        <AccordionContent className="text-xs text-[#ababab] leading-relaxed pb-4">
-                          {faq.a}
-                        </AccordionContent>
-                      </AccordionItem>
-                    ))}
-                  </Accordion>
-                </div>
+                <Accordion type="single" collapsible className="w-full divide-y divide-[#e7dcdb]/70">
+                  {accountFaqs.map((faq, i) => (
+                    <AccordionItem key={i} value={`account-${i}`} className="border-b-0 py-1">
+                      <AccordionTrigger className="text-left font-heading font-medium text-sm text-[#360802] hover:text-[#f73b20] py-3.5">
+                        {faq.q}
+                      </AccordionTrigger>
+                      <AccordionContent className="text-xs text-[#ababab] leading-relaxed pb-3">
+                        {faq.a}
+                      </AccordionContent>
+                    </AccordionItem>
+                  ))}
+                </Accordion>
               </div>
 
               {/* Loans section */}
-              <div id="loans" className="space-y-4">
-                <h3 className="font-heading text-xl font-semibold text-[#360802] flex items-center gap-2">
-                  <CreditCard className="h-5 w-5 text-[#34c771]" />
+              <div id="loans" className="space-y-3">
+                <h3 className="font-heading text-lg font-semibold text-[#360802] flex items-center gap-2 pb-2 border-b border-[#e7dcdb]">
+                  <CreditCard className="h-4.5 w-4.5 text-[#34c771]" />
                   Credit & Loan Facilities
                 </h3>
-                <div className="card-3d rounded-2xl bg-white border border-[#e7dcdb] p-3 sm:p-5 shadow-3d">
-                  <Accordion type="single" collapsible className="w-full">
-                    {loanFaqs.map((faq, i) => (
-                      <AccordionItem key={i} value={`loan-${i}`} className="border-b border-[#e7dcdb]/60 last:border-b-0 px-2">
-                        <AccordionTrigger className="text-left font-heading font-medium text-sm text-[#360802] hover:text-[#f73b20] py-4">
-                          {faq.q}
-                        </AccordionTrigger>
-                        <AccordionContent className="text-xs text-[#ababab] leading-relaxed pb-4">
-                          {faq.a}
-                        </AccordionContent>
-                      </AccordionItem>
-                    ))}
-                  </Accordion>
-                </div>
+                <Accordion type="single" collapsible className="w-full divide-y divide-[#e7dcdb]/70">
+                  {loanFaqs.map((faq, i) => (
+                    <AccordionItem key={i} value={`loan-${i}`} className="border-b-0 py-1">
+                      <AccordionTrigger className="text-left font-heading font-medium text-sm text-[#360802] hover:text-[#f73b20] py-3.5">
+                        {faq.q}
+                      </AccordionTrigger>
+                      <AccordionContent className="text-xs text-[#ababab] leading-relaxed pb-3">
+                        {faq.a}
+                      </AccordionContent>
+                    </AccordionItem>
+                  ))}
+                </Accordion>
               </div>
 
               {/* Digital section */}
-              <div id="digital" className="space-y-4">
-                <h3 className="font-heading text-xl font-semibold text-[#360802] flex items-center gap-2">
-                  <Smartphone className="h-5 w-5 text-[#477ee9]" />
+              <div id="digital" className="space-y-3">
+                <h3 className="font-heading text-lg font-semibold text-[#360802] flex items-center gap-2 pb-2 border-b border-[#e7dcdb]">
+                  <Smartphone className="h-4.5 w-4.5 text-[#477ee9]" />
                   Digital Banking & Security
                 </h3>
-                <div className="card-3d rounded-2xl bg-white border border-[#e7dcdb] p-3 sm:p-5 shadow-3d">
-                  <Accordion type="single" collapsible className="w-full">
-                    {digitalFaqs.map((faq, i) => (
-                      <AccordionItem key={i} value={`digital-${i}`} className="border-b border-[#e7dcdb]/60 last:border-b-0 px-2">
-                        <AccordionTrigger className="text-left font-heading font-medium text-sm text-[#360802] hover:text-[#f73b20] py-4">
-                          {faq.q}
-                        </AccordionTrigger>
-                        <AccordionContent className="text-xs text-[#ababab] leading-relaxed pb-4">
-                          {faq.a}
-                        </AccordionContent>
-                      </AccordionItem>
-                    ))}
-                  </Accordion>
-                </div>
+                <Accordion type="single" collapsible className="w-full divide-y divide-[#e7dcdb]/70">
+                  {digitalFaqs.map((faq, i) => (
+                    <AccordionItem key={i} value={`digital-${i}`} className="border-b-0 py-1">
+                      <AccordionTrigger className="text-left font-heading font-medium text-sm text-[#360802] hover:text-[#f73b20] py-3.5">
+                        {faq.q}
+                      </AccordionTrigger>
+                      <AccordionContent className="text-xs text-[#ababab] leading-relaxed pb-3">
+                        {faq.a}
+                      </AccordionContent>
+                    </AccordionItem>
+                  ))}
+                </Accordion>
               </div>
 
             </div>
