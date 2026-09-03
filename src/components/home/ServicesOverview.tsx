@@ -75,9 +75,9 @@ const services = [
 
 export function ServicesOverview() {
   return (
-    <section className="py-24 bg-white border-b border-[#e7dcdb]/60">
-      <div className="max-w-[1200px] mx-auto px-6">
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+    <section className="py-16 md:py-20 bg-white border-b border-[#e7dcdb]/60">
+      <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 md:mb-14 gap-6">
           <div className="max-w-2xl">
             <span className="text-xs font-semibold uppercase tracking-ui text-[#f73b20] block mb-2">
               Financial Infrastructure
@@ -91,7 +91,7 @@ export function ServicesOverview() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {services.map((service, index) => (
             <div
               key={service.title}

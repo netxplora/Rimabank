@@ -4,29 +4,29 @@ import { Briefcase } from "lucide-react";
 export default function SMEBanking() {
   return (
     <BankingServiceLayout
-      title="SME & Enterprise Banking"
-      subtitle="Strategic Business Support"
-      description="Fuel the expansion of your business with our structured SME solutions. Rima Bank integrates deep local market expertise with institucional-grade financial infrastructure to provide a sustainable partnership for enterprise growth."
+      title="SME Commercial Banking"
+      subtitle="Business Banking Services"
+      description="Tailored commercial banking services for registered small and medium enterprises across Rivers State. Access working capital loans, POS merchant terminals, and dedicated relationship management."
       icon={Briefcase}
       image="/images/hero-home.png"
-      whoItIsFor="Small to Medium-sized Enterprises, sole proprietorships, and established startups in Rivers State."
+      whoItIsFor="Registered SMEs, commercial merchants, distributors, and growing enterprises in Rivers State."
       benefits={[
-        "Structured access to SME liquid credit facilities",
-        "Strategic business advisory and mentorship support",
-        "Dedicated Enterprise Relationship Management",
-        "Enhanced daily transaction limits for high-volume operations",
-        "Secure POS terminals for efficient revenue collection",
-        "Consolidated trade finance and payroll settlement"
+        "Commercial working capital facilities up to ₦50 Million",
+        "Dedicated Business Banking Relationship Manager",
+        "Point-of-Sale (POS) terminal issuance for merchant payment collection",
+        "Higher daily electronic transfer thresholds for supplier payments",
+        "Direct NIBSS payroll automation for staff salary settlement",
+        "Business advisory, cash flow structuring, and financial audits"
       ]}
       requirements={[
-        "Valid CAC Registration Documents (Form 1.1 / Form CO7 / Form CO2)",
-        "Certified passport photographs of Directors/Signatories",
-        "Verified BVN for all Account Signatories",
-        "Proof of Business Operational Address (Utility Bill < 3 Months)",
-        "Verified Tax Identification Number (TIN)",
-        "Current CAC Status Search Report"
+        "CAC Business Registration / Incorporation Documents (Status Report or Certificate)",
+        "Tax Identification Number (TIN) Verification",
+        "Valid Government ID and BVN for all Directors and Signatories",
+        "Proof of Business Operational Address (Utility Bill not older than 3 months)",
+        "Two (2) external corporate account references"
       ]}
-      fees="Custom-tailored commercial transaction rates"
+      fees="Transparent commercial transaction fees in line with CBN standards"
+      ctaText="Open SME Account"
     />
   );
 }

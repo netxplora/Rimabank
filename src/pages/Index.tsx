@@ -11,7 +11,6 @@ import { TestimonialsSection } from "@/components/home/TestimonialsSection";
 import { SecuritySection } from "@/components/home/SecuritySection";
 import { MobileAppCTA } from "@/components/home/MobileAppCTA";
 import { TrustIndicators } from "@/components/home/TrustIndicators";
-
 import { AccountRecommendationTool } from "@/components/tools/AccountRecommendationTool";
 
 const Index = () => {
@@ -22,8 +21,6 @@ const Index = () => {
       <QuickActions />
       <AboutSnapshot />
       <ServicesOverview />
-      <div className="py-12" />
-
       <AccountRecommendationTool />
       <AgentBankingSection />
       <CardServicesSection />

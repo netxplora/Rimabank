@@ -4,28 +4,29 @@ import { CreditCard } from "lucide-react";
 export default function CurrentAccount() {
   return (
     <BankingServiceLayout
-      title="Strategic Liquidity Accounts"
+      title="Individual Checking Account"
       subtitle="Retail Banking Services"
-      description="Optimized infrastructure for your daily financial operations. Flexible, reliable, and engineered to facilitate seamless capital movement for individuals and sole practitioners."
+      description="Unrestricted transactional capability for working professionals, consultants, and sole practitioners requiring high-frequency transfers, cheque clearing, and overdraft access."
       icon={CreditCard}
       image="/images/hero-home.png"
-      whoItIsFor="Professionals, sole-proprietors, and individuals requiring an unrestricted, high-velocity transaction environment."
+      whoItIsFor="Professionals, consultants, and sole proprietors requiring unrestricted transaction operations."
       benefits={[
-        "Zero recurring maintenance fees (subject to minimum balance)",
-        "Flat-rate transaction settlement with no hidden charges",
-        "Complimentary personalized cheque book issuance",
-        "Eligibility for structured overdraft facilities",
-        "Unrestricted monthly transaction frequency",
-        "Real-time electronic alerts via SMS and Email"
+        "Unrestricted monthly transaction volume and deposit frequency",
+        "Personalized cheque book issuance and third-party clearing",
+        "Eligibility for personal overdrafts and short-term lines of credit",
+        "Instant debit card linkage for nationwide ATM, POS, and online checkout",
+        "Direct NIBSS instant settlement with real-time SMS/Email alerts",
+        "Priority branch customer desk assistance"
       ]}
       requirements={[
-        "Valid Government Issue ID (NIN, PVC, or Passport)",
-        "Verified Proof of Residence (Utility Bill < 3 Months)",
-        "Two (2) independent external references",
-        "Two (2) recent biometric passport photographs",
-        "Initial capital deposit for account activation"
+        "Duly completed Current Account Opening Form",
+        "Valid Government Identification (NIN, Voter's Card, Driver's License, or Passport)",
+        "Two (2) independent external account references",
+        "Proof of Residential Address (Utility Bill not older than 3 months)",
+        "Two (2) recent passport photographs"
       ]}
-      fees="No monthly maintenance/administrative fees"
+      fees="Transparent tariff aligned with Central Bank of Nigeria guidelines"
+      ctaText="Open Checking Account"
     />
   );
 }

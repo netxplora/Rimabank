@@ -1,102 +1,124 @@
 import { BankingServiceLayout } from "@/components/layout/BankingServiceLayout";
-import { Building2, Globe, TrendingUp, ShieldCheck, Users, Briefcase } from "lucide-react";
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { Building2, Globe, TrendingUp, ShieldCheck, Users, Briefcase, ArrowRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 export default function CorporateBanking() {
   const corporateBenefits = [
     {
-      title: "Strategic Credit Facilities",
-      description: "Customized institutional-grade financing engineered for large-scale operations and capital projects.",
+      title: "Commercial Credit Facilities",
+      description: "Structured commercial debt financing for large-scale operations, supply contracts, and asset acquisitions.",
       icon: TrendingUp,
+      bg: "#bcffbb",
+      accent: "#34c771"
     },
     {
-      title: "Liquidity Management",
-      description: "Optimized corporate treasury solutions with multi-level approval hierarchies for precise control.",
+      title: "Corporate Liquidity Management",
+      description: "Optimized corporate treasury yield placements with dual-signatory authorization and sweep accounts.",
       icon: ShieldCheck,
+      bg: "#fdedea",
+      accent: "#f73b20"
     },
     {
-      title: "Trade & Supply Chain",
-      description: "Comprehensive import/export support, Letters of Credit, and specialized trade advisory services.",
+      title: "Trade & Vendor Financing",
+      description: "Local invoice discounting, contractor performance guarantees, and supplier advance financing.",
       icon: Globe,
+      bg: "#e7dcdb",
+      accent: "#477ee9"
     },
     {
-      title: "Institution Collections",
-      description: "Streamlined payroll automation and efficient revenue collection systems for public and private sectors.",
+      title: "Corporate Payroll & Collections",
+      description: "Automated NIBSS bulk payroll execution, statutory tax remittances, and structured merchant collections.",
       icon: Building2,
+      bg: "#f5ffbb",
+      accent: "#360802"
     },
   ];
 
   return (
     <BankingServiceLayout
-      title="Corporate & Institutional Banking"
-      subtitle="Institutional Excellence"
-      description="Powering the structural engines of the regional economy. Rima Bank delivers enterprise-grade financial infrastructure for established corporations, public sector institutions, and large-scale developers."
+      title="Corporate & Commercial Banking"
+      subtitle="Institutional Banking Solutions"
+      description="Supporting registered enterprises and corporate contractors across Rivers State with structured liquidity management, high-volume settlement rails, and commercial credit."
       icon={Briefcase}
       image="/images/hero-home.png"
-      whoItIsFor="Registered corporations, government agencies, multi-national firms, and major infrastructure projects."
+      whoItIsFor="Registered limited liability companies, commercial contractors, and institutional employers."
       benefits={[
-        "Dedicated Corporate Relationship Management",
-        "High-volume electronic fund settlement",
-        "Preferential interest structures on deposits and credit",
-        "Strategic integration with corporate ERP systems",
-        "Advanced treasury and investment advisory",
-        "Executive-level priority banking services"
+        "Assigned Senior Corporate Relationship Manager",
+        "High-volume inter-bank settlement capabilities",
+        "Negotiated yield placements on corporate deposits",
+        "Customized corporate cheque books and clearing",
+        "Multi-user corporate online banking portal",
+        "Fast-track credit review for government contractor facilities"
       ]}
       requirements={[
         "Board Resolution authorizing account opening",
-        "Constitutional status documents (CAC Form 1.1, Memorandum & Articles of Association)",
-        "Tax Identification Number (TIN) & VAT Documentation",
-        "Valid Identification for Directors and Authorized Signatories",
-        "Verified CAC Search Report",
-        "Evidence of SCUML registration (where mandatory)"
+        "CAC Incorporation Documents (Status Report / Form 1.1)",
+        "Tax Identification Number (TIN) and VAT certificate",
+        "Valid IDs and BVN for all Directors and Authorized Signatories",
+        "Two independent corporate bank reference forms",
+        "SCUML certificate (for designated non-financial businesses)"
       ]}
-      fees="Custom fee structure based on volume"
+      fees="Competitive corporate tariff per CBN guidelines"
+      ctaText="Open Corporate Account"
     >
-      <div className="mt-16 space-y-16">
+      <div className="mt-12 space-y-16">
+        {/* Corporate Services Grid */}
         <section id="corporate-services">
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <h2 className="text-3xl md:text-4xl font-display font-bold mb-4">Institutional-Grade Solutions</h2>
-            <p className="text-muted-foreground">We recognize the complexities of corporate operations and provide the stable financial infrastructure necessary for institutional success.</p>
+          <div className="mb-8">
+            <span className="text-xs font-semibold uppercase tracking-ui text-[#f73b20] block mb-1">
+              Institutional Capabilities
+            </span>
+            <h2 className="text-2xl lg:text-3xl font-heading font-medium text-[#360802]">
+              Corporate Banking Services
+            </h2>
           </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {corporateBenefits.map((benefit, idx) => (
-              <Card key={idx} className="border-none shadow-lg bg-background/50 backdrop-blur-sm transition-all hover:-translate-y-1">
-                <CardHeader>
-                  <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center mb-2">
-                    <benefit.icon className="h-6 w-6 text-primary" />
+              <div 
+                key={idx} 
+                className="p-6 rounded-cards bg-white border border-[#e7dcdb] shadow-lift flex flex-col justify-between hover:border-[#f73b20]/30 transition-all duration-300"
+              >
+                <div>
+                  <div 
+                    className="w-12 h-12 rounded-xl flex items-center justify-center mb-6"
+                    style={{ backgroundColor: benefit.bg, color: benefit.accent }}
+                  >
+                    <benefit.icon className="h-6 w-6" />
                   </div>
-                  <CardTitle className="text-lg">{benefit.title}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-sm text-muted-foreground leading-relaxed">{benefit.description}</p>
-                </CardContent>
-              </Card>
+                  <h3 className="font-heading text-lg font-semibold text-[#360802] mb-2">{benefit.title}</h3>
+                  <p className="text-xs text-[#ababab] leading-relaxed">{benefit.description}</p>
+                </div>
+              </div>
             ))}
           </div>
         </section>
 
-        <section id="relationship-management" className="bg-primary/5 rounded-[3rem] p-8 md:p-16 border border-primary/10">
-          <div className="flex flex-col lg:flex-row gap-12 items-center">
-            <div className="lg:w-1/2">
-              <h2 className="text-3xl md:text-4xl font-display font-bold mb-6">Strategic Relationship Management</h2>
-              <p className="text-slate-600 mb-6 text-lg leading-relaxed">
-                As a corporate partner, your institution receives specialized attention from our executive management and dedicated relationship managers equipped to navigate industry-specific challenges.
+        {/* Dedicated Corporate Advisory Card */}
+        <section id="relationship-management">
+          <div className="p-8 lg:p-12 rounded-cards bg-[#fdedea] border border-[#e7dcdb] shadow-lift">
+            <div className="max-w-3xl space-y-6">
+              <span className="text-xs font-semibold uppercase tracking-ui text-[#f73b20] block">
+                Executive Partnership
+              </span>
+
+              <h2 className="font-heading text-2xl lg:text-3xl font-medium text-[#360802] tracking-tight leading-tight">
+                Dedicated Commercial Relationship Management
+              </h2>
+
+              <p className="text-xs text-[#360802]/80 leading-relaxed">
+                Every corporate client is paired with an experienced commercial banker who acts as a single point of contact for credit restructuring, trade documentation, and operational escalations.
               </p>
-              <div className="space-y-4">
-                <div className="flex gap-4">
-                  <div className="bg-secondary rounded-full p-1 h-6 w-6 shrink-0 mt-1 flex items-center justify-center">
-                    <Users className="h-4 w-4 text-white" />
-                  </div>
-                  <p className="font-medium italic">"We provide more than just a bank account; we provide strategic partnership for institutional growth."</p>
-                </div>
+
+              <div className="pt-2">
+                <Button variant="pill" size="default" asChild className="shadow-brand">
+                  <Link to="/contact">
+                    Speak with Corporate Banking Desk
+                    <ArrowRight className="h-3.5 w-3.5 ml-1" />
+                  </Link>
+                </Button>
               </div>
-            </div>
-            <div className="lg:w-1/2">
-               <img 
-                  src="/images/hero-home.png" 
-                  alt="Institutional Strategy Session" 
-                  className="rounded-2xl shadow-xl w-full"
-                />
             </div>
           </div>
         </section>

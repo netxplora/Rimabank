@@ -1,358 +1,270 @@
 import { Layout } from "@/components/layout/Layout";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { useLocation } from "react-router-dom";
-import { Mail, Phone, MapPin, ExternalLink, ShieldAlert, BookOpen, AlertCircle, MessageSquare } from "lucide-react";
+import { Mail, Phone, MapPin, ShieldAlert, BookOpen, AlertCircle, MessageSquare, ArrowRight } from "lucide-react";
+import { useState, useEffect } from "react";
 
 const legalContent = {
-    privacy: {
-        title: "Privacy Policy",
-        icon: <ShieldAlert className="h-8 w-8 text-primary mb-4" />,
-        content: (
-            <div className="space-y-6 text-slate-700">
-                <p className="text-sm text-slate-500 font-medium pb-4 border-b">Last updated: {new Date().toLocaleString('default', { month: 'long', year: 'numeric' })}</p>
+  privacy: {
+    title: "Privacy & Data Protection Policy",
+    icon: <ShieldAlert className="h-6 w-6 text-[#f73b20]" />,
+    content: (
+      <div className="space-y-6 text-[#360802]/80 text-xs leading-relaxed">
+        <p className="text-[11px] text-[#ababab] font-medium pb-4 border-b border-[#e7dcdb]/60">
+          Last updated: September 2026 &bull; Compliant with Nigeria Data Protection Act (NDPA)
+        </p>
 
-                <section>
-                    <p className="text-lg font-medium leading-relaxed">
-                        At Rima Microfinance Bank ("Rima MFB", "we", "us", or "our"), safeguarding your privacy is fundamental to our service.
-                        This Privacy Policy comprehensively details how we collect, use, process, and protect your personal and financial information
-                        when you utilize our banking platforms, mobile applications, website, and branch services.
-                    </p>
-                </section>
+        <section>
+          <p className="text-sm font-normal text-[#360802] leading-relaxed">
+            At Rima Microfinance Bank ("Rima MFB", "we", "us", or "our"), safeguarding your personal and financial data is fundamental to our banking mandate. This Privacy Policy details how we collect, process, and protect your information across our digital platforms, branch offices, and agency banking locations.
+          </p>
+        </section>
 
-                <section>
-                    <h3 className="text-xl font-bold text-slate-900 mt-8 mb-4 flex items-center gap-2">
-                        <span className="bg-primary/10 text-primary w-8 h-8 rounded-full flex items-center justify-center text-sm">1</span>
-                        Information We Collect
-                    </h3>
-                    <p className="mb-3">We collect various types of information to provide and improve our services to you:</p>
-                    <ul className="list-disc pl-6 space-y-2">
-                        <li><strong>Personal Identification:</strong> Name, Date of Birth, Gender, Marital Status, and Nationality.</li>
-                        <li><strong>Contact Information:</strong> Residential Address, Email Address, and Phone Numbers.</li>
-                        <li><strong>Identity Verification (KYC):</strong> Bank Verification Number (BVN), National Identity Number (NIN), Valid ID Cards (Voter's Card, Passport, Driver's License), and utility bills.</li>
-                        <li><strong>Financial Data:</strong> Transaction history, account balances, loan application details, income sources, and credit history.</li>
-                        <li><strong>Technical & Usage Data:</strong> IP addresses, browser types, device identifiers, login times, and interaction with our digital platforms.</li>
-                    </ul>
-                </section>
+        <section className="space-y-3">
+          <h3 className="font-heading text-base font-semibold text-[#360802] flex items-center gap-2">
+            <span className="bg-[#fdedea] text-[#f73b20] w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold">1</span>
+            Information We Collect
+          </h3>
+          <p>We collect essential customer data to provide secure banking operations and comply with regulatory directives:</p>
+          <ul className="list-disc pl-5 space-y-1.5 text-[#360802]/70">
+            <li><strong>Personal Identity:</strong> Full Name, Date of Birth, Gender, Marital Status, and Nationality.</li>
+            <li><strong>Contact Details:</strong> Verified Residential Address, Email Address, and Mobile Phone Numbers.</li>
+            <li><strong>KYC Verification:</strong> Bank Verification Number (BVN), National Identity Number (NIN), Government ID (Voter's Card, Passport, Driver's License), and utility proofs.</li>
+            <li><strong>Financial Records:</strong> Transaction ledger history, loan repayment status, credit bureau records, and deposit balances.</li>
+            <li><strong>Technical Telemetry:</strong> IP addresses, operating device identifiers, login timestamps, and session logs.</li>
+          </ul>
+        </section>
 
-                <section>
-                    <h3 className="text-xl font-bold text-slate-900 mt-8 mb-4 flex items-center gap-2">
-                        <span className="bg-primary/10 text-primary w-8 h-8 rounded-full flex items-center justify-center text-sm">2</span>
-                        How We Use Your Information
-                    </h3>
-                    <p className="mb-3">Your information is utilized strictly for legitimate business purposes, including:</p>
-                    <ul className="list-disc pl-6 space-y-2">
-                        <li><strong>Account Management:</strong> Opening, maintaining, and administering your accounts and products.</li>
-                        <li><strong>Transaction Processing:</strong> Executing transfers, deposits, withdrawals, and loan disbursements.</li>
-                        <li><strong>Compliance & Regulatory:</strong> Fulfilling Anti-Money Laundering (AML) and Know Your Customer (KYC) directives as mandated by the Central Bank of Nigeria (CBN).</li>
-                        <li><strong>Risk & Fraud Prevention:</strong> Detecting, preventing, and investigating fraudulent activities and unauthorized access.</li>
-                        <li><strong>Service Improvement:</strong> Analyzing usage trends to optimize our digital banking interfaces and customer service.</li>
-                    </ul>
-                </section>
+        <section className="space-y-3">
+          <h3 className="font-heading text-base font-semibold text-[#360802] flex items-center gap-2">
+            <span className="bg-[#fdedea] text-[#f73b20] w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold">2</span>
+            Purposes of Data Processing
+          </h3>
+          <p>Customer data is processed strictly for legitimate financial service delivery:</p>
+          <ul className="list-disc pl-5 space-y-1.5 text-[#360802]/70">
+            <li><strong>Account Administration:</strong> Account origination, transaction settlement, and card lifecycle management.</li>
+            <li><strong>Regulatory Compliance:</strong> Fulfilling statutory Anti-Money Laundering (AML) and Combating the Financing of Terrorism (CFT) mandates of the Central Bank of Nigeria (CBN).</li>
+            <li><strong>Fraud Prevention:</strong> Real-time transaction surveillance and unauthorized access mitigation.</li>
+          </ul>
+        </section>
 
-                <section>
-                    <h3 className="text-xl font-bold text-slate-900 mt-8 mb-4 flex items-center gap-2">
-                        <span className="bg-primary/10 text-primary w-8 h-8 rounded-full flex items-center justify-center text-sm">3</span>
-                        Information Sharing and Disclosure
-                    </h3>
-                    <p className="mb-3">We do not sell your personal data. We may share necessary information with:</p>
-                    <ul className="list-disc pl-6 space-y-2">
-                        <li><strong>Regulatory Bodies:</strong> The CBN, NDIC, NFIU, and other statutory bodies as required by law.</li>
-                        <li><strong>Service Providers:</strong> Third-party vendors (e.g., payment gateways, SMS gateways, card processors) who operate under strict confidentiality agreements.</li>
-                        <li><strong>Credit Bureaus:</strong> For credit reporting and loan eligibility assessments.</li>
-                    </ul>
-                </section>
+        <section className="space-y-3">
+          <h3 className="font-heading text-base font-semibold text-[#360802] flex items-center gap-2">
+            <span className="bg-[#fdedea] text-[#f73b20] w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold">3</span>
+            Data Protection Rights Under the NDPA
+          </h3>
+          <p>As a data subject under the Nigeria Data Protection Act, you possess the right to:</p>
+          <ul className="list-disc pl-5 space-y-1.5 text-[#360802]/70">
+            <li>Request full disclosure of personal records retained in our database.</li>
+            <li>Request rectification of inaccurate KYC information.</li>
+            <li>Object to non-essential commercial or marketing communications.</li>
+          </ul>
+        </section>
 
-                <section>
-                    <h3 className="text-xl font-bold text-slate-900 mt-8 mb-4 flex items-center gap-2">
-                        <span className="bg-primary/10 text-primary w-8 h-8 rounded-full flex items-center justify-center text-sm">4</span>
-                        Data Security & Retention
-                    </h3>
-                    <p className="mb-3">
-                        We employ enterprise-grade encryption (TLS/SSL), sophisticated firewalls, and stringent access controls to protect your data.
-                        In compliance with Nigerian financial regulations, we retain your personal data and transaction records for a minimum of five (5) years
-                        even after an account is closed.
-                    </p>
-                </section>
+        <div className="p-6 rounded-cards bg-[#fdedea] border border-[#e7dcdb] mt-8">
+          <h4 className="font-heading text-xs font-bold text-[#360802] mb-1">Data Protection Officer</h4>
+          <p className="text-[11px] text-[#ababab]">
+            Direct inquiries regarding your privacy rights to <a href="mailto:dpo@rimamfb.com" className="text-[#f73b20] font-semibold underline">dpo@rimamfb.com</a>.
+          </p>
+        </div>
+      </div>
+    )
+  },
+  terms: {
+    title: "General Terms of Service",
+    icon: <BookOpen className="h-6 w-6 text-[#f73b20]" />,
+    content: (
+      <div className="space-y-6 text-[#360802]/80 text-xs leading-relaxed">
+        <p className="text-[11px] text-[#ababab] font-medium pb-4 border-b border-[#e7dcdb]/60">
+          Effective Date: September 2026 &bull; Regulated by the Central Bank of Nigeria (CBN)
+        </p>
 
-                <section>
-                    <h3 className="text-xl font-bold text-slate-900 mt-8 mb-4 flex items-center gap-2">
-                        <span className="bg-primary/10 text-primary w-8 h-8 rounded-full flex items-center justify-center text-sm">5</span>
-                        Your Rights
-                    </h3>
-                    <p className="mb-3">Under the Nigeria Data Protection Act (NDPA), you have the right to:</p>
-                    <ul className="list-disc pl-6 space-y-2">
-                        <li>Request access to your personal data held by us.</li>
-                        <li>Request correction of inaccurate or incomplete data.</li>
-                        <li>Object to the processing of your data for direct marketing.</li>
-                        <li>Request deletion of your data (subject to legal and regulatory retention mandates).</li>
-                    </ul>
-                </section>
+        <section>
+          <p className="text-sm font-normal text-[#360802] leading-relaxed">
+            By operating an account or accessing digital banking services with Rima Microfinance Bank, you agree to be bound by these Terms of Service.
+          </p>
+        </section>
 
-                <div className="bg-slate-50 p-6 rounded-xl mt-8 border border-slate-100">
-                    <h4 className="font-bold text-slate-900 mb-2">Questions about your privacy?</h4>
-                    <p className="text-sm">Contact our Data Protection Officer at <a href="mailto:dpo@rimamfb.com" className="text-primary hover:underline">dpo@rimamfb.com</a></p>
-                </div>
+        <section className="space-y-3">
+          <h3 className="font-heading text-base font-semibold text-[#360802] flex items-center gap-2">
+            <span className="bg-[#fdedea] text-[#f73b20] w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold">1</span>
+            Account Operation & Maintenance
+          </h3>
+          <ul className="list-disc pl-5 space-y-1.5 text-[#360802]/70">
+            <li><strong>Eligibility:</strong> Account holders must be at least 18 years of age. Minor accounts are operated through legal guardians.</li>
+            <li><strong>Accuracy of Records:</strong> You agree to provide authentic identification and update residential details within 30 days of changes.</li>
+            <li><strong>Security Obligations:</strong> You are solely responsible for safeguarding your confidential transaction PINs, passwords, and one-time passwords (OTP).</li>
+          </ul>
+        </section>
+
+        <section className="space-y-3">
+          <h3 className="font-heading text-base font-semibold text-[#360802] flex items-center gap-2">
+            <span className="bg-[#fdedea] text-[#f73b20] w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold">2</span>
+            Transaction Limits & AML Compliance
+          </h3>
+          <p>
+            Transactions are governed by statutory limits based on your verified KYC Tier. We reserve the authority to hold or decline transactions flagged by automated anti-fraud mechanisms.
+          </p>
+        </section>
+
+        <section className="space-y-3">
+          <h3 className="font-heading text-base font-semibold text-[#360802] flex items-center gap-2">
+            <span className="bg-[#fdedea] text-[#f73b20] w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold">3</span>
+            Fees, Charges & Tariffs
+          </h3>
+          <p>
+            Banking operations are executed according to the approved CBN Guide to Bank Charges. Tariff modifications are communicated via official electronic mail at least 30 calendar days in advance.
+          </p>
+        </section>
+      </div>
+    )
+  },
+  cookies: {
+    title: "Cookie & Tracking Policy",
+    icon: <AlertCircle className="h-6 w-6 text-[#f73b20]" />,
+    content: (
+      <div className="space-y-6 text-[#360802]/80 text-xs leading-relaxed">
+        <p className="text-[11px] text-[#ababab] font-medium pb-4 border-b border-[#e7dcdb]/60">
+          Last updated: September 2026
+        </p>
+
+        <section>
+          <p className="text-sm font-normal text-[#360802] leading-relaxed">
+            Rima Microfinance Bank uses encrypted cookies and session tokens to ensure website security, prevent session hijacking, and maintain authentication integrity.
+          </p>
+        </section>
+
+        <section className="space-y-3">
+          <h3 className="font-heading text-base font-semibold text-[#360802]">Cookie Classifications</h3>
+          <div className="space-y-3">
+            <div className="p-4 rounded-xl bg-[#fdedea] border border-[#e7dcdb]">
+              <strong className="text-[#360802] block mb-1">Essential Security Cookies</strong>
+              Required for session management, internet banking encryption, and CSRF token validation.
             </div>
-        )
-    },
-    terms: {
-        title: "Terms of Service",
-        icon: <BookOpen className="h-8 w-8 text-primary mb-4" />,
-        content: (
-            <div className="space-y-6 text-slate-700">
-                <p className="text-sm text-slate-500 font-medium pb-4 border-b">Effective Date: {new Date().toLocaleString('default', { month: 'long', year: 'numeric' })}</p>
-
-                <section>
-                    <p className="text-lg font-medium leading-relaxed">
-                        Welcome to Rima Microfinance Bank. By opening an account, accessing our digital platforms, or using our services,
-                        you agree to be legally bound by these Terms of Service. Please read them carefully.
-                    </p>
-                </section>
-
-                <section>
-                    <h3 className="text-xl font-bold text-slate-900 mt-8 mb-4 flex items-center gap-2">
-                        <span className="bg-primary/10 text-primary w-8 h-8 rounded-full flex items-center justify-center text-sm">1</span>
-                        Account Opening and Maintenance
-                    </h3>
-                    <ul className="list-disc pl-6 space-y-2">
-                        <li><strong>Eligibility:</strong> You must be at least 18 years old to open an account independently. Accounts for minors must be operated by a legal guardian.</li>
-                        <li><strong>Verification:</strong> You agree to provide accurate, current, and complete information during the KYC process. Failure to do so may result in account restriction or closure.</li>
-                        <li><strong>Minimum Balances:</strong> Certain accounts may require a minimum operating balance. Falling below this balance may incur maintenance fees.</li>
-                    </ul>
-                </section>
-
-                <section>
-                    <h3 className="text-xl font-bold text-slate-900 mt-8 mb-4 flex items-center gap-2">
-                        <span className="bg-primary/10 text-primary w-8 h-8 rounded-full flex items-center justify-center text-sm">2</span>
-                        Digital Banking and Security
-                    </h3>
-                    <ul className="list-disc pl-6 space-y-2">
-                        <li><strong>Credential Security:</strong> You are solely responsible for keeping your PIN, passwords, and OTPs confidential. Rima MFB will NEVER ask for your PIN or password.</li>
-                        <li><strong>Unauthorized Access:</strong> You must notify us immediately if you suspect unauthorized access to your account or if your card/device is lost or stolen.</li>
-                        <li><strong>Liability:</strong> We are not liable for losses resulting from your negligence in protecting your credentials.</li>
-                    </ul>
-                </section>
-
-                <section>
-                    <h3 className="text-xl font-bold text-slate-900 mt-8 mb-4 flex items-center gap-2">
-                        <span className="bg-primary/10 text-primary w-8 h-8 rounded-full flex items-center justify-center text-sm">3</span>
-                        Deposits, Withdrawals, and Transfers
-                    </h3>
-                    <p className="mb-3">
-                        All transactions are subject to limits imposed by the CBN based on your KYC Tier. We reserve the right to delay or decline
-                        any transaction that violates our AML thresholds or appears suspicious.
-                    </p>
-                </section>
-
-                <section>
-                    <h3 className="text-xl font-bold text-slate-900 mt-8 mb-4 flex items-center gap-2">
-                        <span className="bg-primary/10 text-primary w-8 h-8 rounded-full flex items-center justify-center text-sm">4</span>
-                        Fees and Charges
-                    </h3>
-                    <p className="mb-3">
-                        Our services are subject to applicable fees, commissions, and taxes (like VAT and stamp duty) as detailed in our Tariff Guide.
-                        We will notify you of any changes to our fees prior to implementation.
-                    </p>
-                </section>
-
-                <section>
-                    <h3 className="text-xl font-bold text-slate-900 mt-8 mb-4 flex items-center gap-2">
-                        <span className="bg-primary/10 text-primary w-8 h-8 rounded-full flex items-center justify-center text-sm">5</span>
-                        Account Closure and Suspension
-                    </h3>
-                    <p className="mb-3">We reserve the right to close, freeze, or suspend your account if:</p>
-                    <ul className="list-disc pl-6 space-y-2">
-                        <li>Directed by regulatory or law enforcement agencies.</li>
-                        <li>You violate these Terms of Service.</li>
-                        <li>Your account is used for illegal activities, fraud, or money laundering.</li>
-                        <li>Your account remains dormant with a zero balance for an extended period.</li>
-                    </ul>
-                </section>
-
-                <section>
-                    <h3 className="text-xl font-bold text-slate-900 mt-8 mb-4 flex items-center gap-2">
-                        <span className="bg-primary/10 text-primary w-8 h-8 rounded-full flex items-center justify-center text-sm">6</span>
-                        Amendments
-                    </h3>
-                    <p className="mb-3">
-                        We may update these terms periodically to reflect changes in regulatory requirements or business operations.
-                        Continued use of our services constitutes acceptance of the amended terms.
-                    </p>
-                </section>
+            <div className="p-4 rounded-xl bg-[#fdedea] border border-[#e7dcdb]">
+              <strong className="text-[#360802] block mb-1">Performance & Telemetry Cookies</strong>
+              Enable our technical team to monitor system latency, page load metrics, and UI responsiveness.
             </div>
-        )
-    },
-    cookies: {
-        title: "Cookie Policy",
-        icon: <AlertCircle className="h-8 w-8 text-primary mb-4" />,
-        content: (
-            <div className="space-y-6 text-slate-700">
-                <p className="text-sm text-slate-500 font-medium pb-4 border-b">Last updated: {new Date().toLocaleString('default', { month: 'long', year: 'numeric' })}</p>
+          </div>
+        </section>
+      </div>
+    )
+  },
+  complaints: {
+    title: "Dispute Resolution & Complaints Framework",
+    icon: <MessageSquare className="h-6 w-6 text-[#f73b20]" />,
+    content: (
+      <div className="space-y-6 text-[#360802]/80 text-xs leading-relaxed">
+        <p className="text-[11px] text-[#ababab] font-medium pb-4 border-b border-[#e7dcdb]/60">
+          In compliance with the CBN Consumer Protection Framework
+        </p>
 
-                <section>
-                    <p className="text-lg font-medium leading-relaxed">
-                        Rima Microfinance Bank utilizes cookies and similar tracking technologies to ensure our website functions securely and efficiently,
-                        and to provide you with a tailored browsing experience.
-                    </p>
-                </section>
+        <section>
+          <p className="text-sm font-normal text-[#360802] leading-relaxed">
+            We are dedicated to resolving all customer disputes efficiently and transparently through a structured escalation process.
+          </p>
+        </section>
 
-                <section>
-                    <h3 className="text-xl font-bold text-slate-900 mt-8 mb-4 flex items-center gap-2">
-                        <span className="bg-primary/10 text-primary w-8 h-8 rounded-full flex items-center justify-center text-sm">1</span>
-                        What are Cookies?
-                    </h3>
-                    <p className="mb-3">
-                        Cookies are small, encrypted text files stored on your computer, smartphone, or other devices by your web browser when you visit our website.
-                        They help the website recognize your device on subsequent visits.
-                    </p>
-                </section>
+        <section className="space-y-3">
+          <h3 className="font-heading text-base font-semibold text-[#360802]">Resolution Timelines</h3>
+          <ul className="list-disc pl-5 space-y-1.5 text-[#360802]/70">
+            <li><strong>Failed ATM / POS Dispense Errors:</strong> Resolved within 24 to 48 business hours.</li>
+            <li><strong>Interbank Electronic Transfer Inquiries:</strong> Reconciled within 72 hours via NIBSS.</li>
+            <li><strong>Account & Credit Discrepancies:</strong> Investigated and answered within 5 business days.</li>
+          </ul>
+        </section>
 
-                <section>
-                    <h3 className="text-xl font-bold text-slate-900 mt-8 mb-4 flex items-center gap-2">
-                        <span className="bg-primary/10 text-primary w-8 h-8 rounded-full flex items-center justify-center text-sm">2</span>
-                        Types of Cookies We Use
-                    </h3>
-                    <ul className="list-none space-y-4">
-                        <li className="bg-slate-50 p-4 rounded-lg">
-                            <strong className="text-slate-900 block mb-1">Strictly Necessary Cookies</strong>
-                            These are essential for the website to function, especially for secure areas like internet banking. They cannot be switched off in our systems without compromising security.
-                        </li>
-                        <li className="bg-slate-50 p-4 rounded-lg">
-                            <strong className="text-slate-900 block mb-1">Performance & Analytics Cookies</strong>
-                            These allow us to count visits and traffic sources so we can measure and improve the performance of our site. They help us know which pages are popular and see how visitors move around the site.
-                        </li>
-                        <li className="bg-slate-50 p-4 rounded-lg">
-                            <strong className="text-slate-900 block mb-1">Functional Cookies</strong>
-                            These enable the website to provide enhanced functionality and personalization, such as remembering your language preference or region.
-                        </li>
-                    </ul>
-                </section>
-
-                <section>
-                    <h3 className="text-xl font-bold text-slate-900 mt-8 mb-4 flex items-center gap-2">
-                        <span className="bg-primary/10 text-primary w-8 h-8 rounded-full flex items-center justify-center text-sm">3</span>
-                        Managing Your Preferences
-                    </h3>
-                    <p className="mb-3">
-                        You can set your browser to block or alert you about these cookies, but some parts of the site will not then work.
-                        To learn more about how to manage cookies via your specific browser, please visit your browser's help center.
-                    </p>
-                </section>
-            </div>
-        )
-    },
-    complaints: {
-        title: "Complaints & Dispute Resolution",
-        icon: <MessageSquare className="h-8 w-8 text-primary mb-4" />,
-        content: (
-            <div className="space-y-6 text-slate-700">
-
-                <section>
-                    <p className="text-lg font-medium leading-relaxed">
-                        At Rima Microfinance Bank, your satisfaction is our priority. However, we understand that issues may occasionally arise.
-                        We have established a robust, transparent, and fair complaints resolution mechanism to ensure your grievances are addressed promptly.
-                    </p>
-                </section>
-
-                <section>
-                    <h3 className="text-xl font-bold text-slate-900 mt-8 mb-4 flex items-center gap-2">
-                        <span className="bg-primary/10 text-primary w-8 h-8 rounded-full flex items-center justify-center text-sm">Step 1</span>
-                        Filing a Complaint
-                    </h3>
-                    <p className="mb-3">You can log a complaint through any of the following officially recognized channels:</p>
-                    <div className="grid sm:grid-cols-2 gap-4 mt-4">
-                        <div className="border border-slate-200 p-4 rounded-lg flex items-start gap-4">
-                            <Mail className="h-6 w-6 text-primary shrink-0" />
-                            <div>
-                                <h4 className="font-bold text-slate-900">Email Support</h4>
-                                <p className="text-sm">complaints@rimamfb.com</p>
-                            </div>
-                        </div>
-                        <div className="border border-slate-200 p-4 rounded-lg flex items-start gap-4">
-                            <Phone className="h-6 w-6 text-primary shrink-0" />
-                            <div>
-                                <h4 className="font-bold text-slate-900">24/7 Call Center</h4>
-                                <p className="text-sm">+234 811 947 7050</p>
-                            </div>
-                        </div>
-                        <div className="border border-slate-200 p-4 rounded-lg flex items-start gap-4">
-                            <MapPin className="h-6 w-6 text-primary shrink-0" />
-                            <div>
-                                <h4 className="font-bold text-slate-900">In-Branch</h4>
-                                <p className="text-sm">Speak to our Customer Service Officers</p>
-                            </div>
-                        </div>
-                        <div className="border border-slate-200 p-4 rounded-lg flex items-start gap-4">
-                            <MessageSquare className="h-6 w-6 text-primary shrink-0" />
-                            <div>
-                                <h4 className="font-bold text-slate-900">Social Media</h4>
-                                <p className="text-sm">Reach out via Twitter or Facebook DM</p>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <section>
-                    <h3 className="text-xl font-bold text-slate-900 mt-8 mb-4 flex items-center gap-2">
-                        <span className="bg-primary/10 text-primary w-8 h-8 rounded-full flex items-center justify-center text-sm">Step 2</span>
-                        Our Resolution Timeline
-                    </h3>
-                    <div className="bg-slate-50 rounded-xl p-6 border border-slate-100">
-                        <ul className="space-y-4">
-                            <li className="flex gap-4 border-b border-slate-200 pb-4">
-                                <div className="font-bold text-primary min-w-24">24 Hours</div>
-                                <div>Acknowledgment of your complaint and provision of a unique tracking Ticket ID.</div>
-                            </li>
-                            <li className="flex gap-4 border-b border-slate-200 pb-4">
-                                <div className="font-bold text-primary min-w-24">48 Hours</div>
-                                <div>Resolution of minor operational or electronic channel issues (e.g., failed transfers).</div>
-                            </li>
-                            <li className="flex gap-4">
-                                <div className="font-bold text-primary min-w-24">7-14 Days</div>
-                                <div>Resolution of complex issues involving third parties (e.g., dispense errors on other banks' ATMs, fraud investigations).</div>
-                            </li>
-                        </ul>
-                    </div>
-                </section>
-
-                <section>
-                    <h3 className="text-xl font-bold text-slate-900 mt-8 mb-4 flex items-center gap-2">
-                        <span className="bg-primary/10 text-primary w-8 h-8 rounded-full flex items-center justify-center text-sm">Step 3</span>
-                        Escalation (CBN/CPD)
-                    </h3>
-                    <p className="mb-3">
-                        If you are unsatisfied with our resolution, or if your complaint is not addressed within 14 days, you have the right to escalate the matter to the Consumer Protection Department (CPD) of the Central Bank of Nigeria (CBN).
-                    </p>
-                    <p className="text-sm bg-blue-50 text-blue-800 p-4 rounded-lg mt-2 font-medium">
-                        CBN Email: cpd@cbn.gov.ng
-                    </p>
-                </section>
-            </div>
-        )
-    }
+        <div className="p-6 rounded-cards bg-white border border-[#e7dcdb] shadow-lift space-y-2 mt-6">
+          <h4 className="font-heading text-xs font-bold text-[#360802]">Escalation Contact</h4>
+          <p className="text-[11px] text-[#ababab]">
+            If a dispute remains unresolved after 14 days, you may escalate the matter directly to the Central Bank of Nigeria Consumer Protection Department via <a href="mailto:cpd@cbn.gov.ng" className="text-[#f73b20] underline">cpd@cbn.gov.ng</a>.
+          </p>
+        </div>
+      </div>
+    )
+  }
 };
 
+type TabKey = keyof typeof legalContent;
+
 export default function Legal() {
-    const location = useLocation();
-    const path = location.pathname.split("/")[1]; // e.g., "privacy" from "/privacy"
+  const location = useLocation();
+  const [activeTab, setActiveTab] = useState<TabKey>("privacy");
 
-    const content = legalContent[path as keyof typeof legalContent] || legalContent.privacy;
+  useEffect(() => {
+    const path = location.pathname.replace('/', '') as TabKey;
+    if (['privacy', 'terms', 'cookies', 'complaints'].includes(path)) {
+      setActiveTab(path);
+    }
+  }, [location.pathname]);
 
-    return (
-        <Layout>
-            <div className="bg-muted/30 py-12 lg:py-24 min-h-[85vh]">
-                <div className="container mx-auto px-4">
-                    <div className="max-w-4xl mx-auto bg-white rounded-2xl shadow-xl shadow-slate-200/40 border border-slate-100 p-8 md:p-12">
-                        {content.icon}
-                        <h1 className="font-display text-3xl md:text-5xl font-black mb-8 text-slate-900 tracking-tight">
-                            {content.title}
-                        </h1>
-                        <ScrollArea className="h-[60vh] md:h-auto pr-4 md:pr-0">
-                            {content.content}
-                        </ScrollArea>
-                    </div>
-                </div>
+  return (
+    <Layout>
+      {/* Editorial Hero */}
+      <section className="relative bg-white pt-12 pb-20 lg:pt-16 lg:pb-28 border-b border-[#e7dcdb]/60 overflow-hidden">
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#fdedea] rounded-full blur-3xl -z-10 opacity-70 pointer-events-none" />
+
+        <div className="max-w-[1200px] mx-auto px-6">
+          <div className="max-w-3xl space-y-6">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-pills bg-[#fdedea] border border-[#e7dcdb] text-[#360802] text-xs font-semibold uppercase tracking-ui">
+              <span>Regulatory Governance</span>
             </div>
-        </Layout>
-    );
+
+            <h1 className="font-heading text-4xl sm:text-6xl lg:text-7xl font-medium text-[#360802] tracking-tight leading-[0.98]">
+              Legal & <span className="text-[#f73b20]">regulatory disclosures</span>.
+            </h1>
+
+            <p className="text-[#360802]/80 text-lg md:text-xl font-normal leading-relaxed">
+              Statutory operational policies, data protection frameworks, and customer dispute resolution standards.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Main Content Area */}
+      <section className="py-24 bg-white border-b border-[#e7dcdb]/60">
+        <div className="max-w-[1200px] mx-auto px-6">
+          <div className="grid lg:grid-cols-12 gap-12 items-start">
+            {/* Sidebar Tabs (4 cols) */}
+            <div className="lg:col-span-4 space-y-2 sticky top-28">
+              <span className="text-xs font-semibold uppercase tracking-ui text-[#ababab] block mb-3 px-4">
+                Legal Documents
+              </span>
+              {(Object.keys(legalContent) as TabKey[]).map((key) => (
+                <button
+                  key={key}
+                  onClick={() => setActiveTab(key)}
+                  className={`flex items-center justify-between w-full px-5 py-3.5 rounded-xl text-xs font-semibold transition-all ${
+                    activeTab === key
+                      ? "bg-[#360802] text-white shadow-soft"
+                      : "bg-white text-[#360802]/80 hover:bg-[#fdedea] border border-[#e7dcdb]"
+                  }`}
+                >
+                  <span className="capitalize">{legalContent[key].title}</span>
+                  <ArrowRight className="h-3.5 w-3.5 opacity-60" />
+                </button>
+              ))}
+            </div>
+
+            {/* Content Display (8 cols) */}
+            <div className="lg:col-span-8">
+              <div className="p-8 lg:p-12 rounded-cards bg-white border border-[#e7dcdb] shadow-lift space-y-6">
+                <div className="flex items-center gap-3 pb-6 border-b border-[#e7dcdb]/60">
+                  <div className="w-10 h-10 rounded-xl bg-[#fdedea] flex items-center justify-center">
+                    {legalContent[activeTab].icon}
+                  </div>
+                  <h2 className="font-heading text-2xl font-semibold text-[#360802]">
+                    {legalContent[activeTab].title}
+                  </h2>
+                </div>
+
+                <div>
+                  {legalContent[activeTab].content}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </Layout>
+  );
 }

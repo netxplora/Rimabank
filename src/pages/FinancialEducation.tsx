@@ -1,47 +1,46 @@
 import { Layout } from "@/components/layout/Layout";
 import { BookOpen, TrendingUp, Lightbulb, Shield, ArrowRight, Search } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
 const categories = [
   "All Topics",
   "Personal Finance",
   "SME Growth",
   "Savings Strategies",
-  "Loan Advice",
-  "Entrepreneurship"
+  "Loan Guidance"
 ];
 
 const articles = [
   {
-    title: "5 Tips for Managing Your Personal Finances in 2024",
-    description: "Learn how to budget effectively and save for the future with these practical tips from our financial advisors.",
+    title: "Structuring Your Personal Cash Flow & Emergency Reserves",
+    description: "Learn how to allocate monthly income into structured liquidity, savings yield accounts, and emergency cushions.",
     category: "Personal Finance",
     date: "March 15, 2024",
     image: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
     icon: TrendingUp
   },
   {
-    title: "How to Scale Your SME: A Local Guide",
-    description: "Scaling a business in Rivers State requires unique strategies. We break down the steps to sustainable growth.",
+    title: "Working Capital Optimization for Commercial Retailers",
+    description: "Managing inventory turnaround, merchant POS reconciliation, and vendor trade financing in regional markets.",
     category: "SME Growth",
     date: "March 10, 2024",
     image: "https://images.unsplash.com/photo-1664575602554-2087b04935a5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
     icon: Lightbulb
   },
   {
-    title: "Understanding Loan Eligibility: What Banks Look For",
-    description: "Demystifying the loan application process. Find out what documents and criteria are essential for a successful application.",
-    category: "Loan Advice",
+    title: "Understanding Microfinance Credit Evaluation Standards",
+    description: "An overview of documentation, bank statements, and debt-service ratios evaluated during loan approval.",
+    category: "Loan Guidance",
     date: "March 5, 2024",
     image: "https://images.unsplash.com/photo-1589758438368-0ad531db3366?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
     icon: Shield
   },
   {
-    title: "Simple Savings Strategies for Students",
-    description: "It's never too early to start saving. Discover how students can manage their allowance and build a safety net.",
+    title: "Foundational Savings Discipline for Tertiary Students",
+    description: "Practical steps for university students to manage allowances, avoid avoidable fees, and build credit history.",
     category: "Savings Strategies",
     date: "February 28, 2024",
     image: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
@@ -50,103 +49,104 @@ const articles = [
 ];
 
 export default function FinancialEducation() {
+  const [activeCategory, setActiveCategory] = useState("All Topics");
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const filteredArticles = articles.filter(a => {
+    const matchesCategory = activeCategory === "All Topics" || a.category === activeCategory;
+    const matchesSearch = a.title.toLowerCase().includes(searchQuery.toLowerCase()) || a.description.toLowerCase().includes(searchQuery.toLowerCase());
+    return matchesCategory && matchesSearch;
+  });
+
   return (
     <Layout>
-      <section className="relative bg-gradient-hero text-primary-foreground py-20 lg:py-32 overflow-hidden">
-        <div className="absolute inset-0 z-0">
-          <img
-            src="/images/hero-home.png"
-            alt="Rima MFB Financial Education"
-            className="w-full h-full object-cover opacity-20 mix-blend-overlay"
-          />
-        </div>
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="max-w-3xl">
-            <h1 className="font-display text-4xl md:text-5xl lg:text-7xl font-bold mb-6">
-              Financial <span className="text-secondary">Literacy</span> Hub
+      {/* Editorial Hero */}
+      <section className="relative bg-white pt-12 pb-20 lg:pt-16 lg:pb-28 border-b border-[#e7dcdb]/60 overflow-hidden">
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#fdedea] rounded-full blur-3xl -z-10 opacity-70 pointer-events-none" />
+
+        <div className="max-w-[1200px] mx-auto px-6">
+          <div className="max-w-3xl space-y-6">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-pills bg-[#fdedea] border border-[#e7dcdb] text-[#360802] text-xs font-semibold uppercase tracking-ui">
+              <span>Financial Literacy Hub</span>
+            </div>
+
+            <h1 className="font-heading text-4xl sm:text-6xl lg:text-7xl font-medium text-[#360802] tracking-tight leading-[0.98]">
+              Practical financial <span className="text-[#f73b20]">guides & insights</span>.
             </h1>
-            <p className="text-xl text-primary-foreground/80 leading-relaxed">
-              Knowledge is the best investment. Explore our curated guides and articles designed to help you make informed financial decisions.
+
+            <p className="text-[#360802]/80 text-lg md:text-xl font-normal leading-relaxed">
+              Curated articles and advisory guides on budgeting, SME capital management, and commercial loan planning from our banking team.
             </p>
           </div>
         </div>
       </section>
 
-      {/* Search and Filters */}
-      <section className="py-12 border-b border-border bg-muted/30">
-        <div className="container mx-auto px-4">
-          <div className="flex flex-col lg:flex-row gap-8 items-center justify-between">
-            <div className="flex flex-wrap gap-2 justify-center lg:justify-start">
-              {categories.map((cat, idx) => (
+      {/* Filter and Search Bar */}
+      <section className="py-8 bg-white border-b border-[#e7dcdb]/60">
+        <div className="max-w-[1200px] mx-auto px-6">
+          <div className="flex flex-col lg:flex-row gap-6 items-center justify-between">
+            <div className="flex flex-wrap gap-2">
+              {categories.map((cat) => (
                 <button
-                  key={idx}
-                  className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
-                    idx === 0 ? "bg-primary text-primary-foreground" : "bg-card border border-border hover:border-primary/50"
+                  key={cat}
+                  onClick={() => setActiveCategory(cat)}
+                  className={`px-4 py-2 rounded-pills text-xs font-semibold uppercase tracking-ui transition-colors ${
+                    activeCategory === cat
+                      ? "bg-[#360802] text-white"
+                      : "bg-[#fdedea] text-[#360802] hover:bg-[#e7dcdb]"
                   }`}
                 >
                   {cat}
                 </button>
               ))}
             </div>
-            <div className="relative w-full lg:w-96">
-              <Search className="absolute left-3 top-2.5 h-5 w-5 text-muted-foreground" />
-              <Input placeholder="Search articles..." className="pl-10 bg-card" />
+
+            <div className="relative w-full lg:w-80">
+              <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-[#ababab]" />
+              <Input
+                placeholder="Search guides..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="pl-10 h-10 bg-[#fdedea]/40 border-[#e7dcdb] rounded-inputs text-xs text-[#360802] focus:border-[#f73b20]"
+              />
             </div>
           </div>
         </div>
       </section>
 
       {/* Articles Grid */}
-      <section className="py-24 bg-background">
-        <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-2 gap-10">
-            {articles.map((article, idx) => (
-              <Card key={idx} className="group overflow-hidden border-none shadow-none bg-transparent">
-                <div className="relative aspect-[16/9] rounded-3xl overflow-hidden mb-6">
-                  <img
-                    src={article.image}
-                    alt={article.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                  <div className="absolute top-4 left-4">
-                    <div className="px-3 py-1 rounded-full bg-background/90 backdrop-blur-sm text-xs font-bold uppercase tracking-wider text-primary">
+      <section className="py-24 bg-white border-b border-[#e7dcdb]/60">
+        <div className="max-w-[1200px] mx-auto px-6">
+          <div className="grid md:grid-cols-2 gap-8">
+            {filteredArticles.map((article, idx) => (
+              <div
+                key={idx}
+                className="rounded-cards bg-white border border-[#e7dcdb] shadow-lift p-6 md:p-8 hover:border-[#f73b20]/30 transition-all duration-300 flex flex-col justify-between group"
+              >
+                <div>
+                  <div className="flex items-center justify-between pb-4 border-b border-[#e7dcdb]/60 mb-6">
+                    <span className="text-[10px] uppercase font-semibold tracking-ui px-2.5 py-1 rounded-pills bg-[#fdedea] text-[#f73b20]">
                       {article.category}
-                    </div>
+                    </span>
+                    <span className="text-xs text-[#ababab]">{article.date}</span>
                   </div>
-                </div>
-                <CardHeader className="p-0 space-y-3">
-                  <div className="flex items-center gap-2 text-sm text-muted-foreground font-medium">
-                    <article.icon className="h-4 w-4 text-secondary" />
-                    <span>{article.date}</span>
-                  </div>
-                  <CardTitle className="text-2xl md:text-3xl font-display font-bold group-hover:text-primary transition-colors leading-tight">
-                    {article.title}
-                  </CardTitle>
-                  <CardDescription className="text-lg leading-relaxed">
-                    {article.description}
-                  </CardDescription>
-                </CardHeader>
-                <div className="pt-6">
-                  <Button variant="ghost" className="p-0 text-primary font-bold hover:bg-transparent hover:text-primary/80 group/btn" asChild>
-                    <Link to="#" className="flex items-center gap-2">
-                      Read Full Article
-                      <ArrowRight className="h-5 w-5 group-hover/btn:translate-x-1 transition-transform" />
-                    </Link>
-                  </Button>
-                </div>
-              </Card>
-            ))}
-          </div>
 
-          <div className="mt-20 text-center">
-            <div className="p-12 rounded-[3rem] bg-muted/50 border border-border max-w-4xl mx-auto">
-              <h3 className="text-2xl font-bold mb-4">Subscribe for Weekly Tips</h3>
-              <p className="text-muted-foreground mb-8">Get the latest financial education content delivered straight to your inbox.</p>
-              <form className="flex flex-col sm:flex-row gap-4 max-w-lg mx-auto">
-                <Input placeholder="Your email address" className="bg-card py-6" />
-                <Button size="lg" className="px-8 bg-secondary text-secondary-foreground hover:bg-secondary/90">Join Now</Button>
-              </form>
-            </div>
+                  <h3 className="font-heading text-xl font-medium text-[#360802] mb-3 group-hover:text-[#f73b20] transition-colors leading-snug">
+                    {article.title}
+                  </h3>
+
+                  <p className="text-xs text-[#ababab] leading-relaxed mb-6">
+                    {article.description}
+                  </p>
+                </div>
+
+                <div className="pt-4 border-t border-[#e7dcdb]/60">
+                  <span className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-ui text-[#f73b20] group-hover:text-[#f84d35]">
+                    Read Full Article <ArrowRight className="h-3.5 w-3.5 transform group-hover:translate-x-1 transition-transform" />
+                  </span>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>

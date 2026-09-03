@@ -41,7 +41,7 @@ export function BankingServiceLayout({
       <section className="relative bg-white pt-12 pb-20 lg:pt-16 lg:pb-24 border-b border-[#e7dcdb]/60 overflow-hidden">
         <div className="absolute top-0 right-0 w-[450px] h-[450px] bg-[#fdedea] rounded-full blur-3xl -z-10 opacity-60 pointer-events-none" />
 
-        <div className="max-w-[1200px] mx-auto px-6">
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
           <div className="max-w-3xl space-y-6">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-pills bg-[#fdedea] border border-[#e7dcdb] text-xs font-semibold uppercase tracking-ui text-[#360802]">
               <Icon className="h-3.5 w-3.5 text-[#f73b20]" />
@@ -74,9 +74,9 @@ export function BankingServiceLayout({
       </section>
 
       {/* Main Content Area */}
-      <section className="py-20 bg-white border-b border-[#e7dcdb]/60">
-        <div className="max-w-[1200px] mx-auto px-6">
-          <div className="grid lg:grid-cols-12 gap-12 lg:gap-16">
+      <section className="py-16 md:py-20 bg-white border-b border-[#e7dcdb]/60">
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
+          <div className="grid lg:grid-cols-12 gap-10 lg:gap-16">
             {/* Left Content (8 cols) */}
             <div className="lg:col-span-8 space-y-12">
               {/* Product Overview */}
@@ -133,7 +133,7 @@ export function BankingServiceLayout({
             {/* Right Sticky Sidebar (4 cols) */}
             <div className="lg:col-span-4 space-y-6">
               {/* Requirements Card */}
-              <div className="rounded-cards bg-white border border-[#e7dcdb] p-6 lg:p-8 shadow-lift sticky top-28">
+              <div className="rounded-cards bg-white border border-[#e7dcdb] p-6 shadow-lift lg:sticky lg:top-24">
                 <div className="flex items-center gap-2 pb-4 border-b border-[#e7dcdb] mb-6">
                   <ShieldCheck className="h-5 w-5 text-[#f73b20]" />
                   <h4 className="font-heading text-base font-semibold text-[#360802]">

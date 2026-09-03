@@ -4,28 +4,29 @@ import { Wallet } from "lucide-react";
 export default function SavingsAccount() {
   return (
     <BankingServiceLayout
-      title="Structured Savings Solutions"
+      title="Personal Savings Account"
       subtitle="Retail Banking Services"
-      description="Secure your financial future with our range of personal savings repositories. Rima Bank delivers competitive, reliable interest yields paired with absolute transparency in account management."
+      description="Build personal and household reserves with structured interest returns, debit card convenience, and guaranteed capital protection under the NDIC."
       icon={Wallet}
       image="/images/hero-home.png"
-      whoItIsFor="Individuals, households, and goal-oriented savers seeking a reliable financial foundation."
+      whoItIsFor="Individuals, families, and salary earners seeking a reliable, interest-yielding account."
       benefits={[
-        "Tiered interest yields up to 4% per annum",
-        "Zero hidden maintenance or administrative fees",
-        "Complimentary electronic debit card issuance",
-        "24/7 Access via Web and Mobile App infrastructure",
-        "Automated quarterly interest crediting",
-        "Expedited eligibility for retail credit facilities"
+        "Competitive annual interest yields calculated daily and credited quarterly",
+        "Zero mandatory minimum operating balance requirements",
+        "Instant debit card issuance for nationwide ATM and POS access",
+        "24/7 Mobile app and online banking platform access",
+        "Automated standing orders for structured monthly savings",
+        "Direct qualification for retail credit and salary advance facilities"
       ]}
       requirements={[
-        "Duly executed Personal Account Opening Form",
-        "Two (2) recent biometric passport photographs",
-        "Valid Government Issue ID (NIN, PVC, or Passport)",
-        "Proof of Residence (Utility Bill < 3 Months)",
-        "Initial deposit of ₦2,000 for account activation"
+        "Duly completed Account Opening Form",
+        "Valid Government ID (NIN, Voter's Card, Driver's License, or Passport)",
+        "Bank Verification Number (BVN)",
+        "Recent Utility Bill (Electricity, Water, or Waste not older than 3 months)",
+        "Two (2) recent passport photographs"
       ]}
-      fees="No recurring maintenance or debit fees"
+      fees="Zero monthly maintenance fees"
+      ctaText="Open Savings Account"
     />
   );
 }
