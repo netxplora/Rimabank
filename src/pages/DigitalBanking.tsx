@@ -130,7 +130,7 @@ export default function DigitalBanking() {
         </div>
       </section>
 
-      {/* 3-Column Core Capabilities Grid */}
+      {/* 3-Column Core Capabilities Grid — Open Layout */}
       <section className="py-16 md:py-20 bg-white border-b border-[#e7dcdb]/60">
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
           <div className="max-w-2xl mb-12">
@@ -142,20 +142,20 @@ export default function DigitalBanking() {
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 border-t border-[#e7dcdb]/80 pt-10">
             {features.map((feature, index) => (
               <div 
                 key={index} 
-                className="card-3d p-7 rounded-2xl bg-white border border-[#e7dcdb] shadow-3d hover:border-[#f73b20]/30 flex flex-col justify-between"
+                className="flex flex-col justify-between"
               >
                 <div>
                   <div 
-                    className="w-12 h-12 rounded-xl flex items-center justify-center mb-5 shadow-sm"
+                    className="w-10 h-10 rounded-xl flex items-center justify-center mb-4"
                     style={{ backgroundColor: feature.bg, color: feature.color }}
                   >
-                    <feature.icon className="h-6 w-6" />
+                    <feature.icon className="h-5 w-5" />
                   </div>
-                  <h3 className="font-heading text-base font-semibold text-[#360802] mb-2">{feature.title}</h3>
+                  <h3 className="font-heading text-base font-semibold text-[#360802] mb-1.5">{feature.title}</h3>
                   <p className="text-xs text-[#ababab] leading-relaxed">{feature.description}</p>
                 </div>
               </div>
@@ -164,8 +164,8 @@ export default function DigitalBanking() {
         </div>
       </section>
 
-      {/* 3-Step Setup 3-Column Grid */}
-      <section className="py-16 md:py-20 bg-gradient-to-b from-[#fdedea]/50 to-white border-b border-[#e7dcdb]/60">
+      {/* 3-Step Setup Open Grid */}
+      <section className="py-16 md:py-20 bg-gradient-to-b from-[#fdedea]/40 to-white border-b border-[#e7dcdb]/60">
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
           <div className="max-w-2xl mb-12">
             <span className="text-xs font-semibold uppercase tracking-wider text-[#f73b20] block mb-2">
@@ -176,26 +176,26 @@ export default function DigitalBanking() {
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
-            <div className="card-3d p-8 rounded-2xl bg-white border border-[#e7dcdb] shadow-3d space-y-4">
-              <div className="text-3xl font-heading font-bold text-[#f73b20]">01</div>
-              <h3 className="font-heading text-lg font-semibold text-[#360802]">Download the App</h3>
+          <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-[#e7dcdb]/80 border-t border-b border-[#e7dcdb]/80 py-2">
+            <div className="py-6 md:p-6 space-y-3">
+              <div className="text-2xl font-heading font-bold text-[#f73b20]">01</div>
+              <h3 className="font-heading text-base font-semibold text-[#360802]">Download the App</h3>
               <p className="text-xs text-[#ababab] leading-relaxed">
                 Download the Rima MFB Mobile Banking application from Google Play or the iOS App Store.
               </p>
             </div>
 
-            <div className="card-3d p-8 rounded-2xl bg-white border border-[#e7dcdb] shadow-3d space-y-4">
-              <div className="text-3xl font-heading font-bold text-[#f73b20]">02</div>
-              <h3 className="font-heading text-lg font-semibold text-[#360802]">Verify Credentials</h3>
+            <div className="py-6 md:p-6 space-y-3">
+              <div className="text-2xl font-heading font-bold text-[#f73b20]">02</div>
+              <h3 className="font-heading text-base font-semibold text-[#360802]">Verify Credentials</h3>
               <p className="text-xs text-[#ababab] leading-relaxed">
                 Enter your registered BVN and National Identification Number (NIN) to verify your account in minutes.
               </p>
             </div>
 
-            <div className="card-3d p-8 rounded-2xl bg-white border border-[#e7dcdb] shadow-3d space-y-4">
-              <div className="text-3xl font-heading font-bold text-[#f73b20]">03</div>
-              <h3 className="font-heading text-lg font-semibold text-[#360802]">Begin Banking</h3>
+            <div className="py-6 md:p-6 space-y-3">
+              <div className="text-2xl font-heading font-bold text-[#f73b20]">03</div>
+              <h3 className="font-heading text-base font-semibold text-[#360802]">Begin Banking</h3>
               <p className="text-xs text-[#ababab] leading-relaxed">
                 Set your secure transaction PIN, fund your balance, and begin executing instant transfers immediately.
               </p>
