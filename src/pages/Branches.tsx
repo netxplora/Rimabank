@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { MapPin, Phone, Clock, Search, Map as MapIcon, Navigation, ArrowRight } from "lucide-react";
+import { MapPin, Phone, Clock, Search, Map as MapIcon, Navigation } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface Branch {
@@ -99,20 +99,20 @@ export default function Branches() {
   return (
     <Layout>
       {/* Editorial Hero */}
-      <section className="relative bg-white pt-12 pb-20 lg:pt-16 lg:pb-28 border-b border-[#e7dcdb]/60 overflow-hidden">
+      <section className="relative bg-white pt-12 pb-16 lg:pt-16 lg:pb-20 border-b border-[#e7dcdb]/60 overflow-hidden">
         <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#fdedea] rounded-full blur-3xl -z-10 opacity-70 pointer-events-none" />
 
-        <div className="max-w-[1200px] mx-auto px-6">
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
           <div className="max-w-3xl space-y-6">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-pills bg-[#fdedea] border border-[#e7dcdb] text-[#360802] text-xs font-semibold uppercase tracking-ui">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#fdedea] border border-[#e7dcdb] text-[#360802] text-xs font-semibold uppercase tracking-wider">
               <span>Regional Network</span>
             </div>
 
-            <h1 className="font-heading text-4xl sm:text-6xl lg:text-7xl font-medium text-[#360802] tracking-tight leading-[0.98]">
+            <h1 className="font-heading text-4xl sm:text-5xl lg:text-6xl font-semibold text-[#360802] tracking-tight leading-[1.05]">
               Locate a <span className="text-[#f73b20]">Rima MFB branch</span>.
             </h1>
 
-            <p className="text-[#360802]/80 text-lg md:text-xl font-normal leading-relaxed">
+            <p className="text-[#360802]/80 text-base sm:text-lg leading-relaxed">
               Find your nearest full-service branch location for account origination, debit card pickup, and dedicated commercial advisory.
             </p>
           </div>
@@ -120,22 +120,23 @@ export default function Branches() {
       </section>
 
       {/* Branch Locator Section */}
-      <section className="py-20 bg-white border-b border-[#e7dcdb]/60">
-        <div className="max-w-[1200px] mx-auto px-6">
-          <div className="flex flex-col lg:flex-row gap-12 min-h-[600px]">
+      <section className="py-16 md:py-20 bg-white border-b border-[#e7dcdb]/60">
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 min-h-[600px]">
+            
             {/* Branch List (6 cols) */}
-            <div className="w-full lg:w-1/2 space-y-6">
+            <div className="lg:col-span-6 space-y-5">
               <div className="relative">
                 <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-[#ababab]" />
                 <Input
                   placeholder="Search by street name, branch, or area..."
-                  className="pl-11 h-12 bg-[#fdedea]/40 border-[#e7dcdb] rounded-inputs text-xs text-[#360802] focus:border-[#f73b20]"
+                  className="pl-11 h-12 bg-[#fdedea]/40 border-[#e7dcdb] rounded-xl text-xs text-[#360802] focus:border-[#f73b20] focus:ring-1 focus:ring-[#f73b20]"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                 />
               </div>
 
-              <div className="space-y-4 max-h-[650px] overflow-y-auto pr-2">
+              <div className="space-y-4 max-h-[650px] overflow-y-auto pr-1">
                 {filteredBranches.length === 0 ? (
                   <div className="text-center py-16 text-xs text-[#ababab]">
                     No branches found matching your search.
@@ -146,9 +147,9 @@ export default function Branches() {
                       key={branch.id}
                       onClick={() => handleViewOnMap(branch.id)}
                       className={cn(
-                        "p-6 rounded-cards border transition-all duration-200 cursor-pointer shadow-lift",
+                        "card-3d p-6 rounded-2xl border transition-all duration-200 cursor-pointer shadow-3d",
                         activeBranchId === branch.id
-                          ? "border-[#f73b20] bg-[#fdedea]/30 ring-1 ring-[#f73b20]/20"
+                          ? "border-[#f73b20] bg-[#fdedea]/40 ring-1 ring-[#f73b20]/30"
                           : "border-[#e7dcdb] bg-white hover:border-[#f73b20]/40"
                       )}
                     >
@@ -157,13 +158,13 @@ export default function Branches() {
                           {branch.name}
                         </h3>
                         {activeBranchId === branch.id && (
-                          <span className="text-[10px] bg-[#f73b20] text-white px-2.5 py-0.5 rounded-pills font-semibold uppercase tracking-ui">
+                          <span className="text-[10px] bg-[#f73b20] text-white px-2.5 py-0.5 rounded-full font-bold uppercase tracking-wider">
                             Selected
                           </span>
                         )}
                       </div>
 
-                      <div className="space-y-2 text-xs text-[#360802]/80">
+                      <div className="space-y-2 text-xs text-[#360802]/85">
                         <div className="flex items-start gap-2">
                           <MapPin className="h-3.5 w-3.5 text-[#f73b20] mt-0.5 shrink-0" />
                           <span>{branch.address}, {branch.city}</span>
@@ -191,7 +192,7 @@ export default function Branches() {
                           <MapIcon className="mr-1.5 h-3.5 w-3.5" />
                           View on Map
                         </Button>
-                        <Button size="sm" variant="outlineNeutral" className="flex-1 text-xs" asChild>
+                        <Button size="sm" variant="outlineNeutral" className="flex-1 text-xs rounded-full" asChild>
                           <a
                             href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(branch.address + ", " + branch.city)}`}
                             target="_blank"
@@ -210,9 +211,9 @@ export default function Branches() {
             </div>
 
             {/* Map Side (6 cols) */}
-            <div id="map-container" className="w-full lg:w-1/2">
-              <div className="sticky top-28">
-                <div className="rounded-cards overflow-hidden h-[420px] lg:h-[650px] border border-[#e7dcdb] shadow-lift bg-[#fdedea] relative">
+            <div id="map-container" className="lg:col-span-6">
+              <div className="lg:sticky lg:top-24">
+                <div className="rounded-3xl overflow-hidden h-[400px] lg:h-[650px] border border-[#e7dcdb] shadow-3d-lift bg-[#fdedea] relative">
                   {activeBranch && activeBranch.latitude && activeBranch.longitude ? (
                     <div className="w-full h-full">
                       <iframe
@@ -225,8 +226,8 @@ export default function Branches() {
                         src={`https://maps.google.com/maps?q=${activeBranch.latitude},${activeBranch.longitude}&hl=en&z=15&output=embed`}
                       ></iframe>
 
-                      {/* Map Location Badge */}
-                      <div className="absolute top-4 left-4 bg-white/95 backdrop-blur-md rounded-xl shadow-lift border border-[#e7dcdb] p-3 text-xs text-[#360802] max-w-xs">
+                      {/* Map Location 3D Badge */}
+                      <div className="absolute top-4 left-4 bg-white/95 backdrop-blur-md rounded-2xl shadow-3d border border-[#e7dcdb] p-3.5 text-xs text-[#360802] max-w-xs">
                         <span className="font-heading font-bold text-xs block">{activeBranch.name}</span>
                         <span className="text-[11px] text-[#ababab]">{activeBranch.address}</span>
                       </div>
@@ -241,6 +242,7 @@ export default function Branches() {
                 </div>
               </div>
             </div>
+
           </div>
         </div>
       </section>

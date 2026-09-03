@@ -26,26 +26,27 @@ const team = [
 
 export function LeadershipTeam() {
   return (
-    <div className="grid md:grid-cols-3 gap-8">
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
       {team.map((member, idx) => (
         <div 
           key={idx} 
-          className="rounded-cards overflow-hidden bg-white border border-[#e7dcdb] shadow-lift hover:border-[#f73b20]/30 transition-all duration-300 flex flex-col justify-between"
+          className="card-3d rounded-2xl overflow-hidden bg-white border border-[#e7dcdb] shadow-3d hover:border-[#f73b20]/40 flex flex-col justify-between group"
         >
-          <div className="aspect-[4/4.5] overflow-hidden bg-[#fdedea]">
+          <div className="aspect-[4/4.5] overflow-hidden bg-[#fdedea] relative">
             <img 
               src={member.image} 
               alt={member.name} 
-              className="w-full h-full object-cover object-top hover:scale-105 transition-transform duration-500" 
+              className="w-full h-full object-cover object-top transform group-hover:scale-105 transition-transform duration-500" 
               onError={(e) => {
-                (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80";
+                (e.target as HTMLImageElement).src = "/images/hero-about.png";
               }}
             />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#360802]/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
           </div>
           <div className="p-6">
-            <h3 className="font-heading text-lg font-semibold text-[#360802] mb-0.5">{member.name}</h3>
-            <p className="text-[#f73b20] text-xs font-semibold uppercase tracking-ui mb-3">{member.role}</p>
-            <p className="text-xs text-[#ababab] leading-relaxed mb-6">
+            <h3 className="font-heading text-lg font-semibold text-[#360802] mb-0.5 group-hover:text-[#f73b20] transition-colors">{member.name}</h3>
+            <p className="text-[#f73b20] text-xs font-semibold uppercase tracking-wider mb-3">{member.role}</p>
+            <p className="text-xs text-[#ababab] leading-relaxed mb-5">
               {member.bio}
             </p>
             <div className="flex gap-2 pt-3 border-t border-[#e7dcdb]/60">
@@ -53,7 +54,7 @@ export function LeadershipTeam() {
                 <a 
                   href={member.social.linkedin} 
                   aria-label="LinkedIn"
-                  className="w-8 h-8 rounded-full bg-[#fdedea] text-[#360802] flex items-center justify-center hover:bg-[#f73b20] hover:text-white transition-colors"
+                  className="w-8 h-8 rounded-full bg-[#fdedea] text-[#360802] flex items-center justify-center hover:bg-[#f73b20] hover:text-white transition-all shadow-xs"
                 >
                   <Linkedin className="h-3.5 w-3.5" />
                 </a>
@@ -62,7 +63,7 @@ export function LeadershipTeam() {
                 <a 
                   href={member.social.twitter} 
                   aria-label="Twitter"
-                  className="w-8 h-8 rounded-full bg-[#fdedea] text-[#360802] flex items-center justify-center hover:bg-[#f73b20] hover:text-white transition-colors"
+                  className="w-8 h-8 rounded-full bg-[#fdedea] text-[#360802] flex items-center justify-center hover:bg-[#f73b20] hover:text-white transition-all shadow-xs"
                 >
                   <Twitter className="h-3.5 w-3.5" />
                 </a>

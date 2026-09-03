@@ -5,12 +5,9 @@ import {
   Heart,
   Users,
   Award,
-  TrendingUp,
   Shield,
   Handshake,
   ShieldCheck,
-  Building,
-  CheckCircle2,
   ArrowRight
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -75,31 +72,36 @@ export default function About() {
   return (
     <Layout>
       {/* Editorial Hero */}
-      <section className="relative bg-white pt-12 pb-20 lg:pt-16 lg:pb-28 border-b border-[#e7dcdb]/60 overflow-hidden">
+      <section className="relative bg-white pt-12 pb-16 lg:pt-16 lg:pb-20 border-b border-[#e7dcdb]/60 overflow-hidden">
         <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#fdedea] rounded-full blur-3xl -z-10 opacity-70 pointer-events-none" />
 
-        <div className="max-w-[1200px] mx-auto px-6">
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
           <div className="max-w-3xl space-y-6">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-pills bg-[#fdedea] border border-[#e7dcdb] text-[#360802] text-xs font-semibold uppercase tracking-ui">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#fdedea] border border-[#e7dcdb] text-[#360802] text-xs font-semibold uppercase tracking-wider">
               <span>About Rima Microfinance Bank</span>
             </div>
 
-            <h1 className="font-heading text-4xl sm:text-6xl lg:text-7xl font-medium text-[#360802] tracking-tight leading-[0.98]">
+            <h1 className="font-heading text-4xl sm:text-5xl lg:text-6xl font-semibold text-[#360802] tracking-tight leading-[1.05]">
               Empowering regional growth with <span className="text-[#f73b20]">stability</span> and <span className="text-[#f73b20]">trust</span>.
             </h1>
 
-            <p className="text-[#360802]/80 text-lg md:text-xl font-normal leading-relaxed">
+            <p className="text-[#360802]/80 text-base sm:text-lg leading-relaxed">
               Founded on the belief that every hardworking individual, student, trader, and entrepreneur deserves accessible, structured, and ethical banking services.
             </p>
 
             <div className="pt-2 flex flex-wrap items-center gap-4">
-              <Button variant="pill" size="lg" asChild className="shadow-brand">
+              <Button
+                variant="pill"
+                size="lg"
+                asChild
+                className="bg-[#f73b20] hover:bg-[#f84d35] text-white shadow-3d-orange transform hover:-translate-y-0.5 transition-all"
+              >
                 <Link to="/contact">
                   Open an Account
-                  <ArrowRight className="h-4 w-4 ml-1" />
+                  <ArrowRight className="h-4 w-4 ml-1.5" />
                 </Link>
               </Button>
-              <Button variant="outlineNeutral" size="lg" asChild className="rounded-buttons">
+              <Button variant="outlineNeutral" size="lg" asChild className="rounded-full">
                 <Link to="/branches">
                   Find Branch Location
                 </Link>
@@ -109,26 +111,26 @@ export default function About() {
         </div>
       </section>
 
-      {/* Mission & Vision */}
-      <section className="py-24 bg-white border-b border-[#e7dcdb]/60">
-        <div className="max-w-[1200px] mx-auto px-6">
-          <div className="grid md:grid-cols-2 gap-8">
-            <div className="p-8 lg:p-10 rounded-cards bg-white border border-[#e7dcdb] shadow-lift">
-              <div className="w-12 h-12 rounded-xl bg-[#bcffbb] text-[#34c771] flex items-center justify-center mb-6">
+      {/* Mission & Vision Grid */}
+      <section className="py-16 md:py-20 bg-white border-b border-[#e7dcdb]/60">
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+            <div className="card-3d p-8 rounded-2xl bg-white border border-[#e7dcdb] shadow-3d">
+              <div className="w-12 h-12 rounded-xl bg-[#bcffbb] text-[#34c771] flex items-center justify-center mb-6 shadow-sm">
                 <Target className="h-6 w-6" />
               </div>
-              <h2 className="font-heading text-2xl font-medium text-[#360802] mb-3">Our Mission</h2>
-              <p className="text-[#360802]/70 text-sm leading-relaxed">
+              <h2 className="font-heading text-2xl font-semibold text-[#360802] mb-3">Our Mission</h2>
+              <p className="text-[#360802]/75 text-sm leading-relaxed">
                 To deliver accessible, dependable, and sustainable financial services that enable individuals, small businesses, and institutions to achieve financial stability and economic growth.
               </p>
             </div>
 
-            <div className="p-8 lg:p-10 rounded-cards bg-white border border-[#e7dcdb] shadow-lift">
-              <div className="w-12 h-12 rounded-xl bg-[#fdedea] text-[#f73b20] flex items-center justify-center mb-6">
+            <div className="card-3d p-8 rounded-2xl bg-white border border-[#e7dcdb] shadow-3d">
+              <div className="w-12 h-12 rounded-xl bg-[#fdedea] text-[#f73b20] flex items-center justify-center mb-6 shadow-sm">
                 <Eye className="h-6 w-6" />
               </div>
-              <h2 className="font-heading text-2xl font-medium text-[#360802] mb-3">Our Vision</h2>
-              <p className="text-[#360802]/70 text-sm leading-relaxed">
+              <h2 className="font-heading text-2xl font-semibold text-[#360802] mb-3">Our Vision</h2>
+              <p className="text-[#360802]/75 text-sm leading-relaxed">
                 To be the primary microfinance bank in Rivers State, recognized for regulatory discipline, technological stability, and lasting community impact.
               </p>
             </div>
@@ -136,29 +138,29 @@ export default function About() {
         </div>
       </section>
 
-      {/* Core Values */}
-      <section className="py-24 bg-white border-b border-[#e7dcdb]/60">
-        <div className="max-w-[1200px] mx-auto px-6">
-          <div className="max-w-2xl mb-16">
-            <span className="text-xs font-semibold uppercase tracking-ui text-[#f73b20] block mb-2">
+      {/* Core Values 3-Column Grid */}
+      <section className="py-16 md:py-20 bg-white border-b border-[#e7dcdb]/60">
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
+          <div className="max-w-2xl mb-12">
+            <span className="text-xs font-semibold uppercase tracking-wider text-[#f73b20] block mb-2">
               Institutional Values
             </span>
-            <h2 className="font-heading text-3xl md:text-5xl font-medium text-[#360802] tracking-tight leading-[1.05]">
+            <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-semibold text-[#360802] tracking-tight leading-[1.08]">
               The principles guiding our banking operations.
             </h2>
           </div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {coreValues.map((value) => (
-              <div key={value.title} className="p-8 rounded-cards bg-white border border-[#e7dcdb] shadow-lift flex flex-col justify-between">
+              <div key={value.title} className="card-3d p-7 rounded-2xl bg-white border border-[#e7dcdb] shadow-3d hover:border-[#f73b20]/30 flex flex-col justify-between">
                 <div>
                   <div 
-                    className="w-12 h-12 rounded-xl flex items-center justify-center mb-6"
+                    className="w-12 h-12 rounded-xl flex items-center justify-center mb-5 shadow-sm"
                     style={{ backgroundColor: value.bg, color: value.color }}
                   >
                     <value.icon className="h-6 w-6" />
                   </div>
-                  <h3 className="font-heading text-lg font-semibold text-[#360802] mb-2">{value.title}</h3>
+                  <h3 className="font-heading text-base font-semibold text-[#360802] mb-2">{value.title}</h3>
                   <p className="text-xs text-[#ababab] leading-relaxed">{value.description}</p>
                 </div>
               </div>
@@ -168,13 +170,13 @@ export default function About() {
       </section>
 
       {/* Leadership Section */}
-      <section className="py-24 bg-white border-b border-[#e7dcdb]/60">
-        <div className="max-w-[1200px] mx-auto px-6">
-          <div className="max-w-2xl mb-16">
-            <span className="text-xs font-semibold uppercase tracking-ui text-[#f73b20] block mb-2">
+      <section className="py-16 md:py-20 bg-white border-b border-[#e7dcdb]/60">
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
+          <div className="max-w-2xl mb-12">
+            <span className="text-xs font-semibold uppercase tracking-wider text-[#f73b20] block mb-2">
               Corporate Governance
             </span>
-            <h2 className="font-heading text-3xl md:text-5xl font-medium text-[#360802] tracking-tight leading-[1.05]">
+            <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-semibold text-[#360802] tracking-tight leading-[1.08]">
               Experienced executive leadership.
             </h2>
             <p className="text-[#360802]/70 text-sm mt-3">
@@ -186,21 +188,21 @@ export default function About() {
         </div>
       </section>
 
-      {/* Historical Milestones */}
-      <section className="py-24 bg-[#360802] text-white">
-        <div className="max-w-[1200px] mx-auto px-6">
-          <div className="max-w-2xl mb-16">
-            <span className="text-xs font-semibold uppercase tracking-ui text-[#f73b20] block mb-2">
+      {/* Historical Milestones 3-Column Grid */}
+      <section className="py-16 md:py-20 bg-[#360802] text-white">
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
+          <div className="max-w-2xl mb-12">
+            <span className="text-xs font-semibold uppercase tracking-wider text-[#f73b20] block mb-2">
               Chronology of Growth
             </span>
-            <h2 className="font-heading text-3xl md:text-5xl font-medium text-white tracking-tight leading-[1.05]">
+            <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-semibold text-white tracking-tight leading-[1.08]">
               Over 25 years of steady milestones.
             </h2>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {milestones.map((m) => (
-              <div key={m.year} className="p-6 rounded-cards bg-white/5 border border-white/10 backdrop-blur-sm">
+              <div key={m.year} className="p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm shadow-md hover:bg-white/10 transition-all">
                 <div className="text-2xl font-heading font-bold text-[#f73b20] mb-2">{m.year}</div>
                 <p className="text-xs text-white/80 leading-relaxed">{m.event}</p>
               </div>
@@ -210,20 +212,25 @@ export default function About() {
       </section>
 
       {/* Regulatory Disclosure */}
-      <section className="py-20 bg-white">
-        <div className="max-w-[1200px] mx-auto px-6 text-center">
+      <section className="py-16 md:py-20 bg-white">
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 text-center">
           <div className="max-w-2xl mx-auto space-y-4">
-            <h3 className="font-heading text-2xl font-medium text-[#360802]">
+            <h3 className="font-heading text-2xl font-semibold text-[#360802]">
               Central Bank of Nigeria Licensed Institution
             </h3>
             <p className="text-xs text-[#ababab] leading-relaxed">
               Rima Microfinance Bank is fully licensed and supervised by the Central Bank of Nigeria (CBN). All eligible customer deposits are insured by the Nigeria Deposit Insurance Corporation (NDIC).
             </p>
-            <div className="pt-4 flex justify-center gap-4">
-              <Button variant="pill" size="default" asChild className="shadow-brand">
+            <div className="pt-4 flex flex-wrap justify-center gap-4">
+              <Button
+                variant="pill"
+                size="default"
+                asChild
+                className="bg-[#f73b20] hover:bg-[#f84d35] text-white shadow-3d-orange transform hover:-translate-y-0.5 transition-all"
+              >
                 <Link to="/contact">Contact Head Office</Link>
               </Button>
-              <Button variant="outlineNeutral" size="default" asChild>
+              <Button variant="outlineNeutral" size="default" asChild className="rounded-full">
                 <Link to="/privacy">Regulatory Compliance</Link>
               </Button>
             </div>
