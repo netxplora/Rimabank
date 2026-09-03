@@ -1,146 +1,157 @@
 import { Layout } from "@/components/layout/Layout";
 import { Briefcase, Users, Heart, GraduationCap, ArrowRight, MapPin, Clock } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 
 const jobOpenings = [
   {
     id: 1,
-    title: "Relationship Manager (SME)",
-    location: "Port Harcourt",
+    title: "Commercial Relationship Manager (SME)",
+    location: "Port Harcourt Main Branch",
     type: "Full-time",
-    description: "Seeking a passionate individual to support our local SME customers with tailored financial solutions."
+    description: "Manage a portfolio of SME commercial clients, structure working capital proposals, and deliver high-touch banking advisory."
   },
   {
     id: 2,
-    title: "Digital Banking Officer",
-    location: "Head Office",
+    title: "Digital Banking Operations Officer",
+    location: "Head Office Operations",
     type: "Full-time",
-    description: "Help us shape the future of digital banking in Rivers State. Experience with fintech preferred."
+    description: "Monitor electronic payment reconciliations, POS terminal settlements, and customer service escalation workflows."
   },
   {
     id: 3,
-    title: "Branch Teller",
-    location: "Onne Branch",
+    title: "Branch Customer Service Officer",
+    location: "Choba Campus Branch",
     type: "Full-time",
-    description: "Be the face of RIMA. Provide excellent customer service and handle financial transactions with care."
+    description: "Deliver professional customer onboarding, account maintenance verification, and debit card issuance support."
   }
 ];
 
 export default function Careers() {
   return (
     <Layout>
-      <section className="relative bg-gradient-hero text-primary-foreground py-20 lg:py-32 overflow-hidden">
-        <div className="absolute inset-0 z-0">
-          <img
-            src="/images/hero-home.png"
-            alt="Careers at Rima MFB"
-            className="w-full h-full object-cover opacity-20 mix-blend-overlay"
-          />
-        </div>
-        <div className="container mx-auto px-4 relative z-10 text-center">
-          <h1 className="font-display text-4xl md:text-5xl lg:text-7xl font-bold mb-6">
-            Join the <span className="text-secondary italic">Rima Family</span>
-          </h1>
-          <p className="text-xl text-primary-foreground/80 max-w-2xl mx-auto leading-relaxed">
-            Professional excellence meets community impact. Build your career with the leading microfinance institution in Rivers State.
-          </p>
+      {/* Editorial Hero */}
+      <section className="relative bg-white pt-12 pb-20 lg:pt-16 lg:pb-28 border-b border-[#e7dcdb]/60 overflow-hidden">
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#fdedea] rounded-full blur-3xl -z-10 opacity-70 pointer-events-none" />
+
+        <div className="max-w-[1200px] mx-auto px-6">
+          <div className="max-w-3xl space-y-6">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-pills bg-[#fdedea] border border-[#e7dcdb] text-[#360802] text-xs font-semibold uppercase tracking-ui">
+              <span>Careers & Talent</span>
+            </div>
+
+            <h1 className="font-heading text-4xl sm:text-6xl lg:text-7xl font-medium text-[#360802] tracking-tight leading-[0.98]">
+              Build your career in <span className="text-[#f73b20]">banking</span>.
+            </h1>
+
+            <p className="text-[#360802]/80 text-lg md:text-xl font-normal leading-relaxed">
+              Join a licensed financial institution dedicated to financial inclusion, professional integrity, and sustainable economic impact across Rivers State.
+            </p>
+          </div>
         </div>
       </section>
 
-      <section className="py-24 bg-background">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl font-display font-bold mb-4">Why Work with Us?</h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
-              At RIMA, we believe our people are our greatest asset. 
-              We provide a supportive environment where you can grow and make a real impact.
-            </p>
+      {/* Workplace Culture Grid */}
+      <section className="py-24 bg-white border-b border-[#e7dcdb]/60">
+        <div className="max-w-[1200px] mx-auto px-6">
+          <div className="max-w-2xl mb-16">
+            <span className="text-xs font-semibold uppercase tracking-ui text-[#f73b20] block mb-2">
+              Our Workplace
+            </span>
+            <h2 className="font-heading text-3xl md:text-5xl font-medium text-[#360802] tracking-tight leading-[1.05]">
+              Why join Rima Microfinance Bank?
+            </h2>
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
-            <Card className="border-none shadow-lg bg-muted/30">
-              <CardContent className="p-8 text-center space-y-4">
-                <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto">
-                  <Heart className="h-8 w-8 text-primary" />
-                </div>
-                <h3 className="text-xl font-bold">Community-Focused</h3>
-                <p className="text-sm text-muted-foreground">Every project we work on is designed to empower a person, business, or community in Rivers State.</p>
-              </CardContent>
-            </Card>
-            <Card className="border-none shadow-lg bg-muted/30">
-              <CardContent className="p-8 text-center space-y-4">
-                <div className="w-16 h-16 bg-secondary/10 rounded-full flex items-center justify-center mx-auto">
-                  <GraduationCap className="h-8 w-8 text-secondary" />
-                </div>
-                <h3 className="text-xl font-bold">Growth Opportunities</h3>
-                <p className="text-sm text-muted-foreground">We value continuous learning and provide regular training to help you stay at the forefront of the industry.</p>
-              </CardContent>
-            </Card>
-            <Card className="border-none shadow-lg bg-muted/30">
-              <CardContent className="p-8 text-center space-y-4">
-                <div className="w-16 h-16 bg-accent/10 rounded-full flex items-center justify-center mx-auto">
-                  <Users className="h-8 w-8 text-accent" />
-                </div>
-                <h3 className="text-xl font-bold">Diverse & Inclusive</h3>
-                <p className="text-sm text-muted-foreground">We pride ourselves on our inclusive culture where every voice is heard and valued.</p>
-              </CardContent>
-            </Card>
+            <div className="p-8 rounded-cards bg-white border border-[#e7dcdb] shadow-lift space-y-4">
+              <div className="w-12 h-12 rounded-xl bg-[#bcffbb] text-[#34c771] flex items-center justify-center">
+                <Heart className="h-6 w-6" />
+              </div>
+              <h3 className="font-heading text-lg font-semibold text-[#360802]">Community Impact</h3>
+              <p className="text-xs text-[#ababab] leading-relaxed">
+                Directly support local business owners, students, and families in accessing structured banking capital.
+              </p>
+            </div>
+
+            <div className="p-8 rounded-cards bg-white border border-[#e7dcdb] shadow-lift space-y-4">
+              <div className="w-12 h-12 rounded-xl bg-[#fdedea] text-[#f73b20] flex items-center justify-center">
+                <GraduationCap className="h-6 w-6" />
+              </div>
+              <h3 className="font-heading text-lg font-semibold text-[#360802]">Professional Development</h3>
+              <p className="text-xs text-[#ababab] leading-relaxed">
+                Structured banking training, regulatory compliance certifications, and clear internal leadership pathways.
+              </p>
+            </div>
+
+            <div className="p-8 rounded-cards bg-white border border-[#e7dcdb] shadow-lift space-y-4">
+              <div className="w-12 h-12 rounded-xl bg-[#e7dcdb] text-[#477ee9] flex items-center justify-center">
+                <Users className="h-6 w-6" />
+              </div>
+              <h3 className="font-heading text-lg font-semibold text-[#360802]">Collaborative Culture</h3>
+              <p className="text-xs text-[#ababab] leading-relaxed">
+                Work alongside experienced banking executives in an ethical, transparent, and merit-driven environment.
+              </p>
+            </div>
           </div>
         </div>
       </section>
 
-      <section className="py-24 bg-muted/20">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <div className="flex justify-between items-end mb-12">
-              <div>
-                <h2 className="text-3xl font-display font-bold">Current Openings</h2>
-                <p className="text-muted-foreground">Find your next role with us.</p>
+      {/* Current Job Openings */}
+      <section className="py-24 bg-[#fdedea] border-b border-[#e7dcdb]/60">
+        <div className="max-w-[1200px] mx-auto px-6">
+          <div className="max-w-2xl mb-12">
+            <span className="text-xs font-semibold uppercase tracking-ui text-[#f73b20] block mb-2">
+              Available Positions
+            </span>
+            <h2 className="font-heading text-3xl md:text-4xl font-medium text-[#360802] tracking-tight leading-tight">
+              Current Open Roles
+            </h2>
+          </div>
+
+          <div className="space-y-4 max-w-4xl">
+            {jobOpenings.map((job) => (
+              <div 
+                key={job.id} 
+                className="p-6 md:p-8 rounded-cards bg-white border border-[#e7dcdb] shadow-lift flex flex-col md:flex-row justify-between items-start md:items-center gap-6"
+              >
+                <div className="space-y-2">
+                  <h3 className="font-heading text-lg font-semibold text-[#360802]">{job.title}</h3>
+                  <div className="flex items-center gap-4 text-xs text-[#ababab]">
+                    <span className="flex items-center gap-1.5"><MapPin className="h-3.5 w-3.5 text-[#f73b20]" /> {job.location}</span>
+                    <span className="flex items-center gap-1.5"><Clock className="h-3.5 w-3.5 text-[#34c771]" /> {job.type}</span>
+                  </div>
+                  <p className="text-xs text-[#360802]/70 leading-relaxed pt-1">{job.description}</p>
+                </div>
+                <Button variant="pill" size="default" className="shrink-0 shadow-brand" asChild>
+                  <Link to={`/contact?subject=Career+Application+-+${encodeURIComponent(job.title)}`}>
+                    Apply for Position
+                    <ArrowRight className="h-3.5 w-3.5 ml-1" />
+                  </Link>
+                </Button>
               </div>
-              <Button variant="ghost" className="text-primary hidden md:flex items-center gap-2">
-                All Jobs <ArrowRight className="h-4 w-4" />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* General Resume Submissions */}
+      <section className="py-20 bg-white">
+        <div className="max-w-[1200px] mx-auto px-6 text-center">
+          <div className="max-w-2xl mx-auto space-y-4">
+            <h3 className="font-heading text-2xl font-medium text-[#360802]">
+              General Applications
+            </h3>
+            <p className="text-xs text-[#ababab] leading-relaxed">
+              Don't see a specific opening matching your background? Send your curriculum vitae directly to our human resources desk at <span className="font-semibold text-[#360802]">careers@rimamfb.com</span>.
+            </p>
+            <div className="pt-2">
+              <Button variant="outlineNeutral" size="lg" asChild className="rounded-buttons">
+                <Link to="/contact">
+                  Submit CV via Contact Form
+                </Link>
               </Button>
             </div>
-
-            <div className="space-y-6">
-              {jobOpenings.map((job) => (
-                <Card key={job.id} className="hover:border-primary/50 transition-colors">
-                  <CardContent className="p-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
-                    <div className="space-y-2">
-                      <h3 className="text-xl font-bold">{job.title}</h3>
-                      <div className="flex items-center gap-4 text-sm text-muted-foreground">
-                        <span className="flex items-center gap-1"><MapPin className="h-3 w-3" /> {job.location}</span>
-                        <span className="flex items-center gap-1"><Clock className="h-3 w-3" /> {job.type}</span>
-                      </div>
-                      <p className="text-muted-foreground text-sm mt-4">{job.description}</p>
-                    </div>
-                    <Button asChild>
-                      <Link to="/contact?reason=job&title={job.title}">Apply Now</Link>
-                    </Button>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="py-24 bg-background">
-        <div className="container mx-auto px-4 text-center">
-          <div className="max-w-2xl mx-auto bg-primary text-primary-foreground p-12 rounded-[3rem] shadow-2xl relative overflow-hidden">
-             <div className="relative z-10">
-                <h2 className="text-3xl font-display font-bold mb-6">Don't see a fit?</h2>
-                <p className="text-primary-foreground/80 mb-8">
-                  We are always on the lookout for talented individuals. 
-                  Send your CV to <span className="font-bold text-secondary underline">careers@riversmfb.com</span> and we'll keep you in mind for future roles.
-                </p>
-                <Button size="lg" variant="secondary" className="px-10" asChild>
-                  <Link to="/contact">Send General CV</Link>
-                </Button>
-             </div>
-             <Briefcase className="absolute -bottom-10 -right-10 h-64 w-64 text-white/5" />
           </div>
         </div>
       </section>
