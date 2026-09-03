@@ -45,12 +45,12 @@ export function SMEBankingSection() {
                 </div>
               </div>
 
-              {/* Grid of SME Products */}
-              <div className="space-y-3">
+              {/* SME Products List (No nested boxed cards) */}
+              <div className="space-y-4">
                 {smeServices.map((service) => (
-                  <div key={service.title} className="p-3.5 rounded-xl bg-white border border-[#e7dcdb] shadow-sm hover:border-[#f73b20]/30 transition-all flex items-start gap-3">
+                  <div key={service.title} className="flex items-start gap-3.5">
                     <div 
-                      className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0 shadow-xs"
+                      className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0 mt-0.5"
                       style={{ backgroundColor: service.bg, color: service.color }}
                     >
                       <service.icon className="h-4 w-4" />

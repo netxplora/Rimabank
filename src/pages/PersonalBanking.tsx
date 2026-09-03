@@ -168,25 +168,25 @@ export default function PersonalBanking() {
         </div>
       </section>
 
-      {/* Trust Banner 3-Column Grid */}
-      <section className="py-16 md:py-20 bg-gradient-to-b from-[#fdedea]/60 to-white border-b border-[#e7dcdb]/60">
+      {/* Trust Banner — Open Divided Layout (No card containers) */}
+      <section className="py-12 md:py-16 bg-white border-b border-[#e7dcdb]/60">
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
-            <div className="card-3d p-6 rounded-2xl bg-white border border-[#e7dcdb] shadow-3d flex items-start gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-[#e7dcdb]/80 border-t border-b border-[#e7dcdb]/80 py-2">
+            <div className="py-6 md:p-6 flex items-start gap-4">
               <ShieldCheck className="h-6 w-6 text-[#34c771] shrink-0 mt-1" />
               <div>
                 <h4 className="font-heading text-base font-semibold text-[#360802] mb-1">Central Bank Licensed</h4>
                 <p className="text-xs text-[#ababab] leading-relaxed">Strict adherence to CBN financial safety ratios and consumer protection guidelines.</p>
               </div>
             </div>
-            <div className="card-3d p-6 rounded-2xl bg-white border border-[#e7dcdb] shadow-3d flex items-start gap-4">
+            <div className="py-6 md:p-6 flex items-start gap-4">
               <Landmark className="h-6 w-6 text-[#477ee9] shrink-0 mt-1" />
               <div>
                 <h4 className="font-heading text-base font-semibold text-[#360802] mb-1">NDIC Insured</h4>
                 <p className="text-xs text-[#ababab] leading-relaxed">Eligible customer deposits insured up to the maximum regulatory thresholds.</p>
               </div>
             </div>
-            <div className="card-3d p-6 rounded-2xl bg-white border border-[#e7dcdb] shadow-3d flex items-start gap-4">
+            <div className="py-6 md:p-6 flex items-start gap-4">
               <CreditCard className="h-6 w-6 text-[#f73b20] shrink-0 mt-1" />
               <div>
                 <h4 className="font-heading text-base font-semibold text-[#360802] mb-1">Nationwide Interoperability</h4>

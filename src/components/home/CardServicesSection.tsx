@@ -106,23 +106,18 @@ export function CardServicesSection() {
               Rima MFB debit cards allow seamless in-store purchases, utility settlements, and cash withdrawals across all ATMs throughout Nigeria.
             </p>
 
-            {/* Feature Cards Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
+            {/* Feature List (No card containers) */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 pt-2 border-t border-[#e7dcdb]/60">
               {cardFeatures.map((item, index) => (
-                <div 
-                  key={index} 
-                  className="card-3d p-4 rounded-xl bg-white border border-[#e7dcdb] shadow-3d hover:border-[#f73b20]/40 flex flex-col justify-between"
-                >
-                  <div>
-                    <div 
-                      className="w-10 h-10 rounded-lg flex items-center justify-center mb-3 shadow-sm"
-                      style={{ backgroundColor: item.bg, color: item.color }}
-                    >
-                      <item.icon className="h-5 w-5" />
-                    </div>
-                    <h3 className="text-xs font-bold text-[#360802] mb-1">{item.title}</h3>
-                    <p className="text-[11px] text-[#ababab] leading-snug">{item.description}</p>
+                <div key={index} className="flex flex-col">
+                  <div 
+                    className="w-9 h-9 rounded-lg flex items-center justify-center mb-3"
+                    style={{ backgroundColor: item.bg, color: item.color }}
+                  >
+                    <item.icon className="h-4.5 w-4.5" />
                   </div>
+                  <h3 className="text-xs font-semibold text-[#360802] mb-1">{item.title}</h3>
+                  <p className="text-[11px] text-[#ababab] leading-relaxed">{item.description}</p>
                 </div>
               ))}
             </div>

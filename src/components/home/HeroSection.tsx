@@ -5,16 +5,13 @@ import { Button } from "@/components/ui/button";
 export function HeroSection() {
   return (
     <section className="relative min-h-[640px] lg:min-h-[720px] flex items-center bg-[#360802] text-white overflow-hidden border-b border-black/20">
-      {/* Hero Background Image with Editorial Gradient */}
+      {/* Hero Background Image */}
       <div className="absolute inset-0 z-0">
         <img
           src="/images/hero-home.png"
           alt="Rima Microfinance Bank"
           className="w-full h-full object-cover object-center scale-105 transform motion-safe:animate-pulse-subtle"
         />
-        {/* Layered High-Contrast Gradient for perfect legibility */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#360802]/95 via-[#360802]/85 to-[#360802]/65" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#360802] via-transparent to-[#360802]/50" />
       </div>
 
       <div className="relative z-10 w-full max-w-[1200px] mx-auto px-4 sm:px-6 py-16 lg:py-24">

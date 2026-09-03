@@ -29,89 +29,59 @@ const testimonials = [
 
 export function TestimonialsSection() {
   return (
-    <section className="py-12 md:py-20 bg-white border-b border-[#e7dcdb]/60">
+    <section className="py-16 md:py-20 bg-white border-b border-[#e7dcdb]/60">
       <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
 
         {/* Header */}
-        <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-2 mb-7 md:mb-12">
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-12">
           <div>
-            <span className="text-[10px] font-semibold uppercase tracking-wider text-[#f73b20] block mb-1.5">
+            <span className="text-xs font-semibold uppercase tracking-wider text-[#f73b20] block mb-2">
               Client Experience
             </span>
-            <h2 className="font-heading text-xl sm:text-3xl lg:text-5xl font-semibold text-[#360802] tracking-tight leading-[1.08]">
+            <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-semibold text-[#360802] tracking-tight leading-[1.08]">
               Trusted by business owners and individuals across Rivers State.
             </h2>
           </div>
-          <p className="text-[#ababab] text-xs leading-relaxed sm:max-w-xs hidden sm:block sm:text-right">
+          <p className="text-[#ababab] text-sm leading-relaxed max-w-sm md:text-right">
             Real feedback from commercial enterprises, market traders, and campus students.
           </p>
         </div>
 
-        {/* Mobile: horizontal scroll carousel */}
-        <div className="flex gap-3 overflow-x-auto pb-3 scrollbar-none -mx-4 px-4 sm:hidden">
+        {/* Open Editorial Testimonials Grid (No heavy card containers) */}
+        <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-[#e7dcdb]/80 border-t border-b border-[#e7dcdb]/80">
           {testimonials.map((item, index) => (
             <div
               key={index}
-              className="flex-shrink-0 w-72 rounded-xl bg-white border border-[#e7dcdb] p-4 shadow-sm flex flex-col justify-between"
-            >
-              <div>
-                <div className="flex items-center justify-between mb-3">
-                  <div className="flex text-[#f73b20] gap-0.5">
-                    {[...Array(item.rating)].map((_, i) => (
-                      <Star key={i} className="h-3 w-3 fill-current" />
-                    ))}
-                  </div>
-                  <span className="inline-flex items-center gap-1 text-[9px] font-semibold text-[#34c771] bg-[#bcffbb]/40 px-2 py-0.5 rounded-full">
-                    <CheckCircle className="h-2.5 w-2.5" />
-                    {item.verified}
-                  </span>
-                </div>
-                <p className="text-[#360802]/85 text-[11px] leading-relaxed italic mb-3">
-                  &ldquo;{item.content}&rdquo;
-                </p>
-              </div>
-              <div className="pt-2.5 border-t border-[#e7dcdb]/60 flex items-center justify-between">
-                <div>
-                  <h4 className="font-heading text-[11px] font-semibold text-[#360802]">{item.name}</h4>
-                  <p className="text-[9px] text-[#ababab] leading-tight">{item.role}</p>
-                </div>
-                <span className="text-[9px] font-medium text-[#ababab] bg-[#fdedea] px-1.5 py-0.5 rounded">
-                  {item.location}
-                </span>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* Tablet / Desktop: 3-column card grid */}
-        <div className="hidden sm:grid grid-cols-2 md:grid-cols-3 gap-5 lg:gap-7">
-          {testimonials.map((item, index) => (
-            <div
-              key={index}
-              className="card-3d rounded-2xl bg-white border border-[#e7dcdb] p-6 shadow-3d hover:border-[#f73b20]/40 flex flex-col justify-between"
+              className="py-8 md:p-6 lg:p-8 flex flex-col justify-between"
             >
               <div>
                 <div className="flex items-center justify-between mb-4">
                   <div className="flex text-[#f73b20] gap-0.5">
                     {[...Array(item.rating)].map((_, i) => (
-                      <Star key={i} className="h-3.5 w-3.5 fill-current" />
+                      <Star key={i} className="h-4 w-4 fill-current" />
                     ))}
                   </div>
-                  <span className="inline-flex items-center gap-1 text-[9px] font-semibold text-[#34c771] bg-[#bcffbb]/40 px-2 py-0.5 rounded-full">
+                  <span className="inline-flex items-center gap-1 text-[10px] font-semibold text-[#34c771] bg-[#bcffbb]/40 px-2 py-0.5 rounded-full">
                     <CheckCircle className="h-3 w-3" />
                     {item.verified}
                   </span>
                 </div>
-                <p className="text-[#360802]/85 text-xs leading-relaxed mb-5 italic">
+
+                <p className="text-[#360802]/85 text-sm leading-relaxed mb-6 italic">
                   &ldquo;{item.content}&rdquo;
                 </p>
               </div>
-              <div className="pt-3 border-t border-[#e7dcdb]/60 flex items-center justify-between">
+
+              <div className="pt-4 border-t border-[#e7dcdb]/60 flex items-center justify-between">
                 <div>
-                  <h4 className="font-heading text-xs font-semibold text-[#360802]">{item.name}</h4>
-                  <p className="text-[10px] text-[#ababab]">{item.role}</p>
+                  <h4 className="font-heading text-sm font-semibold text-[#360802]">
+                    {item.name}
+                  </h4>
+                  <p className="text-xs text-[#ababab]">
+                    {item.role}
+                  </p>
                 </div>
-                <span className="text-[9px] font-medium text-[#ababab] bg-[#fdedea] px-2 py-0.5 rounded">
+                <span className="text-[10px] font-medium text-[#ababab] bg-[#fdedea] px-2 py-0.5 rounded">
                   {item.location}
                 </span>
               </div>

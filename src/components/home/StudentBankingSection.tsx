@@ -44,23 +44,18 @@ export function StudentBankingSection() {
               Designed specifically for tertiary and vocational students across Rivers State. Receive family allowances, pay tuition fees, and build early financial discipline with zero charges.
             </p>
 
-            {/* 3-Column Responsive Features Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
+            {/* Features (No card containers) */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 pt-2 border-t border-[#e7dcdb]/60">
               {features.map((feature) => (
-                <div
-                  key={feature.title}
-                  className="card-3d p-4 sm:p-5 rounded-2xl bg-white border border-[#e7dcdb] shadow-3d hover:border-[#f73b20]/40 flex flex-col justify-between"
-                >
-                  <div>
-                    <div 
-                      className="w-10 h-10 rounded-xl flex items-center justify-center mb-4 shadow-sm transition-transform group-hover:scale-110"
-                      style={{ backgroundColor: feature.bg, color: feature.color }}
-                    >
-                      <feature.icon className="h-5 w-5" />
-                    </div>
-                    <h3 className="font-heading text-sm font-semibold text-[#360802] mb-1">{feature.title}</h3>
-                    <p className="text-xs text-[#ababab] leading-relaxed">{feature.description}</p>
+                <div key={feature.title} className="flex flex-col">
+                  <div 
+                    className="w-9 h-9 rounded-lg flex items-center justify-center mb-3"
+                    style={{ backgroundColor: feature.bg, color: feature.color }}
+                  >
+                    <feature.icon className="h-4.5 w-4.5" />
                   </div>
+                  <h3 className="font-heading text-sm font-semibold text-[#360802] mb-1">{feature.title}</h3>
+                  <p className="text-xs text-[#ababab] leading-relaxed">{feature.description}</p>
                 </div>
               ))}
             </div>
@@ -98,17 +93,17 @@ export function StudentBankingSection() {
                 </div>
               </div>
 
-              {/* Grid of Fee Metrics */}
-              <div className="space-y-3">
-                <div className="flex justify-between items-center p-3.5 rounded-xl bg-white border border-[#e7dcdb] text-xs shadow-sm">
+              {/* Fee Metrics List (Clean rows without nested card boxes) */}
+              <div className="divide-y divide-[#e7dcdb]/80">
+                <div className="flex justify-between items-center py-2.5 text-xs">
                   <span className="text-[#ababab] font-medium">Opening Minimum</span>
                   <span className="font-bold text-[#360802]">₦ 0.00</span>
                 </div>
-                <div className="flex justify-between items-center p-3.5 rounded-xl bg-white border border-[#e7dcdb] text-xs shadow-sm">
+                <div className="flex justify-between items-center py-2.5 text-xs">
                   <span className="text-[#ababab] font-medium">Monthly Account Maintenance</span>
                   <span className="font-bold text-[#34c771]">FREE</span>
                 </div>
-                <div className="flex justify-between items-center p-3.5 rounded-xl bg-white border border-[#e7dcdb] text-xs shadow-sm">
+                <div className="flex justify-between items-center py-2.5 text-xs">
                   <span className="text-[#ababab] font-medium">SMS & Email Alerts</span>
                   <span className="font-bold text-[#360802]">Included</span>
                 </div>
