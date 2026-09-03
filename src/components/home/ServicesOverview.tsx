@@ -14,7 +14,7 @@ const services = [
   {
     icon: Wallet,
     title: "Savings & Fixed Deposits",
-    category: "Funding",
+    category: "Savings",
     accentColor: "#34c771",
     washBg: "#bcffbb",
     description: "Structured personal deposit plans offering steady annual interest yields, zero maintenance fees, and capital security.",
@@ -34,7 +34,7 @@ const services = [
   {
     icon: Briefcase,
     title: "SME Commercial Banking",
-    category: "Enterprise",
+    category: "Business",
     accentColor: "#f73b20",
     washBg: "#fdedea",
     description: "Tailored commercial checking accounts, merchant services, and dedicated financial advisory for regional businesses.",
@@ -64,7 +64,7 @@ const services = [
   {
     icon: GraduationCap,
     title: "Youth & Student Accounts",
-    category: "Education",
+    category: "Campus",
     accentColor: "#34c771",
     washBg: "#f5ffbb",
     description: "Specialized zero-fee accounts designed for secondary and tertiary students to manage allowances and develop financial discipline.",
@@ -77,53 +77,58 @@ export function ServicesOverview() {
   return (
     <section className="py-16 md:py-20 bg-white border-b border-[#e7dcdb]/60">
       <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 md:mb-14 gap-6">
-          <div className="max-w-2xl">
-            <span className="text-xs font-semibold uppercase tracking-ui text-[#f73b20] block mb-2">
+        
+        {/* Section Header Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-end mb-12">
+          <div className="md:col-span-8">
+            <span className="text-xs font-semibold uppercase tracking-wider text-[#f73b20] block mb-2">
               Financial Infrastructure
             </span>
-            <h2 className="font-heading text-3xl md:text-5xl font-medium text-[#360802] tracking-tight leading-[1.05]">
-              Structured banking services designed for every stage of life.
+            <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-semibold text-[#360802] tracking-tight leading-[1.08]">
+              Structured banking services for every stage of life.
             </h2>
           </div>
-          <p className="text-[#ababab] text-sm max-w-sm">
-            Explore our comprehensive suite of personal accounts, commercial loans, and community banking channels.
-          </p>
+          <div className="md:col-span-4 md:text-right">
+            <p className="text-[#ababab] text-sm leading-relaxed">
+              Explore our comprehensive suite of personal accounts, commercial loans, and community banking channels.
+            </p>
+          </div>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {services.map((service, index) => (
+        {/* 3-Column 3D Cards Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+          {services.map((service) => (
             <div
               key={service.title}
-              className="rounded-cards bg-white border border-[#e7dcdb] p-8 shadow-lift hover:border-[#f73b20]/40 transition-all duration-300 flex flex-col justify-between group"
+              className="card-3d rounded-2xl bg-white border border-[#e7dcdb] p-7 shadow-3d hover:border-[#f73b20]/40 flex flex-col justify-between group"
             >
               <div>
                 <div className="flex items-center justify-between mb-6">
                   <div
-                    className="w-12 h-12 rounded-xl flex items-center justify-center transition-transform group-hover:scale-105"
+                    className="w-12 h-12 rounded-xl flex items-center justify-center transition-transform group-hover:scale-110 group-hover:rotate-3 duration-300 shadow-sm"
                     style={{ backgroundColor: service.washBg, color: service.accentColor }}
                   >
                     <service.icon className="h-6 w-6" />
                   </div>
                   <span 
-                    className="text-[10px] font-semibold uppercase tracking-ui px-2.5 py-1 rounded-pills"
+                    className="text-[10px] font-semibold uppercase tracking-wider px-3 py-1 rounded-full border border-black/5"
                     style={{ backgroundColor: service.washBg, color: service.accentColor }}
                   >
                     {service.category}
                   </span>
                 </div>
 
-                <h3 className="font-heading text-xl font-medium text-[#360802] mb-3 group-hover:text-[#f73b20] transition-colors">
+                <h3 className="font-heading text-xl font-semibold text-[#360802] mb-2.5 group-hover:text-[#f73b20] transition-colors">
                   {service.title}
                 </h3>
 
-                <p className="text-[#360802]/70 text-sm leading-relaxed mb-6">
+                <p className="text-[#360802]/75 text-sm leading-relaxed mb-6">
                   {service.description}
                 </p>
 
-                <ul className="space-y-2 mb-8 pt-4 border-t border-[#e7dcdb]/60">
+                <ul className="space-y-2 mb-6 pt-4 border-t border-[#e7dcdb]/60">
                   {service.features.map((feature) => (
-                    <li key={feature} className="flex items-center gap-2 text-xs font-medium text-[#360802]">
+                    <li key={feature} className="flex items-center gap-2.5 text-xs font-medium text-[#360802]">
                       <span 
                         className="w-1.5 h-1.5 rounded-full shrink-0"
                         style={{ backgroundColor: service.accentColor }}
@@ -136,23 +141,24 @@ export function ServicesOverview() {
 
               <Link
                 to={service.href}
-                className="inline-flex items-center justify-between w-full pt-4 border-t border-[#e7dcdb] text-xs font-semibold uppercase tracking-ui text-[#f73b20] group-hover:text-[#f84d35]"
+                className="inline-flex items-center justify-between w-full pt-4 border-t border-[#e7dcdb] text-xs font-semibold uppercase tracking-wider text-[#f73b20] group-hover:text-[#f84d35] transition-colors"
               >
                 <span>Learn Details</span>
-                <ArrowRight className="h-4 w-4 transform group-hover:translate-x-1 transition-transform" />
+                <ArrowRight className="h-4 w-4 transform group-hover:translate-x-1.5 transition-transform" />
               </Link>
             </div>
           ))}
         </div>
 
-        <div className="mt-16 text-center">
-          <Button variant="outlineNeutral" size="lg" asChild className="rounded-buttons">
+        <div className="mt-12 text-center">
+          <Button variant="outlineNeutral" size="lg" asChild className="rounded-full hover:shadow-md transition-all">
             <Link to="/personal-banking">
               View Complete Product Catalog
               <ArrowRight className="h-4 w-4 ml-2" />
             </Link>
           </Button>
         </div>
+
       </div>
     </section>
   );

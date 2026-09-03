@@ -100,8 +100,13 @@ export default {
       },
       boxShadow: {
         'lift': 'rgba(0, 0, 0, 0.05) 0px -4px 16px 0px',
-        'brand': 'rgba(247, 59, 32, 0.1) 0px 8px 24px 0px, rgba(247, 59, 32, 0.05) 0px 2px 8px 0px',
+        'brand': 'rgba(247, 59, 32, 0.15) 0px 8px 24px 0px, rgba(247, 59, 32, 0.08) 0px 2px 8px 0px',
         'soft': '0 4px 20px -2px rgba(54, 8, 2, 0.05)',
+        '3d': '0 12px 30px -6px rgba(54, 8, 2, 0.14), 0 4px 12px rgba(54, 8, 2, 0.06), 0 1px 3px rgba(54, 8, 2, 0.04)',
+        '3d-lift': '0 20px 40px -10px rgba(54, 8, 2, 0.18), 0 8px 16px -4px rgba(54, 8, 2, 0.1)',
+        '3d-orange': '0 14px 34px -4px rgba(247, 59, 32, 0.35), 0 4px 14px rgba(247, 59, 32, 0.2)',
+        'glass-3d': '0 12px 40px 0 rgba(0, 0, 0, 0.22), inset 0 1px 1px 0 rgba(255, 255, 255, 0.4)',
+        'emboss': 'inset 0 2px 4px 0 rgba(0, 0, 0, 0.08)',
       },
       letterSpacing: {
         'display': '0.01em',
@@ -133,6 +138,22 @@ export default {
           from: { opacity: "0", transform: "scale(0.97)" },
           to: { opacity: "1", transform: "scale(1)" },
         },
+        "float-slow": {
+          "0%, 100%": { transform: "translateY(0px)" },
+          "50%": { transform: "translateY(-8px)" },
+        },
+        "float-reverse": {
+          "0%, 100%": { transform: "translateY(0px)" },
+          "50%": { transform: "translateY(8px)" },
+        },
+        "pulse-subtle": {
+          "0%, 100%": { opacity: "1", transform: "scale(1)" },
+          "50%": { opacity: "0.88", transform: "scale(1.02)" },
+        },
+        "glow-pulse": {
+          "0%, 100%": { boxShadow: "0 0 15px rgba(247, 59, 32, 0.2)" },
+          "50%": { boxShadow: "0 0 30px rgba(247, 59, 32, 0.45)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -141,6 +162,10 @@ export default {
         "fade-in-up": "fade-in-up 0.5s ease-out forwards",
         "slide-in-right": "slide-in-right 0.4s ease-out forwards",
         "scale-in": "scale-in 0.3s ease-out forwards",
+        "float-slow": "float-slow 5s ease-in-out infinite",
+        "float-reverse": "float-reverse 6s ease-in-out infinite",
+        "pulse-subtle": "pulse-subtle 3s ease-in-out infinite",
+        "glow-pulse": "glow-pulse 3s ease-in-out infinite",
       },
     },
   },

@@ -16,7 +16,7 @@ const actions = [
     href: "/loans",
     color: "#34c771",
     bg: "#bcffbb",
-    badge: "Fast Approvals"
+    badge: "Fast Approval"
   },
   {
     icon: Building2,
@@ -34,16 +34,16 @@ const actions = [
     href: "/digital-banking",
     color: "#477ee9",
     bg: "#e7dcdb",
-    badge: "Instant Settlements"
+    badge: "Instant NIBSS"
   },
   {
     icon: Download,
-    title: "Documents & Forms",
+    title: "Forms & Downloads",
     description: "Account & loan documents",
     href: "/downloads",
     color: "#360802",
     bg: "#f5ffbb",
-    badge: "Direct Download"
+    badge: "PDF Downloads"
   },
   {
     icon: ShieldAlert,
@@ -52,7 +52,7 @@ const actions = [
     href: "/whistle-blowing",
     color: "#fb2d54",
     bg: "#fdedea",
-    badge: "Protected Portal"
+    badge: "100% Anonymous"
   },
 ];
 
@@ -60,41 +60,46 @@ export function QuickActions() {
   return (
     <section className="py-14 md:py-18 bg-white border-b border-[#e7dcdb]/60">
       <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 md:mb-12 gap-4">
-          <div>
-            <span className="text-xs font-semibold uppercase tracking-ui text-[#f73b20] block mb-2">
+        
+        {/* Section Header Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-end mb-10 md:mb-12">
+          <div className="md:col-span-8">
+            <span className="text-xs font-semibold uppercase tracking-wider text-[#f73b20] block mb-2">
               Instant Access
             </span>
-            <h2 className="font-heading text-3xl md:text-4xl font-medium text-[#360802] tracking-tight leading-tight">
+            <h2 className="font-heading text-3xl md:text-4xl font-semibold text-[#360802] tracking-tight leading-tight">
               Essential banking operations.
             </h2>
           </div>
-          <p className="text-[#ababab] text-sm max-w-md">
-            Direct shortcuts to account services, compliance resources, and branch support.
-          </p>
+          <div className="md:col-span-4 md:text-right">
+            <p className="text-[#ababab] text-sm leading-relaxed">
+              Direct shortcuts to account services, compliance resources, and branch support.
+            </p>
+          </div>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
-          {actions.map((action, index) => (
+        {/* 5-Column Responsive 3D Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-5">
+          {actions.map((action) => (
             <Link
               key={action.title}
               to={action.href}
-              className="p-6 rounded-cards bg-white border border-[#e7dcdb] hover:border-[#f73b20]/40 shadow-lift transition-all duration-300 group flex flex-col justify-between"
+              className="card-3d p-6 rounded-2xl bg-white border border-[#e7dcdb] hover:border-[#f73b20]/50 shadow-3d flex flex-col justify-between group"
             >
               <div>
-                <div className="flex items-center justify-between mb-6">
+                <div className="flex items-center justify-between mb-5">
                   <div 
-                    className="w-12 h-12 rounded-xl flex items-center justify-center transition-transform group-hover:scale-105"
+                    className="w-12 h-12 rounded-xl flex items-center justify-center transition-transform group-hover:scale-110 group-hover:-rotate-3 duration-300 shadow-sm"
                     style={{ backgroundColor: action.bg, color: action.color }}
                   >
                     <action.icon className="h-6 w-6" />
                   </div>
-                  <span className="text-[10px] font-semibold uppercase tracking-ui text-[#ababab] group-hover:text-[#f73b20] transition-colors">
+                  <span className="text-[10px] font-semibold uppercase tracking-wider text-[#ababab] group-hover:text-[#f73b20] transition-colors bg-[#fdedea]/50 px-2 py-0.5 rounded-full border border-[#e7dcdb]/60">
                     {action.badge}
                   </span>
                 </div>
 
-                <h3 className="font-heading text-lg font-semibold text-[#360802] mb-1 group-hover:text-[#f73b20] transition-colors">
+                <h3 className="font-heading text-base font-semibold text-[#360802] mb-1.5 group-hover:text-[#f73b20] transition-colors">
                   {action.title}
                 </h3>
                 <p className="text-xs text-[#ababab] leading-relaxed">
@@ -102,13 +107,14 @@ export function QuickActions() {
                 </p>
               </div>
 
-              <div className="mt-6 pt-3 border-t border-[#e7dcdb]/60 flex items-center justify-between text-xs font-medium text-[#f73b20]">
+              <div className="mt-5 pt-3 border-t border-[#e7dcdb]/60 flex items-center justify-between text-xs font-semibold text-[#f73b20]">
                 <span>Access</span>
-                <ArrowRight className="h-3.5 w-3.5 transform group-hover:translate-x-1 transition-transform" />
+                <ArrowRight className="h-4 w-4 transform group-hover:translate-x-1.5 transition-transform" />
               </div>
             </Link>
           ))}
         </div>
+
       </div>
     </section>
   );
