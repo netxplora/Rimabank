@@ -1,149 +1,175 @@
 import { Layout } from "@/components/layout/Layout";
-import { HelpCircle, Mail, Phone, MapPin, ExternalLink, ShieldCheck, HeartPulse, CreditCard, Smartphone } from "lucide-react";
+import { HelpCircle, Mail, Phone, MapPin, ExternalLink, ShieldCheck, HeartPulse, Smartphone, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Link } from "react-router-dom";
 
 export default function Support() {
   const supportChannels = [
     {
-      title: "Electronic Support",
-      description: "Direct your inquiries to our dedicated support desk for a response within 24 business hours.",
-      contact: "support@rimabank.com",
+      title: "Email Support Desk",
+      description: "Submit written inquiries or formal account requests for resolution within 24 business hours.",
+      contact: "info@rimamfb.com",
       icon: Mail,
-      link: "mailto:support@rimabank.com",
-      cta: "Compose Email"
+      link: "mailto:info@rimamfb.com",
+      cta: "Send Email",
+      bg: "#fdedea",
+      color: "#f73b20"
     },
     {
-      title: "Support Hotline",
-      description: "Access our 24/7 dedicated telephone support for immediate operational assistance.",
+      title: "Direct Support Hotline",
+      description: "Speak with a customer care representative for immediate assistance with transaction queries.",
       contact: "+234 811 947 7050",
       icon: Phone,
       link: "tel:+2348119477050",
-      cta: "Call Now"
+      cta: "Call Directly",
+      bg: "#bcffbb",
+      color: "#34c771"
     },
     {
-        title: "Branch Network",
-        description: "Engage with our relationship managers at any of our established branches.",
-        contact: "11 Regional Branches",
-        icon: MapPin,
-        link: "/branches",
-        cta: "Locate Branch"
-      }
+      title: "Branch Network",
+      description: "Visit any of our regional branch locations in Rivers State for in-person account operations.",
+      contact: "Port Harcourt & Regional Hubs",
+      icon: MapPin,
+      link: "/branches",
+      cta: "View Locations",
+      bg: "#e7dcdb",
+      color: "#477ee9"
+    }
   ];
 
   const resources = [
-    { name: "Support Knowledge Base", href: "/faq", icon: HelpCircle },
-    { name: "Information Security Protocols", href: "/legal", icon: ShieldCheck },
-    { name: "Formal Dispute Resolution", href: "/complaints", icon: HeartPulse },
-    { name: "Operational Documents & Forms", href: "/downloads", icon: ExternalLink },
+    { name: "Frequently Asked Questions", href: "/faq", icon: HelpCircle },
+    { name: "Regulatory Disclosures & Privacy", href: "/privacy", icon: ShieldCheck },
+    { name: "Official Dispute & Complaints", href: "/complaints", icon: HeartPulse },
+    { name: "Account Mandate & Download Forms", href: "/downloads", icon: ExternalLink },
   ];
 
   return (
     <Layout>
-      {/* Hero */}
-      <section className="relative bg-gradient-hero text-primary-foreground py-20 lg:py-32 overflow-hidden">
-        {/* Background Image */}
-        <div className="absolute inset-0 z-0">
-          <img
-            src="/images/hero-home.png"
-            alt="Rima MFB Support"
-            className="w-full h-full object-cover opacity-20 mix-blend-overlay"
-          />
-        </div>
-        <div className="container mx-auto px-4 relative z-10 text-center">
-          <h1 className="font-display text-4xl md:text-5xl lg:text-7xl font-bold mb-6">
-            Client <span className="text-secondary italic">Support Services</span>
-          </h1>
-          <p className="text-xl text-primary-foreground/80 max-w-2xl mx-auto mb-12">
-            Rima Microfinance Bank provides dedicated support infrastructure to ensure your banking operations remain uninterrupted and secure.
-          </p>
-          <div className="max-w-md mx-auto relative group">
-            <input 
-                type="text" 
-                placeholder="Search resources..." 
-                className="w-full bg-white/10 border border-white/20 rounded-2xl py-4 px-6 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-secondary/50 focus:bg-white/20 transition-all font-medium pr-12" 
-            />
-            <Link to="/faq" className="absolute right-4 top-1/2 -translate-y-1/2 p-2 hover:bg-white/10 rounded-lg transition-colors">
-                <HelpCircle className="h-6 w-6 text-white/70" />
-            </Link>
+      {/* Editorial Hero */}
+      <section className="relative bg-white pt-12 pb-20 lg:pt-16 lg:pb-28 border-b border-[#e7dcdb]/60 overflow-hidden">
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#fdedea] rounded-full blur-3xl -z-10 opacity-70 pointer-events-none" />
+
+        <div className="max-w-[1200px] mx-auto px-6">
+          <div className="max-w-3xl space-y-6">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-pills bg-[#fdedea] border border-[#e7dcdb] text-[#360802] text-xs font-semibold uppercase tracking-ui">
+              <span>Customer Help & Resolution</span>
+            </div>
+
+            <h1 className="font-heading text-4xl sm:text-6xl lg:text-7xl font-medium text-[#360802] tracking-tight leading-[0.98]">
+              Customer <span className="text-[#f73b20]">support desk</span>.
+            </h1>
+
+            <p className="text-[#360802]/80 text-lg md:text-xl font-normal leading-relaxed">
+              We provide direct channels and verified assistance to ensure your personal and business banking operations run smoothly.
+            </p>
           </div>
         </div>
       </section>
 
-      {/* Main Support Channels */}
-      <section className="py-24 bg-background">
-        <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-3 gap-8 mb-24">
+      {/* Main Support Channels Grid */}
+      <section className="py-24 bg-white border-b border-[#e7dcdb]/60">
+        <div className="max-w-[1200px] mx-auto px-6">
+          <div className="grid md:grid-cols-3 gap-8 mb-20">
             {supportChannels.map((channel, idx) => (
-              <Card key={idx} className="border-none shadow-xl hover:shadow-2xl transition-all hover:scale-[1.02] bg-white group border border-slate-100">
-                <CardHeader>
-                  <div className="w-14 h-14 bg-primary/5 rounded-2xl flex items-center justify-center mb-4 group-hover:bg-primary group-hover:text-white transition-colors">
-                    <channel.icon className="h-7 w-7" />
+              <div 
+                key={idx} 
+                className="p-8 rounded-cards bg-white border border-[#e7dcdb] shadow-lift flex flex-col justify-between hover:border-[#f73b20]/30 transition-all duration-300"
+              >
+                <div>
+                  <div 
+                    className="w-12 h-12 rounded-xl flex items-center justify-center mb-6"
+                    style={{ backgroundColor: channel.bg, color: channel.color }}
+                  >
+                    <channel.icon className="h-6 w-6" />
                   </div>
-                  <CardTitle className="text-2xl">{channel.title}</CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <p className="text-muted-foreground">{channel.description}</p>
-                  <p className="font-bold text-lg text-primary">{channel.contact}</p>
-                  <Button variant={idx === 1 ? "hero" : "outline"} className="w-full" asChild>
-                    <a href={channel.link}>{channel.cta}</a>
+                  <h3 className="font-heading text-xl font-medium text-[#360802] mb-2">{channel.title}</h3>
+                  <p className="text-xs text-[#ababab] leading-relaxed mb-4">{channel.description}</p>
+                  <p className="font-heading text-sm font-bold text-[#360802] mb-6">{channel.contact}</p>
+                </div>
+                <div>
+                  <Button 
+                    variant={idx === 1 ? "pill" : "outlineNeutral"} 
+                    className="w-full text-xs shadow-brand" 
+                    asChild
+                  >
+                    <a href={channel.link}>
+                      {channel.cta}
+                      <ArrowRight className="h-3.5 w-3.5 ml-1" />
+                    </a>
                   </Button>
-                </CardContent>
-              </Card>
+                </div>
+              </div>
             ))}
           </div>
 
-          <div className="flex flex-col lg:flex-row gap-16 items-start">
-             <div className="lg:w-1/3 text-left">
-                <h2 className="text-3xl font-display font-bold mb-6">Support Resources</h2>
-                <p className="text-muted-foreground mb-8">Access essential documentation and technical guides for efficient account management.</p>
-                <div className="space-y-3">
-                    {resources.map((res, i) => (
-                        <Link 
-                            key={i} 
-                            to={res.href} 
-                            className="flex items-center justify-between p-4 rounded-xl border border-border/50 hover:bg-muted/50 hover:border-primary/20 transition-all font-medium group"
-                        >
-                            <div className="flex items-center gap-3">
-                                <res.icon className="h-5 w-5 text-primary group-hover:scale-110 transition-transform" />
-                                <span>{res.name}</span>
-                            </div>
-                            <ExternalLink className="h-4 w-4 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity" />
-                        </Link>
-                    ))}
-                </div>
-             </div>
+          {/* Quick Support Directory & Security Advice */}
+          <div className="grid lg:grid-cols-12 gap-12 items-start">
+            <div className="lg:col-span-5 space-y-6">
+              <div>
+                <span className="text-xs font-semibold uppercase tracking-ui text-[#f73b20] block mb-2">
+                  Help Center
+                </span>
+                <h3 className="font-heading text-2xl font-medium text-[#360802] tracking-tight">
+                  Support Resources
+                </h3>
+              </div>
 
-             <div className="lg:w-2/3">
-                <div className="bg-slate-50/50 rounded-3xl p-8 md:p-12 border border-slate-200 shadow-sm">
-                    <h3 className="text-2xl font-bold mb-8">Security & Operational Verification</h3>
-                    <div className="grid sm:grid-cols-2 gap-8">
-                        <div className="space-y-4">
-                            <div className="p-3 bg-red-100 text-red-600 rounded-xl w-fit">
-                                <ShieldCheck className="h-6 w-6" />
-                            </div>
-                            <h4 className="font-bold text-lg">Fraud Awareness</h4>
-                            <p className="text-sm text-muted-foreground leading-relaxed">
-                                Rima Microfinance Bank will <strong>never</strong> request your PIN, password, or BVN via telephone or electronic mail. 
-                                Report suspicious interactions immediately to our fraud desk.
-                            </p>
-                        </div>
-                        <div className="space-y-4">
-                            <div className="p-3 bg-secondary/10 text-secondary rounded-xl w-fit">
-                                <Smartphone className="h-6 w-6" />
-                            </div>
-                            <h4 className="font-bold text-lg">Transaction Dispute Resolution</h4>
-                            <p className="text-sm text-muted-foreground leading-relaxed">
-                                Failed transactions with active debits are typically reversed within 24 business hours. If the discrepancy persists, initiate a formal dispute ticket.
-                            </p>
-                        </div>
+              <div className="space-y-3">
+                {resources.map((res, i) => (
+                  <Link 
+                    key={i} 
+                    to={res.href} 
+                    className="flex items-center justify-between p-4 rounded-cards bg-white border border-[#e7dcdb] shadow-lift hover:border-[#f73b20]/30 transition-all text-xs font-semibold text-[#360802] group"
+                  >
+                    <div className="flex items-center gap-3">
+                      <res.icon className="h-4 w-4 text-[#f73b20]" />
+                      <span>{res.name}</span>
                     </div>
-                    <Button variant="outline" className="mt-12 w-full sm:w-auto" asChild>
-                        <Link to="/complaints">Initiate Formal Complaint</Link>
-                    </Button>
+                    <ArrowRight className="h-4 w-4 text-[#ababab] group-hover:text-[#f73b20] group-hover:translate-x-1 transition-all" />
+                  </Link>
+                ))}
+              </div>
+            </div>
+
+            <div className="lg:col-span-7">
+              <div className="p-8 lg:p-10 rounded-cards bg-[#fdedea] border border-[#e7dcdb] shadow-lift space-y-6">
+                <h3 className="font-heading text-xl font-bold text-[#360802] pb-4 border-b border-[#e7dcdb]">
+                  Security Guidelines & Fraud Prevention
+                </h3>
+
+                <div className="grid sm:grid-cols-2 gap-6">
+                  <div className="space-y-2 text-xs">
+                    <div className="flex items-center gap-2 font-bold text-[#360802]">
+                      <ShieldCheck className="h-4 w-4 text-[#f73b20]" />
+                      <span>Protect Sensitive Credentials</span>
+                    </div>
+                    <p className="text-[#ababab] leading-relaxed">
+                      Rima MFB will never ask for your card PIN, online passwords, or BVN via telephone, SMS, or email.
+                    </p>
+                  </div>
+
+                  <div className="space-y-2 text-xs">
+                    <div className="flex items-center gap-2 font-bold text-[#360802]">
+                      <Smartphone className="h-4 w-4 text-[#34c771]" />
+                      <span>Transaction Reversals</span>
+                    </div>
+                    <p className="text-[#ababab] leading-relaxed">
+                      Delayed inter-bank transfer reversals are processed within 24 hours under standard Central Bank guidelines.
+                    </p>
+                  </div>
                 </div>
-             </div>
+
+                <div className="pt-4 border-t border-[#e7dcdb]">
+                  <Button variant="pill" size="default" asChild className="shadow-brand">
+                    <Link to="/contact">
+                      Submit Customer Ticket
+                      <ArrowRight className="h-4 w-4 ml-1" />
+                    </Link>
+                  </Button>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
