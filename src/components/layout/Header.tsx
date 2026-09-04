@@ -85,22 +85,22 @@ export function Header() {
   return (
     <>
       {/* Slim Regulatory Top Bar */}
-      <div className="bg-[#360802] text-white py-1.5 text-[11px] tracking-wide hidden md:block border-b border-black/20">
+      <div className="bg-[#0a1e3f] text-white py-1.5 text-[11px] tracking-wide hidden md:block border-b border-blue-950">
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6 flex justify-between items-center">
-          <div className="flex items-center gap-5 text-white/75">
-            <span className="flex items-center gap-1.5 text-white/90">
-              <Shield className="h-3 w-3 text-[#f73b20]" />
+          <div className="flex items-center gap-5 text-blue-100/80">
+            <span className="flex items-center gap-1.5 text-white">
+              <Shield className="h-3 w-3 text-[#38bdf8]" />
               CBN Licensed &bull; NDIC Insured
             </span>
-            <a href="tel:+2348119477050" className="flex items-center gap-1.5 hover:text-[#f73b20] transition-colors">
-              <Phone className="h-3 w-3 text-[#f73b20]" />
+            <a href="tel:+2348119477050" className="flex items-center gap-1.5 hover:text-[#38bdf8] transition-colors">
+              <Phone className="h-3 w-3 text-[#38bdf8]" />
               +234 811 947 7050
             </a>
           </div>
-          <div className="flex items-center gap-4 text-white/75">
-            <Link to="/branches" className="hover:text-[#f73b20] transition-colors">Find Branch</Link>
-            <span className="text-white/30">|</span>
-            <Link to="/faq" className="hover:text-[#f73b20] transition-colors">Help & FAQ</Link>
+          <div className="flex items-center gap-4 text-blue-100/80">
+            <Link to="/branches" className="hover:text-[#38bdf8] transition-colors">Find Branch</Link>
+            <span className="text-white/20">|</span>
+            <Link to="/faq" className="hover:text-[#38bdf8] transition-colors">Help & FAQ</Link>
           </div>
         </div>
       </div>
@@ -108,7 +108,7 @@ export function Header() {
       {/* Main Header */}
       <header
         className={cn(
-          "sticky top-0 z-50 w-full transition-all duration-300 bg-white/97 backdrop-blur-md border-b border-[#e7dcdb]",
+          "sticky top-0 z-50 w-full transition-all duration-300 bg-white/97 backdrop-blur-md border-b border-[#e2e8f0]",
           isScrolled ? "shadow-sm py-0" : "py-0"
         )}
       >
@@ -117,14 +117,14 @@ export function Header() {
 
             {/* Logo */}
             <Link to="/" className="flex items-center gap-2.5 shrink-0 group">
-              <div className="h-9 w-9 rounded-xl bg-[#fdedea] flex items-center justify-center border border-[#e7dcdb] group-hover:border-[#f73b20]/30 transition-colors p-1.5">
+              <div className="h-9 w-9 rounded-xl bg-[#f0f7ff] flex items-center justify-center border border-[#e2e8f0] group-hover:border-[#0284c7]/40 transition-colors p-1.5">
                 <img src="/rima-logo.png" alt="Rima MFB Logo" className="h-full w-auto object-contain" />
               </div>
               <div className="flex flex-col leading-none">
-                <span className="font-heading text-base font-bold text-[#360802] tracking-tight">
+                <span className="font-heading text-base font-bold text-[#0a1e3f] tracking-tight">
                   Rima MFB
                 </span>
-                <span className="text-[10px] text-[#ababab] font-medium uppercase tracking-widest mt-0.5">
+                <span className="text-[10px] text-[#64748b] font-medium uppercase tracking-widest mt-0.5">
                   Microfinance Bank
                 </span>
               </div>
@@ -144,8 +144,8 @@ export function Header() {
                     className={cn(
                       "flex items-center gap-1 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-150",
                       isActive(item.href)
-                        ? "text-[#f73b20] bg-[#fdedea]"
-                        : "text-[#360802] hover:text-[#f73b20] hover:bg-[#fdedea]/70"
+                        ? "text-[#0284c7] bg-[#f0f7ff]"
+                        : "text-[#0a1e3f] hover:text-[#0284c7] hover:bg-[#f0f7ff]/80"
                     )}
                   >
                     {item.name}
@@ -153,7 +153,7 @@ export function Header() {
                       <ChevronDown
                         className={cn(
                           "h-3 w-3 opacity-50 transition-transform duration-200",
-                          openDropdown === item.name && "rotate-180 opacity-100 text-[#f73b20]"
+                          openDropdown === item.name && "rotate-180 opacity-100 text-[#0284c7]"
                         )}
                       />
                     )}
@@ -162,7 +162,7 @@ export function Header() {
                   {/* Dropdown */}
                   {item.children && openDropdown === item.name && (
                     <div
-                      className="absolute top-full left-0 mt-1.5 w-64 bg-white rounded-xl shadow-[0_8px_30px_rgba(0,0,0,0.10)] border border-[#e7dcdb] p-1.5 z-50"
+                      className="absolute top-full left-0 mt-1.5 w-64 bg-white rounded-xl shadow-[0_8px_30px_rgba(10,30,63,0.10)] border border-[#e2e8f0] p-1.5 z-50"
                       onMouseEnter={() => handleMouseEnter(item.name)}
                       onMouseLeave={handleMouseLeave}
                     >
@@ -170,14 +170,14 @@ export function Header() {
                         <Link
                           key={child.name}
                           to={child.href}
-                          className="block px-3 py-2.5 rounded-lg hover:bg-[#fdedea] transition-colors group"
+                          className="block px-3 py-2.5 rounded-lg hover:bg-[#f0f7ff] transition-colors group"
                         >
-                          <div className="text-sm font-semibold text-[#360802] group-hover:text-[#f73b20] flex items-center justify-between">
+                          <div className="text-sm font-semibold text-[#0a1e3f] group-hover:text-[#0284c7] flex items-center justify-between">
                             {child.name}
-                            <ArrowRight className="h-3 w-3 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-[#f73b20]" />
+                            <ArrowRight className="h-3 w-3 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-[#0284c7]" />
                           </div>
                           {child.desc && (
-                            <p className="text-[11px] text-[#ababab] mt-0.5 leading-snug">{child.desc}</p>
+                            <p className="text-[11px] text-[#64748b] mt-0.5 leading-snug">{child.desc}</p>
                           )}
                         </Link>
                       ))}
@@ -199,7 +199,7 @@ export function Header() {
 
             {/* Mobile Menu Toggle */}
             <button
-              className="lg:hidden p-2 rounded-xl border border-[#e7dcdb] text-[#360802] hover:bg-[#fdedea] transition-colors"
+              className="lg:hidden p-2 rounded-xl border border-[#e2e8f0] text-[#0a1e3f] hover:bg-[#f0f7ff] transition-colors"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               aria-label="Toggle menu"
             >
@@ -210,7 +210,7 @@ export function Header() {
 
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
-          <div className="lg:hidden bg-white border-t border-[#e7dcdb] shadow-xl overflow-y-auto max-h-[80vh]">
+          <div className="lg:hidden bg-white border-t border-[#e2e8f0] shadow-xl overflow-y-auto max-h-[80vh]">
             <div className="max-w-[1200px] mx-auto px-4 sm:px-6 py-4 space-y-1">
               {navigation.map((item) => (
                 <div key={item.name}>
@@ -219,7 +219,7 @@ export function Header() {
                       <button
                         className={cn(
                           "w-full flex items-center justify-between py-3 px-2 text-base font-semibold rounded-lg transition-colors",
-                          isActive(item.href) ? "text-[#f73b20]" : "text-[#360802]"
+                          isActive(item.href) ? "text-[#0284c7]" : "text-[#0a1e3f]"
                         )}
                         onClick={() =>
                           setExpandedMobile(expandedMobile === item.name ? null : item.name)
@@ -228,8 +228,8 @@ export function Header() {
                         {item.name}
                         <ChevronDown
                           className={cn(
-                            "h-4 w-4 transition-transform text-[#ababab]",
-                            expandedMobile === item.name && "rotate-180 text-[#f73b20]"
+                            "h-4 w-4 transition-transform text-[#64748b]",
+                            expandedMobile === item.name && "rotate-180 text-[#0284c7]"
                           )}
                         />
                       </button>
@@ -239,7 +239,7 @@ export function Header() {
                             <Link
                               key={child.name}
                               to={child.href}
-                              className="block py-2 px-2 text-sm text-[#360802]/70 hover:text-[#f73b20] rounded-lg hover:bg-[#fdedea]/60 transition-colors"
+                              className="block py-2 px-2 text-sm text-[#0a1e3f]/75 hover:text-[#0284c7] rounded-lg hover:bg-[#f0f7ff] transition-colors"
                               onClick={() => setIsMobileMenuOpen(false)}
                             >
                               {child.name}
@@ -253,7 +253,7 @@ export function Header() {
                       to={item.href}
                       className={cn(
                         "block py-3 px-2 text-base font-semibold rounded-lg transition-colors",
-                        isActive(item.href) ? "text-[#f73b20] bg-[#fdedea]" : "text-[#360802] hover:bg-[#fdedea]/50"
+                        isActive(item.href) ? "text-[#0284c7] bg-[#f0f7ff]" : "text-[#0a1e3f] hover:bg-[#f0f7ff]/70"
                       )}
                       onClick={() => setIsMobileMenuOpen(false)}
                     >
@@ -270,12 +270,12 @@ export function Header() {
                     <ArrowRight className="h-4 w-4 ml-2" />
                   </Link>
                 </Button>
-                <div className="flex justify-center items-center gap-4 text-[10px] text-[#ababab] mt-4 pt-3 border-t border-[#e7dcdb]">
+                <div className="flex justify-center items-center gap-4 text-[10px] text-[#64748b] mt-4 pt-3 border-t border-[#e2e8f0]">
                   <span>CBN Licensed</span>
-                  <span className="text-[#e7dcdb]">•</span>
+                  <span className="text-[#e2e8f0]">•</span>
                   <span>NDIC Insured</span>
-                  <span className="text-[#e7dcdb]">•</span>
-                  <a href="tel:+2348119477050" className="hover:text-[#f73b20]">+234 811 947 7050</a>
+                  <span className="text-[#e2e8f0]">•</span>
+                  <a href="tel:+2348119477050" className="hover:text-[#0284c7]">+234 811 947 7050</a>
                 </div>
               </div>
             </div>
