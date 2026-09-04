@@ -283,12 +283,16 @@ export default function PopupManager() {
   };
 
   // ── Delete
-  const handleDelete = (id: string) => {
+  const handleDelete = async (id: string) => {
     if (!user) return;
-    deletePopupConfig(id, user);
     setConfirmDeleteId(null);
     setSelectedIds(prev => prev.filter(i => i !== id));
-    toast.success('Popup deleted');
+    const ok = await deletePopupConfig(id, user);
+    if (ok) {
+      toast.success('Popup deleted successfully');
+    } else {
+      toast.error('Failed to delete popup. The record may be protected. Please check your permissions.');
+    }
   };
 
   // ── Bulk Actions
@@ -318,11 +322,15 @@ export default function PopupManager() {
     setSelectedIds([]);
   };
 
-  const handleBulkDelete = () => {
+  const handleBulkDelete = async () => {
     if (!user || selectedIds.length === 0) return;
-    selectedIds.forEach(id => deletePopupConfig(id, user));
-    toast.success(`Deleted ${selectedIds.length} popups`);
+    const ids = [...selectedIds];
     setSelectedIds([]);
+    const results = await Promise.all(ids.map(id => deletePopupConfig(id, user)));
+    const deleted = results.filter(Boolean).length;
+    const failed  = ids.length - deleted;
+    if (deleted > 0) toast.success(`Deleted ${deleted} popup${deleted > 1 ? 's' : ''}`);
+    if (failed  > 0) toast.error(`${failed} popup${failed > 1 ? 's' : ''} could not be deleted`);
   };
 
   // ── Toggle active/paused

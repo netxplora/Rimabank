@@ -563,17 +563,26 @@ export const SupabaseSync = {
   /** Delete a popup config by id */
   async deletePopupConfig(id: string): Promise<boolean> {
     try {
-      if (!(await isSupabaseAvailable())) return false;
+      if (!(await isSupabaseAvailable())) {
+        // DB offline — allow local-only delete so the UI stays responsive
+        return true;
+      }
+      const isUUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(id);
+      if (!isUUID) {
+        // Local-only record that was never persisted to the DB — safe to delete locally
+        return true;
+      }
       const { error } = await supabase
         .from('popup_configs' as any)
         .delete()
         .eq('id', id);
       if (error) {
-        console.warn('[SupabaseSync] deletePopupConfig warning:', error);
+        console.warn('[SupabaseSync] deletePopupConfig error:', error);
+        return false;
       }
       return true;
     } catch (err) {
-      console.warn('[SupabaseSync] deletePopupConfig error:', err);
+      console.warn('[SupabaseSync] deletePopupConfig exception:', err);
       return false;
     }
   },

@@ -110,7 +110,7 @@ interface CMSContextType {
   popupConfigs: PopupConfig[];
   addPopupConfig: (popup: Omit<PopupConfig, 'id' | 'createdAt' | 'updatedAt' | 'impressions' | 'dismissals' | 'ctaClicks'>, user: { id: string; name: string; role: UserRole }) => void;
   updatePopupConfig: (id: string, updates: Partial<PopupConfig>, user: { id: string; name: string; role: UserRole }) => void;
-  deletePopupConfig: (id: string, user: { id: string; name: string; role: UserRole }) => void;
+  deletePopupConfig: (id: string, user: { id: string; name: string; role: UserRole }) => Promise<boolean>;
   togglePopupStatus: (id: string, user: { id: string; name: string; role: UserRole }) => void;
 }
 
@@ -970,10 +970,28 @@ export const CMSProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
     }));
   };
 
-  const deletePopupConfig = (id: string, user: { id: string; name: string; role: UserRole }) => {
+  const deletePopupConfig = async (id: string, user: { id: string; name: string; role: UserRole }): Promise<boolean> => {
     const target = popupConfigs.find(p => p.id === id);
+
+    // Optimistic: remove from local state immediately so the UI feels instant
     setPopupConfigs(prev => prev.filter(p => p.id !== id));
-    SupabaseSync.deletePopupConfig(id);
+
+    // Attempt the real delete in Supabase
+    const success = await SupabaseSync.deletePopupConfig(id);
+
+    if (!success) {
+      // Rollback: put the popup back if the DB delete failed
+      if (target) {
+        setPopupConfigs(prev => {
+          const alreadyRestored = prev.some(p => p.id === target.id);
+          if (alreadyRestored) return prev;
+          return [...prev, target].sort((a, b) => a.priority - b.priority);
+        });
+      }
+      return false;
+    }
+
+    // Only log on confirmed success
     if (target) {
       logAuditAction({
         userId: user.id,
@@ -986,6 +1004,7 @@ export const CMSProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
         details: `Deleted popup "${target.title}"`
       });
     }
+    return true;
   };
 
   const togglePopupStatus = (id: string, user: { id: string; name: string; role: UserRole }) => {
