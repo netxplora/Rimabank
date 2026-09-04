@@ -28,7 +28,7 @@ const features = [
     icon: WalletCards,
     title: "Instant Inter-Bank Transfers",
     description: "Execute real-time electronic fund transfers to any licensed commercial bank or microfinance institution in Nigeria.",
-    bg: "#e7dcdb",
+    bg: "#e2e8f0",
     color: "#477ee9"
   },
   {
@@ -42,28 +42,28 @@ const features = [
     icon: HandCoins,
     title: "Mobile Micro-Credit",
     description: "Apply for and receive approved short-term personal credit directly into your Rima MFB account based on your transaction history.",
-    bg: "#fdedea",
-    color: "#fb2d54"
+    bg: "#f0f7ff",
+    color: "#0284c7"
   },
   {
     icon: SmartphoneNfc,
     title: "Instant Debit Card Controls",
     description: "Block, unblock, or set transaction spending limits on your linked debit card directly from within the mobile app.",
-    bg: "#fdedea",
-    color: "#f73b20"
+    bg: "#f0f7ff",
+    color: "#0284c7"
   },
   {
     icon: ShieldCheck,
     title: "Biometric Sign-In Security",
     description: "Sign in with Touch ID or Face ID for fast, biometric authentication with 256-bit encryption protecting all sessions.",
     bg: "#f5ffbb",
-    color: "#360802"
+    color: "#0a1e3f"
   },
   {
     icon: Zap,
     title: "Electronic Bank Statements",
     description: "Generate and export official stamped PDF bank statements directly to your email for official documentation purposes.",
-    bg: "#e7dcdb",
+    bg: "#e2e8f0",
     color: "#477ee9"
   }
 ];
@@ -72,23 +72,23 @@ export default function DigitalBanking() {
   return (
     <Layout>
       {/* Editorial Hero with Real Image Showcase */}
-      <section className="relative bg-white pt-12 pb-16 lg:pt-16 lg:pb-20 border-b border-[#e7dcdb]/60 overflow-hidden">
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#fdedea] rounded-full blur-3xl -z-10 opacity-70 pointer-events-none" />
+      <section className="relative bg-white pt-12 pb-16 lg:pt-16 lg:pb-20 border-b border-[#e2e8f0]/60 overflow-hidden">
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#f0f7ff] rounded-full blur-3xl -z-10 opacity-70 pointer-events-none" />
 
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
             
             {/* Left Content (7 cols) */}
             <div className="lg:col-span-7 space-y-6">
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#fdedea] border border-[#e7dcdb] text-[#360802] text-xs font-semibold uppercase tracking-wider">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#f0f7ff] border border-[#e2e8f0] text-[#0a1e3f] text-xs font-semibold uppercase tracking-wider">
                 <span>Digital Banking Platform</span>
               </div>
 
-              <h1 className="font-heading text-4xl sm:text-5xl lg:text-6xl font-semibold text-[#360802] tracking-tight leading-[1.05]">
-                Banking operations directly from your <span className="text-[#f73b20]">mobile phone</span>.
+              <h1 className="font-heading text-4xl sm:text-5xl lg:text-6xl font-semibold text-[#0a1e3f] tracking-tight leading-[1.05]">
+                Banking operations directly from your <span className="text-[#0284c7]">mobile phone</span>.
               </h1>
 
-              <p className="text-[#360802]/80 text-base sm:text-lg leading-relaxed">
+              <p className="text-[#0a1e3f]/80 text-base sm:text-lg leading-relaxed">
                 Instant fund transfers, automatic bill payments, and secure account management accessible 24 hours a day on iOS and Android.
               </p>
 
@@ -97,7 +97,7 @@ export default function DigitalBanking() {
                   variant="pill"
                   size="lg"
                   asChild
-                  className="bg-[#f73b20] hover:bg-[#f84d35] text-white shadow-3d-orange transform hover:-translate-y-0.5 transition-all"
+                  className="bg-[#0284c7] hover:bg-[#0369a1] text-white shadow-md shadow-sky-500/20 transform hover:-translate-y-0.5 transition-all"
                 >
                   <a href="#download">
                     Download Mobile App
@@ -114,7 +114,7 @@ export default function DigitalBanking() {
 
             {/* Right Real Digital Showcase Image (5 cols) */}
             <div className="lg:col-span-5 perspective-1000">
-              <div className="rounded-3xl overflow-hidden shadow-3d-lift border border-[#e7dcdb] bg-[#fdedea] group">
+              <div className="rounded-3xl overflow-hidden shadow-md border border-[#e2e8f0] bg-[#f0f7ff] group">
                 <img
                   src="/images/hero-digital.png"
                   alt="Rima Digital Banking"
@@ -131,18 +131,18 @@ export default function DigitalBanking() {
       </section>
 
       {/* 3-Column Core Capabilities Grid — Open Layout */}
-      <section className="py-16 md:py-20 bg-white border-b border-[#e7dcdb]/60">
+      <section className="py-16 md:py-20 bg-white border-b border-[#e2e8f0]/60">
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
           <div className="max-w-2xl mb-12">
-            <span className="text-xs font-semibold uppercase tracking-wider text-[#f73b20] block mb-2">
+            <span className="text-xs font-semibold uppercase tracking-wider text-[#0284c7] block mb-2">
               Core Capabilities
             </span>
-            <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-semibold text-[#360802] tracking-tight leading-[1.08]">
+            <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-semibold text-[#0a1e3f] tracking-tight leading-[1.08]">
               Everything you need to manage your money.
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 border-t border-[#e7dcdb]/80 pt-10">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 border-t border-[#e2e8f0]/80 pt-10">
             {features.map((feature, index) => (
               <div 
                 key={index} 
@@ -155,8 +155,8 @@ export default function DigitalBanking() {
                   >
                     <feature.icon className="h-5 w-5" />
                   </div>
-                  <h3 className="font-heading text-base font-semibold text-[#360802] mb-1.5">{feature.title}</h3>
-                  <p className="text-xs text-[#ababab] leading-relaxed">{feature.description}</p>
+                  <h3 className="font-heading text-base font-semibold text-[#0a1e3f] mb-1.5">{feature.title}</h3>
+                  <p className="text-xs text-[#64748b] leading-relaxed">{feature.description}</p>
                 </div>
               </div>
             ))}
@@ -165,38 +165,38 @@ export default function DigitalBanking() {
       </section>
 
       {/* 3-Step Setup Open Grid */}
-      <section className="py-16 md:py-20 bg-gradient-to-b from-[#fdedea]/40 to-white border-b border-[#e7dcdb]/60">
+      <section className="py-16 md:py-20 bg-gradient-to-b from-[#f0f7ff]/40 to-white border-b border-[#e2e8f0]/60">
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
           <div className="max-w-2xl mb-12">
-            <span className="text-xs font-semibold uppercase tracking-wider text-[#f73b20] block mb-2">
+            <span className="text-xs font-semibold uppercase tracking-wider text-[#0284c7] block mb-2">
               Simple Setup
             </span>
-            <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-semibold text-[#360802] tracking-tight leading-[1.08]">
+            <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-semibold text-[#0a1e3f] tracking-tight leading-[1.08]">
               Get started in three straightforward steps.
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-[#e7dcdb]/80 border-t border-b border-[#e7dcdb]/80 py-2">
+          <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-[#e2e8f0]/80 border-t border-b border-[#e2e8f0]/80 py-2">
             <div className="py-6 md:p-6 space-y-3">
-              <div className="text-2xl font-heading font-bold text-[#f73b20]">01</div>
-              <h3 className="font-heading text-base font-semibold text-[#360802]">Download the App</h3>
-              <p className="text-xs text-[#ababab] leading-relaxed">
+              <div className="text-2xl font-heading font-bold text-[#0284c7]">01</div>
+              <h3 className="font-heading text-base font-semibold text-[#0a1e3f]">Download the App</h3>
+              <p className="text-xs text-[#64748b] leading-relaxed">
                 Download the Rima MFB Mobile Banking application from Google Play or the iOS App Store.
               </p>
             </div>
 
             <div className="py-6 md:p-6 space-y-3">
-              <div className="text-2xl font-heading font-bold text-[#f73b20]">02</div>
-              <h3 className="font-heading text-base font-semibold text-[#360802]">Verify Credentials</h3>
-              <p className="text-xs text-[#ababab] leading-relaxed">
+              <div className="text-2xl font-heading font-bold text-[#0284c7]">02</div>
+              <h3 className="font-heading text-base font-semibold text-[#0a1e3f]">Verify Credentials</h3>
+              <p className="text-xs text-[#64748b] leading-relaxed">
                 Enter your registered BVN and National Identification Number (NIN) to verify your account in minutes.
               </p>
             </div>
 
             <div className="py-6 md:p-6 space-y-3">
-              <div className="text-2xl font-heading font-bold text-[#f73b20]">03</div>
-              <h3 className="font-heading text-base font-semibold text-[#360802]">Begin Banking</h3>
-              <p className="text-xs text-[#ababab] leading-relaxed">
+              <div className="text-2xl font-heading font-bold text-[#0284c7]">03</div>
+              <h3 className="font-heading text-base font-semibold text-[#0a1e3f]">Begin Banking</h3>
+              <p className="text-xs text-[#64748b] leading-relaxed">
                 Set your secure transaction PIN, fund your balance, and begin executing instant transfers immediately.
               </p>
             </div>
@@ -207,9 +207,9 @@ export default function DigitalBanking() {
       {/* App Download Banner */}
       <section id="download" className="py-16 md:py-20 bg-white">
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
-          <div className="bg-gradient-to-br from-[#360802] via-[#450b03] to-[#250501] text-white rounded-3xl p-8 sm:p-12 lg:p-16 shadow-3d-lift relative overflow-hidden border border-white/15">
+          <div className="bg-gradient-to-br from-[#0a1e3f] via-[#450b03] to-[#250501] text-white rounded-3xl p-8 sm:p-12 lg:p-16 shadow-md relative overflow-hidden border border-white/15">
             <div className="max-w-2xl space-y-6 relative z-10">
-              <span className="text-xs font-semibold uppercase tracking-wider text-[#f73b20] block">
+              <span className="text-xs font-semibold uppercase tracking-wider text-[#0284c7] block">
                 Mobile Banking App
               </span>
               <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-semibold text-white tracking-tight leading-[1.08]">
@@ -224,7 +224,7 @@ export default function DigitalBanking() {
                   variant="pill"
                   size="lg"
                   asChild
-                  className="bg-[#f73b20] hover:bg-[#f84d35] text-white shadow-3d-orange transform hover:-translate-y-0.5 transition-all"
+                  className="bg-[#0284c7] hover:bg-[#0369a1] text-white shadow-md shadow-sky-500/20 transform hover:-translate-y-0.5 transition-all"
                 >
                   <a href="#playstore" className="flex items-center gap-2">
                     <PlayStoreIcon />

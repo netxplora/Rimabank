@@ -5,22 +5,22 @@ export function MobileAppCTA() {
   return (
     <section className="py-16 md:py-20 bg-white">
       <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
-        <div className="rounded-3xl bg-gradient-to-br from-[#fdedea] via-white to-[#fdedea] border border-[#e7dcdb] p-6 sm:p-10 lg:p-14 shadow-3d-lift relative overflow-hidden">
+        <div className="rounded-3xl bg-gradient-to-br from-[#f0f7ff] via-white to-[#f0f7ff] border border-[#e2e8f0] p-6 sm:p-10 lg:p-14 shadow-md relative overflow-hidden">
           
           {/* Ambient light wash */}
-          <div className="absolute top-0 right-0 w-80 h-80 bg-[#f73b20]/10 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute top-0 right-0 w-80 h-80 bg-[#0284c7]/10 rounded-full blur-3xl pointer-events-none" />
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center relative z-10">
             
             {/* Left Content (7 cols) */}
             <div className="lg:col-span-7 space-y-6">
-              <span className="text-xs font-semibold uppercase tracking-wider text-[#f73b20] block">
+              <span className="text-xs font-semibold uppercase tracking-wider text-[#0284c7] block">
                 Digital Mobile Banking
               </span>
-              <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-semibold text-[#360802] tracking-tight leading-[1.08]">
+              <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-semibold text-[#0a1e3f] tracking-tight leading-[1.08]">
                 Manage your accounts from any mobile device.
               </h2>
-              <p className="text-[#360802]/80 text-base leading-relaxed max-w-xl">
+              <p className="text-[#0a1e3f]/80 text-base leading-relaxed max-w-xl">
                 Transfer funds instantly, generate account statements, pay utility bills, and monitor account balances with the official Rima MFB Mobile Banking application.
               </p>
 
@@ -32,7 +32,7 @@ export function MobileAppCTA() {
                   "Airtime, data, and utility bill payments",
                   "Download PDF bank statements directly",
                 ].map((item, idx) => (
-                  <div key={idx} className="flex items-center gap-2 text-xs font-medium text-[#360802]">
+                  <div key={idx} className="flex items-center gap-2 text-xs font-medium text-[#0a1e3f]">
                     <CheckCircle2 className="h-4 w-4 text-[#34c771] shrink-0" />
                     <span>{item}</span>
                   </div>
@@ -40,8 +40,8 @@ export function MobileAppCTA() {
               </div>
 
               {/* Rating Pill */}
-              <div className="inline-flex items-center gap-3 bg-white px-3.5 py-2 rounded-xl border border-[#e7dcdb] shadow-xs text-xs font-semibold text-[#360802]">
-                <div className="flex text-[#f73b20] gap-0.5">
+              <div className="inline-flex items-center gap-3 bg-white px-3.5 py-2 rounded-xl border border-[#e2e8f0] shadow-xs text-xs font-semibold text-[#0a1e3f]">
+                <div className="flex text-[#0284c7] gap-0.5">
                   {[...Array(5)].map((_, i) => (
                     <Star key={i} className="h-3.5 w-3.5 fill-current" />
                   ))}
@@ -55,7 +55,7 @@ export function MobileAppCTA() {
                   variant="pill"
                   size="lg"
                   asChild
-                  className="bg-[#f73b20] hover:bg-[#f84d35] text-white shadow-3d-orange transform hover:-translate-y-0.5 transition-all"
+                  className="bg-[#0284c7] hover:bg-[#0369a1] text-white shadow-md shadow-sky-500/20 transform hover:-translate-y-0.5 transition-all"
                 >
                   <a href="#download-ios">
                     <Download className="h-4 w-4 mr-2" />
@@ -66,7 +66,7 @@ export function MobileAppCTA() {
                   variant="outlineNeutral"
                   size="lg"
                   asChild
-                  className="rounded-full bg-white hover:bg-[#fdedea]"
+                  className="rounded-full bg-white hover:bg-[#f0f7ff]"
                 >
                   <a href="#download-android">
                     <Download className="h-4 w-4 mr-2" />
@@ -75,7 +75,7 @@ export function MobileAppCTA() {
                 </Button>
               </div>
 
-              <p className="text-[11px] text-[#ababab]">
+              <p className="text-[11px] text-[#64748b]">
                 * Compatible with iOS 13+ and Android 8+. Protected by biometric encryption.
               </p>
             </div>
@@ -92,9 +92,9 @@ export function MobileAppCTA() {
                 </div>
 
                 {/* Floating 3D Badge */}
-                <div className="absolute -bottom-4 -left-4 bg-white/95 border border-[#e7dcdb] px-3.5 py-2 rounded-xl shadow-3d-lift flex items-center gap-2 animate-float-slow hidden sm:flex">
+                <div className="absolute -bottom-4 -left-4 bg-white/95 border border-[#e2e8f0] px-3.5 py-2 rounded-xl shadow-md flex items-center gap-2 animate-float-slow hidden sm:flex">
                   <ShieldCheck className="h-4 w-4 text-[#34c771]" />
-                  <span className="text-[11px] font-bold text-[#360802]">256-Bit TLS Secured</span>
+                  <span className="text-[11px] font-bold text-[#0a1e3f]">256-Bit TLS Secured</span>
                 </div>
               </div>
             </div>

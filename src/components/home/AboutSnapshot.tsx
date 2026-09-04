@@ -13,13 +13,13 @@ const highlights = [
 
 export function AboutSnapshot() {
   return (
-    <section className="py-16 md:py-20 bg-white border-b border-[#e7dcdb]/60">
+    <section className="py-16 md:py-20 bg-white border-b border-[#e2e8f0]/60">
       <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
 
           {/* 3D Visual Column (6 cols) */}
           <div className="lg:col-span-6 relative order-2 lg:order-1 perspective-1000">
-            <div className="relative rounded-2xl overflow-hidden shadow-3d-lift border border-[#e7dcdb] group">
+            <div className="relative rounded-2xl overflow-hidden shadow-md border border-[#e2e8f0] group">
               <img
                 src="/images/hero-about.png"
                 alt="Rima MFB team and customers"
@@ -27,10 +27,10 @@ export function AboutSnapshot() {
               />
               
               {/* Bottom Glass Overlay Badge */}
-              <div className="absolute bottom-4 left-4 right-4 bg-white/95 backdrop-blur-md border border-[#e7dcdb] rounded-xl p-3.5 flex items-center justify-between shadow-lg">
+              <div className="absolute bottom-4 left-4 right-4 bg-white/95 backdrop-blur-md border border-[#e2e8f0] rounded-xl p-3.5 flex items-center justify-between shadow-lg">
                 <div className="flex items-center gap-2">
-                  <Building2 className="h-4 w-4 text-[#f73b20]" />
-                  <span className="text-xs font-semibold text-[#360802]">Port Harcourt HQ</span>
+                  <Building2 className="h-4 w-4 text-[#0284c7]" />
+                  <span className="text-xs font-semibold text-[#0a1e3f]">Port Harcourt HQ</span>
                 </div>
                 <span className="flex items-center gap-1 text-[#34c771] text-xs font-semibold">
                   <ShieldCheck className="h-4 w-4" /> Verified Institution
@@ -39,7 +39,7 @@ export function AboutSnapshot() {
             </div>
 
             {/* Floating 3D Stat Card */}
-            <div className="absolute -top-4 -right-2 sm:-right-4 bg-[#f73b20] text-white p-4 rounded-2xl shadow-3d-orange text-center animate-float-slow hidden sm:block">
+            <div className="absolute -top-4 -right-2 sm:-right-4 bg-[#0284c7] text-white p-4 rounded-2xl shadow-md shadow-sky-500/20 text-center animate-float-slow hidden sm:block">
               <div className="text-2xl font-bold font-heading leading-none">25+</div>
               <div className="text-[11px] font-medium mt-1 opacity-95">Years of Service</div>
             </div>
@@ -47,13 +47,13 @@ export function AboutSnapshot() {
 
           {/* Text Column (6 cols) */}
           <div className="lg:col-span-6 order-1 lg:order-2 space-y-6">
-            <span className="text-xs font-semibold uppercase tracking-wider text-[#f73b20] block">
+            <span className="text-xs font-semibold uppercase tracking-wider text-[#0284c7] block">
               Institutional Heritage
             </span>
-            <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-semibold text-[#360802] tracking-tight leading-[1.08]">
+            <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-semibold text-[#0a1e3f] tracking-tight leading-[1.08]">
               Built on community trust and regulatory excellence.
             </h2>
-            <p className="text-[#360802]/80 text-base leading-relaxed">
+            <p className="text-[#0a1e3f]/80 text-base leading-relaxed">
               Rima Microfinance Bank is an established financial institution committed to advancing
               financial inclusion across Rivers State. We serve individuals, civil servants, market
               traders, students, and small enterprises with reliable, transparent banking.
@@ -62,9 +62,9 @@ export function AboutSnapshot() {
             {/* 2-Column Responsive Highlights Grid */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 py-2">
               {highlights.map((item, index) => (
-                <div key={index} className="flex items-start gap-2.5 p-2 rounded-lg hover:bg-[#fdedea]/60 transition-colors">
+                <div key={index} className="flex items-start gap-2.5 p-2 rounded-lg hover:bg-[#f0f7ff]/60 transition-colors">
                   <CheckCircle2 className="h-4 w-4 text-[#34c771] shrink-0 mt-0.5" />
-                  <span className="text-xs font-medium text-[#360802] leading-snug">{item}</span>
+                  <span className="text-xs font-medium text-[#0a1e3f] leading-snug">{item}</span>
                 </div>
               ))}
             </div>
@@ -74,7 +74,7 @@ export function AboutSnapshot() {
                 variant="pill"
                 size="lg"
                 asChild
-                className="bg-[#f73b20] hover:bg-[#f84d35] text-white shadow-3d-orange transform hover:-translate-y-0.5 transition-all"
+                className="bg-[#0284c7] hover:bg-[#0369a1] text-white shadow-md shadow-sky-500/20 transform hover:-translate-y-0.5 transition-all"
               >
                 <Link to="/about">
                   Learn More About Rima

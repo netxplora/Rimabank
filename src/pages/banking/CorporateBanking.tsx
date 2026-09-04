@@ -16,14 +16,14 @@ export default function CorporateBanking() {
       title: "Corporate Liquidity Management",
       description: "Optimized corporate treasury yield placements with dual-signatory authorization and sweep accounts.",
       icon: ShieldCheck,
-      bg: "#fdedea",
-      accent: "#f73b20"
+      bg: "#f0f7ff",
+      accent: "#0284c7"
     },
     {
       title: "Trade & Vendor Financing",
       description: "Local invoice discounting, contractor performance guarantees, and supplier advance financing.",
       icon: Globe,
-      bg: "#e7dcdb",
+      bg: "#e2e8f0",
       accent: "#477ee9"
     },
     {
@@ -31,7 +31,7 @@ export default function CorporateBanking() {
       description: "Automated NIBSS bulk payroll execution, statutory tax remittances, and structured merchant collections.",
       icon: Building2,
       bg: "#f5ffbb",
-      accent: "#360802"
+      accent: "#0a1e3f"
     },
   ];
 
@@ -66,10 +66,10 @@ export default function CorporateBanking() {
         {/* Corporate Services Grid */}
         <section id="corporate-services">
           <div className="mb-8">
-            <span className="text-xs font-semibold uppercase tracking-ui text-[#f73b20] block mb-1">
+            <span className="text-xs font-semibold uppercase tracking-ui text-[#0284c7] block mb-1">
               Institutional Capabilities
             </span>
-            <h2 className="text-2xl lg:text-3xl font-heading font-medium text-[#360802]">
+            <h2 className="text-2xl lg:text-3xl font-heading font-medium text-[#0a1e3f]">
               Corporate Banking Services
             </h2>
           </div>
@@ -78,7 +78,7 @@ export default function CorporateBanking() {
             {corporateBenefits.map((benefit, idx) => (
               <div 
                 key={idx} 
-                className="p-6 rounded-cards bg-white border border-[#e7dcdb] shadow-lift flex flex-col justify-between hover:border-[#f73b20]/30 transition-all duration-300"
+                className="p-6 rounded-cards bg-white border border-[#e2e8f0] shadow-lift flex flex-col justify-between hover:border-[#0284c7]/30 transition-all duration-300"
               >
                 <div>
                   <div 
@@ -87,8 +87,8 @@ export default function CorporateBanking() {
                   >
                     <benefit.icon className="h-6 w-6" />
                   </div>
-                  <h3 className="font-heading text-lg font-semibold text-[#360802] mb-2">{benefit.title}</h3>
-                  <p className="text-xs text-[#ababab] leading-relaxed">{benefit.description}</p>
+                  <h3 className="font-heading text-lg font-semibold text-[#0a1e3f] mb-2">{benefit.title}</h3>
+                  <p className="text-xs text-[#64748b] leading-relaxed">{benefit.description}</p>
                 </div>
               </div>
             ))}
@@ -97,17 +97,17 @@ export default function CorporateBanking() {
 
         {/* Dedicated Corporate Advisory Card */}
         <section id="relationship-management">
-          <div className="p-8 lg:p-12 rounded-cards bg-[#fdedea] border border-[#e7dcdb] shadow-lift">
+          <div className="p-8 lg:p-12 rounded-cards bg-[#f0f7ff] border border-[#e2e8f0] shadow-lift">
             <div className="max-w-3xl space-y-6">
-              <span className="text-xs font-semibold uppercase tracking-ui text-[#f73b20] block">
+              <span className="text-xs font-semibold uppercase tracking-ui text-[#0284c7] block">
                 Executive Partnership
               </span>
 
-              <h2 className="font-heading text-2xl lg:text-3xl font-medium text-[#360802] tracking-tight leading-tight">
+              <h2 className="font-heading text-2xl lg:text-3xl font-medium text-[#0a1e3f] tracking-tight leading-tight">
                 Dedicated Commercial Relationship Management
               </h2>
 
-              <p className="text-xs text-[#360802]/80 leading-relaxed">
+              <p className="text-xs text-[#0a1e3f]/80 leading-relaxed">
                 Every corporate client is paired with an experienced commercial banker who acts as a single point of contact for credit restructuring, trade documentation, and operational escalations.
               </p>
 

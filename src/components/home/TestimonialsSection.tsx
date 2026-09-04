@@ -29,26 +29,26 @@ const testimonials = [
 
 export function TestimonialsSection() {
   return (
-    <section className="py-16 md:py-20 bg-white border-b border-[#e7dcdb]/60">
+    <section className="py-16 md:py-20 bg-white border-b border-[#e2e8f0]">
       <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
 
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-12">
           <div>
-            <span className="text-xs font-semibold uppercase tracking-wider text-[#f73b20] block mb-2">
+            <span className="text-xs font-semibold uppercase tracking-wider text-[#0284c7] block mb-2">
               Client Experience
             </span>
-            <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-semibold text-[#360802] tracking-tight leading-[1.08]">
+            <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-semibold text-[#0a1e3f] tracking-tight leading-[1.08]">
               Trusted by business owners and individuals across Rivers State.
             </h2>
           </div>
-          <p className="text-[#ababab] text-sm leading-relaxed max-w-sm md:text-right">
+          <p className="text-[#64748b] text-sm leading-relaxed max-w-sm md:text-right">
             Real feedback from commercial enterprises, market traders, and campus students.
           </p>
         </div>
 
         {/* Open Editorial Testimonials Grid (No heavy card containers) */}
-        <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-[#e7dcdb]/80 border-t border-b border-[#e7dcdb]/80">
+        <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-[#e2e8f0] border-t border-b border-[#e2e8f0]">
           {testimonials.map((item, index) => (
             <div
               key={index}
@@ -56,32 +56,32 @@ export function TestimonialsSection() {
             >
               <div>
                 <div className="flex items-center justify-between mb-4">
-                  <div className="flex text-[#f73b20] gap-0.5">
+                  <div className="flex text-[#0284c7] gap-0.5">
                     {[...Array(item.rating)].map((_, i) => (
                       <Star key={i} className="h-4 w-4 fill-current" />
                     ))}
                   </div>
-                  <span className="inline-flex items-center gap-1 text-[10px] font-semibold text-[#34c771] bg-[#bcffbb]/40 px-2 py-0.5 rounded-full">
+                  <span className="inline-flex items-center gap-1 text-[10px] font-semibold text-[#10b981] bg-[#dcfce7] px-2 py-0.5 rounded-full">
                     <CheckCircle className="h-3 w-3" />
                     {item.verified}
                   </span>
                 </div>
 
-                <p className="text-[#360802]/85 text-sm leading-relaxed mb-6 italic">
+                <p className="text-[#0a1e3f]/85 text-sm leading-relaxed mb-6 italic">
                   &ldquo;{item.content}&rdquo;
                 </p>
               </div>
 
-              <div className="pt-4 border-t border-[#e7dcdb]/60 flex items-center justify-between">
+              <div className="pt-4 border-t border-[#e2e8f0] flex items-center justify-between">
                 <div>
-                  <h4 className="font-heading text-sm font-semibold text-[#360802]">
+                  <h4 className="font-heading text-sm font-semibold text-[#0a1e3f]">
                     {item.name}
                   </h4>
-                  <p className="text-xs text-[#ababab]">
+                  <p className="text-xs text-[#64748b]">
                     {item.role}
                   </p>
                 </div>
-                <span className="text-[10px] font-medium text-[#ababab] bg-[#fdedea] px-2 py-0.5 rounded">
+                <span className="text-[10px] font-medium text-[#64748b] bg-[#f0f7ff] px-2 py-0.5 rounded">
                   {item.location}
                 </span>
               </div>

@@ -33,7 +33,7 @@ const savingsProducts = [
     icon: TrendingUp,
     category: "Term Deposit",
     bg: "#f5ffbb",
-    accent: "#360802"
+    accent: "#0a1e3f"
   },
   {
     name: "Target Savings Account",
@@ -42,8 +42,8 @@ const savingsProducts = [
     rate: "6.5% p.a.",
     icon: Shield,
     category: "Target",
-    bg: "#fdedea",
-    accent: "#f73b20"
+    bg: "#f0f7ff",
+    accent: "#0284c7"
   }
 ];
 
@@ -65,8 +65,8 @@ const loanProducts = [
     rate: "From 3% monthly",
     icon: CreditCard,
     category: "Personal",
-    bg: "#fdedea",
-    accent: "#fb2d54"
+    bg: "#f0f7ff",
+    accent: "#0284c7"
   },
   {
     name: "Salary Advance",
@@ -75,7 +75,7 @@ const loanProducts = [
     rate: "From 3% flat",
     icon: Clock,
     category: "Advance",
-    bg: "#e7dcdb",
+    bg: "#e2e8f0",
     accent: "#477ee9"
   }
 ];
@@ -88,8 +88,8 @@ const accountTypes = [
     minBalance: "₦10,000",
     icon: Building2,
     category: "Business",
-    bg: "#fdedea",
-    accent: "#f73b20"
+    bg: "#f0f7ff",
+    accent: "#0284c7"
   },
   {
     name: "Campus Student Account",
@@ -99,7 +99,7 @@ const accountTypes = [
     icon: GraduationCap,
     category: "Student",
     bg: "#f5ffbb",
-    accent: "#360802"
+    accent: "#0a1e3f"
   }
 ];
 
@@ -107,20 +107,20 @@ export default function Products() {
   return (
     <Layout>
       {/* Editorial Hero */}
-      <section className="relative bg-white pt-12 pb-16 lg:pt-16 lg:pb-20 border-b border-[#e7dcdb]/60 overflow-hidden">
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#fdedea] rounded-full blur-3xl -z-10 opacity-70 pointer-events-none" />
+      <section className="relative bg-white pt-12 pb-16 lg:pt-16 lg:pb-20 border-b border-[#e2e8f0]/60 overflow-hidden">
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#f0f7ff] rounded-full blur-3xl -z-10 opacity-70 pointer-events-none" />
 
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
           <div className="max-w-3xl space-y-6">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#fdedea] border border-[#e7dcdb] text-[#360802] text-xs font-semibold uppercase tracking-wider">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#f0f7ff] border border-[#e2e8f0] text-[#0a1e3f] text-xs font-semibold uppercase tracking-wider">
               <span>Complete Product Catalog</span>
             </div>
 
-            <h1 className="font-heading text-4xl sm:text-5xl lg:text-6xl font-semibold text-[#360802] tracking-tight leading-[1.05]">
-              Banking solutions for <span className="text-[#f73b20]">every requirement</span>.
+            <h1 className="font-heading text-4xl sm:text-5xl lg:text-6xl font-semibold text-[#0a1e3f] tracking-tight leading-[1.05]">
+              Banking solutions for <span className="text-[#0284c7]">every requirement</span>.
             </h1>
 
-            <p className="text-[#360802]/80 text-base sm:text-lg leading-relaxed">
+            <p className="text-[#0a1e3f]/80 text-base sm:text-lg leading-relaxed">
               Explore structured personal deposit accounts, commercial working capital lines, and agency banking infrastructure.
             </p>
           </div>
@@ -128,18 +128,18 @@ export default function Products() {
       </section>
 
       {/* Main Tabbed Products Section */}
-      <section className="py-16 md:py-20 bg-white border-b border-[#e7dcdb]/60">
+      <section className="py-16 md:py-20 bg-white border-b border-[#e2e8f0]/60">
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
           <Tabs defaultValue="savings" className="w-full">
             <div className="flex justify-center mb-12">
-              <TabsList className="bg-[#fdedea] p-1.5 rounded-full border border-[#e7dcdb] h-auto flex flex-wrap gap-1">
-                <TabsTrigger value="savings" className="rounded-full px-5 sm:px-6 py-2.5 text-xs font-semibold uppercase tracking-wider data-[state=active]:bg-[#360802] data-[state=active]:text-white transition-all">
+              <TabsList className="bg-[#f0f7ff] p-1.5 rounded-full border border-[#e2e8f0] h-auto flex flex-wrap gap-1">
+                <TabsTrigger value="savings" className="rounded-full px-5 sm:px-6 py-2.5 text-xs font-semibold uppercase tracking-wider data-[state=active]:bg-[#0a1e3f] data-[state=active]:text-white transition-all">
                   Savings & Deposits
                 </TabsTrigger>
-                <TabsTrigger value="loans" className="rounded-full px-5 sm:px-6 py-2.5 text-xs font-semibold uppercase tracking-wider data-[state=active]:bg-[#360802] data-[state=active]:text-white transition-all">
+                <TabsTrigger value="loans" className="rounded-full px-5 sm:px-6 py-2.5 text-xs font-semibold uppercase tracking-wider data-[state=active]:bg-[#0a1e3f] data-[state=active]:text-white transition-all">
                   Credit & Loans
                 </TabsTrigger>
-                <TabsTrigger value="accounts" className="rounded-full px-5 sm:px-6 py-2.5 text-xs font-semibold uppercase tracking-wider data-[state=active]:bg-[#360802] data-[state=active]:text-white transition-all">
+                <TabsTrigger value="accounts" className="rounded-full px-5 sm:px-6 py-2.5 text-xs font-semibold uppercase tracking-wider data-[state=active]:bg-[#0a1e3f] data-[state=active]:text-white transition-all">
                   Checking Accounts
                 </TabsTrigger>
               </TabsList>
@@ -148,7 +148,7 @@ export default function Products() {
             <TabsContent value="savings" className="space-y-8 animate-fade-in">
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
                 {savingsProducts.map((product) => (
-                  <div key={product.name} className="p-7 sm:p-8 rounded-2xl bg-white border border-[#e7dcdb] flex flex-col justify-between hover:border-[#f73b20]/30 transition-all duration-300">
+                  <div key={product.name} className="p-7 sm:p-8 rounded-2xl bg-white border border-[#e2e8f0] flex flex-col justify-between hover:border-[#0284c7]/30 transition-all duration-300">
                     <div>
                       <div className="flex items-center justify-between mb-6">
                         <div 
@@ -162,12 +162,12 @@ export default function Products() {
                         </span>
                       </div>
 
-                      <h3 className="font-heading text-xl font-semibold text-[#360802] mb-2">{product.name}</h3>
-                      <p className="text-xs text-[#ababab] leading-relaxed mb-6">{product.description}</p>
+                      <h3 className="font-heading text-xl font-semibold text-[#0a1e3f] mb-2">{product.name}</h3>
+                      <p className="text-xs text-[#64748b] leading-relaxed mb-6">{product.description}</p>
 
-                      <ul className="space-y-2.5 mb-8 pt-4 border-t border-[#e7dcdb]/60">
+                      <ul className="space-y-2.5 mb-8 pt-4 border-t border-[#e2e8f0]/60">
                         {product.features.map((feature) => (
-                          <li key={feature} className="flex items-center gap-2.5 text-xs text-[#360802]">
+                          <li key={feature} className="flex items-center gap-2.5 text-xs text-[#0a1e3f]">
                             <CheckCircle2 className="h-4 w-4 text-[#34c771] shrink-0" />
                             <span>{feature}</span>
                           </li>
@@ -175,11 +175,11 @@ export default function Products() {
                       </ul>
                     </div>
 
-                    <div className="pt-4 border-t border-[#e7dcdb]">
+                    <div className="pt-4 border-t border-[#e2e8f0]">
                       <Button
                         variant="pill"
                         size="default"
-                        className="w-full bg-[#f73b20] hover:bg-[#f84d35] text-white shadow-3d-orange transform hover:-translate-y-0.5 transition-all"
+                        className="w-full bg-[#0284c7] hover:bg-[#0369a1] text-white shadow-md shadow-sky-500/20 transform hover:-translate-y-0.5 transition-all"
                         asChild
                       >
                         <Link to="/contact">
@@ -196,7 +196,7 @@ export default function Products() {
             <TabsContent value="loans" className="space-y-8 animate-fade-in">
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
                 {loanProducts.map((product) => (
-                  <div key={product.name} className="p-7 sm:p-8 rounded-2xl bg-white border border-[#e7dcdb] flex flex-col justify-between hover:border-[#f73b20]/30 transition-all duration-300">
+                  <div key={product.name} className="p-7 sm:p-8 rounded-2xl bg-white border border-[#e2e8f0] flex flex-col justify-between hover:border-[#0284c7]/30 transition-all duration-300">
                     <div>
                       <div className="flex items-center justify-between mb-6">
                         <div 
@@ -205,17 +205,17 @@ export default function Products() {
                         >
                           <product.icon className="h-6 w-6" />
                         </div>
-                        <span className="font-heading font-bold text-xs text-[#fb2d54] bg-[#fdedea] px-3 py-1 rounded-full border border-black/5">
+                        <span className="font-heading font-bold text-xs text-[#0284c7] bg-[#f0f7ff] px-3 py-1 rounded-full border border-black/5">
                           {product.rate}
                         </span>
                       </div>
 
-                      <h3 className="font-heading text-xl font-semibold text-[#360802] mb-2">{product.name}</h3>
-                      <p className="text-xs text-[#ababab] leading-relaxed mb-6">{product.description}</p>
+                      <h3 className="font-heading text-xl font-semibold text-[#0a1e3f] mb-2">{product.name}</h3>
+                      <p className="text-xs text-[#64748b] leading-relaxed mb-6">{product.description}</p>
 
-                      <ul className="space-y-2.5 mb-8 pt-4 border-t border-[#e7dcdb]/60">
+                      <ul className="space-y-2.5 mb-8 pt-4 border-t border-[#e2e8f0]/60">
                         {product.features.map((feature) => (
-                          <li key={feature} className="flex items-center gap-2.5 text-xs text-[#360802]">
+                          <li key={feature} className="flex items-center gap-2.5 text-xs text-[#0a1e3f]">
                             <CheckCircle2 className="h-4 w-4 text-[#34c771] shrink-0" />
                             <span>{feature}</span>
                           </li>
@@ -223,11 +223,11 @@ export default function Products() {
                       </ul>
                     </div>
 
-                    <div className="pt-4 border-t border-[#e7dcdb]">
+                    <div className="pt-4 border-t border-[#e2e8f0]">
                       <Button
                         variant="pill"
                         size="default"
-                        className="w-full bg-[#f73b20] hover:bg-[#f84d35] text-white shadow-3d-orange transform hover:-translate-y-0.5 transition-all"
+                        className="w-full bg-[#0284c7] hover:bg-[#0369a1] text-white shadow-md shadow-sky-500/20 transform hover:-translate-y-0.5 transition-all"
                         asChild
                       >
                         <Link to="/loans">
@@ -244,7 +244,7 @@ export default function Products() {
             <TabsContent value="accounts" className="space-y-8 animate-fade-in">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 max-w-4xl mx-auto">
                 {accountTypes.map((product) => (
-                  <div key={product.name} className="p-7 sm:p-8 rounded-2xl bg-white border border-[#e7dcdb] flex flex-col justify-between hover:border-[#f73b20]/30 transition-all duration-300">
+                  <div key={product.name} className="p-7 sm:p-8 rounded-2xl bg-white border border-[#e2e8f0] flex flex-col justify-between hover:border-[#0284c7]/30 transition-all duration-300">
                     <div>
                       <div className="flex items-center justify-between mb-6">
                         <div 
@@ -253,17 +253,17 @@ export default function Products() {
                         >
                           <product.icon className="h-6 w-6" />
                         </div>
-                        <span className="text-[10px] uppercase font-bold text-[#ababab] bg-[#fdedea] px-2.5 py-1 rounded-full">
+                        <span className="text-[10px] uppercase font-bold text-[#64748b] bg-[#f0f7ff] px-2.5 py-1 rounded-full">
                           Min. Balance: {product.minBalance}
                         </span>
                       </div>
 
-                      <h3 className="font-heading text-xl font-semibold text-[#360802] mb-2">{product.name}</h3>
-                      <p className="text-xs text-[#ababab] leading-relaxed mb-6">{product.description}</p>
+                      <h3 className="font-heading text-xl font-semibold text-[#0a1e3f] mb-2">{product.name}</h3>
+                      <p className="text-xs text-[#64748b] leading-relaxed mb-6">{product.description}</p>
 
-                      <ul className="space-y-2.5 mb-8 pt-4 border-t border-[#e7dcdb]/60">
+                      <ul className="space-y-2.5 mb-8 pt-4 border-t border-[#e2e8f0]/60">
                         {product.features.map((feature) => (
-                          <li key={feature} className="flex items-center gap-2.5 text-xs text-[#360802]">
+                          <li key={feature} className="flex items-center gap-2.5 text-xs text-[#0a1e3f]">
                             <CheckCircle2 className="h-4 w-4 text-[#34c771] shrink-0" />
                             <span>{feature}</span>
                           </li>
@@ -271,11 +271,11 @@ export default function Products() {
                       </ul>
                     </div>
 
-                    <div className="pt-4 border-t border-[#e7dcdb]">
+                    <div className="pt-4 border-t border-[#e2e8f0]">
                       <Button
                         variant="pill"
                         size="default"
-                        className="w-full bg-[#f73b20] hover:bg-[#f84d35] text-white shadow-3d-orange transform hover:-translate-y-0.5 transition-all"
+                        className="w-full bg-[#0284c7] hover:bg-[#0369a1] text-white shadow-md shadow-sky-500/20 transform hover:-translate-y-0.5 transition-all"
                         asChild
                       >
                         <Link to="/contact">

@@ -9,8 +9,8 @@ const businessServices = [
     title: "SME Commercial Banking",
     icon: Briefcase,
     category: "Growing Enterprises",
-    bg: "#fdedea",
-    accent: "#f73b20",
+    bg: "#f0f7ff",
+    accent: "#0284c7",
     description: "Structured capital, low-commission merchant POS terminals, and operational support designed for retailers, contractors, and manufacturers.",
     href: "/business-banking/sme",
     benefits: [
@@ -25,8 +25,8 @@ const businessServices = [
     title: "Corporate Accounts",
     icon: Building2,
     category: "Large Operations",
-    bg: "#e7dcdb",
-    accent: "#360802",
+    bg: "#e2e8f0",
+    accent: "#0a1e3f",
     description: "Financial structure for established corporate entities and institutions requiring multi-signatory accounts and bulk cash flows.",
     href: "/business-banking/corporate",
     benefits: [
@@ -58,20 +58,20 @@ export default function BusinessBanking() {
   return (
     <Layout>
       {/* Editorial Hero */}
-      <section className="relative bg-white pt-12 pb-16 lg:pt-16 lg:pb-20 border-b border-[#e7dcdb]/60 overflow-hidden">
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#fdedea] rounded-full blur-3xl -z-10 opacity-70 pointer-events-none" />
+      <section className="relative bg-white pt-12 pb-16 lg:pt-16 lg:pb-20 border-b border-[#e2e8f0]/60 overflow-hidden">
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#f0f7ff] rounded-full blur-3xl -z-10 opacity-70 pointer-events-none" />
 
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
           <div className="max-w-3xl space-y-6">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#fdedea] border border-[#e7dcdb] text-[#360802] text-xs font-semibold uppercase tracking-wider">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#f0f7ff] border border-[#e2e8f0] text-[#0a1e3f] text-xs font-semibold uppercase tracking-wider">
               <span>Commercial & Business Banking</span>
             </div>
 
-            <h1 className="font-heading text-4xl sm:text-5xl lg:text-6xl font-semibold text-[#360802] tracking-tight leading-[1.05]">
-              Banking partnership built for <span className="text-[#f73b20]">enterprise scale</span>.
+            <h1 className="font-heading text-4xl sm:text-5xl lg:text-6xl font-semibold text-[#0a1e3f] tracking-tight leading-[1.05]">
+              Banking partnership built for <span className="text-[#0284c7]">enterprise scale</span>.
             </h1>
 
-            <p className="text-[#360802]/80 text-base sm:text-lg leading-relaxed">
+            <p className="text-[#0a1e3f]/80 text-base sm:text-lg leading-relaxed">
               From growing SMEs to established corporations, Rima MFB provides the structured commercial banking architecture required to operate with efficiency and financial security.
             </p>
 
@@ -80,7 +80,7 @@ export default function BusinessBanking() {
                 variant="pill"
                 size="lg"
                 asChild
-                className="bg-[#f73b20] hover:bg-[#f84d35] text-white shadow-3d-orange transform hover:-translate-y-0.5 transition-all"
+                className="bg-[#0284c7] hover:bg-[#0369a1] text-white shadow-md shadow-sky-500/20 transform hover:-translate-y-0.5 transition-all"
               >
                 <Link to="/contact">
                   Open Business Account
@@ -98,13 +98,13 @@ export default function BusinessBanking() {
       </section>
 
       {/* Services 3-Column Grid */}
-      <section className="py-16 md:py-20 bg-white border-b border-[#e7dcdb]/60">
+      <section className="py-16 md:py-20 bg-white border-b border-[#e2e8f0]/60">
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
           <div className="max-w-2xl mb-12">
-            <span className="text-xs font-semibold uppercase tracking-wider text-[#f73b20] block mb-2">
+            <span className="text-xs font-semibold uppercase tracking-wider text-[#0284c7] block mb-2">
               Commercial Products
             </span>
-            <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-semibold text-[#360802] tracking-tight leading-[1.08]">
+            <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-semibold text-[#0a1e3f] tracking-tight leading-[1.08]">
               Structured solutions for enterprise operations.
             </h2>
           </div>
@@ -113,7 +113,7 @@ export default function BusinessBanking() {
             {businessServices.map((service) => (
               <div 
                 key={service.id} 
-                className="p-7 sm:p-8 rounded-2xl bg-white border border-[#e7dcdb] flex flex-col justify-between hover:border-[#f73b20]/30 transition-all duration-300"
+                className="p-7 sm:p-8 rounded-2xl bg-white border border-[#e2e8f0] flex flex-col justify-between hover:border-[#0284c7]/30 transition-all duration-300"
               >
                 <div>
                   <div className="flex items-center justify-between mb-6">
@@ -131,17 +131,17 @@ export default function BusinessBanking() {
                     </span>
                   </div>
 
-                  <h3 className="font-heading text-xl font-semibold text-[#360802] mb-2.5">
+                  <h3 className="font-heading text-xl font-semibold text-[#0a1e3f] mb-2.5">
                     {service.title}
                   </h3>
 
-                  <p className="text-xs text-[#ababab] leading-relaxed mb-6">
+                  <p className="text-xs text-[#64748b] leading-relaxed mb-6">
                     {service.description}
                   </p>
                   
-                  <div className="space-y-2.5 mb-8 pt-4 border-t border-[#e7dcdb]/60">
+                  <div className="space-y-2.5 mb-8 pt-4 border-t border-[#e2e8f0]/60">
                     {service.benefits.map((benefit, i) => (
-                      <div key={i} className="flex items-start gap-2.5 text-xs text-[#360802]">
+                      <div key={i} className="flex items-start gap-2.5 text-xs text-[#0a1e3f]">
                         <CheckCircle2 className="h-4 w-4 text-[#34c771] shrink-0 mt-0.5" />
                         <span>{benefit}</span>
                       </div>
@@ -149,11 +149,11 @@ export default function BusinessBanking() {
                   </div>
                 </div>
 
-                <div className="pt-4 border-t border-[#e7dcdb]">
+                <div className="pt-4 border-t border-[#e2e8f0]">
                   <Button
                     variant="pill"
                     size="default"
-                    className="w-full bg-[#f73b20] hover:bg-[#f84d35] text-white shadow-3d-orange transform hover:-translate-y-0.5 transition-all"
+                    className="w-full bg-[#0284c7] hover:bg-[#0369a1] text-white shadow-md shadow-sky-500/20 transform hover:-translate-y-0.5 transition-all"
                     asChild
                   >
                     <Link to={service.href}>
@@ -169,19 +169,19 @@ export default function BusinessBanking() {
       </section>
 
       {/* Corporate Capabilities 2-Column Section */}
-      <section className="py-16 md:py-20 bg-gradient-to-b from-[#fdedea]/60 to-white border-b border-[#e7dcdb]/60">
+      <section className="py-16 md:py-20 bg-gradient-to-b from-[#f0f7ff]/60 to-white border-b border-[#e2e8f0]/60">
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
             
             {/* Left Capabilities (7 cols) */}
             <div className="lg:col-span-7 space-y-6">
-              <span className="text-xs font-semibold uppercase tracking-wider text-[#f73b20] block">
+              <span className="text-xs font-semibold uppercase tracking-wider text-[#0284c7] block">
                 Operational Capabilities
               </span>
-              <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-semibold text-[#360802] tracking-tight leading-[1.08]">
+              <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-semibold text-[#0a1e3f] tracking-tight leading-[1.08]">
                 Corporate infrastructure designed for high transaction velocity.
               </h2>
-              <p className="text-[#360802]/80 text-base leading-relaxed">
+              <p className="text-[#0a1e3f]/80 text-base leading-relaxed">
                 We provide the banking tools required by medium and large enterprises to automate supplier transactions, manage staff payrolls, and maintain liquidity balances.
               </p>
 
@@ -193,9 +193,9 @@ export default function BusinessBanking() {
                   "Direct vendor transfers with instant digital receipts",
                   "Customized trade finance and working capital"
                 ].map((item, i) => (
-                  <div key={i} className="flex items-start gap-2.5 p-2 rounded-lg bg-white border border-[#e7dcdb]/80 shadow-xs">
+                  <div key={i} className="flex items-start gap-2.5 p-2 rounded-lg bg-white border border-[#e2e8f0]/80 shadow-xs">
                     <CheckCircle2 className="h-4 w-4 text-[#34c771] shrink-0 mt-0.5" />
-                    <span className="text-xs font-medium text-[#360802] leading-tight">{item}</span>
+                    <span className="text-xs font-medium text-[#0a1e3f] leading-tight">{item}</span>
                   </div>
                 ))}
               </div>
@@ -205,7 +205,7 @@ export default function BusinessBanking() {
                   variant="pill"
                   size="lg"
                   asChild
-                  className="bg-[#f73b20] hover:bg-[#f84d35] text-white shadow-3d-orange transform hover:-translate-y-0.5 transition-all"
+                  className="bg-[#0284c7] hover:bg-[#0369a1] text-white shadow-md shadow-sky-500/20 transform hover:-translate-y-0.5 transition-all"
                 >
                   <Link to="/contact">
                     Open a Corporate Account
@@ -217,20 +217,20 @@ export default function BusinessBanking() {
 
             {/* Right Desk Card (5 cols) */}
             <div className="lg:col-span-5 perspective-1000">
-              <div className="rounded-3xl bg-white border border-[#e7dcdb] p-7 sm:p-8 space-y-5">
-                <div className="flex items-center gap-3 pb-4 border-b border-[#e7dcdb]">
-                  <ShieldCheck className="h-6 w-6 text-[#f73b20]" />
+              <div className="rounded-3xl bg-white border border-[#e2e8f0] p-7 sm:p-8 space-y-5">
+                <div className="flex items-center gap-3 pb-4 border-b border-[#e2e8f0]">
+                  <ShieldCheck className="h-6 w-6 text-[#0284c7]" />
                   <div>
-                    <h4 className="font-heading text-base font-bold text-[#360802]">Institutional Account Desk</h4>
-                    <p className="text-xs text-[#ababab]">Dedicated Relationship Management</p>
+                    <h4 className="font-heading text-base font-bold text-[#0a1e3f]">Institutional Account Desk</h4>
+                    <p className="text-xs text-[#64748b]">Dedicated Relationship Management</p>
                   </div>
                 </div>
 
-                <div className="space-y-3 text-xs text-[#360802]/85">
+                <div className="space-y-3 text-xs text-[#0a1e3f]/85">
                   <p>Every commercial account is assigned an accredited relationship manager based in Port Harcourt to ensure prompt resolution of trade finance and operational requests.</p>
-                  <div className="p-4 rounded-xl bg-[#fdedea] border border-[#e7dcdb]">
-                    <span className="font-semibold text-[#360802] block mb-1">Documentation Requirements:</span>
-                    <ul className="list-disc pl-4 space-y-1 text-[#ababab]">
+                  <div className="p-4 rounded-xl bg-[#f0f7ff] border border-[#e2e8f0]">
+                    <span className="font-semibold text-[#0a1e3f] block mb-1">Documentation Requirements:</span>
+                    <ul className="list-disc pl-4 space-y-1 text-[#64748b]">
                       <li>CAC Certificate of Incorporation</li>
                       <li>Status Report / Memorandum & Articles</li>
                       <li>Board Resolution for Account Opening</li>

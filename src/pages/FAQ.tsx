@@ -61,20 +61,20 @@ export default function FAQ() {
   return (
     <Layout>
       {/* Editorial Hero */}
-      <section className="relative bg-white pt-12 pb-16 lg:pt-16 lg:pb-20 border-b border-[#e7dcdb]/60 overflow-hidden">
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#fdedea] rounded-full blur-3xl -z-10 opacity-70 pointer-events-none" />
+      <section className="relative bg-white pt-12 pb-16 lg:pt-16 lg:pb-20 border-b border-[#e2e8f0]/60 overflow-hidden">
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#f0f7ff] rounded-full blur-3xl -z-10 opacity-70 pointer-events-none" />
 
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
           <div className="max-w-3xl space-y-6">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#fdedea] border border-[#e7dcdb] text-[#360802] text-xs font-semibold uppercase tracking-wider">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#f0f7ff] border border-[#e2e8f0] text-[#0a1e3f] text-xs font-semibold uppercase tracking-wider">
               <span>Knowledge Base & Support</span>
             </div>
 
-            <h1 className="font-heading text-4xl sm:text-5xl lg:text-6xl font-semibold text-[#360802] tracking-tight leading-[1.05]">
-              Frequently asked <span className="text-[#f73b20]">questions</span>.
+            <h1 className="font-heading text-4xl sm:text-5xl lg:text-6xl font-semibold text-[#0a1e3f] tracking-tight leading-[1.05]">
+              Frequently asked <span className="text-[#0284c7]">questions</span>.
             </h1>
 
-            <p className="text-[#360802]/80 text-base sm:text-lg leading-relaxed">
+            <p className="text-[#0a1e3f]/80 text-base sm:text-lg leading-relaxed">
               Find answers regarding account documentation, loan facilities, debit card security, and regulatory deposit guarantees.
             </p>
           </div>
@@ -82,24 +82,24 @@ export default function FAQ() {
       </section>
 
       {/* Main FAQ Content */}
-      <section className="py-16 md:py-20 bg-white border-b border-[#e7dcdb]/60">
+      <section className="py-16 md:py-20 bg-white border-b border-[#e2e8f0]/60">
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
             
             {/* Category Navigation (4 cols) */}
             <div className="lg:col-span-4 lg:sticky lg:top-24 space-y-2 hidden lg:block">
-              <span className="text-xs font-semibold uppercase tracking-wider text-[#ababab] block mb-3 px-3">
+              <span className="text-xs font-semibold uppercase tracking-wider text-[#64748b] block mb-3 px-3">
                 Topics
               </span>
-              <a href="#accounts" className="flex items-center gap-3 px-4 py-3 rounded-2xl bg-[#fdedea] text-[#360802] font-semibold text-xs transition-colors shadow-xs">
-                <Building2 className="h-4 w-4 text-[#f73b20]" />
+              <a href="#accounts" className="flex items-center gap-3 px-4 py-3 rounded-2xl bg-[#f0f7ff] text-[#0a1e3f] font-semibold text-xs transition-colors shadow-xs">
+                <Building2 className="h-4 w-4 text-[#0284c7]" />
                 <span>Account Opening & KYC</span>
               </a>
-              <a href="#loans" className="flex items-center gap-3 px-4 py-3 rounded-2xl hover:bg-[#fdedea] text-[#360802]/80 hover:text-[#f73b20] font-medium text-xs transition-colors">
+              <a href="#loans" className="flex items-center gap-3 px-4 py-3 rounded-2xl hover:bg-[#f0f7ff] text-[#0a1e3f]/80 hover:text-[#0284c7] font-medium text-xs transition-colors">
                 <CreditCard className="h-4 w-4 text-[#34c771]" />
                 <span>Credit & Loan Facilities</span>
               </a>
-              <a href="#digital" className="flex items-center gap-3 px-4 py-3 rounded-2xl hover:bg-[#fdedea] text-[#360802]/80 hover:text-[#f73b20] font-medium text-xs transition-colors">
+              <a href="#digital" className="flex items-center gap-3 px-4 py-3 rounded-2xl hover:bg-[#f0f7ff] text-[#0a1e3f]/80 hover:text-[#0284c7] font-medium text-xs transition-colors">
                 <Smartphone className="h-4 w-4 text-[#477ee9]" />
                 <span>Digital Banking & Security</span>
               </a>
@@ -110,17 +110,17 @@ export default function FAQ() {
               
               {/* Account section */}
               <div id="accounts" className="space-y-3">
-                <h3 className="font-heading text-lg font-semibold text-[#360802] flex items-center gap-2 pb-2 border-b border-[#e7dcdb]">
-                  <Building2 className="h-4.5 w-4.5 text-[#f73b20]" />
+                <h3 className="font-heading text-lg font-semibold text-[#0a1e3f] flex items-center gap-2 pb-2 border-b border-[#e2e8f0]">
+                  <Building2 className="h-4.5 w-4.5 text-[#0284c7]" />
                   Account Opening & KYC
                 </h3>
-                <Accordion type="single" collapsible className="w-full divide-y divide-[#e7dcdb]/70">
+                <Accordion type="single" collapsible className="w-full divide-y divide-[#e2e8f0]/70">
                   {accountFaqs.map((faq, i) => (
                     <AccordionItem key={i} value={`account-${i}`} className="border-b-0 py-1">
-                      <AccordionTrigger className="text-left font-heading font-medium text-sm text-[#360802] hover:text-[#f73b20] py-3.5">
+                      <AccordionTrigger className="text-left font-heading font-medium text-sm text-[#0a1e3f] hover:text-[#0284c7] py-3.5">
                         {faq.q}
                       </AccordionTrigger>
-                      <AccordionContent className="text-xs text-[#ababab] leading-relaxed pb-3">
+                      <AccordionContent className="text-xs text-[#64748b] leading-relaxed pb-3">
                         {faq.a}
                       </AccordionContent>
                     </AccordionItem>
@@ -130,17 +130,17 @@ export default function FAQ() {
 
               {/* Loans section */}
               <div id="loans" className="space-y-3">
-                <h3 className="font-heading text-lg font-semibold text-[#360802] flex items-center gap-2 pb-2 border-b border-[#e7dcdb]">
+                <h3 className="font-heading text-lg font-semibold text-[#0a1e3f] flex items-center gap-2 pb-2 border-b border-[#e2e8f0]">
                   <CreditCard className="h-4.5 w-4.5 text-[#34c771]" />
                   Credit & Loan Facilities
                 </h3>
-                <Accordion type="single" collapsible className="w-full divide-y divide-[#e7dcdb]/70">
+                <Accordion type="single" collapsible className="w-full divide-y divide-[#e2e8f0]/70">
                   {loanFaqs.map((faq, i) => (
                     <AccordionItem key={i} value={`loan-${i}`} className="border-b-0 py-1">
-                      <AccordionTrigger className="text-left font-heading font-medium text-sm text-[#360802] hover:text-[#f73b20] py-3.5">
+                      <AccordionTrigger className="text-left font-heading font-medium text-sm text-[#0a1e3f] hover:text-[#0284c7] py-3.5">
                         {faq.q}
                       </AccordionTrigger>
-                      <AccordionContent className="text-xs text-[#ababab] leading-relaxed pb-3">
+                      <AccordionContent className="text-xs text-[#64748b] leading-relaxed pb-3">
                         {faq.a}
                       </AccordionContent>
                     </AccordionItem>
@@ -150,17 +150,17 @@ export default function FAQ() {
 
               {/* Digital section */}
               <div id="digital" className="space-y-3">
-                <h3 className="font-heading text-lg font-semibold text-[#360802] flex items-center gap-2 pb-2 border-b border-[#e7dcdb]">
+                <h3 className="font-heading text-lg font-semibold text-[#0a1e3f] flex items-center gap-2 pb-2 border-b border-[#e2e8f0]">
                   <Smartphone className="h-4.5 w-4.5 text-[#477ee9]" />
                   Digital Banking & Security
                 </h3>
-                <Accordion type="single" collapsible className="w-full divide-y divide-[#e7dcdb]/70">
+                <Accordion type="single" collapsible className="w-full divide-y divide-[#e2e8f0]/70">
                   {digitalFaqs.map((faq, i) => (
                     <AccordionItem key={i} value={`digital-${i}`} className="border-b-0 py-1">
-                      <AccordionTrigger className="text-left font-heading font-medium text-sm text-[#360802] hover:text-[#f73b20] py-3.5">
+                      <AccordionTrigger className="text-left font-heading font-medium text-sm text-[#0a1e3f] hover:text-[#0284c7] py-3.5">
                         {faq.q}
                       </AccordionTrigger>
-                      <AccordionContent className="text-xs text-[#ababab] leading-relaxed pb-3">
+                      <AccordionContent className="text-xs text-[#64748b] leading-relaxed pb-3">
                         {faq.a}
                       </AccordionContent>
                     </AccordionItem>
@@ -174,13 +174,13 @@ export default function FAQ() {
       </section>
 
       {/* Still Have Questions CTA */}
-      <section className="py-16 md:py-20 bg-gradient-to-b from-[#fdedea] to-white">
+      <section className="py-16 md:py-20 bg-gradient-to-b from-[#f0f7ff] to-white">
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6 text-center">
           <div className="max-w-2xl mx-auto space-y-4">
-            <h3 className="font-heading text-2xl md:text-3xl font-semibold text-[#360802]">
+            <h3 className="font-heading text-2xl md:text-3xl font-semibold text-[#0a1e3f]">
               Need further assistance?
             </h3>
-            <p className="text-xs sm:text-sm text-[#ababab] leading-relaxed">
+            <p className="text-xs sm:text-sm text-[#64748b] leading-relaxed">
               Our customer service team is ready to answer questions regarding account upgrades, credit approvals, or card issuance.
             </p>
             <div className="pt-2 flex flex-wrap justify-center gap-4">
@@ -188,7 +188,7 @@ export default function FAQ() {
                 variant="pill"
                 size="lg"
                 asChild
-                className="bg-[#f73b20] hover:bg-[#f84d35] text-white shadow-3d-orange transform hover:-translate-y-0.5 transition-all"
+                className="bg-[#0284c7] hover:bg-[#0369a1] text-white shadow-md shadow-sky-500/20 transform hover:-translate-y-0.5 transition-all"
               >
                 <Link to="/contact">
                   Contact Customer Desk

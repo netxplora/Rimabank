@@ -77,20 +77,20 @@ export default function Contact() {
   return (
     <Layout>
       {/* Editorial Hero */}
-      <section className="relative bg-white pt-12 pb-16 lg:pt-16 lg:pb-20 border-b border-[#e7dcdb]/60 overflow-hidden">
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#fdedea] rounded-full blur-3xl -z-10 opacity-70 pointer-events-none" />
+      <section className="relative bg-white pt-12 pb-16 lg:pt-16 lg:pb-20 border-b border-[#e2e8f0]/60 overflow-hidden">
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#f0f7ff] rounded-full blur-3xl -z-10 opacity-70 pointer-events-none" />
 
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
           <div className="max-w-3xl space-y-6">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#fdedea] border border-[#e7dcdb] text-[#360802] text-xs font-semibold uppercase tracking-wider">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#f0f7ff] border border-[#e2e8f0] text-[#0a1e3f] text-xs font-semibold uppercase tracking-wider">
               <span>Customer Service & Inquiries</span>
             </div>
 
-            <h1 className="font-heading text-4xl sm:text-5xl lg:text-6xl font-semibold text-[#360802] tracking-tight leading-[1.05]">
-              Contact our <span className="text-[#f73b20]">banking team</span>.
+            <h1 className="font-heading text-4xl sm:text-5xl lg:text-6xl font-semibold text-[#0a1e3f] tracking-tight leading-[1.05]">
+              Contact our <span className="text-[#0284c7]">banking team</span>.
             </h1>
 
-            <p className="text-[#360802]/80 text-base sm:text-lg leading-relaxed">
+            <p className="text-[#0a1e3f]/80 text-base sm:text-lg leading-relaxed">
               Whether opening an account, requesting commercial credit, or seeking operational support, our relationship officers are available to assist you.
             </p>
           </div>
@@ -98,18 +98,18 @@ export default function Contact() {
       </section>
 
       {/* Main Contact Grid */}
-      <section className="py-16 md:py-20 bg-white border-b border-[#e7dcdb]/60">
+      <section className="py-16 md:py-20 bg-white border-b border-[#e2e8f0]/60">
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14">
             
             {/* Contact Form (7 cols) */}
             <div className="lg:col-span-7">
-              <div className="p-6 sm:p-10 rounded-3xl bg-white border border-[#e7dcdb] space-y-6">
+              <div className="p-6 sm:p-10 rounded-3xl bg-white border border-[#e2e8f0] space-y-6">
                 <div>
-                  <h2 className="font-heading text-2xl font-semibold text-[#360802] tracking-tight">
+                  <h2 className="font-heading text-2xl font-semibold text-[#0a1e3f] tracking-tight">
                     Submit an Inquiry
                   </h2>
-                  <p className="text-xs text-[#ababab] mt-1">
+                  <p className="text-xs text-[#64748b] mt-1">
                     Fill out your details below and a relationship officer will get in touch within one business day.
                   </p>
                 </div>
@@ -117,18 +117,18 @@ export default function Contact() {
                 <form onSubmit={handleSubmit} className="space-y-4">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div className="space-y-1.5">
-                      <Label htmlFor="name" className="text-xs font-semibold text-[#360802]">Full Name</Label>
+                      <Label htmlFor="name" className="text-xs font-semibold text-[#0a1e3f]">Full Name</Label>
                       <Input
                         id="name"
                         placeholder="e.g. Chukwuemeka Briggs"
                         value={formData.name}
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                         required
-                        className="bg-[#fdedea]/40 border-[#e7dcdb] rounded-xl text-[#360802] focus:border-[#f73b20] text-xs h-11"
+                        className="bg-[#f0f7ff]/40 border-[#e2e8f0] rounded-xl text-[#0a1e3f] focus:border-[#0284c7] text-xs h-11"
                       />
                     </div>
                     <div className="space-y-1.5">
-                      <Label htmlFor="email" className="text-xs font-semibold text-[#360802]">Email Address</Label>
+                      <Label htmlFor="email" className="text-xs font-semibold text-[#0a1e3f]">Email Address</Label>
                       <Input
                         id="email"
                         type="email"
@@ -136,28 +136,28 @@ export default function Contact() {
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                         required
-                        className="bg-[#fdedea]/40 border-[#e7dcdb] rounded-xl text-[#360802] focus:border-[#f73b20] text-xs h-11"
+                        className="bg-[#f0f7ff]/40 border-[#e2e8f0] rounded-xl text-[#0a1e3f] focus:border-[#0284c7] text-xs h-11"
                       />
                     </div>
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div className="space-y-1.5">
-                      <Label htmlFor="phone" className="text-xs font-semibold text-[#360802]">Phone Number</Label>
+                      <Label htmlFor="phone" className="text-xs font-semibold text-[#0a1e3f]">Phone Number</Label>
                       <Input
                         id="phone"
                         type="tel"
                         placeholder="0801 234 5678"
                         value={formData.phone}
                         onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                        className="bg-[#fdedea]/40 border-[#e7dcdb] rounded-xl text-[#360802] focus:border-[#f73b20] text-xs h-11"
+                        className="bg-[#f0f7ff]/40 border-[#e2e8f0] rounded-xl text-[#0a1e3f] focus:border-[#0284c7] text-xs h-11"
                       />
                     </div>
                     <div className="space-y-1.5">
-                      <Label htmlFor="subject" className="text-xs font-semibold text-[#360802]">Subject of Inquiry</Label>
+                      <Label htmlFor="subject" className="text-xs font-semibold text-[#0a1e3f]">Subject of Inquiry</Label>
                       <select 
                         id="subject"
-                        className="flex h-11 w-full rounded-xl border border-[#e7dcdb] bg-[#fdedea]/40 px-3 py-2 text-xs text-[#360802] focus:outline-none focus:border-[#f73b20]"
+                        className="flex h-11 w-full rounded-xl border border-[#e2e8f0] bg-[#f0f7ff]/40 px-3 py-2 text-xs text-[#0a1e3f] focus:outline-none focus:border-[#0284c7]"
                         value={formData.subject}
                         onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
                         required
@@ -173,7 +173,7 @@ export default function Contact() {
                   </div>
 
                   <div className="space-y-1.5">
-                    <Label htmlFor="message" className="text-xs font-semibold text-[#360802]">Message Details</Label>
+                    <Label htmlFor="message" className="text-xs font-semibold text-[#0a1e3f]">Message Details</Label>
                     <Textarea
                       id="message"
                       placeholder="Please provide details regarding your banking inquiry..."
@@ -181,7 +181,7 @@ export default function Contact() {
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                       required
-                      className="bg-[#fdedea]/40 border-[#e7dcdb] rounded-xl text-[#360802] focus:border-[#f73b20] text-xs"
+                      className="bg-[#f0f7ff]/40 border-[#e2e8f0] rounded-xl text-[#0a1e3f] focus:border-[#0284c7] text-xs"
                     />
                   </div>
 
@@ -190,7 +190,7 @@ export default function Contact() {
                       type="submit"
                       variant="pill"
                       size="lg"
-                      className="w-full bg-[#f73b20] hover:bg-[#f84d35] text-white shadow-3d-orange transform hover:-translate-y-0.5 transition-all"
+                      className="w-full bg-[#0284c7] hover:bg-[#0369a1] text-white shadow-md shadow-sky-500/20 transform hover:-translate-y-0.5 transition-all"
                       disabled={submitting}
                     >
                       {submitting ? (
@@ -210,27 +210,27 @@ export default function Contact() {
             {/* Direct Channels (5 cols) */}
             <div className="lg:col-span-5 space-y-6">
               {/* Direct Info Card */}
-              <div className="p-8 rounded-3xl bg-gradient-to-br from-[#360802] via-[#450b03] to-[#250501] text-white space-y-6 border border-white/15">
+              <div className="p-8 rounded-3xl bg-gradient-to-br from-[#0a1e3f] via-[#450b03] to-[#250501] text-white space-y-6 border border-white/15">
                 <h3 className="font-heading text-lg font-semibold text-white pb-4 border-b border-white/15">
                   Head Office Channels
                 </h3>
 
                 <div className="space-y-4 text-xs text-white/85">
                   <div className="flex items-start gap-3">
-                    <MapPin className="h-4 w-4 text-[#f73b20] shrink-0 mt-0.5" />
+                    <MapPin className="h-4 w-4 text-[#0284c7] shrink-0 mt-0.5" />
                     <span>No. 3 Evo Crescent, New GRA, Port Harcourt, Rivers State, Nigeria</span>
                   </div>
 
                   <div className="flex items-center gap-3">
-                    <Phone className="h-4 w-4 text-[#f73b20] shrink-0" />
-                    <a href="tel:+2348119477050" className="hover:text-[#f73b20] transition-colors">
+                    <Phone className="h-4 w-4 text-[#0284c7] shrink-0" />
+                    <a href="tel:+2348119477050" className="hover:text-[#0284c7] transition-colors">
                       +234 811 947 7050
                     </a>
                   </div>
 
                   <div className="flex items-center gap-3">
-                    <Mail className="h-4 w-4 text-[#f73b20] shrink-0" />
-                    <a href="mailto:info@rimamfb.com" className="hover:text-[#f73b20] transition-colors">
+                    <Mail className="h-4 w-4 text-[#0284c7] shrink-0" />
+                    <a href="mailto:info@rimamfb.com" className="hover:text-[#0284c7] transition-colors">
                       info@rimamfb.com
                     </a>
                   </div>
@@ -255,12 +255,12 @@ export default function Contact() {
               </div>
 
               {/* Regulatory Assurance Card */}
-              <div className="p-6 rounded-2xl bg-white border border-[#e7dcdb] space-y-2">
-                <div className="flex items-center gap-2 text-xs font-bold text-[#360802]">
+              <div className="p-6 rounded-2xl bg-white border border-[#e2e8f0] space-y-2">
+                <div className="flex items-center gap-2 text-xs font-bold text-[#0a1e3f]">
                   <ShieldCheck className="h-4 w-4 text-[#34c771]" />
                   <span>Regulatory Protection</span>
                 </div>
-                <p className="text-xs text-[#ababab] leading-relaxed">
+                <p className="text-xs text-[#64748b] leading-relaxed">
                   Central Bank of Nigeria (CBN) licensed microfinance institution. All eligible customer deposits are insured by the Nigeria Deposit Insurance Corporation (NDIC).
                 </p>
               </div>

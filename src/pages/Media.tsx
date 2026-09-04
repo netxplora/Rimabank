@@ -88,20 +88,20 @@ export default function Media() {
   return (
     <Layout>
       {/* Editorial Hero */}
-      <section className="relative bg-white pt-12 pb-16 lg:pt-16 lg:pb-20 border-b border-[#e7dcdb]/60 overflow-hidden">
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#fdedea] rounded-full blur-3xl -z-10 opacity-70 pointer-events-none" />
+      <section className="relative bg-white pt-12 pb-16 lg:pt-16 lg:pb-20 border-b border-[#e2e8f0]/60 overflow-hidden">
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#f0f7ff] rounded-full blur-3xl -z-10 opacity-70 pointer-events-none" />
 
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
           <div className="max-w-3xl space-y-6">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#fdedea] border border-[#e7dcdb] text-[#360802] text-xs font-semibold uppercase tracking-wider">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#f0f7ff] border border-[#e2e8f0] text-[#0a1e3f] text-xs font-semibold uppercase tracking-wider">
               <span>Press & Corporate Communications</span>
             </div>
 
-            <h1 className="font-heading text-4xl sm:text-5xl lg:text-6xl font-semibold text-[#360802] tracking-tight leading-[1.05]">
-              News & <span className="text-[#f73b20]">announcements</span>.
+            <h1 className="font-heading text-4xl sm:text-5xl lg:text-6xl font-semibold text-[#0a1e3f] tracking-tight leading-[1.05]">
+              News & <span className="text-[#0284c7]">announcements</span>.
             </h1>
 
-            <p className="text-[#360802]/80 text-base sm:text-lg leading-relaxed">
+            <p className="text-[#0a1e3f]/80 text-base sm:text-lg leading-relaxed">
               Institutional updates, regulatory notices, community outreach initiatives, and strategic milestones from Rima Microfinance Bank.
             </p>
           </div>
@@ -110,10 +110,10 @@ export default function Media() {
 
       {/* Featured Article */}
       {featuredArticle && (
-        <section className="py-12 sm:py-16 bg-white border-b border-[#e7dcdb]/60">
+        <section className="py-12 sm:py-16 bg-white border-b border-[#e2e8f0]/60">
           <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
-            <div className="rounded-3xl bg-white border border-[#e7dcdb] overflow-hidden grid grid-cols-1 lg:grid-cols-12 gap-0">
-              <div className="lg:col-span-6 aspect-[16/10] lg:aspect-auto overflow-hidden bg-[#fdedea]">
+            <div className="rounded-3xl bg-white border border-[#e2e8f0] overflow-hidden grid grid-cols-1 lg:grid-cols-12 gap-0">
+              <div className="lg:col-span-6 aspect-[16/10] lg:aspect-auto overflow-hidden bg-[#f0f7ff]">
                 <Link to={`/media/${featuredArticle.slug}`}>
                   <img
                     src={featuredArticle.featured_image || '/images/media-sme.png'}
@@ -128,22 +128,22 @@ export default function Media() {
 
               <div className="lg:col-span-6 p-6 sm:p-10 lg:p-12 flex flex-col justify-center space-y-4">
                 <div className="flex items-center gap-3">
-                  <span className="text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-[#fdedea] text-[#f73b20] border border-[#e7dcdb]">
+                  <span className="text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-[#f0f7ff] text-[#0284c7] border border-[#e2e8f0]">
                     {featuredArticle.category}
                   </span>
-                  <div className="flex items-center gap-1.5 text-xs text-[#ababab]">
+                  <div className="flex items-center gap-1.5 text-xs text-[#64748b]">
                     <Calendar className="h-3.5 w-3.5" />
                     <span>{formatDate(featuredArticle.created_at)}</span>
                   </div>
                 </div>
 
                 <Link to={`/media/${featuredArticle.slug}`}>
-                  <h2 className="font-heading text-2xl lg:text-3xl font-semibold text-[#360802] hover:text-[#f73b20] transition-colors leading-tight">
+                  <h2 className="font-heading text-2xl lg:text-3xl font-semibold text-[#0a1e3f] hover:text-[#0284c7] transition-colors leading-tight">
                     {featuredArticle.title}
                   </h2>
                 </Link>
 
-                <p className="text-xs sm:text-sm text-[#360802]/70 leading-relaxed">
+                <p className="text-xs sm:text-sm text-[#0a1e3f]/70 leading-relaxed">
                   {featuredArticle.excerpt}
                 </p>
 
@@ -152,7 +152,7 @@ export default function Media() {
                     variant="pill"
                     size="default"
                     asChild
-                    className="bg-[#f73b20] hover:bg-[#f84d35] text-white shadow-3d-orange transform hover:-translate-y-0.5 transition-all"
+                    className="bg-[#0284c7] hover:bg-[#0369a1] text-white shadow-md shadow-sky-500/20 transform hover:-translate-y-0.5 transition-all"
                   >
                     <Link to={`/media/${featuredArticle.slug}`}>
                       Read Article
@@ -167,13 +167,13 @@ export default function Media() {
       )}
 
       {/* 3-Column News Grid */}
-      <section className="py-16 md:py-20 bg-white border-b border-[#e7dcdb]/60">
+      <section className="py-16 md:py-20 bg-white border-b border-[#e2e8f0]/60">
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
           <div className="mb-10">
-            <span className="text-xs font-semibold uppercase tracking-wider text-[#f73b20] block mb-2">
+            <span className="text-xs font-semibold uppercase tracking-wider text-[#0284c7] block mb-2">
               Recent Coverage
             </span>
-            <h2 className="font-heading text-3xl font-semibold text-[#360802]">
+            <h2 className="font-heading text-3xl font-semibold text-[#0a1e3f]">
               Latest Publications
             </h2>
           </div>
@@ -182,10 +182,10 @@ export default function Media() {
             {otherArticles.map((article) => (
               <div 
                 key={article.id} 
-                className="rounded-2xl bg-white border border-[#e7dcdb] overflow-hidden flex flex-col justify-between hover:border-[#f73b20]/30 transition-all duration-300 group"
+                className="rounded-2xl bg-white border border-[#e2e8f0] overflow-hidden flex flex-col justify-between hover:border-[#0284c7]/30 transition-all duration-300 group"
               >
                 <div>
-                  <div className="h-48 overflow-hidden bg-[#fdedea]">
+                  <div className="h-48 overflow-hidden bg-[#f0f7ff]">
                     <Link to={`/media/${article.slug}`}>
                       <img
                         src={article.featured_image || '/images/media-students.png'}
@@ -200,30 +200,30 @@ export default function Media() {
 
                   <div className="p-6">
                     <div className="flex items-center justify-between mb-3">
-                      <span className="text-[10px] uppercase font-bold tracking-wider px-2.5 py-0.5 rounded-full bg-[#fdedea] text-[#f73b20]">
+                      <span className="text-[10px] uppercase font-bold tracking-wider px-2.5 py-0.5 rounded-full bg-[#f0f7ff] text-[#0284c7]">
                         {article.category}
                       </span>
-                      <span className="text-[11px] text-[#ababab]">
+                      <span className="text-[11px] text-[#64748b]">
                         {formatDate(article.created_at)}
                       </span>
                     </div>
 
                     <Link to={`/media/${article.slug}`}>
-                      <h3 className="font-heading text-base font-semibold text-[#360802] group-hover:text-[#f73b20] transition-colors leading-snug line-clamp-2 mb-2">
+                      <h3 className="font-heading text-base font-semibold text-[#0a1e3f] group-hover:text-[#0284c7] transition-colors leading-snug line-clamp-2 mb-2">
                         {article.title}
                       </h3>
                     </Link>
 
-                    <p className="text-xs text-[#ababab] leading-relaxed line-clamp-2">
+                    <p className="text-xs text-[#64748b] leading-relaxed line-clamp-2">
                       {article.excerpt}
                     </p>
                   </div>
                 </div>
 
-                <div className="px-6 pb-6 pt-3 border-t border-[#e7dcdb]/60">
+                <div className="px-6 pb-6 pt-3 border-t border-[#e2e8f0]/60">
                   <Link 
                     to={`/media/${article.slug}`} 
-                    className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#f73b20] hover:text-[#f84d35]"
+                    className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#0284c7] hover:text-[#0369a1]"
                   >
                     Read Full Story
                     <ArrowRight className="h-3.5 w-3.5" />
@@ -236,13 +236,13 @@ export default function Media() {
       </section>
 
       {/* Media Inquiries CTA */}
-      <section className="py-16 md:py-20 bg-gradient-to-b from-[#fdedea] to-white">
+      <section className="py-16 md:py-20 bg-gradient-to-b from-[#f0f7ff] to-white">
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6 text-center">
           <div className="max-w-2xl mx-auto space-y-4">
-            <h3 className="font-heading text-2xl md:text-3xl font-semibold text-[#360802]">
+            <h3 className="font-heading text-2xl md:text-3xl font-semibold text-[#0a1e3f]">
               Media & Press Inquiries
             </h3>
-            <p className="text-xs sm:text-sm text-[#ababab] leading-relaxed">
+            <p className="text-xs sm:text-sm text-[#64748b] leading-relaxed">
               For official press statements, executive interviews, or brand assets, contact our corporate communications desk.
             </p>
             <div className="pt-2">
@@ -250,7 +250,7 @@ export default function Media() {
                 variant="pill"
                 size="lg"
                 asChild
-                className="bg-[#f73b20] hover:bg-[#f84d35] text-white shadow-3d-orange transform hover:-translate-y-0.5 transition-all"
+                className="bg-[#0284c7] hover:bg-[#0369a1] text-white shadow-md shadow-sky-500/20 transform hover:-translate-y-0.5 transition-all"
               >
                 <a href="mailto:info@rimamfb.com">
                   Contact Media Desk

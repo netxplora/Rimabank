@@ -25,7 +25,7 @@ const personalServices = [
     title: "Personal Current Accounts",
     icon: CreditCard,
     category: "Daily Liquidity",
-    bg: "#e7dcdb",
+    bg: "#e2e8f0",
     accent: "#477ee9",
     description: "Designed for day-to-day liquidity, salary deposits, personalized cheque books, and seamless digital transaction capacity.",
     href: "/personal-banking/current",
@@ -42,7 +42,7 @@ const personalServices = [
     icon: GraduationCap,
     category: "Youth & Study",
     bg: "#f5ffbb",
-    accent: "#360802",
+    accent: "#0a1e3f",
     description: "Foundational banking accounts for secondary and university students with zero maintenance fees and study loan access.",
     href: "/personal-banking/student",
     benefits: [
@@ -58,20 +58,20 @@ export default function PersonalBanking() {
   return (
     <Layout>
       {/* Editorial Hero */}
-      <section className="relative bg-white pt-12 pb-16 lg:pt-16 lg:pb-20 border-b border-[#e7dcdb]/60 overflow-hidden">
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#fdedea] rounded-full blur-3xl -z-10 opacity-70 pointer-events-none" />
+      <section className="relative bg-white pt-12 pb-16 lg:pt-16 lg:pb-20 border-b border-[#e2e8f0]/60 overflow-hidden">
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#f0f7ff] rounded-full blur-3xl -z-10 opacity-70 pointer-events-none" />
 
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
           <div className="max-w-3xl space-y-6">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#fdedea] border border-[#e7dcdb] text-[#360802] text-xs font-semibold uppercase tracking-wider">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#f0f7ff] border border-[#e2e8f0] text-[#0a1e3f] text-xs font-semibold uppercase tracking-wider">
               <span>Personal Banking Services</span>
             </div>
 
-            <h1 className="font-heading text-4xl sm:text-5xl lg:text-6xl font-semibold text-[#360802] tracking-tight leading-[1.05]">
-              Personal accounts structured for <span className="text-[#f73b20]">clarity</span> and <span className="text-[#f73b20]">security</span>.
+            <h1 className="font-heading text-4xl sm:text-5xl lg:text-6xl font-semibold text-[#0a1e3f] tracking-tight leading-[1.05]">
+              Personal accounts structured for <span className="text-[#0284c7]">clarity</span> and <span className="text-[#0284c7]">security</span>.
             </h1>
 
-            <p className="text-[#360802]/80 text-base sm:text-lg leading-relaxed">
+            <p className="text-[#0a1e3f]/80 text-base sm:text-lg leading-relaxed">
               Explore our range of personal deposit and checking accounts structured with zero hidden charges, competitive interest yields, and instant digital transfers.
             </p>
 
@@ -80,7 +80,7 @@ export default function PersonalBanking() {
                 variant="pill"
                 size="lg"
                 asChild
-                className="bg-[#f73b20] hover:bg-[#f84d35] text-white shadow-3d-orange transform hover:-translate-y-0.5 transition-all"
+                className="bg-[#0284c7] hover:bg-[#0369a1] text-white shadow-md shadow-sky-500/20 transform hover:-translate-y-0.5 transition-all"
               >
                 <Link to="/contact">
                   Open an Account
@@ -98,13 +98,13 @@ export default function PersonalBanking() {
       </section>
 
       {/* Account Products 3-Column Grid */}
-      <section className="py-16 md:py-20 bg-white border-b border-[#e7dcdb]/60">
+      <section className="py-16 md:py-20 bg-white border-b border-[#e2e8f0]/60">
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
           <div className="max-w-2xl mb-12">
-            <span className="text-xs font-semibold uppercase tracking-wider text-[#f73b20] block mb-2">
+            <span className="text-xs font-semibold uppercase tracking-wider text-[#0284c7] block mb-2">
               Product Portfolio
             </span>
-            <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-semibold text-[#360802] tracking-tight leading-[1.08]">
+            <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-semibold text-[#0a1e3f] tracking-tight leading-[1.08]">
               Choose the account matching your lifestyle.
             </h2>
           </div>
@@ -113,7 +113,7 @@ export default function PersonalBanking() {
             {personalServices.map((service) => (
               <div 
                 key={service.id} 
-                className="p-7 sm:p-8 rounded-2xl bg-white border border-[#e7dcdb] flex flex-col justify-between hover:border-[#f73b20]/30 transition-all duration-300"
+                className="p-7 sm:p-8 rounded-2xl bg-white border border-[#e2e8f0] flex flex-col justify-between hover:border-[#0284c7]/30 transition-all duration-300"
               >
                 <div>
                   <div className="flex items-center justify-between mb-6">
@@ -131,17 +131,17 @@ export default function PersonalBanking() {
                     </span>
                   </div>
 
-                  <h3 className="font-heading text-xl font-semibold text-[#360802] mb-2.5">
+                  <h3 className="font-heading text-xl font-semibold text-[#0a1e3f] mb-2.5">
                     {service.title}
                   </h3>
 
-                  <p className="text-xs text-[#ababab] leading-relaxed mb-6">
+                  <p className="text-xs text-[#64748b] leading-relaxed mb-6">
                     {service.description}
                   </p>
                   
-                  <div className="space-y-2.5 mb-8 pt-4 border-t border-[#e7dcdb]/60">
+                  <div className="space-y-2.5 mb-8 pt-4 border-t border-[#e2e8f0]/60">
                     {service.benefits.map((benefit, i) => (
-                      <div key={i} className="flex items-start gap-2.5 text-xs text-[#360802]">
+                      <div key={i} className="flex items-start gap-2.5 text-xs text-[#0a1e3f]">
                         <CheckCircle2 className="h-4 w-4 text-[#34c771] shrink-0 mt-0.5" />
                         <span>{benefit}</span>
                       </div>
@@ -149,11 +149,11 @@ export default function PersonalBanking() {
                   </div>
                 </div>
 
-                <div className="pt-4 border-t border-[#e7dcdb]">
+                <div className="pt-4 border-t border-[#e2e8f0]">
                   <Button
                     variant="pill"
                     size="default"
-                    className="w-full bg-[#f73b20] hover:bg-[#f84d35] text-white shadow-3d-orange transform hover:-translate-y-0.5 transition-all"
+                    className="w-full bg-[#0284c7] hover:bg-[#0369a1] text-white shadow-md shadow-sky-500/20 transform hover:-translate-y-0.5 transition-all"
                     asChild
                   >
                     <Link to={service.href}>
@@ -169,28 +169,28 @@ export default function PersonalBanking() {
       </section>
 
       {/* Trust Banner — Open Divided Layout (No card containers) */}
-      <section className="py-12 md:py-16 bg-white border-b border-[#e7dcdb]/60">
+      <section className="py-12 md:py-16 bg-white border-b border-[#e2e8f0]/60">
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
-          <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-[#e7dcdb]/80 border-t border-b border-[#e7dcdb]/80 py-2">
+          <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-[#e2e8f0]/80 border-t border-b border-[#e2e8f0]/80 py-2">
             <div className="py-6 md:p-6 flex items-start gap-4">
               <ShieldCheck className="h-6 w-6 text-[#34c771] shrink-0 mt-1" />
               <div>
-                <h4 className="font-heading text-base font-semibold text-[#360802] mb-1">Central Bank Licensed</h4>
-                <p className="text-xs text-[#ababab] leading-relaxed">Strict adherence to CBN financial safety ratios and consumer protection guidelines.</p>
+                <h4 className="font-heading text-base font-semibold text-[#0a1e3f] mb-1">Central Bank Licensed</h4>
+                <p className="text-xs text-[#64748b] leading-relaxed">Strict adherence to CBN financial safety ratios and consumer protection guidelines.</p>
               </div>
             </div>
             <div className="py-6 md:p-6 flex items-start gap-4">
               <Landmark className="h-6 w-6 text-[#477ee9] shrink-0 mt-1" />
               <div>
-                <h4 className="font-heading text-base font-semibold text-[#360802] mb-1">NDIC Insured</h4>
-                <p className="text-xs text-[#ababab] leading-relaxed">Eligible customer deposits insured up to the maximum regulatory thresholds.</p>
+                <h4 className="font-heading text-base font-semibold text-[#0a1e3f] mb-1">NDIC Insured</h4>
+                <p className="text-xs text-[#64748b] leading-relaxed">Eligible customer deposits insured up to the maximum regulatory thresholds.</p>
               </div>
             </div>
             <div className="py-6 md:p-6 flex items-start gap-4">
-              <CreditCard className="h-6 w-6 text-[#f73b20] shrink-0 mt-1" />
+              <CreditCard className="h-6 w-6 text-[#0284c7] shrink-0 mt-1" />
               <div>
-                <h4 className="font-heading text-base font-semibold text-[#360802] mb-1">Nationwide Interoperability</h4>
-                <p className="text-xs text-[#ababab] leading-relaxed">Direct card and POS settlement across all Nigerian commercial bank ATMs and switches.</p>
+                <h4 className="font-heading text-base font-semibold text-[#0a1e3f] mb-1">Nationwide Interoperability</h4>
+                <p className="text-xs text-[#64748b] leading-relaxed">Direct card and POS settlement across all Nigerian commercial bank ATMs and switches.</p>
               </div>
             </div>
           </div>

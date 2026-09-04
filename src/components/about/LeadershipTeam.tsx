@@ -32,9 +32,9 @@ export function LeadershipTeam() {
         {team.map((member, idx) => (
           <div
             key={idx}
-            className="flex-shrink-0 w-52 rounded-xl overflow-hidden bg-white border border-[#e7dcdb] flex flex-col group"
+            className="flex-shrink-0 w-52 rounded-xl overflow-hidden bg-white border border-[#e2e8f0] flex flex-col group"
           >
-            <div className="h-44 overflow-hidden bg-[#fdedea] relative">
+            <div className="h-44 overflow-hidden bg-[#f0f7ff] relative">
               <img
                 src={member.image}
                 alt={member.name}
@@ -43,17 +43,17 @@ export function LeadershipTeam() {
                   (e.target as HTMLImageElement).src = "/images/hero-about.png";
                 }}
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#360802]/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0a1e3f]/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </div>
             <div className="p-3 flex flex-col gap-1.5">
-              <h3 className="font-heading text-[11px] font-semibold text-[#360802] leading-snug">{member.name}</h3>
-              <p className="text-[9px] font-semibold uppercase tracking-wider text-[#f73b20] leading-tight">{member.role}</p>
-              <div className="flex gap-1.5 pt-2 border-t border-[#e7dcdb]/60 mt-1">
+              <h3 className="font-heading text-[11px] font-semibold text-[#0a1e3f] leading-snug">{member.name}</h3>
+              <p className="text-[9px] font-semibold uppercase tracking-wider text-[#0284c7] leading-tight">{member.role}</p>
+              <div className="flex gap-1.5 pt-2 border-t border-[#e2e8f0]/60 mt-1">
                 {member.social.linkedin && (
                   <a
                     href={member.social.linkedin}
                     aria-label="LinkedIn"
-                    className="w-6 h-6 rounded-full bg-[#fdedea] text-[#360802] flex items-center justify-center hover:bg-[#f73b20] hover:text-white transition-all"
+                    className="w-6 h-6 rounded-full bg-[#f0f7ff] text-[#0a1e3f] flex items-center justify-center hover:bg-[#0284c7] hover:text-white transition-all"
                   >
                     <Linkedin className="h-3 w-3" />
                   </a>
@@ -62,7 +62,7 @@ export function LeadershipTeam() {
                   <a
                     href={member.social.twitter}
                     aria-label="Twitter"
-                    className="w-6 h-6 rounded-full bg-[#fdedea] text-[#360802] flex items-center justify-center hover:bg-[#f73b20] hover:text-white transition-all"
+                    className="w-6 h-6 rounded-full bg-[#f0f7ff] text-[#0a1e3f] flex items-center justify-center hover:bg-[#0284c7] hover:text-white transition-all"
                   >
                     <Twitter className="h-3 w-3" />
                   </a>
@@ -78,9 +78,9 @@ export function LeadershipTeam() {
         {team.map((member, idx) => (
           <div
             key={idx}
-            className="rounded-2xl overflow-hidden bg-white border border-[#e7dcdb] hover:border-[#f73b20]/40 flex flex-col justify-between group transition-colors"
+            className="rounded-2xl overflow-hidden bg-white border border-[#e2e8f0] hover:border-[#0284c7]/40 flex flex-col justify-between group transition-colors"
           >
-            <div className="aspect-[4/4.5] overflow-hidden bg-[#fdedea] relative">
+            <div className="aspect-[4/4.5] overflow-hidden bg-[#f0f7ff] relative">
               <img
                 src={member.image}
                 alt={member.name}
@@ -89,20 +89,20 @@ export function LeadershipTeam() {
                   (e.target as HTMLImageElement).src = "/images/hero-about.png";
                 }}
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#360802]/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0a1e3f]/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </div>
             <div className="p-5">
-              <h3 className="font-heading text-base font-semibold text-[#360802] mb-0.5 group-hover:text-[#f73b20] transition-colors">{member.name}</h3>
-              <p className="text-[#f73b20] text-[10px] font-semibold uppercase tracking-wider mb-2.5">{member.role}</p>
-              <p className="text-[11px] text-[#ababab] leading-relaxed mb-4">
+              <h3 className="font-heading text-base font-semibold text-[#0a1e3f] mb-0.5 group-hover:text-[#0284c7] transition-colors">{member.name}</h3>
+              <p className="text-[#0284c7] text-[10px] font-semibold uppercase tracking-wider mb-2.5">{member.role}</p>
+              <p className="text-[11px] text-[#64748b] leading-relaxed mb-4">
                 {member.bio}
               </p>
-              <div className="flex gap-2 pt-2.5 border-t border-[#e7dcdb]/60">
+              <div className="flex gap-2 pt-2.5 border-t border-[#e2e8f0]/60">
                 {member.social.linkedin && (
                   <a
                     href={member.social.linkedin}
                     aria-label="LinkedIn"
-                    className="w-7 h-7 rounded-full bg-[#fdedea] text-[#360802] flex items-center justify-center hover:bg-[#f73b20] hover:text-white transition-all shadow-xs"
+                    className="w-7 h-7 rounded-full bg-[#f0f7ff] text-[#0a1e3f] flex items-center justify-center hover:bg-[#0284c7] hover:text-white transition-all shadow-xs"
                   >
                     <Linkedin className="h-3 w-3" />
                   </a>
@@ -111,7 +111,7 @@ export function LeadershipTeam() {
                   <a
                     href={member.social.twitter}
                     aria-label="Twitter"
-                    className="w-7 h-7 rounded-full bg-[#fdedea] text-[#360802] flex items-center justify-center hover:bg-[#f73b20] hover:text-white transition-all shadow-xs"
+                    className="w-7 h-7 rounded-full bg-[#f0f7ff] text-[#0a1e3f] flex items-center justify-center hover:bg-[#0284c7] hover:text-white transition-all shadow-xs"
                   >
                     <Twitter className="h-3 w-3" />
                   </a>

@@ -72,7 +72,7 @@ export default function MediaPost() {
     return (
       <Layout>
         <div className="min-h-[60vh] flex items-center justify-center">
-          <Loader2 className="h-8 w-8 animate-spin text-[#f73b20]" />
+          <Loader2 className="h-8 w-8 animate-spin text-[#0284c7]" />
         </div>
       </Layout>
     );
@@ -82,13 +82,13 @@ export default function MediaPost() {
     return (
       <Layout>
         <div className="min-h-[60vh] flex flex-col items-center justify-center p-6 text-center">
-          <Newspaper className="h-12 w-12 text-[#ababab] mb-4" />
-          <h1 className="font-heading text-2xl font-semibold text-[#360802] mb-2">Article Not Found</h1>
-          <p className="text-xs text-[#ababab] mb-6">The article you're seeking may have expired or moved.</p>
+          <Newspaper className="h-12 w-12 text-[#64748b] mb-4" />
+          <h1 className="font-heading text-2xl font-semibold text-[#0a1e3f] mb-2">Article Not Found</h1>
+          <p className="text-xs text-[#64748b] mb-6">The article you're seeking may have expired or moved.</p>
           <Button
             variant="pill"
             asChild
-            className="bg-[#f73b20] hover:bg-[#f84d35] text-white shadow-3d-orange"
+            className="bg-[#0284c7] hover:bg-[#0369a1] text-white shadow-md shadow-sky-500/20"
           >
             <Link to="/media">
               <ArrowLeft className="h-4 w-4 mr-1.5" />
@@ -104,28 +104,28 @@ export default function MediaPost() {
     <Layout>
       <article className="pb-20 bg-white">
         {/* Editorial Article Header */}
-        <section className="relative bg-white pt-10 pb-12 border-b border-[#e7dcdb]/60">
+        <section className="relative bg-white pt-10 pb-12 border-b border-[#e2e8f0]/60">
           <div className="max-w-[1000px] mx-auto px-4 sm:px-6 space-y-6">
             <Link 
               to="/media" 
-              className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#f73b20] hover:text-[#f84d35] transition-colors"
+              className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#0284c7] hover:text-[#0369a1] transition-colors"
             >
               <ArrowLeft className="h-3.5 w-3.5" />
               Back to Publications
             </Link>
 
             <div className="space-y-4">
-              <span className="text-[10px] uppercase font-bold tracking-wider px-3 py-1 rounded-full bg-[#fdedea] text-[#f73b20] border border-[#e7dcdb] inline-block">
+              <span className="text-[10px] uppercase font-bold tracking-wider px-3 py-1 rounded-full bg-[#f0f7ff] text-[#0284c7] border border-[#e2e8f0] inline-block">
                 {post.category}
               </span>
 
-              <h1 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-semibold text-[#360802] tracking-tight leading-[1.08]">
+              <h1 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-semibold text-[#0a1e3f] tracking-tight leading-[1.08]">
                 {post.title}
               </h1>
 
-              <div className="flex items-center gap-4 text-xs text-[#ababab] pt-2 border-t border-[#e7dcdb]/60">
+              <div className="flex items-center gap-4 text-xs text-[#64748b] pt-2 border-t border-[#e2e8f0]/60">
                 <div className="flex items-center gap-1.5">
-                  <Calendar className="h-3.5 w-3.5 text-[#f73b20]" />
+                  <Calendar className="h-3.5 w-3.5 text-[#0284c7]" />
                   <span>{formatDate(post.created_at)}</span>
                 </div>
                 <span>&bull;</span>
@@ -137,7 +137,7 @@ export default function MediaPost() {
 
         {/* Featured Image */}
         <div className="max-w-[1000px] mx-auto px-4 sm:px-6 py-8">
-          <div className="rounded-2xl overflow-hidden aspect-[16/9] border border-[#e7dcdb]">
+          <div className="rounded-2xl overflow-hidden aspect-[16/9] border border-[#e2e8f0]">
             <img
               src={post.featured_image || '/images/media-sme.png'}
               alt={post.title}
@@ -149,13 +149,13 @@ export default function MediaPost() {
         {/* Article Body */}
         <div className="max-w-[800px] mx-auto px-4 sm:px-6 mt-4">
           <div 
-            className="prose prose-sm max-w-none text-[#360802]/85 text-sm leading-relaxed prose-headings:font-heading prose-headings:text-[#360802] prose-a:text-[#f73b20]"
+            className="prose prose-sm max-w-none text-[#0a1e3f]/85 text-sm leading-relaxed prose-headings:font-heading prose-headings:text-[#0a1e3f] prose-a:text-[#0284c7]"
             dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(post.content) }}
           />
 
           {/* Social Share Bar */}
-          <div className="mt-12 pt-6 border-t border-[#e7dcdb]/60 flex items-center justify-between flex-wrap gap-4">
-            <span className="text-xs font-semibold text-[#360802]">Share this article</span>
+          <div className="mt-12 pt-6 border-t border-[#e2e8f0]/60 flex items-center justify-between flex-wrap gap-4">
+            <span className="text-xs font-semibold text-[#0a1e3f]">Share this article</span>
             <div className="flex items-center gap-2">
               <Button 
                 variant="outlineNeutral" 

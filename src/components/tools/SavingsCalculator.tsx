@@ -28,14 +28,14 @@ export default function SavingsCalculator() {
   }, [initialDeposit, monthlyContribution, duration, interestRate]);
 
   return (
-    <div className="w-full h-full flex flex-col bg-white rounded-2xl border border-[#e7dcdb] p-6 sm:p-8 lg:p-10">
+    <div className="w-full h-full flex flex-col bg-white rounded-2xl border border-[#e2e8f0] p-6 sm:p-8 lg:p-10">
       <div className="flex items-center gap-3 mb-6">
         <div className="w-10 h-10 rounded-xl bg-[#bcffbb] text-[#34c771] flex items-center justify-center shadow-xs">
           <PiggyBank className="h-5 w-5" />
         </div>
         <div>
-          <h3 className="font-heading text-lg sm:text-xl font-semibold text-[#360802]">Savings Yield Projection</h3>
-          <p className="text-[11px] text-[#ababab]">Forecast compounding returns on target and fixed deposits</p>
+          <h3 className="font-heading text-lg sm:text-xl font-semibold text-[#0a1e3f]">Savings Yield Projection</h3>
+          <p className="text-[11px] text-[#64748b]">Forecast compounding returns on target and fixed deposits</p>
         </div>
       </div>
 
@@ -43,19 +43,19 @@ export default function SavingsCalculator() {
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <div className="space-y-2">
             <div className="flex justify-between text-xs">
-              <Label className="text-xs font-semibold text-[#360802]">Initial Deposit</Label>
+              <Label className="text-xs font-semibold text-[#0a1e3f]">Initial Deposit</Label>
             </div>
             <Input 
               type="number" 
               value={initialDeposit} 
               onChange={(e) => setInitialDeposit(Number(e.target.value))}
-              className="bg-[#fdedea]/40 border-[#e7dcdb] h-10 text-xs font-semibold rounded-xl text-[#360802] focus:border-[#34c771]"
+              className="bg-[#f0f7ff]/40 border-[#e2e8f0] h-10 text-xs font-semibold rounded-xl text-[#0a1e3f] focus:border-[#34c771]"
             />
           </div>
 
           <div className="space-y-2">
             <div className="flex justify-between text-xs">
-              <Label className="text-xs font-semibold text-[#360802]">Monthly (₦)</Label>
+              <Label className="text-xs font-semibold text-[#0a1e3f]">Monthly (₦)</Label>
               <span className="font-bold text-[#34c771]">₦{monthlyContribution.toLocaleString()}</span>
             </div>
             <Slider 
@@ -69,8 +69,8 @@ export default function SavingsCalculator() {
 
           <div className="space-y-2">
             <div className="flex justify-between text-xs">
-              <Label className="text-xs font-semibold text-[#360802]">Tenor</Label>
-              <span className="font-bold text-[#360802]">{duration} Mos</span>
+              <Label className="text-xs font-semibold text-[#0a1e3f]">Tenor</Label>
+              <span className="font-bold text-[#0a1e3f]">{duration} Mos</span>
             </div>
             <Slider 
               value={[duration]} 
@@ -84,36 +84,36 @@ export default function SavingsCalculator() {
         </div>
 
         {/* Total Estimated Balance Box */}
-        <div className="p-6 sm:p-8 rounded-2xl bg-gradient-to-br from-[#fdedea] to-white border border-[#e7dcdb] space-y-4 shadow-sm">
+        <div className="p-6 sm:p-8 rounded-2xl bg-gradient-to-br from-[#f0f7ff] to-white border border-[#e2e8f0] space-y-4 shadow-sm">
           <div>
-            <span className="text-[10px] font-bold uppercase tracking-wider text-[#360802]/70 block mb-1">
+            <span className="text-[10px] font-bold uppercase tracking-wider text-[#0a1e3f]/70 block mb-1">
               Total Projected Balance
             </span>
             <div className="flex items-baseline gap-1.5">
-              <span className="text-2xl text-[#360802]/50 font-bold">₦</span>
-              <span className="font-heading text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight text-[#360802]">
+              <span className="text-2xl text-[#0a1e3f]/50 font-bold">₦</span>
+              <span className="font-heading text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight text-[#0a1e3f]">
                 {totalSavings.toLocaleString(undefined, { maximumFractionDigits: 0 })}
               </span>
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-4 pt-4 border-t border-[#e7dcdb] text-xs">
+          <div className="grid grid-cols-2 gap-4 pt-4 border-t border-[#e2e8f0] text-xs">
             <div>
-              <span className="text-[10px] uppercase font-bold text-[#ababab] block mb-0.5">Interest Earned</span>
+              <span className="text-[10px] uppercase font-bold text-[#64748b] block mb-0.5">Interest Earned</span>
               <span className="font-heading text-sm sm:text-base font-bold text-[#34c771]">
                 +₦{totalInterest.toLocaleString(undefined, { maximumFractionDigits: 0 })}
               </span>
             </div>
             <div>
-              <span className="text-[10px] uppercase font-bold text-[#ababab] block mb-0.5">Annual Yield</span>
-              <span className="font-heading text-sm sm:text-base font-bold text-[#360802]">
+              <span className="text-[10px] uppercase font-bold text-[#64748b] block mb-0.5">Annual Yield</span>
+              <span className="font-heading text-sm sm:text-base font-bold text-[#0a1e3f]">
                 {interestRate}% Fixed
               </span>
             </div>
           </div>
         </div>
 
-        <div className="flex items-center gap-2 text-[11px] text-[#ababab]">
+        <div className="flex items-center gap-2 text-[11px] text-[#64748b]">
           <Info className="h-4 w-4 text-[#34c771] shrink-0" />
           <span>Compound calculations are indicative and subject to product tier conditions.</span>
         </div>
