@@ -1,9 +1,10 @@
 import React, { useState, useMemo } from 'react';
 import {
   Plus, Edit2, Trash2, Play, Pause, Eye, X, Monitor, Tablet,
-  Smartphone, ExternalLink, Layers, Clock, BarChart2, ChevronUp,
+  Smartphone, Layers, Clock, BarChart2, ChevronUp,
   ChevronDown, CheckCircle2, AlertCircle, Search, Filter, Image as ImageIcon,
-  Sliders, Calendar, ArrowRight, ArrowLeft, FileText, Check
+  Sliders, Calendar, ArrowRight, ArrowLeft, FileText, Check,
+  Copy, CheckSquare, Square, Zap, Sparkles, FolderOpen
 } from 'lucide-react';
 import { useCMS } from '@/context/CMSContext';
 import { useAuth } from '@/context/AuthContext';
@@ -36,7 +37,7 @@ const TRIGGER_LABELS: Record<PopupTrigger, string> = {
 };
 
 function ctr(imp: number, clicks: number) {
-  if (imp === 0) return '0%';
+  if (imp === 0) return '0.0%';
   return ((clicks / imp) * 100).toFixed(1) + '%';
 }
 
@@ -119,12 +120,24 @@ const PreviewViewport: React.FC<{ form: FormState; viewport: 'desktop' | 'tablet
 // ── Main component ───────────────────────────────────────────────────────────
 
 export default function PopupManager() {
-  const { popupConfigs, addPopupConfig, updatePopupConfig, deletePopupConfig, togglePopupStatus } = useCMS();
+  const {
+    popupConfigs,
+    addPopupConfig,
+    updatePopupConfig,
+    deletePopupConfig,
+    togglePopupStatus,
+    promotions,
+    announcements,
+    publications,
+    mediaAssets = []
+  } = useCMS();
   const { user } = useAuth();
 
   const [search, setSearch] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
+  const [selectedIds, setSelectedIds] = useState<string[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isMediaPickerOpen, setIsMediaPickerOpen] = useState(false);
   const [activeTab, setActiveTab] = useState<'content' | 'display' | 'schedule' | 'preview'>('content');
   const [editingId, setEditingId] = useState<string | null>(null);
   const [confirmDeleteId, setConfirmDeleteId] = useState<string | null>(null);
@@ -144,8 +157,12 @@ export default function PopupManager() {
     }).sort((a, b) => a.priority - b.priority);
   }, [popupConfigs, search, statusFilter]);
 
+  // Aggregate Metrics
   const activeCount = popupConfigs.filter(p => p.status === 'active').length;
   const pendingCount = popupConfigs.filter(p => p.status === 'draft' || p.status === 'scheduled').length;
+  const totalImpressions = popupConfigs.reduce((acc, p) => acc + (p.impressions || 0), 0);
+  const totalClicks = popupConfigs.reduce((acc, p) => acc + (p.ctaClicks || 0), 0);
+  const overallCtr = totalImpressions > 0 ? ((totalClicks / totalImpressions) * 100).toFixed(1) + '%' : '0.0%';
 
   // ── Open create
   const handleCreate = () => {
@@ -169,7 +186,7 @@ export default function PopupManager() {
       ctaUrl:              popup.ctaUrl || '',
       showCloseButton:     popup.showCloseButton,
       startDate:           popup.startDate.slice(0, 16),
-      endDate:             popup.endDate?.slice(0, 16),
+      endDate:             popup.endDate ? popup.endDate.slice(0, 16) : undefined,
       triggerType:         popup.triggerType,
       triggerDelaySeconds: popup.triggerDelaySeconds,
       displayFrequency:    popup.displayFrequency,
@@ -183,6 +200,72 @@ export default function PopupManager() {
     setIsModalOpen(true);
   };
 
+  // ── Duplicate
+  const handleDuplicate = (popup: PopupConfig) => {
+    if (!user) return;
+    addPopupConfig({
+      sourceType:          popup.sourceType,
+      sourceId:            popup.sourceId,
+      displayMode:         popup.displayMode,
+      title:               `${popup.title} (Copy)`,
+      content:             popup.content,
+      featuredImage:       popup.featuredImage,
+      ctaText:             popup.ctaText,
+      ctaUrl:              popup.ctaUrl,
+      showCloseButton:     popup.showCloseButton,
+      startDate:           new Date().toISOString(),
+      endDate:             popup.endDate,
+      triggerType:         popup.triggerType,
+      triggerDelaySeconds: popup.triggerDelaySeconds,
+      displayFrequency:    popup.displayFrequency,
+      priority:            popup.priority + 1,
+      showOnDesktop:       popup.showOnDesktop,
+      showOnMobile:        popup.showOnMobile,
+      overlayEnabled:      popup.overlayEnabled,
+      status:              'draft',
+      createdBy:           user.name,
+      createdById:         user.id,
+    }, user);
+    toast.success(`Cloned "${popup.title}" as draft`);
+  };
+
+  // ── Auto-fill from selected Source Item
+  const handleSourceSelect = (sourceType: PopupConfig['sourceType'], sourceId: string) => {
+    setField('sourceType', sourceType);
+    setField('sourceId', sourceId);
+
+    if (sourceType === 'promotion') {
+      const promo = promotions.find(p => p.id === sourceId);
+      if (promo) {
+        setField('title', promo.title);
+        setField('content', promo.description);
+        if (promo.imageUrl) setField('featuredImage', promo.imageUrl);
+        setField('ctaText', 'Explore Offer');
+        setField('ctaUrl', '/products');
+        toast.info(`Auto-filled details from promotion "${promo.title}"`);
+      }
+    } else if (sourceType === 'announcement') {
+      const ann = announcements.find(a => a.id === sourceId);
+      if (ann) {
+        setField('title', ann.title);
+        setField('content', ann.message);
+        if (ann.actionText) setField('ctaText', ann.actionText);
+        if (ann.actionLink) setField('ctaUrl', ann.actionLink);
+        toast.info(`Auto-filled details from announcement "${ann.title}"`);
+      }
+    } else if (sourceType === 'publication') {
+      const pub = publications.find(p => p.id === sourceId);
+      if (pub) {
+        setField('title', pub.title);
+        setField('content', pub.excerpt || pub.content.slice(0, 140));
+        if (pub.featuredImage) setField('featuredImage', pub.featuredImage);
+        setField('ctaText', 'Read Publication');
+        setField('ctaUrl', `/media/${pub.slug}`);
+        toast.info(`Auto-filled details from publication "${pub.title}"`);
+      }
+    }
+  };
+
   // ── Save
   const handleSave = () => {
     if (!form.title.trim()) { toast.error('Popup title is required'); return; }
@@ -191,10 +274,10 @@ export default function PopupManager() {
 
     if (editingId) {
       updatePopupConfig(editingId, { ...form, startDate: new Date(form.startDate).toISOString(), endDate: form.endDate ? new Date(form.endDate).toISOString() : undefined }, user);
-      toast.success('Popup updated');
+      toast.success('Popup updated successfully');
     } else {
       addPopupConfig({ ...form, startDate: new Date(form.startDate).toISOString(), endDate: form.endDate ? new Date(form.endDate).toISOString() : undefined, createdBy: user.name, createdById: user.id }, user);
-      toast.success('Popup created');
+      toast.success('Popup created successfully');
     }
     setIsModalOpen(false);
   };
@@ -204,7 +287,42 @@ export default function PopupManager() {
     if (!user) return;
     deletePopupConfig(id, user);
     setConfirmDeleteId(null);
+    setSelectedIds(prev => prev.filter(i => i !== id));
     toast.success('Popup deleted');
+  };
+
+  // ── Bulk Actions
+  const handleSelectAll = () => {
+    if (selectedIds.length === filtered.length) {
+      setSelectedIds([]);
+    } else {
+      setSelectedIds(filtered.map(p => p.id));
+    }
+  };
+
+  const handleToggleSelect = (id: string) => {
+    setSelectedIds(prev => prev.includes(id) ? prev.filter(i => i !== id) : [...prev, id]);
+  };
+
+  const handleBulkActivate = () => {
+    if (!user || selectedIds.length === 0) return;
+    selectedIds.forEach(id => updatePopupConfig(id, { status: 'active' }, user));
+    toast.success(`Activated ${selectedIds.length} popups`);
+    setSelectedIds([]);
+  };
+
+  const handleBulkPause = () => {
+    if (!user || selectedIds.length === 0) return;
+    selectedIds.forEach(id => updatePopupConfig(id, { status: 'paused' }, user));
+    toast.success(`Paused ${selectedIds.length} popups`);
+    setSelectedIds([]);
+  };
+
+  const handleBulkDelete = () => {
+    if (!user || selectedIds.length === 0) return;
+    selectedIds.forEach(id => deletePopupConfig(id, user));
+    toast.success(`Deleted ${selectedIds.length} popups`);
+    setSelectedIds([]);
   };
 
   // ── Toggle active/paused
@@ -255,40 +373,84 @@ export default function PopupManager() {
         </Button>
       </div>
 
-      {/* Stats row */}
+      {/* Analytics Stats row */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
-        {[
-          { label: 'Total Popups', value: popupConfigs.length,  color: 'text-slate-300' },
-          { label: 'Active Now',   value: activeCount,          color: 'text-emerald-400' },
-          { label: 'Scheduled',    value: pendingCount,         color: 'text-amber-400'  },
-          { label: 'Archived',     value: popupConfigs.filter(p => p.status === 'archived').length, color: 'text-slate-500' },
-        ].map(s => (
-          <div key={s.label} className="bg-white/5 border border-white/10 rounded-xl p-3.5 sm:p-4">
-            <p className="text-[11px] sm:text-xs text-slate-400 font-medium">{s.label}</p>
-            <p className={`text-xl sm:text-2xl font-bold font-heading mt-1 ${s.color}`}>{s.value}</p>
-          </div>
-        ))}
+        <div className="bg-white/5 border border-white/10 rounded-xl p-3.5 sm:p-4">
+          <p className="text-[11px] sm:text-xs text-slate-400 font-medium">Active Popups</p>
+          <p className="text-xl sm:text-2xl font-bold font-heading mt-1 text-emerald-400">{activeCount}</p>
+        </div>
+        <div className="bg-white/5 border border-white/10 rounded-xl p-3.5 sm:p-4">
+          <p className="text-[11px] sm:text-xs text-slate-400 font-medium">Total Views</p>
+          <p className="text-xl sm:text-2xl font-bold font-heading mt-1 text-sky-400">{totalImpressions.toLocaleString()}</p>
+        </div>
+        <div className="bg-white/5 border border-white/10 rounded-xl p-3.5 sm:p-4">
+          <p className="text-[11px] sm:text-xs text-slate-400 font-medium">CTA Clicks</p>
+          <p className="text-xl sm:text-2xl font-bold font-heading mt-1 text-amber-400">{totalClicks.toLocaleString()}</p>
+        </div>
+        <div className="bg-white/5 border border-white/10 rounded-xl p-3.5 sm:p-4">
+          <p className="text-[11px] sm:text-xs text-slate-400 font-medium">Average CTR</p>
+          <p className="text-xl sm:text-2xl font-bold font-heading mt-1 text-purple-400">{overallCtr}</p>
+        </div>
       </div>
 
-      {/* Filters */}
-      <div className="flex flex-col sm:flex-row gap-2.5 sm:gap-3">
-        <div className="relative flex-1">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
-          <input
-            className="w-full bg-white/5 border border-white/10 rounded-xl pl-9 pr-3 py-2 text-xs sm:text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-sky-500 transition-all"
-            placeholder="Search popups by title..."
-            value={search} onChange={e => setSearch(e.target.value)}
-          />
+      {/* Filters & Bulk Operations */}
+      <div className="flex flex-col sm:flex-row gap-2.5 sm:gap-3 items-stretch sm:items-center justify-between">
+        <div className="flex flex-1 gap-2.5 items-center">
+          <div className="relative flex-1">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
+            <input
+              className="w-full bg-white/5 border border-white/10 rounded-xl pl-9 pr-3 py-2 text-xs sm:text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-sky-500 transition-all"
+              placeholder="Search popups by title..."
+              value={search} onChange={e => setSearch(e.target.value)}
+            />
+          </div>
+          <select
+            className="bg-[#0a1e3f] border border-white/10 rounded-xl px-3 py-2 text-xs sm:text-sm text-slate-300 focus:outline-none focus:ring-1 focus:ring-sky-500"
+            value={statusFilter} onChange={e => setStatusFilter(e.target.value)}
+          >
+            <option value="all">All Statuses</option>
+            {(['active','paused','draft','scheduled','expired','archived'] as PopupStatus[]).map(s => (
+              <option key={s} value={s}>{s.charAt(0).toUpperCase() + s.slice(1)}</option>
+            ))}
+          </select>
         </div>
-        <select
-          className="bg-[#0a1e3f] border border-white/10 rounded-xl px-3 py-2 text-xs sm:text-sm text-slate-300 focus:outline-none focus:ring-1 focus:ring-sky-500"
-          value={statusFilter} onChange={e => setStatusFilter(e.target.value)}
-        >
-          <option value="all">All Statuses</option>
-          {(['active','paused','draft','scheduled','expired','archived'] as PopupStatus[]).map(s => (
-            <option key={s} value={s}>{s.charAt(0).toUpperCase() + s.slice(1)}</option>
-          ))}
-        </select>
+
+        {/* Bulk Action Bar */}
+        {selectedIds.length > 0 && (
+          <div className="flex items-center gap-2 bg-[#0284c7]/20 border border-[#0284c7]/40 px-3 py-1.5 rounded-xl animate-in fade-in duration-150">
+            <span className="text-xs font-semibold text-sky-300">
+              {selectedIds.length} selected
+            </span>
+            <div className="h-4 w-px bg-white/20 mx-1" />
+            <Button
+              type="button"
+              variant="ghost"
+              size="sm"
+              onClick={handleBulkActivate}
+              className="text-xs text-emerald-300 hover:text-emerald-200 hover:bg-emerald-500/20 px-2 py-1 h-auto"
+            >
+              Activate
+            </Button>
+            <Button
+              type="button"
+              variant="ghost"
+              size="sm"
+              onClick={handleBulkPause}
+              className="text-xs text-amber-300 hover:text-amber-200 hover:bg-amber-500/20 px-2 py-1 h-auto"
+            >
+              Pause
+            </Button>
+            <Button
+              type="button"
+              variant="ghost"
+              size="sm"
+              onClick={handleBulkDelete}
+              className="text-xs text-rose-300 hover:text-rose-200 hover:bg-rose-500/20 px-2 py-1 h-auto"
+            >
+              Delete
+            </Button>
+          </div>
+        )}
       </div>
 
       {/* Table */}
@@ -304,7 +466,21 @@ export default function PopupManager() {
             <table className="w-full text-left text-xs sm:text-sm">
               <thead>
                 <tr className="border-b border-white/10 text-[11px] text-slate-400 uppercase tracking-wider bg-white/[0.02]">
-                  <th className="px-4 py-3 w-12 text-center">Pri.</th>
+                  <th className="px-3 py-3 w-10 text-center">
+                    <button
+                      type="button"
+                      onClick={handleSelectAll}
+                      className="text-slate-400 hover:text-white"
+                      title="Select all"
+                    >
+                      {selectedIds.length > 0 && selectedIds.length === filtered.length ? (
+                        <CheckSquare className="h-4 w-4 text-sky-400" />
+                      ) : (
+                        <Square className="h-4 w-4" />
+                      )}
+                    </button>
+                  </th>
+                  <th className="px-3 py-3 w-12 text-center">Pri.</th>
                   <th className="px-4 py-3">Popup Details</th>
                   <th className="px-4 py-3">Status</th>
                   <th className="px-4 py-3 hidden md:table-cell">Source</th>
@@ -315,76 +491,117 @@ export default function PopupManager() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-white/5">
-                {filtered.map(popup => (
-                  <tr key={popup.id} className="hover:bg-white/[0.03] transition-colors group">
-                    {/* Priority */}
-                    <td className="px-4 py-3 text-center">
-                      <div className="flex flex-col items-center justify-center gap-0.5">
-                        <button onClick={() => nudgePriority(popup.id, 'up')} className="text-slate-500 hover:text-sky-400 transition-colors p-0.5" title="Increase priority">
-                          <ChevronUp className="h-3.5 w-3.5" />
-                        </button>
-                        <span className="text-xs font-bold font-mono text-sky-400">{popup.priority}</span>
-                        <button onClick={() => nudgePriority(popup.id, 'down')} className="text-slate-500 hover:text-sky-400 transition-colors p-0.5" title="Decrease priority">
-                          <ChevronDown className="h-3.5 w-3.5" />
-                        </button>
-                      </div>
-                    </td>
-
-                    {/* Title */}
-                    <td className="px-4 py-3 max-w-[220px]">
-                      <p className="font-semibold text-white truncate">{popup.title}</p>
-                      <p className="text-[11px] text-slate-400 truncate mt-0.5">{popup.content || 'No description text'}</p>
-                    </td>
-
-                    {/* Status */}
-                    <td className="px-4 py-3">
-                      <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-semibold capitalize ${STATUS_COLORS[popup.status]}`}>
-                        {popup.status}
-                      </span>
-                    </td>
-
-                    {/* Source */}
-                    <td className="px-4 py-3 text-xs text-slate-400 capitalize hidden md:table-cell">{popup.sourceType}</td>
-
-                    {/* Trigger */}
-                    <td className="px-4 py-3 text-xs text-slate-400 hidden lg:table-cell">
-                      {TRIGGER_LABELS[popup.triggerType]}
-                      {popup.triggerType === 'delay' && ` (${popup.triggerDelaySeconds}s)`}
-                    </td>
-
-                    {/* Frequency */}
-                    <td className="px-4 py-3 text-xs text-slate-400 hidden sm:table-cell">{FREQ_LABELS[popup.displayFrequency]}</td>
-
-                    {/* Analytics */}
-                    <td className="px-4 py-3">
-                      <div className="text-[11px] text-slate-400 space-y-0.5">
-                        <div className="font-medium text-slate-200">{popup.impressions.toLocaleString()} views</div>
-                        <div className="text-emerald-400 font-semibold">{ctr(popup.impressions, popup.ctaClicks)} CTR</div>
-                      </div>
-                    </td>
-
-                    {/* Actions */}
-                    <td className="px-4 py-3 text-right">
-                      <div className="flex items-center justify-end gap-1">
+                {filtered.map(popup => {
+                  const isSelected = selectedIds.includes(popup.id);
+                  return (
+                    <tr key={popup.id} className={`hover:bg-white/[0.03] transition-colors group ${isSelected ? 'bg-sky-500/10' : ''}`}>
+                      {/* Selection Checkbox */}
+                      <td className="px-3 py-3 text-center">
                         <button
-                          onClick={() => handleToggle(popup)}
-                          title={popup.status === 'active' ? 'Pause Popup' : 'Activate Popup'}
-                          className={`p-1.5 rounded-lg transition-colors ${popup.status === 'active' ? 'text-amber-400 hover:bg-amber-500/10' : 'text-emerald-400 hover:bg-emerald-500/10'}`}
+                          type="button"
+                          onClick={() => handleToggleSelect(popup.id)}
+                          className="text-slate-400 hover:text-white"
                         >
-                          {popup.status === 'active' ? <Pause className="h-4 w-4" /> : <Play className="h-4 w-4" />}
+                          {isSelected ? (
+                            <CheckSquare className="h-4 w-4 text-sky-400" />
+                          ) : (
+                            <Square className="h-4 w-4" />
+                          )}
                         </button>
+                      </td>
 
-                        <button onClick={() => handleEdit(popup)} title="Edit Popup" className="p-1.5 rounded-lg text-sky-400 hover:bg-sky-500/10 transition-colors">
-                          <Edit2 className="h-4 w-4" />
-                        </button>
+                      {/* Priority */}
+                      <td className="px-3 py-3 text-center">
+                        <div className="flex flex-col items-center justify-center gap-0.5">
+                          <button onClick={() => nudgePriority(popup.id, 'up')} className="text-slate-500 hover:text-sky-400 transition-colors p-0.5" title="Increase priority">
+                            <ChevronUp className="h-3.5 w-3.5" />
+                          </button>
+                          <span className="text-xs font-bold font-mono text-sky-400">{popup.priority}</span>
+                          <button onClick={() => nudgePriority(popup.id, 'down')} className="text-slate-500 hover:text-sky-400 transition-colors p-0.5" title="Decrease priority">
+                            <ChevronDown className="h-3.5 w-3.5" />
+                          </button>
+                        </div>
+                      </td>
 
-                        <button onClick={() => setConfirmDeleteId(popup.id)} title="Delete Popup" className="p-1.5 rounded-lg text-rose-400 hover:bg-rose-500/10 transition-colors">
-                          <Trash2 className="h-4 w-4" />
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
+                      {/* Title & Preview Thumbnail */}
+                      <td className="px-4 py-3 max-w-[220px]">
+                        <div className="flex items-center gap-2.5">
+                          {popup.featuredImage && (
+                            <img
+                              src={popup.featuredImage}
+                              alt=""
+                              className="h-9 w-9 rounded-lg object-cover shrink-0 border border-white/10 hidden sm:block"
+                            />
+                          )}
+                          <div className="min-w-0">
+                            <p className="font-semibold text-white truncate">{popup.title}</p>
+                            <p className="text-[11px] text-slate-400 truncate mt-0.5">{popup.content || 'No description text'}</p>
+                          </div>
+                        </div>
+                      </td>
+
+                      {/* Status */}
+                      <td className="px-4 py-3">
+                        <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-semibold capitalize ${STATUS_COLORS[popup.status]}`}>
+                          {popup.status}
+                        </span>
+                      </td>
+
+                      {/* Source */}
+                      <td className="px-4 py-3 text-xs text-slate-400 capitalize hidden md:table-cell">
+                        <span className="px-2 py-0.5 rounded bg-white/5 border border-white/5">
+                          {popup.sourceType}
+                        </span>
+                      </td>
+
+                      {/* Trigger */}
+                      <td className="px-4 py-3 text-xs text-slate-400 hidden lg:table-cell">
+                        {TRIGGER_LABELS[popup.triggerType]}
+                        {popup.triggerType === 'delay' && ` (${popup.triggerDelaySeconds}s)`}
+                      </td>
+
+                      {/* Frequency */}
+                      <td className="px-4 py-3 text-xs text-slate-400 hidden sm:table-cell">{FREQ_LABELS[popup.displayFrequency]}</td>
+
+                      {/* Analytics */}
+                      <td className="px-4 py-3">
+                        <div className="text-[11px] text-slate-400 space-y-0.5">
+                          <div className="font-medium text-slate-200">{popup.impressions.toLocaleString()} views</div>
+                          <div className="text-emerald-400 font-semibold">{ctr(popup.impressions, popup.ctaClicks)} CTR</div>
+                        </div>
+                      </td>
+
+                      {/* Actions */}
+                      <td className="px-4 py-3 text-right">
+                        <div className="flex items-center justify-end gap-1">
+                          <button
+                            onClick={() => handleToggle(popup)}
+                            title={popup.status === 'active' ? 'Pause Popup' : 'Activate Popup'}
+                            className={`p-1.5 rounded-lg transition-colors ${popup.status === 'active' ? 'text-amber-400 hover:bg-amber-500/10' : 'text-emerald-400 hover:bg-emerald-500/10'}`}
+                          >
+                            {popup.status === 'active' ? <Pause className="h-4 w-4" /> : <Play className="h-4 w-4" />}
+                          </button>
+
+                          <button
+                            onClick={() => handleDuplicate(popup)}
+                            title="Duplicate Popup"
+                            className="p-1.5 rounded-lg text-purple-400 hover:bg-purple-500/10 transition-colors"
+                          >
+                            <Copy className="h-4 w-4" />
+                          </button>
+
+                          <button onClick={() => handleEdit(popup)} title="Edit Popup" className="p-1.5 rounded-lg text-sky-400 hover:bg-sky-500/10 transition-colors">
+                            <Edit2 className="h-4 w-4" />
+                          </button>
+
+                          <button onClick={() => setConfirmDeleteId(popup.id)} title="Delete Popup" className="p-1.5 rounded-lg text-rose-400 hover:bg-rose-500/10 transition-colors">
+                            <Trash2 className="h-4 w-4" />
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           </div>
@@ -410,7 +627,7 @@ export default function PopupManager() {
                 </div>
                 <div>
                   <h2 className="font-heading font-bold text-white text-base sm:text-lg leading-tight">
-                    {editingId ? 'Edit Popup' : 'New Popup Notification'}
+                    {editingId ? 'Edit Popup Notification' : 'New Popup Notification'}
                   </h2>
                   <p className="text-[11px] text-slate-400 hidden sm:block">
                     Configure modal announcement content, triggers, and display schedules
@@ -459,13 +676,93 @@ export default function PopupManager() {
               {/* ── CONTENT TAB ── */}
               {activeTab === 'content' && (
                 <div className="space-y-4 animate-in fade-in-50 duration-150">
+                  {/* Source relationship & Quick-fill selector */}
+                  <div className="p-3.5 rounded-xl bg-white/[0.03] border border-white/10 space-y-3">
+                    <div className="flex items-center justify-between">
+                      <label className="text-xs font-semibold text-slate-300 uppercase tracking-wider flex items-center gap-1.5">
+                        <Zap className="h-3.5 w-3.5 text-amber-400" />
+                        Source & Auto-fill Content
+                      </label>
+                      <span className="text-[10px] text-slate-400">Attach existing CMS content</span>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      <div>
+                        <label className="text-[11px] text-slate-400 block mb-1">Content Source Type</label>
+                        <select
+                          className="w-full bg-[#0a1e3f] border border-white/10 rounded-xl px-3.5 py-2 text-xs text-slate-300 focus:outline-none focus:ring-1 focus:ring-sky-500"
+                          value={form.sourceType}
+                          onChange={e => {
+                            const newType = e.target.value as PopupConfig['sourceType'];
+                            setField('sourceType', newType);
+                            setField('sourceId', undefined);
+                          }}
+                        >
+                          <option value="standalone">Standalone (Custom Popup)</option>
+                          <option value="promotion">Attached to Promotion</option>
+                          <option value="announcement">Attached to Announcement</option>
+                          <option value="publication">Attached to Publication</option>
+                        </select>
+                      </div>
+
+                      {/* Source selector dropdown */}
+                      {form.sourceType === 'promotion' && (
+                        <div>
+                          <label className="text-[11px] text-slate-400 block mb-1">Select Promotion</label>
+                          <select
+                            className="w-full bg-[#0a1e3f] border border-white/10 rounded-xl px-3.5 py-2 text-xs text-slate-300 focus:outline-none focus:ring-1 focus:ring-sky-500"
+                            value={form.sourceId || ''}
+                            onChange={e => handleSourceSelect('promotion', e.target.value)}
+                          >
+                            <option value="">-- Choose Promotion to Auto-fill --</option>
+                            {promotions.map(p => (
+                              <option key={p.id} value={p.id}>{p.title}</option>
+                            ))}
+                          </select>
+                        </div>
+                      )}
+
+                      {form.sourceType === 'announcement' && (
+                        <div>
+                          <label className="text-[11px] text-slate-400 block mb-1">Select Announcement</label>
+                          <select
+                            className="w-full bg-[#0a1e3f] border border-white/10 rounded-xl px-3.5 py-2 text-xs text-slate-300 focus:outline-none focus:ring-1 focus:ring-sky-500"
+                            value={form.sourceId || ''}
+                            onChange={e => handleSourceSelect('announcement', e.target.value)}
+                          >
+                            <option value="">-- Choose Announcement to Auto-fill --</option>
+                            {announcements.map(a => (
+                              <option key={a.id} value={a.id}>{a.title}</option>
+                            ))}
+                          </select>
+                        </div>
+                      )}
+
+                      {form.sourceType === 'publication' && (
+                        <div>
+                          <label className="text-[11px] text-slate-400 block mb-1">Select Publication</label>
+                          <select
+                            className="w-full bg-[#0a1e3f] border border-white/10 rounded-xl px-3.5 py-2 text-xs text-slate-300 focus:outline-none focus:ring-1 focus:ring-sky-500"
+                            value={form.sourceId || ''}
+                            onChange={e => handleSourceSelect('publication', e.target.value)}
+                          >
+                            <option value="">-- Choose Publication to Auto-fill --</option>
+                            {publications.map(p => (
+                              <option key={p.id} value={p.id}>{p.title}</option>
+                            ))}
+                          </select>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+
                   <div>
                     <label className="text-xs font-semibold text-slate-300 uppercase tracking-wider block mb-1.5">
                       Popup Title <span className="text-rose-400">*</span>
                     </label>
                     <input
                       className="w-full bg-white/5 border border-white/10 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-sky-500 transition-all"
-                      placeholder="e.g. Special Customer Notice"
+                      placeholder="e.g. Ramadan Savings Bonus"
                       value={form.title} onChange={e => setField('title', e.target.value)}
                     />
                   </div>
@@ -483,21 +780,33 @@ export default function PopupManager() {
                   </div>
 
                   <div>
-                    <label className="text-xs font-semibold text-slate-300 uppercase tracking-wider block mb-1.5">
-                      Featured Image URL <span className="normal-case font-normal text-slate-500">(Optional)</span>
-                    </label>
+                    <div className="flex items-center justify-between mb-1.5">
+                      <label className="text-xs font-semibold text-slate-300 uppercase tracking-wider">
+                        Featured Image URL <span className="normal-case font-normal text-slate-500">(Optional)</span>
+                      </label>
+                      <button
+                        type="button"
+                        onClick={() => setIsMediaPickerOpen(true)}
+                        className="text-xs text-sky-400 hover:text-sky-300 flex items-center gap-1 font-medium"
+                      >
+                        <FolderOpen className="h-3.5 w-3.5" />
+                        <span>Select from Media Library</span>
+                      </button>
+                    </div>
                     <div className="flex gap-2">
                       <input
                         className="flex-1 bg-white/5 border border-white/10 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-sky-500 transition-all"
-                        placeholder="https://... or image asset URL"
+                        placeholder="https://... or choose from Media Library"
                         value={form.featuredImage || ''} onChange={e => setField('featuredImage', e.target.value)}
                       />
                       <button
                         type="button"
-                        className="p-2.5 bg-white/5 border border-white/10 rounded-xl text-slate-400 hover:text-white transition-colors"
-                        title="Image Asset"
+                        onClick={() => setIsMediaPickerOpen(true)}
+                        className="px-3 bg-white/5 border border-white/10 rounded-xl text-slate-400 hover:text-white hover:bg-white/10 transition-colors flex items-center gap-1.5"
+                        title="Open Media Library"
                       >
                         <ImageIcon className="h-4 w-4" />
+                        <span className="text-xs hidden sm:inline">Browse</span>
                       </button>
                     </div>
                   </div>
@@ -509,7 +818,7 @@ export default function PopupManager() {
                       </label>
                       <input
                         className="w-full bg-white/5 border border-white/10 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-sky-500 transition-all"
-                        placeholder="e.g. Learn More"
+                        placeholder="e.g. Learn More / Claim Offer"
                         value={form.ctaText || ''} onChange={e => setField('ctaText', e.target.value)}
                       />
                     </div>
@@ -522,30 +831,6 @@ export default function PopupManager() {
                         placeholder="/products or https://..."
                         value={form.ctaUrl || ''} onChange={e => setField('ctaUrl', e.target.value)}
                       />
-                    </div>
-                  </div>
-
-                  <div>
-                    <label className="text-xs font-semibold text-slate-300 uppercase tracking-wider block mb-1.5">
-                      Source Relationship
-                    </label>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
-                      <select
-                        className="bg-[#0a1e3f] border border-white/10 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm text-slate-300 focus:outline-none focus:ring-1 focus:ring-sky-500"
-                        value={form.sourceType} onChange={e => setField('sourceType', e.target.value as PopupConfig['sourceType'])}
-                      >
-                        <option value="standalone">Standalone Popup</option>
-                        <option value="promotion">Attached to Promotion</option>
-                        <option value="announcement">Attached to Announcement</option>
-                        <option value="publication">Attached to Publication</option>
-                      </select>
-                      {form.sourceType !== 'standalone' && (
-                        <input
-                          className="bg-white/5 border border-white/10 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-sky-500 transition-all"
-                          placeholder="Linked Record ID"
-                          value={form.sourceId || ''} onChange={e => setField('sourceId', e.target.value)}
-                        />
-                      )}
                     </div>
                   </div>
                 </div>
@@ -790,6 +1075,70 @@ export default function PopupManager() {
         </div>
       )}
 
+      {/* ── Media Picker Modal ────────────────────────────────────────────── */}
+      {isMediaPickerOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+          <div className="absolute inset-0 bg-slate-900/80 backdrop-blur-sm" onClick={() => setIsMediaPickerOpen(false)} />
+          <div className="relative z-10 bg-[#0f2a50] border border-white/10 rounded-2xl p-5 max-w-xl w-full shadow-2xl flex flex-col max-h-[85vh]">
+            <div className="flex items-center justify-between pb-3 border-b border-white/10 shrink-0">
+              <div className="flex items-center gap-2">
+                <FolderOpen className="h-4 w-4 text-sky-400" />
+                <h3 className="font-heading font-bold text-white text-sm sm:text-base">Select Featured Image</h3>
+              </div>
+              <button
+                type="button"
+                onClick={() => setIsMediaPickerOpen(false)}
+                className="p-1 rounded-lg text-slate-400 hover:text-white"
+              >
+                <X className="h-4 w-4" />
+              </button>
+            </div>
+
+            <div className="overflow-y-auto flex-1 py-4">
+              {(mediaAssets || []).length === 0 ? (
+                <div className="text-center py-10 text-slate-400">
+                  <ImageIcon className="h-8 w-8 mx-auto mb-2 opacity-40" />
+                  <p className="text-xs">No media assets found in library.</p>
+                </div>
+              ) : (
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                  {mediaAssets.map(asset => (
+                    <button
+                      key={asset.id}
+                      type="button"
+                      onClick={() => {
+                        setField('featuredImage', asset.url);
+                        setIsMediaPickerOpen(false);
+                        toast.success(`Selected "${asset.title}"`);
+                      }}
+                      className="group relative rounded-xl overflow-hidden border border-white/10 hover:border-sky-400 transition-all text-left bg-black/20 p-1.5 flex flex-col"
+                    >
+                      <div className="relative h-24 w-full rounded-lg overflow-hidden bg-black/40 mb-1.5">
+                        <img src={asset.url} alt={asset.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform" />
+                      </div>
+                      <p className="text-[11px] font-medium text-white truncate">{asset.title}</p>
+                      <p className="text-[10px] text-slate-400 capitalize">{asset.category}</p>
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            <div className="pt-3 border-t border-white/10 flex justify-end shrink-0">
+              <Button
+                type="button"
+                variant="ghost"
+                size="sm"
+                onClick={() => setIsMediaPickerOpen(false)}
+                className="text-xs text-slate-400 hover:text-white"
+              >
+                Close
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* ── Delete Confirm ────────────────────────────────────────────────── */}
       {confirmDeleteId && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
@@ -798,7 +1147,7 @@ export default function PopupManager() {
             <div className="flex items-start gap-3 mb-4">
               <AlertCircle className="h-5 w-5 text-rose-400 shrink-0 mt-0.5" />
               <div>
-                <h3 className="font-semibold text-white">Delete popup?</h3>
+                <h3 className="font-semibold text-white">Delete popup notification?</h3>
                 <p className="text-sm text-slate-400 mt-1">This action cannot be undone. The popup will be permanently removed.</p>
               </div>
             </div>

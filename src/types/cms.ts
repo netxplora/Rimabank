@@ -111,6 +111,8 @@ export interface Promotion {
   priority: number; // higher = higher display priority
   startDate: string;
   endDate?: string;
+  displayMode?: PopupDisplayMode;
+  isPopupEnabled?: boolean;
   createdAt: string;
   updatedAt: string;
   createdBy: string;
@@ -124,6 +126,8 @@ export interface Announcement {
   category: 'general' | 'maintenance' | 'security' | 'feature' | 'regulatory';
   priority: PriorityLevel;
   displayAsBanner: boolean; // if true, shows in the top alert banner
+  displayMode?: PopupDisplayMode;
+  isPopupEnabled?: boolean;
   actionText?: string;
   actionLink?: string;
   status: ContentStatus;
@@ -145,6 +149,8 @@ export interface Publication {
   author: string;
   readTime: string;
   status: ContentStatus;
+  displayMode?: PopupDisplayMode;
+  isPopupEnabled?: boolean;
   publishDate: string;
   seoTitle?: string;
   seoDescription?: string;

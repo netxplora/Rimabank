@@ -13,17 +13,28 @@ import {
   ArrowUpRight,
   Filter,
   X,
-  Image as ImageIcon
+  Image as ImageIcon,
+  Layers,
+  Sparkles,
+  ExternalLink
 } from 'lucide-react';
 import { useCMS } from '@/context/CMSContext';
 import { useAuth } from '@/context/AuthContext';
-import { Promotion, ContentStatus } from '@/types/cms';
+import { Promotion, ContentStatus, PopupDisplayMode } from '@/types/cms';
 import { Button } from '@/components/ui/button';
 import { MediaPickerModal } from '@/components/admin/media/MediaPickerModal';
 import { toast } from 'sonner';
 
 export default function PromotionsManager() {
-  const { promotions, addPromotion, updatePromotion, deletePromotion } = useCMS();
+  const {
+    promotions,
+    addPromotion,
+    updatePromotion,
+    deletePromotion,
+    popupConfigs,
+    addPopupConfig,
+    updatePopupConfig
+  } = useCMS();
   const { user, can } = useAuth();
   
   const [search, setSearch] = useState('');
@@ -45,6 +56,8 @@ export default function PromotionsManager() {
     terms: ['Standard credit verification apply.'],
     status: 'published' as ContentStatus,
     priority: 1,
+    displayMode: 'standard' as PopupDisplayMode,
+    isPopupEnabled: false,
     startDate: new Date().toISOString().split('T')[0],
     endDate: '2026-12-31'
   });
@@ -69,6 +82,8 @@ export default function PromotionsManager() {
       terms: ['Standard credit bureau checks apply.'],
       status: 'published',
       priority: 1,
+      displayMode: 'standard',
+      isPopupEnabled: false,
       startDate: new Date().toISOString().split('T')[0],
       endDate: '2026-12-31'
     });
@@ -77,6 +92,7 @@ export default function PromotionsManager() {
 
   const handleOpenEdit = (promo: Promotion) => {
     setEditingPromo(promo);
+    const existingPopup = popupConfigs.find(p => p.sourceId === promo.id || (p.sourceType === 'promotion' && p.title === promo.title));
     setFormData({
       title: promo.title,
       slug: promo.slug,
@@ -89,10 +105,48 @@ export default function PromotionsManager() {
       terms: promo.terms,
       status: promo.status,
       priority: promo.priority,
+      displayMode: promo.displayMode || (existingPopup ? existingPopup.displayMode : 'standard'),
+      isPopupEnabled: promo.isPopupEnabled ?? !!existingPopup,
       startDate: promo.startDate.split('T')[0],
       endDate: promo.endDate ? promo.endDate.split('T')[0] : ''
     });
     setIsModalOpen(true);
+  };
+
+  // Quick Popup Toggle / Creation
+  const handleQuickPopup = (promo: Promotion) => {
+    if (!user) return;
+    const existingPopup = popupConfigs.find(p => p.sourceId === promo.id || (p.sourceType === 'promotion' && p.title === promo.title));
+    if (existingPopup) {
+      const newStatus = existingPopup.status === 'active' ? 'paused' : 'active';
+      updatePopupConfig(existingPopup.id, { status: newStatus }, user);
+      toast.success(newStatus === 'active' ? 'Popup activated for this promotion' : 'Popup paused for this promotion');
+    } else {
+      addPopupConfig({
+        sourceType: 'promotion',
+        sourceId: promo.id,
+        displayMode: 'both',
+        title: promo.title,
+        content: promo.description || promo.subtitle,
+        featuredImage: promo.imageUrl,
+        ctaText: promo.ctaText || 'Learn More',
+        ctaUrl: promo.ctaLink || '/personal-banking',
+        showCloseButton: true,
+        startDate: promo.startDate,
+        endDate: promo.endDate,
+        triggerType: 'delay',
+        triggerDelaySeconds: 3,
+        displayFrequency: 'once_session',
+        priority: 5,
+        showOnDesktop: true,
+        showOnMobile: true,
+        overlayEnabled: true,
+        status: 'active',
+        createdBy: user.name,
+        createdById: user.id
+      }, user);
+      toast.success(`Created and activated Site Popup for "${promo.title}"`);
+    }
   };
 
   const handleSave = (e: React.FormEvent) => {
@@ -105,6 +159,7 @@ export default function PromotionsManager() {
     }
 
     const slug = formData.slug || formData.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+    const promoId = editingPromo ? editingPromo.id : `promo-${Date.now()}`;
 
     if (editingPromo) {
       updatePromotion(editingPromo.id, {
@@ -113,6 +168,49 @@ export default function PromotionsManager() {
         startDate: new Date(formData.startDate).toISOString(),
         endDate: formData.endDate ? new Date(formData.endDate).toISOString() : undefined
       }, { id: user.id, name: user.name, role: user.role });
+
+      // Sync Popup Config if enabled
+      if (formData.isPopupEnabled || formData.displayMode === 'popup' || formData.displayMode === 'both') {
+        const existingPopup = popupConfigs.find(p => p.sourceId === editingPromo.id);
+        if (existingPopup) {
+          updatePopupConfig(existingPopup.id, {
+            title: formData.title,
+            content: formData.description || formData.subtitle,
+            featuredImage: formData.imageUrl,
+            ctaText: formData.ctaText,
+            ctaUrl: formData.ctaLink,
+            displayMode: formData.displayMode,
+            startDate: new Date(formData.startDate).toISOString(),
+            endDate: formData.endDate ? new Date(formData.endDate).toISOString() : undefined,
+            status: formData.status === 'published' ? 'active' : 'draft'
+          }, user);
+        } else {
+          addPopupConfig({
+            sourceType: 'promotion',
+            sourceId: editingPromo.id,
+            displayMode: formData.displayMode,
+            title: formData.title,
+            content: formData.description || formData.subtitle,
+            featuredImage: formData.imageUrl,
+            ctaText: formData.ctaText,
+            ctaUrl: formData.ctaLink,
+            showCloseButton: true,
+            startDate: new Date(formData.startDate).toISOString(),
+            endDate: formData.endDate ? new Date(formData.endDate).toISOString() : undefined,
+            triggerType: 'delay',
+            triggerDelaySeconds: 3,
+            displayFrequency: 'once_session',
+            priority: 5,
+            showOnDesktop: true,
+            showOnMobile: true,
+            overlayEnabled: true,
+            status: formData.status === 'published' ? 'active' : 'draft',
+            createdBy: user.name,
+            createdById: user.id
+          }, user);
+        }
+      }
+
       toast.success('Promotion updated successfully.');
     } else {
       addPromotion({
@@ -122,6 +220,34 @@ export default function PromotionsManager() {
         endDate: formData.endDate ? new Date(formData.endDate).toISOString() : undefined,
         createdBy: user.name
       }, { id: user.id, name: user.name, role: user.role });
+
+      // If popup requested for new promo
+      if (formData.isPopupEnabled || formData.displayMode === 'popup' || formData.displayMode === 'both') {
+        addPopupConfig({
+          sourceType: 'promotion',
+          sourceId: promoId,
+          displayMode: formData.displayMode,
+          title: formData.title,
+          content: formData.description || formData.subtitle,
+          featuredImage: formData.imageUrl,
+          ctaText: formData.ctaText,
+          ctaUrl: formData.ctaLink,
+          showCloseButton: true,
+          startDate: new Date(formData.startDate).toISOString(),
+          endDate: formData.endDate ? new Date(formData.endDate).toISOString() : undefined,
+          triggerType: 'delay',
+          triggerDelaySeconds: 3,
+          displayFrequency: 'once_session',
+          priority: 5,
+          showOnDesktop: true,
+          showOnMobile: true,
+          overlayEnabled: true,
+          status: formData.status === 'published' ? 'active' : 'draft',
+          createdBy: user.name,
+          createdById: user.id
+        }, user);
+      }
+
       toast.success('New promotion campaign created.');
     }
 
@@ -217,6 +343,7 @@ export default function PromotionsManager() {
                 <th className="py-3 px-4">Campaign Title</th>
                 <th className="py-3 px-4">Badge</th>
                 <th className="py-3 px-4">Status</th>
+                <th className="py-3 px-4">Site Popup</th>
                 <th className="py-3 px-4">Timeline</th>
                 <th className="py-3 px-4">Priority</th>
                 <th className="py-3 px-4 text-right">Actions</th>
@@ -225,54 +352,82 @@ export default function PromotionsManager() {
             <tbody className="divide-y divide-[#e2e8f0]">
               {filteredPromos.length === 0 ? (
                 <tr>
-                  <td colSpan={6} className="py-12 text-center text-slate-400">
+                  <td colSpan={7} className="py-12 text-center text-slate-400">
                     No promotions found matching your search.
                   </td>
                 </tr>
               ) : (
-                filteredPromos.map((promo) => (
-                  <tr key={promo.id} className="hover:bg-slate-50/80 transition-colors">
-                    <td className="py-3.5 px-4 font-semibold text-[#0a1e3f]">
-                      <div className="truncate max-w-xs">{promo.title}</div>
-                      <div className="text-[11px] text-slate-400 font-normal truncate max-w-xs">{promo.subtitle}</div>
-                    </td>
-                    <td className="py-3.5 px-4">
-                      <span className="px-2 py-0.5 rounded-md bg-sky-50 text-[#0284c7] font-semibold text-[10px] border border-sky-100">
-                        {promo.badgeText}
-                      </span>
-                    </td>
-                    <td className="py-3.5 px-4">
-                      {getStatusBadge(promo.status)}
-                    </td>
-                    <td className="py-3.5 px-4 text-slate-500 text-[11px]">
-                      <div>{new Date(promo.startDate).toLocaleDateString()}</div>
-                      {promo.endDate && <div className="text-slate-400">to {new Date(promo.endDate).toLocaleDateString()}</div>}
-                    </td>
-                    <td className="py-3.5 px-4 font-bold text-[#0a1e3f]">
-                      #{promo.priority}
-                    </td>
-                    <td className="py-3.5 px-4 text-right">
-                      <div className="flex items-center justify-end gap-1.5">
-                        <button
-                          onClick={() => handleOpenEdit(promo)}
-                          className="p-1.5 rounded-lg text-slate-500 hover:text-[#0284c7] hover:bg-sky-50 transition-all"
-                          title="Edit Campaign"
-                        >
-                          <Edit2 className="h-4 w-4" />
-                        </button>
-                        {can('delete', 'promotions') && (
-                          <button
-                            onClick={() => handleDelete(promo.id, promo.title)}
-                            className="p-1.5 rounded-lg text-slate-400 hover:text-red-600 hover:bg-red-50 transition-all"
-                            title="Delete Campaign"
-                          >
-                            <Trash2 className="h-4 w-4" />
-                          </button>
+                filteredPromos.map((promo) => {
+                  const linkedPopup = popupConfigs.find(p => p.sourceId === promo.id || (p.sourceType === 'promotion' && p.title === promo.title));
+                  return (
+                    <tr key={promo.id} className="hover:bg-slate-50/80 transition-colors">
+                      <td className="py-3.5 px-4 font-semibold text-[#0a1e3f]">
+                        <div className="truncate max-w-xs">{promo.title}</div>
+                        <div className="text-[11px] text-slate-400 font-normal truncate max-w-xs">{promo.subtitle}</div>
+                      </td>
+                      <td className="py-3.5 px-4">
+                        <span className="px-2 py-0.5 rounded-md bg-sky-50 text-[#0284c7] font-semibold text-[10px] border border-sky-100">
+                          {promo.badgeText}
+                        </span>
+                      </td>
+                      <td className="py-3.5 px-4">
+                        {getStatusBadge(promo.status)}
+                      </td>
+                      <td className="py-3.5 px-4">
+                        {linkedPopup ? (
+                          <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold ${
+                            linkedPopup.status === 'active'
+                              ? 'bg-emerald-100 text-emerald-700 border border-emerald-200'
+                              : 'bg-amber-100 text-amber-700 border border-amber-200'
+                          }`}>
+                            <Sparkles className="w-2.5 h-2.5" />
+                            {linkedPopup.status === 'active' ? 'Popup Active' : 'Popup Paused'}
+                          </span>
+                        ) : (
+                          <span className="text-[11px] text-slate-400 italic">None</span>
                         )}
-                      </div>
-                    </td>
-                  </tr>
-                ))
+                      </td>
+                      <td className="py-3.5 px-4 text-slate-500 text-[11px]">
+                        <div>{new Date(promo.startDate).toLocaleDateString()}</div>
+                        {promo.endDate && <div className="text-slate-400">to {new Date(promo.endDate).toLocaleDateString()}</div>}
+                      </td>
+                      <td className="py-3.5 px-4 font-bold text-[#0a1e3f]">
+                        #{promo.priority}
+                      </td>
+                      <td className="py-3.5 px-4 text-right">
+                        <div className="flex items-center justify-end gap-1.5">
+                          <button
+                            onClick={() => handleQuickPopup(promo)}
+                            className={`p-1.5 rounded-lg transition-all ${
+                              linkedPopup?.status === 'active'
+                                ? 'text-emerald-600 hover:bg-emerald-50'
+                                : 'text-slate-400 hover:text-[#0284c7] hover:bg-sky-50'
+                            }`}
+                            title={linkedPopup?.status === 'active' ? 'Pause Site Popup' : 'Activate Site Popup'}
+                          >
+                            <Sparkles className="h-4 w-4" />
+                          </button>
+                          <button
+                            onClick={() => handleOpenEdit(promo)}
+                            className="p-1.5 rounded-lg text-slate-500 hover:text-[#0284c7] hover:bg-sky-50 transition-all"
+                            title="Edit Campaign"
+                          >
+                            <Edit2 className="h-4 w-4" />
+                          </button>
+                          {can('delete', 'promotions') && (
+                            <button
+                              onClick={() => handleDelete(promo.id, promo.title)}
+                              className="p-1.5 rounded-lg text-slate-400 hover:text-red-600 hover:bg-red-50 transition-all"
+                              title="Delete Campaign"
+                            >
+                              <Trash2 className="h-4 w-4" />
+                            </button>
+                          )}
+                        </div>
+                      </td>
+                    </tr>
+                  );
+                })
               )}
             </tbody>
           </table>
@@ -335,6 +490,52 @@ export default function PromotionsManager() {
                     onChange={(e) => setFormData({ ...formData, priority: parseInt(e.target.value) || 1 })}
                     className="w-full p-2.5 rounded-xl border border-[#e2e8f0] text-xs font-medium focus:border-[#0284c7] outline-none"
                   />
+                </div>
+
+                {/* Display Mode & Site Popup Settings */}
+                <div className="sm:col-span-2 p-3 bg-sky-50/60 border border-sky-100 rounded-xl space-y-2.5">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <Sparkles className="w-4 h-4 text-[#0284c7]" />
+                      <span className="text-xs font-semibold text-[#0a1e3f]">Site Popup Display Option</span>
+                    </div>
+                    <label className="flex items-center gap-2 cursor-pointer">
+                      <input
+                        type="checkbox"
+                        checked={formData.isPopupEnabled}
+                        onChange={(e) => {
+                          const checked = e.target.checked;
+                          setFormData({
+                            ...formData,
+                            isPopupEnabled: checked,
+                            displayMode: checked ? (formData.displayMode === 'standard' ? 'both' : formData.displayMode) : 'standard'
+                          });
+                        }}
+                        className="w-4 h-4 rounded text-[#0284c7] focus:ring-[#0284c7]"
+                      />
+                      <span className="text-xs font-medium text-slate-700">Enable Popup</span>
+                    </label>
+                  </div>
+
+                  {formData.isPopupEnabled && (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 border-t border-sky-100">
+                      <div>
+                        <label className="block text-[11px] font-semibold text-slate-600 mb-1">Display Mode</label>
+                        <select
+                          value={formData.displayMode}
+                          onChange={(e) => setFormData({ ...formData, displayMode: e.target.value as PopupDisplayMode })}
+                          className="w-full p-2 rounded-lg bg-white border border-[#e2e8f0] text-xs font-medium outline-none focus:border-[#0284c7]"
+                        >
+                          <option value="both">Both Standard Page & Site Popup</option>
+                          <option value="popup">Site Popup Only (Hidden on Page)</option>
+                          <option value="standard">Standard Page Only</option>
+                        </select>
+                      </div>
+                      <div className="text-[11px] text-slate-500 flex items-center">
+                        When enabled, visitors will see this promotion featured as an interactive site popup.
+                      </div>
+                    </div>
+                  )}
                 </div>
 
                 <div className="sm:col-span-2">

@@ -11,16 +11,25 @@ import {
   Filter,
   X,
   Eye,
-  Megaphone
+  Megaphone,
+  Sparkles
 } from 'lucide-react';
 import { useCMS } from '@/context/CMSContext';
 import { useAuth } from '@/context/AuthContext';
-import { Announcement, PriorityLevel, ContentStatus } from '@/types/cms';
+import { Announcement, PriorityLevel, ContentStatus, PopupDisplayMode } from '@/types/cms';
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
 
 export default function AnnouncementsManager() {
-  const { announcements, addAnnouncement, updateAnnouncement, deleteAnnouncement } = useCMS();
+  const {
+    announcements,
+    addAnnouncement,
+    updateAnnouncement,
+    deleteAnnouncement,
+    popupConfigs,
+    addPopupConfig,
+    updatePopupConfig
+  } = useCMS();
   const { user, can } = useAuth();
 
   const [search, setSearch] = useState('');
@@ -35,6 +44,8 @@ export default function AnnouncementsManager() {
     category: 'maintenance' as Announcement['category'],
     priority: 'high' as PriorityLevel,
     displayAsBanner: true,
+    displayMode: 'standard' as PopupDisplayMode,
+    isPopupEnabled: false,
     actionText: 'Read Notice',
     actionLink: '/media',
     status: 'published' as ContentStatus,
@@ -56,6 +67,8 @@ export default function AnnouncementsManager() {
       category: 'maintenance',
       priority: 'high',
       displayAsBanner: true,
+      displayMode: 'standard',
+      isPopupEnabled: false,
       actionText: 'Read Notice',
       actionLink: '/media',
       status: 'published',
@@ -67,12 +80,15 @@ export default function AnnouncementsManager() {
 
   const handleOpenEdit = (ann: Announcement) => {
     setEditingAnn(ann);
+    const existingPopup = popupConfigs.find(p => p.sourceId === ann.id || (p.sourceType === 'announcement' && p.title === ann.title));
     setFormData({
       title: ann.title,
       message: ann.message,
       category: ann.category,
       priority: ann.priority,
       displayAsBanner: ann.displayAsBanner,
+      displayMode: ann.displayMode || (existingPopup ? existingPopup.displayMode : 'standard'),
+      isPopupEnabled: ann.isPopupEnabled ?? !!existingPopup,
       actionText: ann.actionText || '',
       actionLink: ann.actionLink || '',
       status: ann.status,
@@ -80,6 +96,41 @@ export default function AnnouncementsManager() {
       endDate: ann.endDate ? ann.endDate.split('T')[0] : ''
     });
     setIsModalOpen(true);
+  };
+
+  // Quick Popup Toggle / Creation
+  const handleQuickPopup = (ann: Announcement) => {
+    if (!user) return;
+    const existingPopup = popupConfigs.find(p => p.sourceId === ann.id || (p.sourceType === 'announcement' && p.title === ann.title));
+    if (existingPopup) {
+      const newStatus = existingPopup.status === 'active' ? 'paused' : 'active';
+      updatePopupConfig(existingPopup.id, { status: newStatus }, user);
+      toast.success(newStatus === 'active' ? 'Popup activated for this announcement' : 'Popup paused for this announcement');
+    } else {
+      addPopupConfig({
+        sourceType: 'announcement',
+        sourceId: ann.id,
+        displayMode: 'both',
+        title: ann.title,
+        content: ann.message,
+        ctaText: ann.actionText || 'Read Notice',
+        ctaUrl: ann.actionLink || '/media',
+        showCloseButton: true,
+        startDate: ann.startDate,
+        endDate: ann.endDate,
+        triggerType: 'immediate',
+        triggerDelaySeconds: 0,
+        displayFrequency: 'every_visit',
+        priority: ann.priority === 'urgent' ? 1 : 3,
+        showOnDesktop: true,
+        showOnMobile: true,
+        overlayEnabled: true,
+        status: 'active',
+        createdBy: user.name,
+        createdById: user.id
+      }, user);
+      toast.success(`Created Site Popup for announcement "${ann.title}"`);
+    }
   };
 
   const handleSave = (e: React.FormEvent) => {
@@ -91,12 +142,55 @@ export default function AnnouncementsManager() {
       return;
     }
 
+    const annId = editingAnn ? editingAnn.id : `ann-${Date.now()}`;
+
     if (editingAnn) {
       updateAnnouncement(editingAnn.id, {
         ...formData,
         startDate: new Date(formData.startDate).toISOString(),
         endDate: formData.endDate ? new Date(formData.endDate).toISOString() : undefined
       }, { id: user.id, name: user.name, role: user.role });
+
+      // Sync Popup Config if enabled
+      if (formData.isPopupEnabled || formData.displayMode === 'popup' || formData.displayMode === 'both') {
+        const existingPopup = popupConfigs.find(p => p.sourceId === editingAnn.id);
+        if (existingPopup) {
+          updatePopupConfig(existingPopup.id, {
+            title: formData.title,
+            content: formData.message,
+            ctaText: formData.actionText,
+            ctaUrl: formData.actionLink,
+            displayMode: formData.displayMode,
+            startDate: new Date(formData.startDate).toISOString(),
+            endDate: formData.endDate ? new Date(formData.endDate).toISOString() : undefined,
+            status: formData.status === 'published' ? 'active' : 'draft'
+          }, user);
+        } else {
+          addPopupConfig({
+            sourceType: 'announcement',
+            sourceId: editingAnn.id,
+            displayMode: formData.displayMode,
+            title: formData.title,
+            content: formData.message,
+            ctaText: formData.actionText,
+            ctaUrl: formData.actionLink,
+            showCloseButton: true,
+            startDate: new Date(formData.startDate).toISOString(),
+            endDate: formData.endDate ? new Date(formData.endDate).toISOString() : undefined,
+            triggerType: 'immediate',
+            triggerDelaySeconds: 0,
+            displayFrequency: 'every_visit',
+            priority: formData.priority === 'urgent' ? 1 : 3,
+            showOnDesktop: true,
+            showOnMobile: true,
+            overlayEnabled: true,
+            status: formData.status === 'published' ? 'active' : 'draft',
+            createdBy: user.name,
+            createdById: user.id
+          }, user);
+        }
+      }
+
       toast.success('Announcement updated.');
     } else {
       addAnnouncement({
@@ -105,6 +199,33 @@ export default function AnnouncementsManager() {
         endDate: formData.endDate ? new Date(formData.endDate).toISOString() : undefined,
         createdBy: user.name
       }, { id: user.id, name: user.name, role: user.role });
+
+      // If popup requested for new announcement
+      if (formData.isPopupEnabled || formData.displayMode === 'popup' || formData.displayMode === 'both') {
+        addPopupConfig({
+          sourceType: 'announcement',
+          sourceId: annId,
+          displayMode: formData.displayMode,
+          title: formData.title,
+          content: formData.message,
+          ctaText: formData.actionText,
+          ctaUrl: formData.actionLink,
+          showCloseButton: true,
+          startDate: new Date(formData.startDate).toISOString(),
+          endDate: formData.endDate ? new Date(formData.endDate).toISOString() : undefined,
+          triggerType: 'immediate',
+          triggerDelaySeconds: 0,
+          displayFrequency: 'every_visit',
+          priority: formData.priority === 'urgent' ? 1 : 3,
+          showOnDesktop: true,
+          showOnMobile: true,
+          overlayEnabled: true,
+          status: formData.status === 'published' ? 'active' : 'draft',
+          createdBy: user.name,
+          createdById: user.id
+        }, user);
+      }
+
       toast.success('New announcement created.');
     }
 
@@ -196,7 +317,8 @@ export default function AnnouncementsManager() {
                 <th className="py-3 px-4">Title & Notice</th>
                 <th className="py-3 px-4">Category</th>
                 <th className="py-3 px-4">Priority</th>
-                <th className="py-3 px-4">Public Banner</th>
+                <th className="py-3 px-4">Banner</th>
+                <th className="py-3 px-4">Site Popup</th>
                 <th className="py-3 px-4">Status</th>
                 <th className="py-3 px-4 text-right">Actions</th>
               </tr>
@@ -204,57 +326,85 @@ export default function AnnouncementsManager() {
             <tbody className="divide-y divide-[#e2e8f0]">
               {filteredAnnouncements.length === 0 ? (
                 <tr>
-                  <td colSpan={6} className="py-12 text-center text-slate-400">
+                  <td colSpan={7} className="py-12 text-center text-slate-400">
                     No announcements found.
                   </td>
                 </tr>
               ) : (
-                filteredAnnouncements.map((ann) => (
-                  <tr key={ann.id} className="hover:bg-slate-50/80 transition-colors">
-                    <td className="py-3.5 px-4 font-semibold text-[#0a1e3f]">
-                      <div className="truncate max-w-sm">{ann.title}</div>
-                      <div className="text-[11px] text-slate-400 font-normal truncate max-w-sm">{ann.message}</div>
-                    </td>
-                    <td className="py-3.5 px-4 capitalize font-medium text-slate-600">
-                      {ann.category}
-                    </td>
-                    <td className="py-3.5 px-4">
-                      {getPriorityBadge(ann.priority)}
-                    </td>
-                    <td className="py-3.5 px-4">
-                      {ann.displayAsBanner ? (
-                        <span className="inline-flex items-center gap-1 text-emerald-700 font-bold text-[11px]">
-                          <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600" /> Active Top Banner
-                        </span>
-                      ) : (
-                        <span className="text-slate-400 text-[11px]">Standard Notice</span>
-                      )}
-                    </td>
-                    <td className="py-3.5 px-4 capitalize font-semibold">
-                      {ann.status}
-                    </td>
-                    <td className="py-3.5 px-4 text-right">
-                      <div className="flex items-center justify-end gap-1.5">
-                        <button
-                          onClick={() => handleOpenEdit(ann)}
-                          className="p-1.5 rounded-lg text-slate-500 hover:text-[#0284c7] hover:bg-sky-50 transition-all"
-                          title="Edit"
-                        >
-                          <Edit2 className="h-4 w-4" />
-                        </button>
-                        {can('delete', 'announcements') && (
-                          <button
-                            onClick={() => handleDelete(ann.id, ann.title)}
-                            className="p-1.5 rounded-lg text-slate-400 hover:text-red-600 hover:bg-red-50 transition-all"
-                            title="Delete"
-                          >
-                            <Trash2 className="h-4 w-4" />
-                          </button>
+                filteredAnnouncements.map((ann) => {
+                  const linkedPopup = popupConfigs.find(p => p.sourceId === ann.id || (p.sourceType === 'announcement' && p.title === ann.title));
+                  return (
+                    <tr key={ann.id} className="hover:bg-slate-50/80 transition-colors">
+                      <td className="py-3.5 px-4 font-semibold text-[#0a1e3f]">
+                        <div className="truncate max-w-sm">{ann.title}</div>
+                        <div className="text-[11px] text-slate-400 font-normal truncate max-w-sm">{ann.message}</div>
+                      </td>
+                      <td className="py-3.5 px-4 capitalize font-medium text-slate-600">
+                        {ann.category}
+                      </td>
+                      <td className="py-3.5 px-4">
+                        {getPriorityBadge(ann.priority)}
+                      </td>
+                      <td className="py-3.5 px-4">
+                        {ann.displayAsBanner ? (
+                          <span className="inline-flex items-center gap-1 text-emerald-700 font-bold text-[11px]">
+                            <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600" /> Active Banner
+                          </span>
+                        ) : (
+                          <span className="text-slate-400 text-[11px]">Standard Notice</span>
                         )}
-                      </div>
-                    </td>
-                  </tr>
-                ))
+                      </td>
+                      <td className="py-3.5 px-4">
+                        {linkedPopup ? (
+                          <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold ${
+                            linkedPopup.status === 'active'
+                              ? 'bg-emerald-100 text-emerald-700 border border-emerald-200'
+                              : 'bg-amber-100 text-amber-700 border border-amber-200'
+                          }`}>
+                            <Sparkles className="w-2.5 h-2.5" />
+                            {linkedPopup.status === 'active' ? 'Popup Active' : 'Popup Paused'}
+                          </span>
+                        ) : (
+                          <span className="text-[11px] text-slate-400 italic">None</span>
+                        )}
+                      </td>
+                      <td className="py-3.5 px-4 capitalize font-semibold">
+                        {ann.status}
+                      </td>
+                      <td className="py-3.5 px-4 text-right">
+                        <div className="flex items-center justify-end gap-1.5">
+                          <button
+                            onClick={() => handleQuickPopup(ann)}
+                            className={`p-1.5 rounded-lg transition-all ${
+                              linkedPopup?.status === 'active'
+                                ? 'text-emerald-600 hover:bg-emerald-50'
+                                : 'text-slate-400 hover:text-[#0284c7] hover:bg-sky-50'
+                            }`}
+                            title={linkedPopup?.status === 'active' ? 'Pause Site Popup' : 'Activate Site Popup'}
+                          >
+                            <Sparkles className="h-4 w-4" />
+                          </button>
+                          <button
+                            onClick={() => handleOpenEdit(ann)}
+                            className="p-1.5 rounded-lg text-slate-500 hover:text-[#0284c7] hover:bg-sky-50 transition-all"
+                            title="Edit"
+                          >
+                            <Edit2 className="h-4 w-4" />
+                          </button>
+                          {can('delete', 'announcements') && (
+                            <button
+                              onClick={() => handleDelete(ann.id, ann.title)}
+                              className="p-1.5 rounded-lg text-slate-400 hover:text-red-600 hover:bg-red-50 transition-all"
+                              title="Delete"
+                            >
+                              <Trash2 className="h-4 w-4" />
+                            </button>
+                          )}
+                        </div>
+                      </td>
+                    </tr>
+                  );
+                })
               )}
             </tbody>
           </table>
@@ -350,6 +500,52 @@ export default function AnnouncementsManager() {
                     onChange={(e) => setFormData({ ...formData, displayAsBanner: e.target.checked })}
                     className="h-4 w-4 text-[#0284c7] rounded border-slate-300 focus:ring-[#0284c7]"
                   />
+                </div>
+
+                {/* Site Popup Display Option */}
+                <div className="sm:col-span-2 p-3 bg-sky-50/60 border border-sky-100 rounded-xl space-y-2.5">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <Sparkles className="w-4 h-4 text-[#0284c7]" />
+                      <span className="text-xs font-semibold text-[#0a1e3f]">Site Popup Display Option</span>
+                    </div>
+                    <label className="flex items-center gap-2 cursor-pointer">
+                      <input
+                        type="checkbox"
+                        checked={formData.isPopupEnabled}
+                        onChange={(e) => {
+                          const checked = e.target.checked;
+                          setFormData({
+                            ...formData,
+                            isPopupEnabled: checked,
+                            displayMode: checked ? (formData.displayMode === 'standard' ? 'both' : formData.displayMode) : 'standard'
+                          });
+                        }}
+                        className="w-4 h-4 rounded text-[#0284c7] focus:ring-[#0284c7]"
+                      />
+                      <span className="text-xs font-medium text-slate-700">Enable Popup</span>
+                    </label>
+                  </div>
+
+                  {formData.isPopupEnabled && (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 border-t border-sky-100">
+                      <div>
+                        <label className="block text-[11px] font-semibold text-slate-600 mb-1">Display Mode</label>
+                        <select
+                          value={formData.displayMode}
+                          onChange={(e) => setFormData({ ...formData, displayMode: e.target.value as PopupDisplayMode })}
+                          className="w-full p-2 rounded-lg bg-white border border-[#e2e8f0] text-xs font-medium outline-none focus:border-[#0284c7]"
+                        >
+                          <option value="both">Both Top Banner & Site Popup</option>
+                          <option value="popup">Site Popup Only</option>
+                          <option value="standard">Top Banner Only</option>
+                        </select>
+                      </div>
+                      <div className="text-[11px] text-slate-500 flex items-center">
+                        Critical notices can be shown immediately to visitors via a modal popup dialog.
+                      </div>
+                    </div>
+                  )}
                 </div>
 
                 <div>

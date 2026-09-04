@@ -252,17 +252,20 @@ export const SupabaseSync = {
       const { error } = await supabase
         .from('audit_logs')
         .insert({
+          user_id: log.userId || null,
           action: log.action,
           entity_type: log.resourceType,
           entity_id: log.resourceId || null,
-          details: log.details,
+          old_values: log.oldValues || null,
           new_values: {
             userName: log.userName,
             userRole: log.userRole,
-            title: log.resourceTitle
+            title: log.resourceTitle,
+            details: log.details,
+            ...(log.newValues || {})
           },
           ip_address: log.ipAddress || '197.210.55.12',
-          user_agent: navigator.userAgent
+          user_agent: typeof navigator !== 'undefined' ? navigator.userAgent : 'Browser'
         });
 
       if (error) throw error;

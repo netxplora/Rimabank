@@ -14,18 +14,27 @@ import {
   FileText,
   User,
   Share2,
-  Image as ImageIcon
+  Image as ImageIcon,
+  Sparkles
 } from 'lucide-react';
 import { useCMS } from '@/context/CMSContext';
 import { useAuth } from '@/context/AuthContext';
-import { Publication, ContentStatus } from '@/types/cms';
+import { Publication, ContentStatus, PopupDisplayMode } from '@/types/cms';
 import { Button } from '@/components/ui/button';
 import { RichEditor } from '@/components/admin/RichEditor';
 import { MediaPickerModal } from '@/components/admin/media/MediaPickerModal';
 import { toast } from 'sonner';
 
 export default function PublicationsManager() {
-  const { publications, addPublication, updatePublication, deletePublication } = useCMS();
+  const {
+    publications,
+    addPublication,
+    updatePublication,
+    deletePublication,
+    popupConfigs,
+    addPopupConfig,
+    updatePopupConfig
+  } = useCMS();
   const { user, can } = useAuth();
 
   const [search, setSearch] = useState('');
@@ -46,6 +55,8 @@ export default function PublicationsManager() {
     author: user?.name || 'Corporate Communications',
     readTime: '3 min read',
     status: 'published' as ContentStatus,
+    displayMode: 'standard' as PopupDisplayMode,
+    isPopupEnabled: false,
     publishDate: new Date().toISOString().split('T')[0],
     seoTitle: '',
     seoDescription: '',
@@ -71,6 +82,8 @@ export default function PublicationsManager() {
       author: user?.name || 'Corporate Communications',
       readTime: '3 min read',
       status: user?.role === 'admin' ? 'published' : 'review',
+      displayMode: 'standard',
+      isPopupEnabled: false,
       publishDate: new Date().toISOString().split('T')[0],
       seoTitle: '',
       seoDescription: '',
@@ -81,6 +94,7 @@ export default function PublicationsManager() {
 
   const handleOpenEdit = (pub: Publication) => {
     setEditingPub(pub);
+    const existingPopup = popupConfigs.find(p => p.sourceId === pub.id || (p.sourceType === 'publication' && p.title === pub.title));
     setFormData({
       title: pub.title,
       slug: pub.slug,
@@ -91,12 +105,49 @@ export default function PublicationsManager() {
       author: pub.author,
       readTime: pub.readTime,
       status: pub.status,
+      displayMode: pub.displayMode || (existingPopup ? existingPopup.displayMode : 'standard'),
+      isPopupEnabled: pub.isPopupEnabled ?? !!existingPopup,
       publishDate: pub.publishDate.split('T')[0],
       seoTitle: pub.seoTitle || '',
       seoDescription: pub.seoDescription || '',
       seoKeywords: pub.seoKeywords || ['Rima MFB']
     });
     setIsModalOpen(true);
+  };
+
+  // Quick Popup Toggle / Creation
+  const handleQuickPopup = (pub: Publication) => {
+    if (!user) return;
+    const existingPopup = popupConfigs.find(p => p.sourceId === pub.id || (p.sourceType === 'publication' && p.title === pub.title));
+    if (existingPopup) {
+      const newStatus = existingPopup.status === 'active' ? 'paused' : 'active';
+      updatePopupConfig(existingPopup.id, { status: newStatus }, user);
+      toast.success(newStatus === 'active' ? 'Popup activated for this publication' : 'Popup paused for this publication');
+    } else {
+      addPopupConfig({
+        sourceType: 'publication',
+        sourceId: pub.id,
+        displayMode: 'both',
+        title: pub.title,
+        content: pub.excerpt || pub.title,
+        featuredImage: pub.featuredImage,
+        ctaText: 'Read Full Story',
+        ctaUrl: `/media/${pub.slug}`,
+        showCloseButton: true,
+        startDate: pub.publishDate,
+        triggerType: 'delay',
+        triggerDelaySeconds: 4,
+        displayFrequency: 'once_session',
+        priority: 7,
+        showOnDesktop: true,
+        showOnMobile: true,
+        overlayEnabled: true,
+        status: 'active',
+        createdBy: user.name,
+        createdById: user.id
+      }, user);
+      toast.success(`Created Site Popup for publication "${pub.title}"`);
+    }
   };
 
   const handleSave = (e: React.FormEvent) => {
@@ -109,6 +160,7 @@ export default function PublicationsManager() {
     }
 
     const slug = formData.slug || formData.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+    const pubId = editingPub ? editingPub.id : `pub-${Date.now()}`;
 
     // Staff workflow restriction: staff cannot directly publish without approval
     let targetStatus = formData.status;
@@ -124,6 +176,47 @@ export default function PublicationsManager() {
         status: targetStatus,
         publishDate: new Date(formData.publishDate).toISOString()
       }, { id: user.id, name: user.name, role: user.role });
+
+      // Sync Popup Config if enabled
+      if (formData.isPopupEnabled || formData.displayMode === 'popup' || formData.displayMode === 'both') {
+        const existingPopup = popupConfigs.find(p => p.sourceId === editingPub.id);
+        if (existingPopup) {
+          updatePopupConfig(existingPopup.id, {
+            title: formData.title,
+            content: formData.excerpt || formData.title,
+            featuredImage: formData.featuredImage,
+            ctaText: 'Read Full Story',
+            ctaUrl: `/media/${slug}`,
+            displayMode: formData.displayMode,
+            startDate: new Date(formData.publishDate).toISOString(),
+            status: targetStatus === 'published' ? 'active' : 'draft'
+          }, user);
+        } else {
+          addPopupConfig({
+            sourceType: 'publication',
+            sourceId: editingPub.id,
+            displayMode: formData.displayMode,
+            title: formData.title,
+            content: formData.excerpt || formData.title,
+            featuredImage: formData.featuredImage,
+            ctaText: 'Read Full Story',
+            ctaUrl: `/media/${slug}`,
+            showCloseButton: true,
+            startDate: new Date(formData.publishDate).toISOString(),
+            triggerType: 'delay',
+            triggerDelaySeconds: 4,
+            displayFrequency: 'once_session',
+            priority: 7,
+            showOnDesktop: true,
+            showOnMobile: true,
+            overlayEnabled: true,
+            status: targetStatus === 'published' ? 'active' : 'draft',
+            createdBy: user.name,
+            createdById: user.id
+          }, user);
+        }
+      }
+
       toast.success('Publication updated.');
     } else {
       addPublication({
@@ -133,6 +226,33 @@ export default function PublicationsManager() {
         publishDate: new Date(formData.publishDate).toISOString(),
         createdBy: user.name
       }, { id: user.id, name: user.name, role: user.role });
+
+      // If popup requested for new publication
+      if (formData.isPopupEnabled || formData.displayMode === 'popup' || formData.displayMode === 'both') {
+        addPopupConfig({
+          sourceType: 'publication',
+          sourceId: pubId,
+          displayMode: formData.displayMode,
+          title: formData.title,
+          content: formData.excerpt || formData.title,
+          featuredImage: formData.featuredImage,
+          ctaText: 'Read Full Story',
+          ctaUrl: `/media/${slug}`,
+          showCloseButton: true,
+          startDate: new Date(formData.publishDate).toISOString(),
+          triggerType: 'delay',
+          triggerDelaySeconds: 4,
+          displayFrequency: 'once_session',
+          priority: 7,
+          showOnDesktop: true,
+          showOnMobile: true,
+          overlayEnabled: true,
+          status: targetStatus === 'published' ? 'active' : 'draft',
+          createdBy: user.name,
+          createdById: user.id
+        }, user);
+      }
+
       toast.success('New publication created.');
     }
 
@@ -223,6 +343,7 @@ export default function PublicationsManager() {
                 <th className="py-3 px-4">Publication Title</th>
                 <th className="py-3 px-4">Category</th>
                 <th className="py-3 px-4">Author</th>
+                <th className="py-3 px-4">Site Popup</th>
                 <th className="py-3 px-4">Status</th>
                 <th className="py-3 px-4">Views</th>
                 <th className="py-3 px-4">Published Date</th>
@@ -232,62 +353,90 @@ export default function PublicationsManager() {
             <tbody className="divide-y divide-[#e2e8f0]">
               {filteredPubs.length === 0 ? (
                 <tr>
-                  <td colSpan={7} className="py-12 text-center text-slate-400">
+                  <td colSpan={8} className="py-12 text-center text-slate-400">
                     No publications found.
                   </td>
                 </tr>
               ) : (
-                filteredPubs.map((pub) => (
-                  <tr key={pub.id} className="hover:bg-slate-50/80 transition-colors">
-                    <td className="py-3.5 px-4 font-semibold text-[#0a1e3f]">
-                      <div className="truncate max-w-xs">{pub.title}</div>
-                      <div className="text-[11px] text-slate-400 font-normal truncate max-w-xs">{pub.excerpt}</div>
-                    </td>
-                    <td className="py-3.5 px-4">
-                      <span className="px-2 py-0.5 rounded-md bg-slate-100 text-slate-700 font-medium text-[10px]">
-                        {pub.category}
-                      </span>
-                    </td>
-                    <td className="py-3.5 px-4 text-slate-600">
-                      {pub.author}
-                    </td>
-                    <td className="py-3.5 px-4">
-                      {pub.status === 'published' ? (
-                        <span className="px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-700 text-[10px] font-bold uppercase">Published</span>
-                      ) : pub.status === 'review' ? (
-                        <span className="px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-700 text-[10px] font-bold uppercase">In Review</span>
-                      ) : (
-                        <span className="px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-600 text-[10px] font-bold uppercase">{pub.status}</span>
-                      )}
-                    </td>
-                    <td className="py-3.5 px-4 font-bold text-[#0a1e3f]">
-                      {pub.viewsCount || 0}
-                    </td>
-                    <td className="py-3.5 px-4 text-slate-500 text-[11px]">
-                      {new Date(pub.publishDate).toLocaleDateString()}
-                    </td>
-                    <td className="py-3.5 px-4 text-right">
-                      <div className="flex items-center justify-end gap-1.5">
-                        <button
-                          onClick={() => handleOpenEdit(pub)}
-                          className="p-1.5 rounded-lg text-slate-500 hover:text-[#0284c7] hover:bg-sky-50 transition-all"
-                          title="Edit Article"
-                        >
-                          <Edit2 className="h-4 w-4" />
-                        </button>
-                        {can('delete', 'publications') && (
-                          <button
-                            onClick={() => handleDelete(pub.id, pub.title)}
-                            className="p-1.5 rounded-lg text-slate-400 hover:text-red-600 hover:bg-red-50 transition-all"
-                            title="Delete Article"
-                          >
-                            <Trash2 className="h-4 w-4" />
-                          </button>
+                filteredPubs.map((pub) => {
+                  const linkedPopup = popupConfigs.find(p => p.sourceId === pub.id || (p.sourceType === 'publication' && p.title === pub.title));
+                  return (
+                    <tr key={pub.id} className="hover:bg-slate-50/80 transition-colors">
+                      <td className="py-3.5 px-4 font-semibold text-[#0a1e3f]">
+                        <div className="truncate max-w-xs">{pub.title}</div>
+                        <div className="text-[11px] text-slate-400 font-normal truncate max-w-xs">{pub.excerpt}</div>
+                      </td>
+                      <td className="py-3.5 px-4">
+                        <span className="px-2 py-0.5 rounded-md bg-slate-100 text-slate-700 font-medium text-[10px]">
+                          {pub.category}
+                        </span>
+                      </td>
+                      <td className="py-3.5 px-4 text-slate-600">
+                        {pub.author}
+                      </td>
+                      <td className="py-3.5 px-4">
+                        {linkedPopup ? (
+                          <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold ${
+                            linkedPopup.status === 'active'
+                              ? 'bg-emerald-100 text-emerald-700 border border-emerald-200'
+                              : 'bg-amber-100 text-amber-700 border border-amber-200'
+                          }`}>
+                            <Sparkles className="w-2.5 h-2.5" />
+                            {linkedPopup.status === 'active' ? 'Popup Active' : 'Popup Paused'}
+                          </span>
+                        ) : (
+                          <span className="text-[11px] text-slate-400 italic">None</span>
                         )}
-                      </div>
-                    </td>
-                  </tr>
-                ))
+                      </td>
+                      <td className="py-3.5 px-4">
+                        {pub.status === 'published' ? (
+                          <span className="px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-700 text-[10px] font-bold uppercase">Published</span>
+                        ) : pub.status === 'review' ? (
+                          <span className="px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-700 text-[10px] font-bold uppercase">In Review</span>
+                        ) : (
+                          <span className="px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-600 text-[10px] font-bold uppercase">{pub.status}</span>
+                        )}
+                      </td>
+                      <td className="py-3.5 px-4 font-bold text-[#0a1e3f]">
+                        {pub.viewsCount || 0}
+                      </td>
+                      <td className="py-3.5 px-4 text-slate-500 text-[11px]">
+                        {new Date(pub.publishDate).toLocaleDateString()}
+                      </td>
+                      <td className="py-3.5 px-4 text-right">
+                        <div className="flex items-center justify-end gap-1.5">
+                          <button
+                            onClick={() => handleQuickPopup(pub)}
+                            className={`p-1.5 rounded-lg transition-all ${
+                              linkedPopup?.status === 'active'
+                                ? 'text-emerald-600 hover:bg-emerald-50'
+                                : 'text-slate-400 hover:text-[#0284c7] hover:bg-sky-50'
+                            }`}
+                            title={linkedPopup?.status === 'active' ? 'Pause Site Popup' : 'Activate Site Popup'}
+                          >
+                            <Sparkles className="h-4 w-4" />
+                          </button>
+                          <button
+                            onClick={() => handleOpenEdit(pub)}
+                            className="p-1.5 rounded-lg text-slate-500 hover:text-[#0284c7] hover:bg-sky-50 transition-all"
+                            title="Edit Article"
+                          >
+                            <Edit2 className="h-4 w-4" />
+                          </button>
+                          {can('delete', 'publications') && (
+                            <button
+                              onClick={() => handleDelete(pub.id, pub.title)}
+                              className="p-1.5 rounded-lg text-slate-400 hover:text-red-600 hover:bg-red-50 transition-all"
+                              title="Delete Article"
+                            >
+                              <Trash2 className="h-4 w-4" />
+                            </button>
+                          )}
+                        </div>
+                      </td>
+                    </tr>
+                  );
+                })
               )}
             </tbody>
           </table>
@@ -353,6 +502,52 @@ export default function PublicationsManager() {
                     onChange={(e) => setFormData({ ...formData, author: e.target.value })}
                     className="w-full p-2.5 rounded-xl border border-[#e2e8f0] text-xs font-medium focus:border-[#0284c7] outline-none"
                   />
+                </div>
+
+                {/* Site Popup Display Option */}
+                <div className="sm:col-span-2 p-3 bg-sky-50/60 border border-sky-100 rounded-xl space-y-2.5">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <Sparkles className="w-4 h-4 text-[#0284c7]" />
+                      <span className="text-xs font-semibold text-[#0a1e3f]">Site Popup Display Option</span>
+                    </div>
+                    <label className="flex items-center gap-2 cursor-pointer">
+                      <input
+                        type="checkbox"
+                        checked={formData.isPopupEnabled}
+                        onChange={(e) => {
+                          const checked = e.target.checked;
+                          setFormData({
+                            ...formData,
+                            isPopupEnabled: checked,
+                            displayMode: checked ? (formData.displayMode === 'standard' ? 'both' : formData.displayMode) : 'standard'
+                          });
+                        }}
+                        className="w-4 h-4 rounded text-[#0284c7] focus:ring-[#0284c7]"
+                      />
+                      <span className="text-xs font-medium text-slate-700">Enable Popup</span>
+                    </label>
+                  </div>
+
+                  {formData.isPopupEnabled && (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 border-t border-sky-100">
+                      <div>
+                        <label className="block text-[11px] font-semibold text-slate-600 mb-1">Display Mode</label>
+                        <select
+                          value={formData.displayMode}
+                          onChange={(e) => setFormData({ ...formData, displayMode: e.target.value as PopupDisplayMode })}
+                          className="w-full p-2 rounded-lg bg-white border border-[#e2e8f0] text-xs font-medium outline-none focus:border-[#0284c7]"
+                        >
+                          <option value="both">Both Press Room & Site Popup</option>
+                          <option value="popup">Site Popup Only</option>
+                          <option value="standard">Press Room Only</option>
+                        </select>
+                      </div>
+                      <div className="text-[11px] text-slate-500 flex items-center">
+                        Feature major bank news or releases with instant interactive popup cards for site visitors.
+                      </div>
+                    </div>
+                  )}
                 </div>
 
                 <div className="sm:col-span-2">
