@@ -37,7 +37,6 @@ const CMS_STORAGE_KEYS = {
   STAFF: 'rima_cms_staff_v1',
   AUDIT_LOGS: 'rima_cms_audit_logs_v1',
   SETTINGS: 'rima_cms_settings_v1',
-  POPUPS: 'rima_cms_popups_v1',
 };
 
 function generateUUID(): string {
@@ -163,10 +162,7 @@ export const CMSProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
     return saved ? JSON.parse(saved) : initialSystemSettings;
   });
 
-  const [popupConfigs, setPopupConfigs] = useState<PopupConfig[]>(() => {
-    const saved = localStorage.getItem(CMS_STORAGE_KEYS.POPUPS);
-    return saved ? JSON.parse(saved) : [];
-  });
+  const [popupConfigs, setPopupConfigs] = useState<PopupConfig[]>([]);
 
   // 2. Supabase Live Initial Sync & Real-time Subscriptions
   useEffect(() => {
@@ -290,9 +286,7 @@ export const CMSProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
     localStorage.setItem(CMS_STORAGE_KEYS.SETTINGS, JSON.stringify(systemSettings));
   }, [systemSettings]);
 
-  useEffect(() => {
-    localStorage.setItem(CMS_STORAGE_KEYS.POPUPS, JSON.stringify(popupConfigs));
-  }, [popupConfigs]);
+
 
   // Logging Helper
   const logAuditAction = (log: Omit<AuditLog, 'id' | 'timestamp'>) => {

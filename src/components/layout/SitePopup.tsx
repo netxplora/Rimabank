@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from 'react';
 import { X, ExternalLink } from 'lucide-react';
 import { PopupConfig } from '@/types/cms';
 import { SupabaseSync } from '@/services/supabaseSync';
-import { useCMS } from '@/context/CMSContext';
 
 // ── Local storage key helpers ────────────────────────────────────────────────
 const sessionKey = (id: string) => `rima_popup_session_${id}`;
@@ -13,19 +12,8 @@ function hasSeenDevice(id: string)  { return !!localStorage.getItem(deviceKey(id
 function markSession(id: string)    { sessionStorage.setItem(sessionKey(id), '1');      }
 function markDevice(id: string)     { localStorage.setItem(deviceKey(id), '1');         }
 
-// ── Is this popup currently within its valid schedule? ───────────────────────
-function isScheduleValid(popup: PopupConfig): boolean {
-  const now = Date.now();
-  const start = popup.startDate ? new Date(popup.startDate).getTime() : 0;
-  const end   = popup.endDate   ? new Date(popup.endDate).getTime()   : Infinity;
-  return now >= start && now <= end;
-}
-
 // ── Should the popup appear on this visit? ────────────────────────────────────
 function shouldShow(popup: PopupConfig): boolean {
-  if (popup.status !== 'active') return false;
-  if (!isScheduleValid(popup))   return false;
-
   const isMobile = window.matchMedia('(max-width: 768px)').matches;
   if (isMobile  && !popup.showOnMobile)   return false;
   if (!isMobile && !popup.showOnDesktop)  return false;
@@ -39,14 +27,6 @@ function shouldShow(popup: PopupConfig): boolean {
   }
 }
 
-// ── Pick the best popup from a list ──────────────────────────────────────────
-function pickBest(list: PopupConfig[]): PopupConfig | null {
-  const candidates = list
-    .filter(shouldShow)
-    .sort((a, b) => a.priority - b.priority);
-  return candidates[0] ?? null;
-}
-
 // ── Record first impression once ──────────────────────────────────────────────
 function markImpression(popup: PopupConfig) {
   if (!sessionStorage.getItem(`rima_imp_${popup.id}`)) {
@@ -55,40 +35,42 @@ function markImpression(popup: PopupConfig) {
   }
 }
 
-// ── SitePopup component ───────────────────────────────────────────────────────
 export function SitePopup() {
-  const { popupConfigs } = useCMS();
-
   const [popup, setPopup]     = useState<PopupConfig | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
   const [visible, setVisible] = useState(false);
   const [closed,  setClosed]  = useState(false);
   const closeRef = useRef<HTMLButtonElement>(null);
   const triggerTimerRef   = useRef<ReturnType<typeof setTimeout> | null>(null);
   const scrollListenerRef = useRef<(() => void) | null>(null);
 
-  // ── Resolve popup: use context first (always up-to-date), fall back to DB ──
+  // ── Resolve popup: fetch directly from Supabase ──
   useEffect(() => {
-    // 1. Try popupConfigs from context (loaded + real-time synced)
-    const fromContext = pickBest(popupConfigs);
-    if (fromContext) {
-      setPopup(fromContext);
-      return;
-    }
+    let mounted = true;
+    setIsLoading(true);
 
-    // 2. Fallback: fetch directly from Supabase in case context hasn't loaded yet
     SupabaseSync.fetchActivePopup().then(data => {
-      if (!data) return;
-      if (!shouldShow(data)) return;
-      setPopup(data);
+      if (!mounted) return;
+      if (data && shouldShow(data)) {
+        setPopup(data);
+      } else {
+        setPopup(null);
+      }
+      setIsLoading(false);
+    }).catch(err => {
+      console.warn("Popup fetch error:", err);
+      if (mounted) {
+        setPopup(null);
+        setIsLoading(false);
+      }
     });
 
     return () => {
+      mounted = false;
       if (triggerTimerRef.current)   clearTimeout(triggerTimerRef.current);
       if (scrollListenerRef.current) window.removeEventListener('scroll', scrollListenerRef.current);
     };
-  // Re-run whenever the context list changes (e.g. admin publishes a new popup)
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [popupConfigs]);
+  }, []);
 
   // ── Wire trigger once popup is resolved ──────────────────────────────────
   useEffect(() => {
@@ -157,7 +139,7 @@ export function SitePopup() {
     handleClose();
   };
 
-  if (!popup || !visible) return null;
+  if (isLoading || !popup || !visible) return null;
 
   return (
     <>

@@ -373,7 +373,7 @@ export default function PopupManager() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-xl sm:text-2xl font-heading font-bold text-white tracking-tight">Popup Manager</h1>
+          <h1 className="text-xl sm:text-2xl font-heading font-bold text-[#0a1e3f] tracking-tight">Popup Manager</h1>
           <p className="text-xs sm:text-sm text-slate-400 mt-0.5">Manage website popup notifications, audience rules, and display schedules.</p>
         </div>
         <Button onClick={handleCreate} className="bg-[#0284c7] hover:bg-sky-500 text-white gap-2 shrink-0 self-start sm:self-auto shadow-md shadow-sky-500/20">
