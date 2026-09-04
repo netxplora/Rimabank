@@ -15,11 +15,12 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
+import { useCMS } from "@/context/CMSContext";
+
 const quickLinks = [
   { name: "About Rima MFB", href: "/about" },
   { name: "Branch Network", href: "/branches" },
-  
-  
+  { name: "Media & News", href: "/media" },
   { name: "Customer Support", href: "/support" },
   { name: "Forms & Downloads", href: "/contact" },
   { name: "Frequently Asked Questions", href: "/faq" },

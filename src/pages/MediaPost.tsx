@@ -28,14 +28,39 @@ const formatDate = (dateString: string) => {
   });
 };
 
+import { useCMS } from "@/context/CMSContext";
+
 export default function MediaPost() {
   const { slug } = useParams<{ slug: string }>();
+  const { publications } = useCMS();
   const [post, setPost] = useState<BlogPost | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchPost = async () => {
+      // 1. Check in CMS local / published memory first
+      const cmsFound = publications.find(p => p.slug === slug || p.id === slug);
+      if (cmsFound) {
+        setPost({
+          id: cmsFound.id,
+          title: cmsFound.title,
+          excerpt: cmsFound.excerpt,
+          content: cmsFound.content,
+          category: cmsFound.category,
+          featured_image: cmsFound.featuredImage || '/images/media-sme.png',
+          created_at: cmsFound.publishDate || cmsFound.createdAt,
+          slug: cmsFound.slug
+        });
+        setLoading(false);
+        return;
+      }
+
+      // 2. Otherwise query Supabase
       try {
+        if (!SUPABASE_URL || !SUPABASE_KEY) {
+          setLoading(false);
+          return;
+        }
         const response = await fetch(`${SUPABASE_URL}/rest/v1/news_articles?slug=eq.${encodeURIComponent(slug as string)}&select=*`, {
           headers: {
             'apikey': SUPABASE_KEY,
@@ -61,7 +86,7 @@ export default function MediaPost() {
     if (slug) {
       fetchPost();
     }
-  }, [slug]);
+  }, [slug, publications]);
 
   const copyLink = () => {
     navigator.clipboard.writeText(window.location.href);

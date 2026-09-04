@@ -47,6 +47,8 @@ const defaultArticles: BlogPost[] = [
   }
 ];
 
+import { useCMS } from "@/context/CMSContext";
+
 const formatDate = (dateString: string) => {
   return new Date(dateString).toLocaleDateString("en-NG", {
     year: "numeric",
@@ -56,7 +58,8 @@ const formatDate = (dateString: string) => {
 };
 
 export default function Media() {
-  const [newsArticles, setNewsArticles] = useState<BlogPost[]>(defaultArticles);
+  const { publications } = useCMS();
+  const [supabaseArticles, setSupabaseArticles] = useState<BlogPost[]>([]);
 
   const fetchPosts = async () => {
     try {
@@ -70,7 +73,7 @@ export default function Media() {
       if (response.ok) {
         const data = await response.json();
         if (data && data.length > 0) {
-          setNewsArticles(data);
+          setSupabaseArticles(data);
         }
       }
     } catch (error) {
@@ -82,8 +85,25 @@ export default function Media() {
     fetchPosts();
   }, []);
 
-  const featuredArticle = newsArticles[0];
-  const otherArticles = newsArticles.length > 1 ? newsArticles.slice(1) : defaultArticles.slice(1);
+  // Merge CMS published publications with default articles
+  const cmsPublished = publications
+    .filter(p => p.status === 'published')
+    .map(p => ({
+      id: p.id,
+      slug: p.slug,
+      title: p.title,
+      excerpt: p.excerpt,
+      category: p.category,
+      featured_image: p.featuredImage || '/images/media-sme.png',
+      created_at: p.publishDate || p.createdAt
+    }));
+
+  const allArticles = cmsPublished.length > 0
+    ? [...cmsPublished, ...supabaseArticles]
+    : defaultArticles;
+
+  const featuredArticle = allArticles[0];
+  const otherArticles = allArticles.length > 1 ? allArticles.slice(1) : [];
 
   return (
     <Layout>

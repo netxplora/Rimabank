@@ -1,6 +1,7 @@
 import { Star, CheckCircle } from "lucide-react";
+import { useCMS } from "@/context/CMSContext";
 
-const testimonials = [
+const defaultTestimonials = [
   {
     name: "Emeka Nwosu",
     role: "Managing Director, Delta Logistics Ltd",
@@ -28,6 +29,17 @@ const testimonials = [
 ];
 
 export function TestimonialsSection() {
+  const { siteContent } = useCMS();
+  const testimonials = siteContent.testimonials && siteContent.testimonials.length > 0
+    ? siteContent.testimonials.map(t => ({
+        name: t.name,
+        role: t.role + (t.company ? `, ${t.company}` : ''),
+        content: t.content,
+        rating: t.rating || 5,
+        location: "Rivers State",
+        verified: "Verified Client"
+      }))
+    : defaultTestimonials;
   return (
     <section className="py-16 md:py-20 bg-white border-b border-[#e2e8f0]">
       <div className="max-w-[1200px] mx-auto px-4 sm:px-6">

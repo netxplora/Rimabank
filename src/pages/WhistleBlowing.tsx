@@ -46,7 +46,7 @@ export default function WhistleBlowing() {
       {/* Main Reporting Form Section */}
       <section className="py-8 sm:py-10 md:py-12 bg-white border-b border-[#e2e8f0]/60">
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10">
             
             {/* Info Sidebar (4 cols) — Open Layout */}
             <div className="lg:col-span-4 space-y-6 animate-in fade-in slide-in-from-bottom-8 duration-700 delay-150">

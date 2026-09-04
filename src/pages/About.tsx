@@ -268,7 +268,7 @@ export default function About() {
       </section>
 
       {/* Regulatory Disclosure */}
-      <section className="py-16 md:py-20 bg-white">
+      <section className="py-8 sm:py-10 md:py-12 bg-white">
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6 text-center">
           <div className="max-w-2xl mx-auto space-y-4">
             <h3 className="font-heading text-2xl font-semibold text-[#0a1e3f]">

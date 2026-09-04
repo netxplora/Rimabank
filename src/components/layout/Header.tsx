@@ -215,7 +215,9 @@ export function Header() {
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               aria-label="Toggle menu"
             >
-              {isMobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+              <span className="block transition-all duration-200">
+                {isMobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+              </span>
             </button>
           </div>
         </div>
@@ -246,12 +248,12 @@ export function Header() {
                         />
                       </button>
                       {expandedMobile === item.name && (
-                        <div className="pl-4 pb-2 space-y-1">
+                        <div className="pl-3 pb-1 space-y-0.5 animate-in slide-in-from-top-1 fade-in duration-200">
                           {item.children.map((child) => (
                             <Link
                               key={child.name}
                               to={child.href}
-                              className="block py-2 px-2 text-sm text-[#0a1e3f]/75 hover:text-[#0284c7] rounded-lg hover:bg-[#f0f7ff] transition-colors"
+                              className="flex items-center gap-2.5 py-2.5 px-3 text-sm font-medium text-[#0a1e3f]/75 hover:text-[#0284c7] rounded-lg hover:bg-[#f0f7ff] transition-colors border-l-2 border-transparent hover:border-[#0284c7]/30"
                               onClick={() => setIsMobileMenuOpen(false)}
                             >
                               {child.name}
@@ -276,7 +278,7 @@ export function Header() {
               ))}
 
               <div className="pt-3 pb-2">
-                <Button variant="pill" size="lg" className="w-full" asChild>
+                <Button variant="pill" size="default" className="w-full" asChild>
                   <Link to="/contact" onClick={() => setIsMobileMenuOpen(false)}>
                     Open Account
                     <ArrowRight className="h-4 w-4 ml-2" />

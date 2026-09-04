@@ -16,10 +16,12 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
+import { useCMS } from "@/context/CMSContext";
 
 export default function Contact() {
   const [submitting, setSubmitting] = useState(false);
   const { toast } = useToast();
+  const { addEnquiry } = useCMS();
 
   const [formData, setFormData] = useState({
     name: "",
@@ -34,20 +36,33 @@ export default function Contact() {
     setSubmitting(true);
 
     try {
-      const { error } = await supabase
-        .from('contact_messages')
-        .insert([{
-          name: formData.name,
-          email: formData.email,
-          phone: formData.phone || null,
-          subject: formData.subject,
-          message: formData.message,
-          status: 'open',
-          priority: 'medium'
-        }]);
+      // Add to CMS real-time state store
+      addEnquiry({
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        subject: formData.subject,
+        message: formData.message,
+        category: 'General Support',
+        status: 'unread',
+        priority: 'normal'
+      });
 
-      if (error) {
-        throw error;
+      // Also persist to Supabase if configured
+      try {
+        await supabase
+          .from('contact_messages')
+          .insert([{
+            name: formData.name,
+            email: formData.email,
+            phone: formData.phone || null,
+            subject: formData.subject,
+            message: formData.message,
+            status: 'open',
+            priority: 'medium'
+          }]);
+      } catch (dbErr) {
+        // Fallback gracefully to CMS local store
       }
 
       toast({

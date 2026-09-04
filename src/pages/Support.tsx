@@ -72,7 +72,7 @@ export default function Support() {
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6 animate-in fade-in slide-in-from-bottom-8 duration-700 delay-150">
           
           {/* Support Channels — Open 3-Column Layout (No heavy card containers) */}
-          <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-[#e2e8f0]/80 border-t border-b border-[#e2e8f0]/80 py-4 mb-16">
+          <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-[#e2e8f0]/80 border-t border-b border-[#e2e8f0]/80 py-4 mb-8">
             {supportChannels.map((channel, idx) => (
               <div 
                 key={idx} 
@@ -106,7 +106,7 @@ export default function Support() {
           </div>
 
           {/* Quick Support Directory & Security Advice Grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
             <div className="lg:col-span-5 space-y-5">
               <div>
                 <span className="text-xs font-semibold uppercase tracking-wider text-[#0284c7] block mb-2">
