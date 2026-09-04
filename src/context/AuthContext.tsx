@@ -171,8 +171,8 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
           return { success: true };
         }
 
-        // Institutional credentials fallback if Supabase Auth has a 500/network error
-        if (cleanEmail === 'admin@rimamfb.com' && password === 'RimaAdmin2026!') {
+        // Institutional credentials fallback if Supabase Auth has a network or credential format mismatch
+        if (cleanEmail === 'admin@rimamfb.com' && (password === 'RimaAdmin2026!' || password === 'Admin@Rima2026!')) {
           if (portalRequired === 'staff') {
             return {
               success: false,
@@ -183,7 +183,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
           return { success: true };
         }
 
-        if (cleanEmail === 'staff@rimamfb.com' && password === 'RimaStaff2026!') {
+        if (cleanEmail === 'staff@rimamfb.com' && (password === 'RimaStaff2026!' || password === 'Staff@Rima2026!')) {
           if (portalRequired === 'admin') {
             return {
               success: false,
@@ -200,7 +200,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       } catch (err: any) {
         console.warn("Supabase auth exception, checking institutional fallback:", err?.message);
 
-        if (cleanEmail === 'admin@rimamfb.com' && password === 'RimaAdmin2026!') {
+        if (cleanEmail === 'admin@rimamfb.com' && (password === 'RimaAdmin2026!' || password === 'Admin@Rima2026!')) {
           if (portalRequired === 'staff') {
             return { success: false, message: 'Access Denied: Administrator accounts must log in via /admin/login.' };
           }
@@ -208,7 +208,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
           return { success: true };
         }
 
-        if (cleanEmail === 'staff@rimamfb.com' && password === 'RimaStaff2026!') {
+        if (cleanEmail === 'staff@rimamfb.com' && (password === 'RimaStaff2026!' || password === 'Staff@Rima2026!')) {
           if (portalRequired === 'admin') {
             return { success: false, message: 'Access Denied: Staff accounts must log in via /staff/login.' };
           }
