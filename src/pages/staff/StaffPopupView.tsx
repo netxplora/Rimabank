@@ -247,102 +247,117 @@ export default function StaffPopupView() {
 
       {/* ── Create/Edit Modal ── */}
       {isModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-          <div className="absolute inset-0 bg-slate-900/80 backdrop-blur-sm" onClick={() => setIsModalOpen(false)} />
-          <div className="relative z-10 w-full max-w-lg bg-[#0f2a50] border border-white/10 rounded-2xl shadow-2xl flex flex-col max-h-[90vh]">
-            <div className="flex items-center justify-between px-6 py-4 border-b border-white/10 shrink-0">
-              <h2 className="font-heading font-bold text-white">{editingId ? 'Edit Draft Popup' : 'New Draft Popup'}</h2>
+        <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 md:p-6 overflow-y-auto">
+          <div className="fixed inset-0 bg-slate-900/80 backdrop-blur-sm transition-opacity" onClick={() => setIsModalOpen(false)} />
+          <div className="relative z-10 w-full max-w-lg bg-[#0f2a50] border border-white/10 rounded-t-2xl sm:rounded-2xl shadow-2xl flex flex-col max-h-[92vh] sm:max-h-[88vh] overflow-hidden animate-in fade-in-50 duration-200">
+            <div className="flex items-center justify-between px-4 sm:px-6 py-3.5 sm:py-4 border-b border-white/10 shrink-0 bg-[#0c2445]">
               <div className="flex items-center gap-2">
+                <h2 className="font-heading font-bold text-white text-base sm:text-lg">{editingId ? 'Edit Draft Popup' : 'New Draft Popup'}</h2>
+              </div>
+              <div className="flex items-center gap-1.5">
                 <button
+                  type="button"
                   onClick={() => setShowPreview(!showPreview)}
-                  className={`p-1.5 rounded-lg transition-colors ${showPreview ? 'text-sky-400 bg-sky-500/10' : 'text-slate-400 hover:text-white hover:bg-white/10'}`}
+                  className={`flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs font-medium transition-colors ${showPreview ? 'text-sky-400 bg-sky-500/15 border border-sky-500/30' : 'text-slate-400 hover:text-white hover:bg-white/10'}`}
+                  title="Toggle Preview"
                 >
-                  <Eye className="h-4 w-4" />
+                  <Eye className="h-3.5 w-3.5" />
+                  <span className="hidden sm:inline">{showPreview ? 'Edit Form' : 'Preview'}</span>
                 </button>
-                <button onClick={() => setIsModalOpen(false)} className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-white/10">
+                <button
+                  type="button"
+                  onClick={() => setIsModalOpen(false)}
+                  className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-white/10 transition-colors"
+                >
                   <X className="h-5 w-5" />
                 </button>
               </div>
             </div>
 
-            <div className="overflow-y-auto flex-1 px-6 py-5 space-y-4">
+            <div className="overflow-y-auto flex-1 px-4 sm:px-6 py-4 sm:py-5 space-y-4 text-xs sm:text-sm">
               {showPreview ? (
                 <div className="space-y-3">
-                  <p className="text-xs text-slate-400 text-center">Live preview of your popup</p>
+                  <p className="text-[11px] text-slate-400 text-center">Live preview of your popup appearance</p>
                   <MiniPreview form={form} />
                 </div>
               ) : (
                 <>
                   <div>
-                    <label className="text-xs font-semibold text-slate-400 uppercase tracking-wider block mb-1.5">Title *</label>
+                    <label className="text-xs font-semibold text-slate-300 uppercase tracking-wider block mb-1.5">
+                      Title <span className="text-rose-400">*</span>
+                    </label>
                     <input
-                      className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-emerald-500"
+                      className="w-full bg-white/5 border border-white/10 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-emerald-500 transition-all"
                       placeholder="Popup title"
                       value={form.title} onChange={e => setField('title', e.target.value)}
                     />
                   </div>
 
                   <div>
-                    <label className="text-xs font-semibold text-slate-400 uppercase tracking-wider block mb-1.5">Message *</label>
+                    <label className="text-xs font-semibold text-slate-300 uppercase tracking-wider block mb-1.5">
+                      Message <span className="text-rose-400">*</span>
+                    </label>
                     <textarea
                       rows={4}
-                      className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-emerald-500 resize-none"
+                      className="w-full bg-white/5 border border-white/10 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-emerald-500 resize-none transition-all"
                       placeholder="Keep your message clear and concise…"
                       value={form.content} onChange={e => setField('content', e.target.value)}
                     />
                   </div>
 
                   <div>
-                    <label className="text-xs font-semibold text-slate-400 uppercase tracking-wider block mb-1.5">Featured Image URL</label>
+                    <label className="text-xs font-semibold text-slate-300 uppercase tracking-wider block mb-1.5">
+                      Featured Image URL <span className="normal-case font-normal text-slate-500">(Optional)</span>
+                    </label>
                     <input
-                      className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-emerald-500"
-                      placeholder="https://…"
+                      className="w-full bg-white/5 border border-white/10 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-emerald-500 transition-all"
+                      placeholder="https://... or image asset URL"
                       value={form.featuredImage || ''} onChange={e => setField('featuredImage', e.target.value)}
                     />
                   </div>
 
-                  <div className="grid grid-cols-2 gap-3">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                     <div>
-                      <label className="text-xs font-semibold text-slate-400 uppercase tracking-wider block mb-1.5">CTA Label</label>
+                      <label className="text-xs font-semibold text-slate-300 uppercase tracking-wider block mb-1.5">CTA Label</label>
                       <input
-                        className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-emerald-500"
+                        className="w-full bg-white/5 border border-white/10 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-emerald-500 transition-all"
                         placeholder="e.g. Learn More"
                         value={form.ctaText || ''} onChange={e => setField('ctaText', e.target.value)}
                       />
                     </div>
                     <div>
-                      <label className="text-xs font-semibold text-slate-400 uppercase tracking-wider block mb-1.5">CTA URL</label>
+                      <label className="text-xs font-semibold text-slate-300 uppercase tracking-wider block mb-1.5">CTA URL</label>
                       <input
-                        className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-emerald-500"
+                        className="w-full bg-white/5 border border-white/10 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-emerald-500 transition-all"
                         placeholder="/page or https://…"
                         value={form.ctaUrl || ''} onChange={e => setField('ctaUrl', e.target.value)}
                       />
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-2 gap-3">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                     <div>
-                      <label className="text-xs font-semibold text-slate-400 uppercase tracking-wider block mb-1.5">Start Date</label>
+                      <label className="text-xs font-semibold text-slate-300 uppercase tracking-wider block mb-1.5">Start Date</label>
                       <input
                         type="datetime-local"
-                        className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2.5 text-sm text-white focus:outline-none focus:ring-1 focus:ring-emerald-500"
+                        className="w-full bg-[#0a1e3f] border border-white/10 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm text-white focus:outline-none focus:ring-1 focus:ring-emerald-500"
                         value={form.startDate} onChange={e => setField('startDate', e.target.value)}
                       />
                     </div>
                     <div>
-                      <label className="text-xs font-semibold text-slate-400 uppercase tracking-wider block mb-1.5">End Date</label>
+                      <label className="text-xs font-semibold text-slate-300 uppercase tracking-wider block mb-1.5">End Date</label>
                       <input
                         type="datetime-local"
-                        className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2.5 text-sm text-white focus:outline-none focus:ring-1 focus:ring-emerald-500"
+                        className="w-full bg-[#0a1e3f] border border-white/10 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm text-white focus:outline-none focus:ring-1 focus:ring-emerald-500"
                         value={form.endDate || ''} onChange={e => setField('endDate', e.target.value)}
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label className="text-xs font-semibold text-slate-400 uppercase tracking-wider block mb-1.5">Display Frequency</label>
+                    <label className="text-xs font-semibold text-slate-300 uppercase tracking-wider block mb-1.5">Display Frequency</label>
                     <select
-                      className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2.5 text-sm text-slate-300 focus:outline-none focus:ring-1 focus:ring-emerald-500"
+                      className="w-full bg-[#0a1e3f] border border-white/10 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm text-slate-300 focus:outline-none focus:ring-1 focus:ring-emerald-500"
                       value={form.displayFrequency} onChange={e => setField('displayFrequency', e.target.value as PopupFrequency)}
                     >
                       <option value="once_session">Once per session</option>
@@ -352,19 +367,19 @@ export default function StaffPopupView() {
                     </select>
                   </div>
 
-                  <div className="flex items-center justify-between py-1">
-                    <span className="text-sm text-slate-300">Show close button</span>
+                  <div className="flex items-center justify-between p-2.5 rounded-xl bg-white/[0.03] border border-white/5">
+                    <span className="text-xs sm:text-sm text-slate-300 font-medium">Show close button</span>
                     <button
                       type="button"
                       onClick={() => setField('showCloseButton', !form.showCloseButton)}
-                      className={`relative inline-flex h-5 w-9 rounded-full transition-colors ${form.showCloseButton ? 'bg-emerald-500' : 'bg-slate-700'}`}
+                      className={`relative inline-flex h-5 w-9 rounded-full transition-colors shrink-0 ${form.showCloseButton ? 'bg-emerald-500' : 'bg-slate-700'}`}
                     >
                       <span className={`inline-block h-4 w-4 rounded-full bg-white shadow transition-transform mt-0.5 ${form.showCloseButton ? 'translate-x-4' : 'translate-x-0.5'}`} />
                     </button>
                   </div>
 
-                  <div className="bg-amber-500/10 border border-amber-500/20 rounded-lg p-3">
-                    <p className="text-xs text-amber-300">
+                  <div className="bg-amber-500/10 border border-amber-500/20 rounded-xl p-3">
+                    <p className="text-[11px] sm:text-xs text-amber-300 leading-relaxed">
                       <strong>Note:</strong> As a Staff member, your popup will remain in draft status until an Admin approves it. Use <em>Submit for Review</em> when ready.
                     </p>
                   </div>
@@ -372,18 +387,31 @@ export default function StaffPopupView() {
               )}
             </div>
 
-            <div className="flex items-center justify-between px-6 py-4 border-t border-white/10 shrink-0 gap-3">
-              <Button variant="ghost" onClick={() => setIsModalOpen(false)} className="text-slate-400 hover:text-white">Cancel</Button>
-              <div className="flex gap-2">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between px-4 sm:px-6 py-3 sm:py-4 border-t border-white/10 bg-[#0c2445] shrink-0 gap-2.5 sm:gap-3">
+              <Button
+                type="button"
+                variant="ghost"
+                onClick={() => setIsModalOpen(false)}
+                className="text-xs sm:text-sm text-slate-400 hover:text-white px-3 py-2 h-auto"
+              >
+                Cancel
+              </Button>
+              <div className="flex items-center gap-2 justify-end">
                 <Button
+                  type="button"
                   variant="outline"
                   onClick={() => handleSave(false)}
-                  className="border-white/20 text-slate-300 hover:text-white"
+                  className="text-xs sm:text-sm border-white/20 text-slate-300 hover:text-white bg-white/5 px-3.5 py-2 h-auto flex-1 sm:flex-initial justify-center"
                 >
                   Save Draft
                 </Button>
-                <Button onClick={() => handleSave(true)} className="bg-emerald-600 hover:bg-emerald-500 text-white gap-2">
-                  <Send className="h-3.5 w-3.5" /> Submit for Review
+                <Button
+                  type="button"
+                  onClick={() => handleSave(true)}
+                  className="text-xs sm:text-sm bg-emerald-600 hover:bg-emerald-500 text-white font-medium gap-1.5 px-4 py-2 h-auto flex-1 sm:flex-initial justify-center shadow-md shadow-emerald-600/20"
+                >
+                  <Send className="h-3.5 w-3.5" />
+                  <span>Submit for Review</span>
                 </Button>
               </div>
             </div>
