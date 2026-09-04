@@ -196,9 +196,9 @@ export default function Products() {
             <TabsContent value="loans" className="space-y-8 animate-fade-in">
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
                 {loanProducts.map((product) => (
-                  <div key={product.name} className="p-7 sm:p-8 rounded-2xl bg-white border border-[#e2e8f0] flex flex-col justify-between hover:border-[#0284c7]/30 transition-all duration-300">
+                  <div key={product.name} className="p-5 sm:p-6 rounded-2xl bg-white border border-[#e2e8f0] flex flex-col justify-between hover:border-[#0284c7]/30 transition-all duration-300">
                     <div>
-                      <div className="flex items-center justify-between mb-6">
+                      <div className="flex items-center justify-between mb-4">
                         <div 
                           className="w-12 h-12 rounded-xl flex items-center justify-center shadow-sm"
                           style={{ backgroundColor: product.bg, color: product.accent }}
@@ -244,9 +244,9 @@ export default function Products() {
             <TabsContent value="accounts" className="space-y-8 animate-fade-in">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 max-w-4xl mx-auto">
                 {accountTypes.map((product) => (
-                  <div key={product.name} className="p-7 sm:p-8 rounded-2xl bg-white border border-[#e2e8f0] flex flex-col justify-between hover:border-[#0284c7]/30 transition-all duration-300">
+                  <div key={product.name} className="p-5 sm:p-6 rounded-2xl bg-white border border-[#e2e8f0] flex flex-col justify-between hover:border-[#0284c7]/30 transition-all duration-300">
                     <div>
-                      <div className="flex items-center justify-between mb-6">
+                      <div className="flex items-center justify-between mb-4">
                         <div 
                           className="w-12 h-12 rounded-xl flex items-center justify-center shadow-sm"
                           style={{ backgroundColor: product.bg, color: product.accent }}
