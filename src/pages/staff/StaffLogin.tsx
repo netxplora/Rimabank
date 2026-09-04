@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation, Link } from 'react-router-dom';
 import { Lock, Mail, ArrowRight, AlertCircle, Briefcase, CheckCircle2 } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 import { Button } from '@/components/ui/button';
@@ -23,7 +23,7 @@ export default function StaffLogin() {
     try {
       const result = await login(email, 'staff', password, 'staff');
       if (result.success) {
-        toast.success('Authenticated successfully. Welcome to RIMA Bank Staff Portal.');
+        toast.success('Staff officer authenticated successfully');
         const from = (location.state as any)?.from?.pathname || '/staff';
         navigate(from, { replace: true });
       } else {
@@ -43,9 +43,25 @@ export default function StaffLogin() {
 
       <div className="sm:mx-auto sm:w-full sm:max-w-md relative z-10">
         <div className="flex justify-center mb-4">
-          <div className="h-12 w-12 rounded-2xl bg-emerald-600 flex items-center justify-center font-heading font-bold text-white text-2xl shadow-lg shadow-emerald-500/30">
-            R
-          </div>
+          <Link
+            to="/"
+            className="inline-flex items-center justify-center p-3 rounded-2xl bg-white shadow-xl border border-white/20 hover:scale-105 transition-transform duration-200"
+            title="Return to Public Website"
+          >
+            <img
+              src="/rima-logo.png"
+              alt="Rima Microfinance Bank"
+              className="h-10 w-auto object-contain"
+              onError={(e) => {
+                const el = e.currentTarget as HTMLImageElement;
+                el.style.display = 'none';
+                el.nextElementSibling?.classList.remove('hidden');
+              }}
+            />
+            <div className="h-10 w-10 rounded-xl bg-emerald-600 flex items-center justify-center font-heading font-bold text-white text-xl hidden">
+              R
+            </div>
+          </Link>
         </div>
         <div className="flex items-center justify-center gap-2 mb-1">
           <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-200 text-[11px] font-semibold uppercase tracking-wider border border-emerald-400/30">
