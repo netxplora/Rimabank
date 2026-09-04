@@ -55,13 +55,10 @@ CREATE TRIGGER trg_popup_updated_at
 
 ALTER TABLE public.popup_configs ENABLE ROW LEVEL SECURITY;
 
-CREATE POLICY "public_read_active_popups" ON public.popup_configs FOR SELECT
-  USING (status = 'active' AND start_date <= now() AND (end_date IS NULL OR end_date > now()));
-
-CREATE POLICY "authenticated_read_all_popups" ON public.popup_configs FOR SELECT TO authenticated USING (true);
-CREATE POLICY "authenticated_insert_popups"   ON public.popup_configs FOR INSERT TO authenticated WITH CHECK (true);
-CREATE POLICY "authenticated_update_popups"   ON public.popup_configs FOR UPDATE TO authenticated USING (true) WITH CHECK (true);
-CREATE POLICY "authenticated_delete_popups"   ON public.popup_configs FOR DELETE TO authenticated USING (true);
+CREATE POLICY "popups_select_policy" ON public.popup_configs FOR SELECT TO anon, authenticated USING (true);
+CREATE POLICY "popups_insert_policy" ON public.popup_configs FOR INSERT TO anon, authenticated WITH CHECK (true);
+CREATE POLICY "popups_update_policy" ON public.popup_configs FOR UPDATE TO anon, authenticated USING (true) WITH CHECK (true);
+CREATE POLICY "popups_delete_policy" ON public.popup_configs FOR DELETE TO anon, authenticated USING (true);
 
 CREATE OR REPLACE FUNCTION public.track_popup_event(p_popup_id uuid, p_event text)
 RETURNS void LANGUAGE plpgsql SECURITY DEFINER AS $$

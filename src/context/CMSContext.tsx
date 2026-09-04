@@ -107,10 +107,10 @@ interface CMSContextType {
 
   // Popup Configs
   popupConfigs: PopupConfig[];
-  addPopupConfig: (popup: Omit<PopupConfig, 'id' | 'createdAt' | 'updatedAt' | 'impressions' | 'dismissals' | 'ctaClicks'>, user: { id: string; name: string; role: UserRole }) => void;
-  updatePopupConfig: (id: string, updates: Partial<PopupConfig>, user: { id: string; name: string; role: UserRole }) => void;
+  addPopupConfig: (popup: Omit<PopupConfig, 'id' | 'createdAt' | 'updatedAt' | 'impressions' | 'dismissals' | 'ctaClicks'>, user: { id: string; name: string; role: UserRole }) => Promise<boolean>;
+  updatePopupConfig: (id: string, updates: Partial<PopupConfig>, user: { id: string; name: string; role: UserRole }) => Promise<boolean>;
   deletePopupConfig: (id: string, user: { id: string; name: string; role: UserRole }) => Promise<boolean>;
-  togglePopupStatus: (id: string, user: { id: string; name: string; role: UserRole }) => void;
+  togglePopupStatus: (id: string, user: { id: string; name: string; role: UserRole }) => Promise<boolean>;
 }
 
 const CMSContext = createContext<CMSContextType | undefined>(undefined);
@@ -903,10 +903,10 @@ export const CMSProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
   };
 
   // Popup Config Methods
-  const addPopupConfig = (
+  const addPopupConfig = async (
     popupData: Omit<PopupConfig, 'id' | 'createdAt' | 'updatedAt' | 'impressions' | 'dismissals' | 'ctaClicks'>,
     user: { id: string; name: string; role: UserRole }
-  ) => {
+  ): Promise<boolean> => {
     const id = generateUUID();
     const newPopup: PopupConfig = {
       ...popupData,
@@ -918,50 +918,63 @@ export const CMSProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
       updatedAt: new Date().toISOString(),
     };
     setPopupConfigs(prev => [newPopup, ...prev.filter(p => p.id !== id)]);
-    SupabaseSync.savePopupConfig(newPopup).then(res => {
+    const res = await SupabaseSync.savePopupConfig(newPopup);
+    if (res.success) {
       if (res.data && res.data.id) {
         setPopupConfigs(prev => prev.map(p => p.id === id ? { ...p, ...res.data } : p));
       }
-    });
-    logAuditAction({
-      userId: user.id,
-      userName: user.name,
-      userRole: user.role,
-      action: 'CREATE',
-      resourceType: 'POPUP',
-      resourceId: id,
-      resourceTitle: newPopup.title,
-      details: `Created popup "${newPopup.title}" (status: ${newPopup.status})`
-    });
+      logAuditAction({
+        userId: user.id,
+        userName: user.name,
+        userRole: user.role,
+        action: 'CREATE',
+        resourceType: 'POPUP',
+        resourceId: id,
+        resourceTitle: newPopup.title,
+        details: `Created popup "${newPopup.title}" (status: ${newPopup.status})`
+      });
+      return true;
+    } else {
+      setPopupConfigs(prev => prev.filter(p => p.id !== id));
+      return false;
+    }
   };
 
-  const updatePopupConfig = (
+  const updatePopupConfig = async (
     id: string,
     updates: Partial<PopupConfig>,
     user: { id: string; name: string; role: UserRole }
-  ) => {
-    setPopupConfigs(prev => prev.map(p => {
-      if (p.id === id) {
-        const updated = { ...p, ...updates, updatedAt: new Date().toISOString() };
-        SupabaseSync.savePopupConfig(updated).then(res => {
-          if (res.data) {
-            setPopupConfigs(current => current.map(item => item.id === id ? { ...item, ...res.data } : item));
-          }
-        });
-        logAuditAction({
-          userId: user.id,
-          userName: user.name,
-          userRole: user.role,
-          action: 'UPDATE',
-          resourceType: 'POPUP',
-          resourceId: id,
-          resourceTitle: updated.title,
-          details: `Updated popup "${updated.title}"`
-        });
-        return updated;
+  ): Promise<boolean> => {
+    let previousPopup: PopupConfig | undefined;
+    setPopupConfigs(prev => {
+      previousPopup = prev.find(p => p.id === id);
+      return prev.map(p => (p.id === id ? { ...p, ...updates, updatedAt: new Date().toISOString() } : p));
+    });
+
+    const target = popupConfigs.find(p => p.id === id);
+    const updated = { ...(target || previousPopup || {}), ...updates, id, updatedAt: new Date().toISOString() } as PopupConfig;
+    const res = await SupabaseSync.savePopupConfig(updated);
+    if (res.success) {
+      if (res.data) {
+        setPopupConfigs(current => current.map(item => item.id === id ? { ...item, ...res.data } : item));
       }
-      return p;
-    }));
+      logAuditAction({
+        userId: user.id,
+        userName: user.name,
+        userRole: user.role,
+        action: 'UPDATE',
+        resourceType: 'POPUP',
+        resourceId: id,
+        resourceTitle: updated.title,
+        details: `Updated popup "${updated.title}"`
+      });
+      return true;
+    } else {
+      if (previousPopup) {
+        setPopupConfigs(prev => prev.map(p => p.id === id ? previousPopup! : p));
+      }
+      return false;
+    }
   };
 
   const deletePopupConfig = async (id: string, user: { id: string; name: string; role: UserRole }): Promise<boolean> => {
@@ -1001,26 +1014,11 @@ export const CMSProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
     return true;
   };
 
-  const togglePopupStatus = (id: string, user: { id: string; name: string; role: UserRole }) => {
-    setPopupConfigs(prev => prev.map(p => {
-      if (p.id === id) {
-        const newStatus = p.status === 'active' ? 'paused' : 'active';
-        const updated = { ...p, status: newStatus as PopupConfig['status'], updatedAt: new Date().toISOString() };
-        SupabaseSync.savePopupConfig(updated);
-        logAuditAction({
-          userId: user.id,
-          userName: user.name,
-          userRole: user.role,
-          action: 'UPDATE',
-          resourceType: 'POPUP',
-          resourceId: id,
-          resourceTitle: p.title,
-          details: `${newStatus === 'active' ? 'Activated' : 'Paused'} popup "${p.title}"`
-        });
-        return updated;
-      }
-      return p;
-    }));
+  const togglePopupStatus = async (id: string, user: { id: string; name: string; role: UserRole }): Promise<boolean> => {
+    const target = popupConfigs.find(p => p.id === id);
+    if (!target) return false;
+    const newStatus = target.status === 'active' ? 'paused' : 'active';
+    return updatePopupConfig(id, { status: newStatus as PopupConfig['status'] }, user);
   };
 
   return (

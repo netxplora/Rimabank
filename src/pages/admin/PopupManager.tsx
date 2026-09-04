@@ -201,9 +201,9 @@ export default function PopupManager() {
   };
 
   // ── Duplicate
-  const handleDuplicate = (popup: PopupConfig) => {
+  const handleDuplicate = async (popup: PopupConfig) => {
     if (!user) return;
-    addPopupConfig({
+    const success = await addPopupConfig({
       sourceType:          popup.sourceType,
       sourceId:            popup.sourceId,
       displayMode:         popup.displayMode,
@@ -226,7 +226,11 @@ export default function PopupManager() {
       createdBy:           user.name,
       createdById:         user.id,
     }, user);
-    toast.success(`Cloned "${popup.title}" as draft`);
+    if (success) {
+      toast.success(`Cloned "${popup.title}" as draft`);
+    } else {
+      toast.error(`Failed to duplicate popup. Please try again.`);
+    }
   };
 
   // ── Auto-fill from selected Source Item
@@ -267,17 +271,25 @@ export default function PopupManager() {
   };
 
   // ── Save
-  const handleSave = () => {
+  const handleSave = async () => {
     if (!form.title.trim()) { toast.error('Popup title is required'); return; }
     if (!form.content.trim()) { toast.error('Popup content is required'); return; }
     if (!user) return;
 
     if (editingId) {
-      updatePopupConfig(editingId, { ...form, startDate: new Date(form.startDate).toISOString(), endDate: form.endDate ? new Date(form.endDate).toISOString() : undefined }, user);
-      toast.success('Popup updated successfully');
+      const success = await updatePopupConfig(editingId, { ...form, startDate: new Date(form.startDate).toISOString(), endDate: form.endDate ? new Date(form.endDate).toISOString() : undefined }, user);
+      if (success) {
+        toast.success('Popup updated successfully');
+      } else {
+        toast.error('Failed to update popup. Please try again.');
+      }
     } else {
-      addPopupConfig({ ...form, startDate: new Date(form.startDate).toISOString(), endDate: form.endDate ? new Date(form.endDate).toISOString() : undefined, createdBy: user.name, createdById: user.id }, user);
-      toast.success('Popup created successfully');
+      const success = await addPopupConfig({ ...form, startDate: new Date(form.startDate).toISOString(), endDate: form.endDate ? new Date(form.endDate).toISOString() : undefined, createdBy: user.name, createdById: user.id }, user);
+      if (success) {
+        toast.success('Popup created successfully');
+      } else {
+        toast.error('Failed to save popup. Please try again.');
+      }
     }
     setIsModalOpen(false);
   };
@@ -308,18 +320,20 @@ export default function PopupManager() {
     setSelectedIds(prev => prev.includes(id) ? prev.filter(i => i !== id) : [...prev, id]);
   };
 
-  const handleBulkActivate = () => {
+  const handleBulkActivate = async () => {
     if (!user || selectedIds.length === 0) return;
-    selectedIds.forEach(id => updatePopupConfig(id, { status: 'active' }, user));
-    toast.success(`Activated ${selectedIds.length} popups`);
+    const ids = [...selectedIds];
     setSelectedIds([]);
+    await Promise.all(ids.map(id => updatePopupConfig(id, { status: 'active' }, user)));
+    toast.success(`Activated ${ids.length} popups`);
   };
 
-  const handleBulkPause = () => {
+  const handleBulkPause = async () => {
     if (!user || selectedIds.length === 0) return;
-    selectedIds.forEach(id => updatePopupConfig(id, { status: 'paused' }, user));
-    toast.success(`Paused ${selectedIds.length} popups`);
+    const ids = [...selectedIds];
     setSelectedIds([]);
+    await Promise.all(ids.map(id => updatePopupConfig(id, { status: 'paused' }, user)));
+    toast.success(`Paused ${ids.length} popups`);
   };
 
   const handleBulkDelete = async () => {
@@ -334,19 +348,23 @@ export default function PopupManager() {
   };
 
   // ── Toggle active/paused
-  const handleToggle = (popup: PopupConfig) => {
+  const handleToggle = async (popup: PopupConfig) => {
     if (!user) return;
-    togglePopupStatus(popup.id, user);
-    toast.success(popup.status === 'active' ? 'Popup paused' : 'Popup activated');
+    const ok = await togglePopupStatus(popup.id, user);
+    if (ok) {
+      toast.success(popup.status === 'active' ? 'Popup paused' : 'Popup activated');
+    } else {
+      toast.error('Failed to update popup status.');
+    }
   };
 
   // ── Priority nudge
-  const nudgePriority = (id: string, direction: 'up' | 'down') => {
+  const nudgePriority = async (id: string, direction: 'up' | 'down') => {
     if (!user) return;
     const popup = popupConfigs.find(p => p.id === id);
     if (!popup) return;
     const newPriority = direction === 'up' ? Math.max(1, popup.priority - 1) : popup.priority + 1;
-    updatePopupConfig(id, { priority: newPriority }, user);
+    await updatePopupConfig(id, { priority: newPriority }, user);
   };
 
   const tabs: { key: typeof activeTab; label: string; step: number; icon: React.ElementType }[] = [

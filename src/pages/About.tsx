@@ -74,8 +74,8 @@ export default function About() {
       {/* Editorial Hero */}
       <section className="relative bg-white pt-8 pb-10 sm:pt-10 sm:pb-12 lg:pt-12 lg:pb-14 border-b border-[#e2e8f0]/60 overflow-hidden">
         {/* Animated Floating Background Orbs */}
-        <div className="absolute top-10 right-0 w-[500px] h-[500px] bg-sky-200/50 rounded-full blur-3xl -z-10 opacity-70 pointer-events-none animate-pulse duration-[3000ms]" />
-        <div className="absolute -bottom-20 left-10 w-[400px] h-[400px] bg-[#0a1e3f]/10 rounded-full blur-3xl -z-10 opacity-60 pointer-events-none animate-pulse delay-1000 duration-[4000ms]" />
+        <div className="absolute top-10 right-0 w-[500px] h-[500px] bg-sky-200/50 rounded-full blur-3xl -z-10 opacity-70 pointer-events-none animate-pulse [animation-duration:3s]" />
+        <div className="absolute -bottom-20 left-10 w-[400px] h-[400px] bg-[#0a1e3f]/10 rounded-full blur-3xl -z-10 opacity-60 pointer-events-none animate-pulse delay-1000 [animation-duration:4s]" />
 
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6 relative">
           <div className="max-w-3xl space-y-4">
