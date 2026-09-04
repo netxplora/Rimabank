@@ -28,6 +28,8 @@ import { CMSProvider } from "./context/CMSContext";
 import { AuthProvider } from "./context/AuthContext";
 import { ProtectedRoute } from "./components/admin/ProtectedRoute";
 import { AdminLayout } from "./components/admin/layout/AdminLayout";
+import { StaffProtectedRoute } from "./components/staff/StaffProtectedRoute";
+import { StaffLayout } from "./components/staff/layout/StaffLayout";
 
 // Admin CMS Pages
 import AdminLogin from "./pages/admin/AdminLogin";
@@ -41,6 +43,14 @@ import MediaLibrary from "./pages/admin/MediaLibrary";
 import StaffManager from "./pages/admin/StaffManager";
 import AuditLogsView from "./pages/admin/AuditLogsView";
 import SystemSettingsView from "./pages/admin/SystemSettingsView";
+
+// Staff Operations Pages
+import StaffLogin from "./pages/staff/StaffLogin";
+import StaffDashboard from "./pages/staff/StaffDashboard";
+import StaffDraftPublications from "./pages/staff/StaffDraftPublications";
+import StaffAnnouncementsView from "./pages/staff/StaffAnnouncementsView";
+import StaffProfile from "./pages/staff/StaffProfile";
+import StaffMedia from "./pages/staff/StaffMedia";
 
 const queryClient = new QueryClient();
 
@@ -75,13 +85,15 @@ const App = () => (
               <Route path="/faq" element={<FAQ />} />
               <Route path="/support" element={<Support />} />
 
-              {/* Administrative CMS Routes */}
+              {/* ============================================================ */}
+              {/* 1. EXECUTIVE ADMIN PORTAL (Strictly Admin / Full Access)      */}
+              {/* ============================================================ */}
               <Route path="/admin/login" element={<AdminLogin />} />
               
               <Route
                 path="/admin"
                 element={
-                  <ProtectedRoute>
+                  <ProtectedRoute requiredRole="admin">
                     <AdminLayout />
                   </ProtectedRoute>
                 }
@@ -119,6 +131,27 @@ const App = () => (
                     </ProtectedRoute>
                   }
                 />
+              </Route>
+
+              {/* ============================================================ */}
+              {/* 2. STAFF OPERATIONS PORTAL (Strictly Staff / Restricted)    */}
+              {/* ============================================================ */}
+              <Route path="/staff/login" element={<StaffLogin />} />
+
+              <Route
+                path="/staff"
+                element={
+                  <StaffProtectedRoute>
+                    <StaffLayout />
+                  </StaffProtectedRoute>
+                }
+              >
+                <Route index element={<StaffDashboard />} />
+                <Route path="enquiries" element={<EnquiriesManager />} />
+                <Route path="publications" element={<StaffDraftPublications />} />
+                <Route path="media" element={<StaffMedia />} />
+                <Route path="announcements" element={<StaffAnnouncementsView />} />
+                <Route path="profile" element={<StaffProfile />} />
               </Route>
 
               {/* 404 Fallback */}

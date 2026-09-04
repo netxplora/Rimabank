@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { MapPin, Phone, Clock, Search, Map as MapIcon, Navigation } from "lucide-react";
+import { MapPin, Phone, Clock, Search, Map as MapIcon, Navigation, Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { supabase } from "@/integrations/supabase/client";
 
 interface Branch {
   id: string;
@@ -76,9 +77,46 @@ const staticBranches: Branch[] = [
 ];
 
 export default function Branches() {
-  const [branches] = useState<Branch[]>(staticBranches);
+  const [branches, setBranches] = useState<Branch[]>(staticBranches);
   const [activeBranchId, setActiveBranchId] = useState<string | null>("1");
   const [searchQuery, setSearchQuery] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    async function loadBranches() {
+      try {
+        setLoading(true);
+        const { data, error } = await supabase
+          .from('branches')
+          .select('*')
+          .eq('is_active', true)
+          .order('is_headquarters', { ascending: false });
+
+        if (!error && data && data.length > 0) {
+          const mapped: Branch[] = data.map((b) => ({
+            id: b.id,
+            name: b.name,
+            address: b.address,
+            phone: b.phone || "+234 811 947 7050",
+            opening_hours: b.opening_hours || "Mon - Fri: 8:00 AM - 4:00 PM",
+            latitude: b.latitude ? Number(b.latitude) : 4.8241,
+            longitude: b.longitude ? Number(b.longitude) : 6.9924,
+            city: b.city || "Port Harcourt",
+            state: b.state || "Rivers",
+          }));
+          setBranches(mapped);
+          if (mapped.length > 0) {
+            setActiveBranchId(mapped[0].id);
+          }
+        }
+      } catch (e) {
+        console.error("Could not fetch branches from database:", e);
+      } finally {
+        setLoading(false);
+      }
+    }
+    loadBranches();
+  }, []);
 
   const activeBranch = branches.find(b => b.id === activeBranchId);
 

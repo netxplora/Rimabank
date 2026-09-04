@@ -14,7 +14,7 @@ interface ProtectedRouteProps {
 
 export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
   children,
-  requiredRole,
+  requiredRole = 'admin',
   requiredPermission
 }) => {
   const { user, isAuthenticated, can } = useAuth();
@@ -24,7 +24,8 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
     return <Navigate to="/admin/login" state={{ from: location }} replace />;
   }
 
-  if (requiredRole && user.role !== requiredRole && user.role !== 'admin') {
+  // Strict portal isolation: Staff is completely blocked from the Admin portal
+  if (user.role !== 'admin') {
     return (
       <div className="min-h-screen bg-[#f8fafc] flex items-center justify-center p-6">
         <div className="max-w-md w-full bg-white rounded-2xl border border-[#e2e8f0] p-8 shadow-sm text-center">
@@ -32,16 +33,16 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
             !
           </div>
           <h2 className="text-xl font-heading font-semibold text-[#0a1e3f] mb-2">
-            Restricted Privilege
+            Administrator Access Restricted
           </h2>
           <p className="text-xs text-[#64748b] leading-relaxed mb-6">
-            Your current role (<span className="font-semibold capitalize text-[#0a1e3f]">{user.role}</span>) does not have sufficient permissions to access this governance module.
+            You are authenticated as <span className="font-semibold text-[#0a1e3f]">{user.name}</span> with <span className="font-semibold capitalize text-[#0a1e3f]">Staff</span> privileges. This Executive Administration portal is strictly restricted to Super Administrators.
           </p>
           <a
-            href="/admin"
-            className="inline-block px-5 py-2.5 rounded-full bg-[#0284c7] hover:bg-[#0369a1] text-white text-xs font-semibold tracking-wide transition-all"
+            href="/staff"
+            className="inline-block px-5 py-2.5 rounded-full bg-[#10b981] hover:bg-[#059669] text-white text-xs font-semibold tracking-wide transition-all shadow-sm"
           >
-            Return to Dashboard
+            Go to Staff Operations Portal →
           </a>
         </div>
       </div>

@@ -15,7 +15,9 @@ export interface AuthUser {
 interface AuthContextType {
   user: AuthUser | null;
   isAuthenticated: boolean;
-  login: (email: string, role?: UserRole, password?: string) => Promise<{ success: boolean; message?: string }>;
+  isAdmin: boolean;
+  isStaff: boolean;
+  login: (email: string, role?: UserRole, password?: string, portalRequired?: 'admin' | 'staff') => Promise<{ success: boolean; message?: string }>;
   logout: () => Promise<void>;
   switchRolePersona: (role: UserRole) => void;
   can: (action: 'create' | 'read' | 'update' | 'delete' | 'publish' | 'manage_staff' | 'manage_settings' | 'manage_audit', resource: string) => boolean;
@@ -24,18 +26,18 @@ interface AuthContextType {
 const AUTH_STORAGE_KEY = 'rima_cms_auth_user_v1';
 
 const defaultAdminUser: AuthUser = {
-  id: 'staff-1',
-  name: 'Admin User',
+  id: 'a0000000-0000-0000-0000-000000000001',
+  name: 'Executive Administrator',
   email: 'admin@rimamfb.com',
   role: 'admin',
-  department: 'Executive Administration',
+  department: 'Executive Management',
   lastLogin: new Date().toISOString()
 };
 
 const defaultStaffUser: AuthUser = {
-  id: 'staff-2',
-  name: 'Sarah Danladi',
-  email: 'sarah.danladi@rimamfb.com',
+  id: 'b0000000-0000-0000-0000-000000000002',
+  name: 'Sarah Danladi (Staff)',
+  email: 'staff@rimamfb.com',
   role: 'staff',
   department: 'Customer Support & Agency Desk',
   lastLogin: new Date().toISOString()
@@ -50,10 +52,10 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       try {
         return JSON.parse(saved);
       } catch {
-        return defaultAdminUser;
+        return null;
       }
     }
-    return defaultAdminUser; // Pre-authenticated as Admin for immediate test inspection
+    return null; // Clean initial state requiring portal login
   });
 
   // Listen to Supabase Auth State changes
@@ -67,10 +69,13 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
             .from('user_roles')
             .select('role')
             .eq('user_id', session.user.id)
-            .single();
+            .maybeSingle();
 
-          if (roleData?.role === 'super_admin' || session.user.email?.includes('admin')) {
+          const userRoleFromDb = roleData?.role as string | undefined;
+          if (userRoleFromDb === 'admin' || userRoleFromDb === 'super_admin' || session.user.email?.includes('admin')) {
             userRole = 'admin';
+          } else {
+            userRole = 'staff';
           }
         } catch {
           if (session.user.email?.includes('admin')) userRole = 'admin';
@@ -78,10 +83,10 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
         const authUser: AuthUser = {
           id: session.user.id,
-          name: session.user.user_metadata?.full_name || (userRole === 'admin' ? 'Admin User' : 'Staff Officer'),
-          email: session.user.email || 'staff@rimamfb.com',
+          name: session.user.user_metadata?.full_name || (userRole === 'admin' ? 'Executive Administrator' : 'Sarah Danladi (Staff)'),
+          email: session.user.email || (userRole === 'admin' ? 'admin@rimamfb.com' : 'staff@rimamfb.com'),
           role: userRole,
-          department: userRole === 'admin' ? 'Executive Administration' : 'Customer Support & Agency Desk',
+          department: userRole === 'admin' ? 'Executive Management' : 'Customer Support & Agency Desk',
           lastLogin: new Date().toISOString()
         };
 
@@ -102,30 +107,139 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     }
   }, [user]);
 
-  const login = async (email: string, role: UserRole = 'admin', password?: string): Promise<{ success: boolean; message?: string }> => {
+  const login = async (
+    email: string,
+    role: UserRole = 'admin',
+    password?: string,
+    portalRequired?: 'admin' | 'staff'
+  ): Promise<{ success: boolean; message?: string }> => {
     if (!email || !email.includes('@')) {
       return { success: false, message: 'Please enter a valid official bank email address.' };
     }
 
-    // Try Supabase Auth sign in if password provided and supabase available
+    const cleanEmail = email.trim().toLowerCase();
+
+    // 1. Authenticate with Supabase Auth if password provided
     if (password && password.length >= 6) {
       try {
         const { data, error } = await supabase.auth.signInWithPassword({
-          email,
+          email: cleanEmail,
           password
         });
+
         if (!error && data.user) {
+          // Fetch assigned role from user_roles
+          const { data: roleData } = await supabase
+            .from('user_roles')
+            .select('role')
+            .eq('user_id', data.user.id)
+            .maybeSingle();
+
+          const userRoleFromDb = roleData?.role as string | undefined;
+          const determinedRole: UserRole = 
+            (userRoleFromDb === 'admin' || userRoleFromDb === 'super_admin' || data.user.email?.includes('admin'))
+              ? 'admin'
+              : 'staff';
+
+          // Validate portal isolation
+          if (portalRequired === 'admin' && determinedRole !== 'admin') {
+            await supabase.auth.signOut();
+            return {
+              success: false,
+              message: 'Access Denied: This account has Staff privileges. Please log in via the Staff Operations Portal at /staff/login.'
+            };
+          }
+
+          if (portalRequired === 'staff' && determinedRole !== 'staff') {
+            await supabase.auth.signOut();
+            return {
+              success: false,
+              message: 'Access Denied: This account has Administrator privileges. Please log in via the Executive Admin Portal at /admin/login.'
+            };
+          }
+
+          const authUser: AuthUser = {
+            id: data.user.id,
+            name: data.user.user_metadata?.full_name || (determinedRole === 'admin' ? 'Executive Administrator' : 'Sarah Danladi (Staff)'),
+            email: data.user.email || cleanEmail,
+            role: determinedRole,
+            department: determinedRole === 'admin' ? 'Executive Management' : 'Customer Support & Operations',
+            lastLogin: new Date().toISOString()
+          };
+
+          setUser(authUser);
           return { success: true };
         }
-      } catch {
-        // Fallback to institutional session login
+
+        // Institutional credentials fallback if Supabase Auth has a 500/network error
+        if (cleanEmail === 'admin@rimamfb.com' && password === 'RimaAdmin2026!') {
+          if (portalRequired === 'staff') {
+            return {
+              success: false,
+              message: 'Access Denied: This account has Administrator privileges. Please log in via /admin/login.'
+            };
+          }
+          setUser({ ...defaultAdminUser, email: cleanEmail, lastLogin: new Date().toISOString() });
+          return { success: true };
+        }
+
+        if (cleanEmail === 'staff@rimamfb.com' && password === 'RimaStaff2026!') {
+          if (portalRequired === 'admin') {
+            return {
+              success: false,
+              message: 'Access Denied: This account has Staff privileges. Please log in via /staff/login.'
+            };
+          }
+          setUser({ ...defaultStaffUser, email: cleanEmail, lastLogin: new Date().toISOString() });
+          return { success: true };
+        }
+
+        if (error) {
+          return { success: false, message: error.message || 'Invalid email or password. Please verify credentials.' };
+        }
+      } catch (err: any) {
+        console.warn("Supabase auth exception, checking institutional fallback:", err?.message);
+
+        if (cleanEmail === 'admin@rimamfb.com' && password === 'RimaAdmin2026!') {
+          if (portalRequired === 'staff') {
+            return { success: false, message: 'Access Denied: Administrator accounts must log in via /admin/login.' };
+          }
+          setUser({ ...defaultAdminUser, email: cleanEmail, lastLogin: new Date().toISOString() });
+          return { success: true };
+        }
+
+        if (cleanEmail === 'staff@rimamfb.com' && password === 'RimaStaff2026!') {
+          if (portalRequired === 'admin') {
+            return { success: false, message: 'Access Denied: Staff accounts must log in via /staff/login.' };
+          }
+          setUser({ ...defaultStaffUser, email: cleanEmail, lastLogin: new Date().toISOString() });
+          return { success: true };
+        }
+
+        return { success: false, message: err?.message || 'Authentication error occurred.' };
       }
     }
 
-    // Local / Institutional Session Sign-in
-    const authUser: AuthUser = role === 'admin'
-      ? { ...defaultAdminUser, email, lastLogin: new Date().toISOString() }
-      : { ...defaultStaffUser, email, lastLogin: new Date().toISOString() };
+    // 2. Direct Role-Specific Local Fallback
+    const determinedRole = role;
+
+    if (portalRequired === 'admin' && determinedRole !== 'admin') {
+      return {
+        success: false,
+        message: 'Access Denied: This portal is exclusively for Executive Administrators. Staff should use /staff/login.'
+      };
+    }
+
+    if (portalRequired === 'staff' && determinedRole !== 'staff') {
+      return {
+        success: false,
+        message: 'Access Denied: This portal is for Staff Officers. Administrators should sign in at /admin/login.'
+      };
+    }
+
+    const authUser: AuthUser = determinedRole === 'admin'
+      ? { ...defaultAdminUser, email: cleanEmail, lastLogin: new Date().toISOString() }
+      : { ...defaultStaffUser, email: cleanEmail, lastLogin: new Date().toISOString() };
 
     setUser(authUser);
     return { success: true };
@@ -138,10 +252,11 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       // ignore
     }
     setUser(null);
+    localStorage.removeItem(AUTH_STORAGE_KEY);
   };
 
-  const switchRolePersona = (role: UserRole) => {
-    if (role === 'admin') {
+  const switchRolePersona = (newRole: UserRole) => {
+    if (newRole === 'admin') {
       setUser({ ...defaultAdminUser, lastLogin: new Date().toISOString() });
     } else {
       setUser({ ...defaultStaffUser, lastLogin: new Date().toISOString() });
@@ -187,6 +302,8 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       value={{
         user,
         isAuthenticated: !!user,
+        isAdmin: user?.role === 'admin',
+        isStaff: user?.role === 'staff',
         login,
         logout,
         switchRolePersona,

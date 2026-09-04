@@ -30,19 +30,34 @@ export interface StaffUser {
   assignedEnquiriesCount?: number;
 }
 
+export interface MediaUsageReference {
+  type: 'landing_page' | 'promotion' | 'publication' | 'announcement' | 'testimonial' | 'product';
+  title: string;
+  location: string;
+}
+
 export interface MediaAsset {
   id: string;
   title: string;
   fileName: string;
   url: string;
+  storagePath?: string;
   fileSize: number; // in bytes
   fileType: string;
   dimensions?: { width: number; height: number };
   altText: string;
+  caption?: string;
+  description?: string;
   category: 'general' | 'banners' | 'products' | 'team' | 'documents';
+  tags?: string[];
+  isArchived?: boolean;
   uploadedBy: string;
+  uploadedById?: string;
   uploadedAt: string;
+  updatedAt?: string;
+  deletedAt?: string;
   usedInCount?: number;
+  usedIn?: MediaUsageReference[];
 }
 
 export interface Promotion {
@@ -98,6 +113,7 @@ export interface Publication {
   seoTitle?: string;
   seoDescription?: string;
   seoKeywords?: string[];
+  tags?: string[];
   createdAt: string;
   updatedAt: string;
   createdBy: string;

@@ -15,8 +15,8 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
-import { supabase } from "@/integrations/supabase/client";
 import { useCMS } from "@/context/CMSContext";
+import { SupabaseSync } from "@/services/supabaseSync";
 
 export default function Contact() {
   const [submitting, setSubmitting] = useState(false);
@@ -48,22 +48,14 @@ export default function Contact() {
         priority: 'normal'
       });
 
-      // Also persist to Supabase if configured
-      try {
-        await supabase
-          .from('contact_messages')
-          .insert([{
-            name: formData.name,
-            email: formData.email,
-            phone: formData.phone || null,
-            subject: formData.subject,
-            message: formData.message,
-            status: 'open',
-            priority: 'medium'
-          }]);
-      } catch (dbErr) {
-        // Fallback gracefully to CMS local store
-      }
+      // Persist to Supabase (non-blocking — falls back to CMS local store)
+      await SupabaseSync.saveContactMessage({
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone || undefined,
+        subject: formData.subject,
+        message: formData.message,
+      });
 
       toast({
         title: "Message Submitted",

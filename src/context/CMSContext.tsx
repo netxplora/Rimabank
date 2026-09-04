@@ -6,6 +6,7 @@ import {
   Publication,
   Enquiry,
   MediaAsset,
+  MediaUsageReference,
   StaffUser,
   AuditLog,
   SystemSettings,
@@ -69,11 +70,14 @@ interface CMSContextType {
   respondToEnquiry: (id: string, message: string, user: { id: string; name: string; role: UserRole }) => void;
   deleteEnquiry: (id: string, user: { id: string; name: string; role: UserRole }) => void;
 
-  // Media
+  // Media Operations & Asset Management
   mediaAssets: MediaAsset[];
-  addMediaAsset: (asset: Omit<MediaAsset, 'id' | 'uploadedAt'>, user: { id: string; name: string; role: UserRole }) => void;
-  updateMediaAsset: (id: string, updates: Partial<MediaAsset>, user: { id: string; name: string; role: UserRole }) => void;
-  deleteMediaAsset: (id: string, user: { id: string; name: string; role: UserRole }) => void;
+  addMediaAsset: (asset: Omit<MediaAsset, 'id' | 'uploadedAt'>, user: { id: string; name: string; role: UserRole }) => Promise<MediaAsset>;
+  updateMediaAsset: (id: string, updates: Partial<MediaAsset>, user: { id: string; name: string; role: UserRole }) => Promise<void>;
+  archiveMediaAsset: (id: string, user: { id: string; name: string; role: UserRole }) => Promise<void>;
+  restoreMediaAsset: (id: string, user: { id: string; name: string; role: UserRole }) => Promise<void>;
+  deleteMediaAsset: (id: string, user: { id: string; name: string; role: UserRole }, storagePath?: string) => Promise<void>;
+  getMediaUsage: (url: string) => MediaUsageReference[];
 
   // Staff
   staffUsers: StaffUser[];
@@ -159,6 +163,12 @@ export const CMSProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
       if (remoteMessages && remoteMessages.length > 0) {
         setEnquiries(remoteMessages);
       }
+
+      // Sync Media Assets from media_assets
+      const remoteMedia = await SupabaseSync.fetchMediaAssets();
+      if (remoteMedia && remoteMedia.length > 0) {
+        setMediaAssets(remoteMedia);
+      }
     };
 
     syncFromDatabase();
@@ -188,10 +198,19 @@ export const CMSProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
       })
       .subscribe();
 
+    const mediaChannel = supabase
+      .channel('public_media_assets')
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'media_assets' }, async () => {
+        const updated = await SupabaseSync.fetchMediaAssets();
+        if (updated) setMediaAssets(updated);
+      })
+      .subscribe();
+
     return () => {
       supabase.removeChannel(newsChannel);
       supabase.removeChannel(contactChannel);
       supabase.removeChannel(pagesChannel);
+      supabase.removeChannel(mediaChannel);
     };
   }, []);
 
@@ -605,20 +624,57 @@ export const CMSProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
     }
   };
 
-  // Media Methods
-  const addMediaAsset = (assetData: Omit<MediaAsset, 'id' | 'uploadedAt'>, user: { id: string; name: string; role: UserRole }) => {
-    const id = `med-${Date.now()}`;
+  // Media Methods & Usage Scanner
+  const getMediaUsage = (url: string): MediaUsageReference[] => {
+    if (!url) return [];
+    const refs: MediaUsageReference[] = [];
+    const cleanUrl = url.trim();
+
+    // Check Hero & Landing Page Sections
+    if (siteContent.hero?.heroImage === cleanUrl) {
+      refs.push({ type: 'landing_page', title: 'Homepage Hero Section', location: 'Hero Image' });
+    }
+
+    // Check Testimonials
+    siteContent.testimonials?.forEach((t) => {
+      if (t.avatarUrl === cleanUrl) {
+        refs.push({ type: 'testimonial', title: `Testimonial: ${t.name}`, location: 'Client Portrait' });
+      }
+    });
+
+    // Check Promotions
+    promotions.forEach((p) => {
+      if (p.imageUrl === cleanUrl) {
+        refs.push({ type: 'promotion', title: `Promotion: ${p.title}`, location: 'Marketing Campaign Banner' });
+      }
+    });
+
+    // Check Publications
+    publications.forEach((pub) => {
+      if (pub.featuredImage === cleanUrl || pub.content?.includes(cleanUrl)) {
+        refs.push({ type: 'publication', title: `Article: ${pub.title}`, location: 'Featured Media / Content Body' });
+      }
+    });
+
+    return refs;
+  };
+
+  const addMediaAsset = async (assetData: Omit<MediaAsset, 'id' | 'uploadedAt'>, user: { id: string; name: string; role: UserRole }): Promise<MediaAsset> => {
+    const id = typeof crypto !== 'undefined' && crypto.randomUUID ? crypto.randomUUID() : `med-${Date.now()}`;
     const newAsset: MediaAsset = {
       ...assetData,
       id,
       uploadedAt: new Date().toISOString(),
-      usedInCount: 0
+      updatedAt: new Date().toISOString(),
+      uploadedBy: user.name,
+      uploadedById: user.id,
+      isArchived: false,
+      usedInCount: getMediaUsage(assetData.url).length
     };
-    setMediaAssets(prev => {
-      const updated = [newAsset, ...prev];
-      SupabaseSync.savePageContent('media_assets', 'Media Assets Vault', updated);
-      return updated;
-    });
+
+    setMediaAssets(prev => [newAsset, ...prev]);
+    await SupabaseSync.saveMediaAsset(newAsset);
+
     logAuditAction({
       userId: user.id,
       userName: user.name,
@@ -627,41 +683,83 @@ export const CMSProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
       resourceType: 'MEDIA',
       resourceId: id,
       resourceTitle: newAsset.title,
-      details: `Uploaded media asset: "${newAsset.fileName}" (${Math.round(newAsset.fileSize / 1024)} KB)`
+      details: `Uploaded media asset: "${newAsset.fileName}" (${Math.round(newAsset.fileSize / 1024)} KB) into category "${newAsset.category}"`
     });
+
+    return newAsset;
   };
 
-  const updateMediaAsset = (id: string, updates: Partial<MediaAsset>, user: { id: string; name: string; role: UserRole }) => {
+  const updateMediaAsset = async (id: string, updates: Partial<MediaAsset>, user: { id: string; name: string; role: UserRole }): Promise<void> => {
+    let updatedAsset: MediaAsset | null = null;
     setMediaAssets(prev => {
       const updatedList = prev.map(m => {
         if (m.id === id) {
-          const updated = { ...m, ...updates };
-          logAuditAction({
-            userId: user.id,
-            userName: user.name,
-            userRole: user.role,
-            action: 'UPDATE',
-            resourceType: 'MEDIA',
-            resourceId: id,
-            resourceTitle: updated.title,
-            details: `Updated metadata for media "${updated.title}"`
-          });
-          return updated;
+          updatedAsset = { ...m, ...updates, updatedAt: new Date().toISOString() };
+          return updatedAsset;
         }
         return m;
       });
-      SupabaseSync.savePageContent('media_assets', 'Media Assets Vault', updatedList);
       return updatedList;
     });
+
+    if (updatedAsset) {
+      await SupabaseSync.saveMediaAsset(updatedAsset);
+      logAuditAction({
+        userId: user.id,
+        userName: user.name,
+        userRole: user.role,
+        action: 'UPDATE',
+        resourceType: 'MEDIA',
+        resourceId: id,
+        resourceTitle: (updatedAsset as MediaAsset).title,
+        details: `Updated metadata for media asset "${(updatedAsset as MediaAsset).title}"`
+      });
+    }
   };
 
-  const deleteMediaAsset = (id: string, user: { id: string; name: string; role: UserRole }) => {
+  const archiveMediaAsset = async (id: string, user: { id: string; name: string; role: UserRole }): Promise<void> => {
     const target = mediaAssets.find(m => m.id === id);
-    setMediaAssets(prev => {
-      const filtered = prev.filter(m => m.id !== id);
-      SupabaseSync.savePageContent('media_assets', 'Media Assets Vault', filtered);
-      return filtered;
-    });
+    setMediaAssets(prev => prev.map(m => m.id === id ? { ...m, isArchived: true, updatedAt: new Date().toISOString() } : m));
+    await SupabaseSync.archiveMediaAsset(id, true);
+
+    if (target) {
+      logAuditAction({
+        userId: user.id,
+        userName: user.name,
+        userRole: user.role,
+        action: 'UPDATE',
+        resourceType: 'MEDIA',
+        resourceId: id,
+        resourceTitle: target.title,
+        details: `Archived (soft-deleted) media asset "${target.fileName}"`
+      });
+    }
+  };
+
+  const restoreMediaAsset = async (id: string, user: { id: string; name: string; role: UserRole }): Promise<void> => {
+    const target = mediaAssets.find(m => m.id === id);
+    setMediaAssets(prev => prev.map(m => m.id === id ? { ...m, isArchived: false, updatedAt: new Date().toISOString() } : m));
+    await SupabaseSync.archiveMediaAsset(id, false);
+
+    if (target) {
+      logAuditAction({
+        userId: user.id,
+        userName: user.name,
+        userRole: user.role,
+        action: 'UPDATE',
+        resourceType: 'MEDIA',
+        resourceId: id,
+        resourceTitle: target.title,
+        details: `Restored archived media asset "${target.fileName}"`
+      });
+    }
+  };
+
+  const deleteMediaAsset = async (id: string, user: { id: string; name: string; role: UserRole }, storagePath?: string): Promise<void> => {
+    const target = mediaAssets.find(m => m.id === id);
+    setMediaAssets(prev => prev.filter(m => m.id !== id));
+    await SupabaseSync.deleteMediaAsset(id, storagePath || target?.storagePath);
+
     if (target) {
       logAuditAction({
         userId: user.id,
@@ -671,7 +769,7 @@ export const CMSProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
         resourceType: 'MEDIA',
         resourceId: id,
         resourceTitle: target.title,
-        details: `Deleted media asset "${target.fileName}"`
+        details: `Permanently deleted media asset "${target.fileName}"`
       });
     }
   };
@@ -795,7 +893,10 @@ export const CMSProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
         mediaAssets,
         addMediaAsset,
         updateMediaAsset,
+        archiveMediaAsset,
+        restoreMediaAsset,
         deleteMediaAsset,
+        getMediaUsage,
         staffUsers,
         addStaffUser,
         updateStaffUser,

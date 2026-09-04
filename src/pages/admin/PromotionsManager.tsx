@@ -12,12 +12,14 @@ import {
   Archive,
   ArrowUpRight,
   Filter,
-  X
+  X,
+  Image as ImageIcon
 } from 'lucide-react';
 import { useCMS } from '@/context/CMSContext';
 import { useAuth } from '@/context/AuthContext';
 import { Promotion, ContentStatus } from '@/types/cms';
 import { Button } from '@/components/ui/button';
+import { MediaPickerModal } from '@/components/admin/media/MediaPickerModal';
 import { toast } from 'sonner';
 
 export default function PromotionsManager() {
@@ -28,6 +30,7 @@ export default function PromotionsManager() {
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingPromo, setEditingPromo] = useState<Promotion | null>(null);
+  const [mediaPickerOpen, setMediaPickerOpen] = useState(false);
 
   // Form state
   const [formData, setFormData] = useState({
@@ -407,6 +410,45 @@ export default function PromotionsManager() {
                   />
                 </div>
 
+                <div className="sm:col-span-2">
+                  <label className="block text-xs font-semibold text-[#0a1e3f] mb-1">
+                    Promotion Banner Image
+                  </label>
+                  <div className="flex items-center gap-4 p-3 bg-slate-50 border border-[#e2e8f0] rounded-xl">
+                    <div className="w-20 h-14 rounded-lg bg-slate-200 overflow-hidden shrink-0 border border-slate-300 flex items-center justify-center">
+                      {formData.imageUrl ? (
+                        <img
+                          src={formData.imageUrl}
+                          alt="Banner Preview"
+                          className="w-full h-full object-cover"
+                        />
+                      ) : (
+                        <ImageIcon className="w-6 h-6 text-slate-400" />
+                      )}
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <input
+                        type="text"
+                        value={formData.imageUrl}
+                        onChange={(e) => setFormData({ ...formData, imageUrl: e.target.value })}
+                        placeholder="Image URL or select from library"
+                        className="w-full p-2 bg-white border border-[#e2e8f0] rounded-lg text-xs font-mono text-slate-700 outline-none focus:border-[#0284c7]"
+                      />
+                      <p className="text-[11px] text-slate-400 mt-1">Recommended size: 1200x630 or 16:9 banner format</p>
+                    </div>
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="sm"
+                      onClick={() => setMediaPickerOpen(true)}
+                      className="shrink-0 border-sky-200 text-[#0284c7] hover:bg-sky-50 text-xs"
+                    >
+                      <ImageIcon className="w-3.5 h-3.5 mr-1" />
+                      Media Library
+                    </Button>
+                  </div>
+                </div>
+
                 <div>
                   <label className="block text-xs font-semibold text-[#0a1e3f] mb-1">
                     Status
@@ -446,6 +488,19 @@ export default function PromotionsManager() {
           </div>
         </div>
       )}
+
+      {/* Media Picker Modal */}
+      <MediaPickerModal
+        isOpen={mediaPickerOpen}
+        onClose={() => setMediaPickerOpen(false)}
+        currentValue={formData.imageUrl}
+        onSelect={(url) => {
+          setFormData(prev => ({ ...prev, imageUrl: url }));
+          setMediaPickerOpen(false);
+          toast.success('Banner image selected from library!');
+        }}
+        title="Select Promotion Banner Image"
+      />
     </div>
   );
 }
