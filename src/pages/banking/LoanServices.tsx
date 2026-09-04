@@ -79,37 +79,37 @@ export default function LoanServices() {
       fees="Interest from 2.5% monthly"
       ctaText="Apply for Credit"
     >
-      <div className="mt-8 space-y-14">
+      <div className="mt-6 space-y-8 sm:space-y-10">
         
         {/* Credit Facilities Grid */}
         <section id="loan-types">
-          <div className="mb-6">
+          <div className="mb-4 sm:mb-6">
             <span className="text-xs font-semibold uppercase tracking-wider text-[#0284c7] block mb-1">
               Credit Categories
             </span>
-            <h2 className="text-2xl lg:text-3xl font-heading font-semibold text-[#0a1e3f]">
+            <h2 className="text-xl sm:text-2xl lg:text-3xl font-heading font-semibold text-[#0a1e3f]">
               Structured Credit Facilities
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {loanTypes.map((loan, idx) => (
               <div 
                 key={loan.id} 
-                className="p-6 rounded-2xl bg-white border border-[#e2e8f0] flex flex-col justify-between hover:border-[#0284c7]/30 shadow-sm hover:shadow-lift transform hover:-translate-y-1 transition-all duration-500 animate-in fade-in slide-in-from-bottom-8 duration-700 fill-mode-both"
+                className="p-5 sm:p-6 rounded-2xl bg-white border border-[#e2e8f0] flex flex-col justify-between hover:border-[#0284c7]/30 shadow-sm hover:shadow-lift transform hover:-translate-y-1 transition-all duration-500 animate-in fade-in slide-in-from-bottom-8 duration-700 fill-mode-both"
                 style={{ animationDelay: `${idx * 200}ms` }}
               >
                 <div>
                   <div 
-                    className="w-12 h-12 rounded-xl flex items-center justify-center mb-5 shadow-sm"
+                    className="w-10 h-10 rounded-xl flex items-center justify-center mb-4 shadow-sm"
                     style={{ backgroundColor: loan.bg, color: loan.accent }}
                   >
-                    <loan.icon className="h-6 w-6" />
+                    <loan.icon className="h-5 w-5" />
                   </div>
-                  <h3 className="font-heading text-base font-semibold text-[#0a1e3f] mb-2">{loan.title}</h3>
-                  <p className="text-xs text-[#64748b] leading-relaxed mb-5">{loan.description}</p>
+                  <h3 className="font-heading text-base font-semibold text-[#0a1e3f] mb-1.5">{loan.title}</h3>
+                  <p className="text-xs text-[#64748b] leading-relaxed mb-4">{loan.description}</p>
 
-                  <div className="space-y-2 mb-5 pt-3 border-t border-[#e2e8f0]/60">
+                  <div className="space-y-2 mb-4 pt-3 border-t border-[#e2e8f0]/60">
                     {loan.benefits.map((benefit, i) => (
                       <div key={i} className="flex items-start gap-2 text-xs text-[#0a1e3f]">
                         <CheckCircle2 className="h-3.5 w-3.5 text-[#34c771] shrink-0 mt-0.5" />
@@ -129,28 +129,28 @@ export default function LoanServices() {
 
         {/* Financial Calculators 2-Column Grid */}
         <section id="loan-calculators">
-          <div className="mb-6">
+          <div className="mb-4 sm:mb-6">
             <span className="text-xs font-semibold uppercase tracking-wider text-[#0284c7] block mb-1">
               Interactive Tools
             </span>
-            <h2 className="text-2xl lg:text-3xl font-heading font-semibold text-[#0a1e3f]">
+            <h2 className="text-xl sm:text-2xl lg:text-3xl font-heading font-semibold text-[#0a1e3f]">
               Financial Projection Calculators
             </h2>
           </div>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch mt-8">
-            <div className="rounded-[2rem] p-1 bg-gradient-to-b from-white to-[#f0f7ff]/50 border border-[#e2e8f0]/60 shadow-xl shadow-[#0a1e3f]/5 animate-in fade-in slide-in-from-left-8 duration-700 fill-mode-both">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-stretch mt-4">
+            <div className="rounded-2xl p-1 bg-gradient-to-b from-white to-[#f0f7ff]/50 border border-[#e2e8f0]/60 shadow-md shadow-[#0a1e3f]/5 animate-in fade-in slide-in-from-left-8 duration-700 fill-mode-both">
               <LoanCalculator />
             </div>
-            <div className="rounded-[2rem] p-1 bg-gradient-to-b from-white to-[#bcffbb]/10 border border-[#e2e8f0]/60 shadow-xl shadow-[#34c771]/5 animate-in fade-in slide-in-from-right-8 duration-700 fill-mode-both" style={{ animationDelay: '200ms' }}>
+            <div className="rounded-2xl p-1 bg-gradient-to-b from-white to-[#bcffbb]/10 border border-[#e2e8f0]/60 shadow-md shadow-[#34c771]/5 animate-in fade-in slide-in-from-right-8 duration-700 fill-mode-both" style={{ animationDelay: '200ms' }}>
               <SavingsCalculator />
             </div>
           </div>
         </section>
 
         {/* Loan FAQ Card */}
-        <section id="loan-faq" className="space-y-4">
-          <h2 className="text-2xl font-heading font-semibold text-[#0a1e3f]">Credit & Loan FAQs</h2>
-          <div className="rounded-2xl bg-white border border-[#e2e8f0] p-3 sm:p-5">
+        <section id="loan-faq" className="space-y-3">
+          <h2 className="text-xl sm:text-2xl font-heading font-semibold text-[#0a1e3f]">Credit & Loan FAQs</h2>
+          <div className="rounded-2xl bg-white border border-[#e2e8f0] p-2 sm:p-4">
             <Accordion type="single" collapsible className="w-full">
               <AccordionItem value="item-1" className="border-b border-[#e2e8f0]/60 px-2">
                 <AccordionTrigger className="font-heading text-sm font-medium text-[#0a1e3f] hover:text-[#0284c7] py-4">

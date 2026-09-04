@@ -99,16 +99,16 @@ export default function Branches() {
   return (
     <Layout>
       {/* Editorial Hero */}
-      <section className="relative bg-white pt-12 pb-16 lg:pt-16 lg:pb-20 border-b border-[#e2e8f0]/60 overflow-hidden">
+      <section className="relative bg-white pt-8 pb-10 sm:pt-10 sm:pb-12 lg:pt-12 lg:pb-14 border-b border-[#e2e8f0]/60 overflow-hidden">
         <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#f0f7ff] rounded-full blur-3xl -z-10 opacity-70 pointer-events-none" />
 
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
-          <div className="max-w-3xl space-y-6 animate-in fade-in slide-in-from-bottom-8 duration-700">
+          <div className="max-w-3xl space-y-4 animate-in fade-in slide-in-from-bottom-8 duration-700">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#f0f7ff] border border-[#e2e8f0] text-[#0a1e3f] text-xs font-semibold uppercase tracking-wider">
               <span>Regional Network</span>
             </div>
 
-            <h1 className="font-heading text-4xl sm:text-5xl lg:text-6xl font-semibold text-[#0a1e3f] tracking-tight leading-[1.05]">
+            <h1 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-semibold text-[#0a1e3f] tracking-tight leading-[1.08]">
               Locate a <span className="text-[#0284c7]">Rima MFB branch</span>.
             </h1>
 
@@ -120,7 +120,7 @@ export default function Branches() {
       </section>
 
       {/* Branch Locator Section */}
-      <section className="py-16 md:py-20 bg-white border-b border-[#e2e8f0]/60">
+      <section className="py-8 sm:py-10 md:py-12 bg-white border-b border-[#e2e8f0]/60">
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6 animate-in fade-in slide-in-from-bottom-8 duration-700 delay-150">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 min-h-[600px]">
             

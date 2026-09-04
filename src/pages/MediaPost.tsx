@@ -102,9 +102,9 @@ export default function MediaPost() {
 
   return (
     <Layout>
-      <article className="pb-20 bg-white">
+      <article className="pb-12 bg-white">
         {/* Editorial Article Header */}
-        <section className="relative bg-white pt-10 pb-12 border-b border-[#e2e8f0]/60">
+        <section className="relative bg-white pt-8 pb-10 border-b border-[#e2e8f0]/60">
           <div className="max-w-[1000px] mx-auto px-4 sm:px-6 space-y-6 animate-in fade-in slide-in-from-bottom-8 duration-700">
             <Link 
               to="/media" 
@@ -136,7 +136,7 @@ export default function MediaPost() {
         </section>
 
         {/* Featured Image */}
-        <div className="max-w-[1000px] mx-auto px-4 sm:px-6 py-8 animate-in fade-in slide-in-from-bottom-8 duration-700 delay-150">
+        <div className="max-w-[1000px] mx-auto px-4 sm:px-6 py-6 animate-in fade-in slide-in-from-bottom-8 duration-700 delay-150">
           <div className="rounded-2xl overflow-hidden aspect-[16/9] border border-[#e2e8f0] shadow-sm">
             <img
               src={post.featured_image || '/images/media-sme.png'}
@@ -147,14 +147,14 @@ export default function MediaPost() {
         </div>
 
         {/* Article Body */}
-        <div className="max-w-[800px] mx-auto px-4 sm:px-6 mt-4 animate-in fade-in slide-in-from-bottom-8 duration-700 delay-200">
+        <div className="max-w-[800px] mx-auto px-4 sm:px-6 mt-2 animate-in fade-in slide-in-from-bottom-8 duration-700 delay-200">
           <div 
             className="prose prose-sm max-w-none text-[#0a1e3f]/85 text-sm leading-relaxed prose-headings:font-heading prose-headings:text-[#0a1e3f] prose-a:text-[#0284c7]"
             dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(post.content) }}
           />
 
           {/* Social Share Bar */}
-          <div className="mt-12 pt-6 border-t border-[#e2e8f0]/60 flex items-center justify-between flex-wrap gap-4">
+          <div className="mt-8 pt-6 border-t border-[#e2e8f0]/60 flex items-center justify-between flex-wrap gap-4">
             <span className="text-xs font-semibold text-[#0a1e3f]">Share this article</span>
             <div className="flex items-center gap-2">
               <Button 

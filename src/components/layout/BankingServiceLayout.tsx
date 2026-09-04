@@ -38,28 +38,28 @@ export function BankingServiceLayout({
   return (
     <Layout>
       {/* Editorial Service Hero */}
-      <section className="relative bg-white pt-12 pb-16 lg:pt-16 lg:pb-20 border-b border-[#e2e8f0]/60 overflow-hidden">
+      <section className="relative bg-white pt-8 pb-10 sm:pt-10 sm:pb-12 lg:pt-12 lg:pb-14 border-b border-[#e2e8f0]/60 overflow-hidden">
         <div className="absolute top-0 right-0 w-[450px] h-[450px] bg-[#f0f7ff] rounded-full blur-3xl -z-10 opacity-60 pointer-events-none" />
 
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
-          <div className="max-w-3xl space-y-6">
+          <div className="max-w-3xl space-y-4">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#f0f7ff] border border-[#e2e8f0] text-xs font-semibold uppercase tracking-wider text-[#0a1e3f]">
               <Icon className="h-3.5 w-3.5 text-[#0284c7]" />
               <span>{subtitle}</span>
             </div>
 
-            <h1 className="font-heading text-4xl sm:text-5xl lg:text-6xl font-semibold text-[#0a1e3f] tracking-tight leading-[1.05]">
+            <h1 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-semibold text-[#0a1e3f] tracking-tight leading-[1.08]">
               {title}
             </h1>
 
-            <p className="text-[#0a1e3f]/80 text-base sm:text-lg leading-relaxed">
+            <p className="text-[#0a1e3f]/80 text-sm sm:text-base leading-relaxed">
               {description}
             </p>
 
-            <div className="pt-2 flex flex-wrap items-center gap-4">
+            <div className="pt-1 flex flex-wrap items-center gap-3.5">
               <Button
                 variant="pill"
-                size="lg"
+                size="default"
                 asChild
                 className="bg-[#0284c7] hover:bg-[#0369a1] text-white shadow-md shadow-sky-500/20 transform hover:-translate-y-0.5 transition-all"
               >
@@ -68,7 +68,7 @@ export function BankingServiceLayout({
                   <ArrowRight className="h-4 w-4 ml-1.5" />
                 </Link>
               </Button>
-              <Button variant="outlineNeutral" size="lg" asChild className="rounded-full">
+              <Button variant="outlineNeutral" size="default" asChild className="rounded-full">
                 <Link to="/branches">
                   Locate Branch
                 </Link>
@@ -79,35 +79,35 @@ export function BankingServiceLayout({
       </section>
 
       {/* Main Content Area */}
-      <section className="py-16 md:py-20 bg-white border-b border-[#e2e8f0]/60">
+      <section className="py-8 sm:py-10 md:py-12 bg-white border-b border-[#e2e8f0]/60">
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10">
             
             {/* Left Content (8 cols) */}
-            <div className="lg:col-span-8 space-y-10">
+            <div className="lg:col-span-8 space-y-6 sm:space-y-8">
               {/* Product Overview Card */}
-              <div className="p-6 sm:p-8 rounded-2xl bg-white border border-[#e2e8f0] space-y-4">
-                <h2 className="font-heading text-2xl font-semibold text-[#0a1e3f] tracking-tight">
+              <div className="p-5 sm:p-6 rounded-2xl bg-white border border-[#e2e8f0] space-y-3">
+                <h2 className="font-heading text-xl sm:text-2xl font-semibold text-[#0a1e3f] tracking-tight">
                   Product Overview
                 </h2>
-                <p className="text-[#0a1e3f]/80 text-sm leading-relaxed">
+                <p className="text-[#0a1e3f]/80 text-xs sm:text-sm leading-relaxed">
                   {description}
                 </p>
-                <div className="pt-2 p-4 rounded-xl bg-[#f0f7ff] border border-[#e2e8f0] text-xs text-[#0a1e3f]">
+                <div className="p-3.5 rounded-xl bg-[#f0f7ff] border border-[#e2e8f0] text-xs text-[#0a1e3f]">
                   <span className="font-bold">Target Customer: </span>
                   {whoItIsFor}
                 </div>
               </div>
 
               {/* Key Benefits 2-Column Responsive Grid */}
-              <div className="space-y-5">
-                <h3 className="font-heading text-2xl font-semibold text-[#0a1e3f] tracking-tight">
+              <div className="space-y-3.5">
+                <h3 className="font-heading text-xl sm:text-2xl font-semibold text-[#0a1e3f] tracking-tight">
                   Key Features & Advantages
                 </h3>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                   {benefits.map((benefit, idx) => (
-                    <div key={idx} className="p-4 sm:p-5 rounded-2xl bg-white border border-[#e2e8f0] flex items-start gap-3">
-                      <CheckCircle2 className="h-5 w-5 text-[#34c771] shrink-0 mt-0.5" />
+                    <div key={idx} className="p-4 rounded-xl bg-white border border-[#e2e8f0] flex items-start gap-2.5">
+                      <CheckCircle2 className="h-4 w-4 text-[#34c771] shrink-0 mt-0.5" />
                       <span className="text-xs font-semibold text-[#0a1e3f] leading-snug">{benefit}</span>
                     </div>
                   ))}
@@ -118,9 +118,9 @@ export function BankingServiceLayout({
               {children}
 
               {/* Action Banner */}
-              <div className="p-8 rounded-3xl bg-gradient-to-br from-[#0a1e3f] via-[#450b03] to-[#250501] text-white flex flex-col md:flex-row items-start md:items-center justify-between gap-6 border border-white/15">
+              <div className="p-6 sm:p-8 rounded-2xl bg-[#0a1e3f] text-white flex flex-col md:flex-row items-start md:items-center justify-between gap-5 border border-white/10">
                 <div className="max-w-md">
-                  <h3 className="font-heading text-xl font-semibold text-white mb-1">
+                  <h3 className="font-heading text-lg font-semibold text-white mb-1">
                     Ready to open your account?
                   </h3>
                   <p className="text-xs text-white/70 leading-relaxed">
@@ -129,7 +129,7 @@ export function BankingServiceLayout({
                 </div>
                 <Button
                   variant="pill"
-                  size="lg"
+                  size="default"
                   asChild
                   className="bg-[#0284c7] hover:bg-[#0369a1] text-white shadow-md shadow-sky-500/20 transform hover:-translate-y-0.5 transition-all shrink-0"
                 >

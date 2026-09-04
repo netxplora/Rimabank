@@ -88,16 +88,16 @@ export default function Media() {
   return (
     <Layout>
       {/* Editorial Hero */}
-      <section className="relative bg-white pt-12 pb-16 lg:pt-16 lg:pb-20 border-b border-[#e2e8f0]/60 overflow-hidden">
+      <section className="relative bg-white pt-8 pb-10 sm:pt-10 sm:pb-12 lg:pt-12 lg:pb-14 border-b border-[#e2e8f0]/60 overflow-hidden">
         <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#f0f7ff] rounded-full blur-3xl -z-10 opacity-70 pointer-events-none" />
 
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
-          <div className="max-w-3xl space-y-6 animate-in fade-in slide-in-from-bottom-8 duration-700">
+          <div className="max-w-3xl space-y-4 animate-in fade-in slide-in-from-bottom-8 duration-700">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#f0f7ff] border border-[#e2e8f0] text-[#0a1e3f] text-xs font-semibold uppercase tracking-wider">
               <span>Press & Corporate Communications</span>
             </div>
 
-            <h1 className="font-heading text-4xl sm:text-5xl lg:text-6xl font-semibold text-[#0a1e3f] tracking-tight leading-[1.05]">
+            <h1 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-semibold text-[#0a1e3f] tracking-tight leading-[1.08]">
               News & <span className="text-[#0284c7]">announcements</span>.
             </h1>
 
@@ -110,7 +110,7 @@ export default function Media() {
 
       {/* Featured Article */}
       {featuredArticle && (
-        <section className="py-12 sm:py-16 bg-white border-b border-[#e2e8f0]/60 animate-in fade-in slide-in-from-bottom-8 duration-700 delay-150">
+        <section className="py-8 sm:py-10 bg-white border-b border-[#e2e8f0]/60 animate-in fade-in slide-in-from-bottom-8 duration-700 delay-150">
           <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
             <div className="rounded-3xl bg-white border border-[#e2e8f0] shadow-sm hover:border-[#0284c7]/30 transition-all duration-300 overflow-hidden grid grid-cols-1 lg:grid-cols-12 gap-0">
               <div className="lg:col-span-6 aspect-[16/10] lg:aspect-auto overflow-hidden bg-[#f0f7ff]">
@@ -126,7 +126,7 @@ export default function Media() {
                 </Link>
               </div>
 
-              <div className="lg:col-span-6 p-6 sm:p-10 lg:p-12 flex flex-col justify-center space-y-4">
+              <div className="lg:col-span-6 p-6 sm:p-8 flex flex-col justify-center space-y-4">
                 <div className="flex items-center gap-3">
                   <span className="text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-[#f0f7ff] text-[#0284c7] border border-[#e2e8f0]">
                     {featuredArticle.category}
@@ -167,9 +167,9 @@ export default function Media() {
       )}
 
       {/* 3-Column News Grid */}
-      <section className="py-16 md:py-20 bg-white border-b border-[#e2e8f0]/60">
+      <section className="py-8 sm:py-10 md:py-12 bg-white border-b border-[#e2e8f0]/60">
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
-          <div className="mb-10 animate-in fade-in slide-in-from-bottom-8 duration-700 delay-200">
+          <div className="mb-6 animate-in fade-in slide-in-from-bottom-8 duration-700 delay-200">
             <span className="text-xs font-semibold uppercase tracking-wider text-[#0284c7] block mb-2">
               Recent Coverage
             </span>
@@ -237,7 +237,7 @@ export default function Media() {
       </section>
 
       {/* Media Inquiries CTA */}
-      <section className="py-16 md:py-20 bg-gradient-to-b from-[#f0f7ff] to-white">
+      <section className="py-8 sm:py-10 md:py-12 bg-gradient-to-b from-[#f0f7ff] to-white">
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6 text-center">
           <div className="max-w-2xl mx-auto space-y-4">
             <h3 className="font-heading text-2xl md:text-3xl font-semibold text-[#0a1e3f]">
@@ -249,7 +249,7 @@ export default function Media() {
             <div className="pt-2">
               <Button
                 variant="pill"
-                size="lg"
+                size="default"
                 asChild
                 className="bg-[#0284c7] hover:bg-[#0369a1] text-white shadow-md shadow-sky-500/20 transform hover:-translate-y-0.5 transition-all"
               >

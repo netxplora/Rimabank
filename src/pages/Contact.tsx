@@ -77,20 +77,20 @@ export default function Contact() {
   return (
     <Layout>
       {/* Editorial Hero */}
-      <section className="relative bg-white pt-12 pb-16 lg:pt-16 lg:pb-20 border-b border-[#e2e8f0]/60 overflow-hidden">
+      <section className="relative bg-white pt-8 pb-10 sm:pt-10 sm:pb-12 lg:pt-12 lg:pb-14 border-b border-[#e2e8f0]/60 overflow-hidden">
         <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#f0f7ff] rounded-full blur-3xl -z-10 opacity-70 pointer-events-none" />
 
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
-          <div className="max-w-3xl space-y-6 animate-in fade-in slide-in-from-bottom-8 duration-700">
+          <div className="max-w-3xl space-y-4 animate-in fade-in slide-in-from-bottom-8 duration-700">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#f0f7ff] border border-[#e2e8f0] text-[#0a1e3f] text-xs font-semibold uppercase tracking-wider">
               <span>Customer Service & Inquiries</span>
             </div>
 
-            <h1 className="font-heading text-4xl sm:text-5xl lg:text-6xl font-semibold text-[#0a1e3f] tracking-tight leading-[1.05]">
+            <h1 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-semibold text-[#0a1e3f] tracking-tight leading-[1.08]">
               Contact our <span className="text-[#0284c7]">banking team</span>.
             </h1>
 
-            <p className="text-[#0a1e3f]/80 text-base sm:text-lg leading-relaxed">
+            <p className="text-[#0a1e3f]/80 text-sm sm:text-base leading-relaxed">
               Whether opening an account, requesting commercial credit, or seeking operational support, our relationship officers are available to assist you.
             </p>
           </div>
@@ -98,25 +98,25 @@ export default function Contact() {
       </section>
 
       {/* Main Contact Grid */}
-      <section className="py-16 md:py-20 bg-white border-b border-[#e2e8f0]/60">
+      <section className="py-8 sm:py-10 md:py-12 bg-white border-b border-[#e2e8f0]/60">
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10">
             
             {/* Contact Form (7 cols) */}
             <div className="lg:col-span-7 animate-in fade-in slide-in-from-bottom-8 duration-700 delay-150">
-              <div className="p-6 sm:p-10 rounded-3xl bg-white border border-[#e2e8f0] shadow-sm hover:border-[#0284c7]/30 transition-all duration-300 space-y-6">
+              <div className="p-5 sm:p-7 rounded-2xl bg-white border border-[#e2e8f0] shadow-sm hover:border-[#0284c7]/30 transition-all duration-300 space-y-4">
                 <div>
-                  <h2 className="font-heading text-2xl font-semibold text-[#0a1e3f] tracking-tight">
+                  <h2 className="font-heading text-xl sm:text-2xl font-semibold text-[#0a1e3f] tracking-tight">
                     Submit an Inquiry
                   </h2>
-                  <p className="text-xs text-[#64748b] mt-1">
+                  <p className="text-xs text-[#64748b] mt-0.5">
                     Fill out your details below and a relationship officer will get in touch within one business day.
                   </p>
                 </div>
 
-                <form onSubmit={handleSubmit} className="space-y-4">
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div className="space-y-1.5">
+                <form onSubmit={handleSubmit} className="space-y-3.5">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                    <div className="space-y-1">
                       <Label htmlFor="name" className="text-xs font-semibold text-[#0a1e3f]">Full Name</Label>
                       <Input
                         id="name"
@@ -124,10 +124,10 @@ export default function Contact() {
                         value={formData.name}
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                         required
-                        className="bg-[#f0f7ff]/40 border-[#e2e8f0] rounded-xl text-[#0a1e3f] focus:border-[#0284c7] text-xs h-11"
+                        className="bg-[#f0f7ff]/40 border-[#e2e8f0] rounded-xl text-[#0a1e3f] focus:border-[#0284c7] text-xs h-10"
                       />
                     </div>
-                    <div className="space-y-1.5">
+                    <div className="space-y-1">
                       <Label htmlFor="email" className="text-xs font-semibold text-[#0a1e3f]">Email Address</Label>
                       <Input
                         id="email"
@@ -136,13 +136,13 @@ export default function Contact() {
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                         required
-                        className="bg-[#f0f7ff]/40 border-[#e2e8f0] rounded-xl text-[#0a1e3f] focus:border-[#0284c7] text-xs h-11"
+                        className="bg-[#f0f7ff]/40 border-[#e2e8f0] rounded-xl text-[#0a1e3f] focus:border-[#0284c7] text-xs h-10"
                       />
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div className="space-y-1.5">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                    <div className="space-y-1">
                       <Label htmlFor="phone" className="text-xs font-semibold text-[#0a1e3f]">Phone Number</Label>
                       <Input
                         id="phone"
@@ -150,14 +150,14 @@ export default function Contact() {
                         placeholder="0801 234 5678"
                         value={formData.phone}
                         onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                        className="bg-[#f0f7ff]/40 border-[#e2e8f0] rounded-xl text-[#0a1e3f] focus:border-[#0284c7] text-xs h-11"
+                        className="bg-[#f0f7ff]/40 border-[#e2e8f0] rounded-xl text-[#0a1e3f] focus:border-[#0284c7] text-xs h-10"
                       />
                     </div>
-                    <div className="space-y-1.5">
+                    <div className="space-y-1">
                       <Label htmlFor="subject" className="text-xs font-semibold text-[#0a1e3f]">Subject of Inquiry</Label>
                       <select 
                         id="subject"
-                        className="flex h-11 w-full rounded-xl border border-[#e2e8f0] bg-[#f0f7ff]/40 px-3 py-2 text-xs text-[#0a1e3f] focus:outline-none focus:border-[#0284c7]"
+                        className="flex h-10 w-full rounded-xl border border-[#e2e8f0] bg-[#f0f7ff]/40 px-3 py-2 text-xs text-[#0a1e3f] focus:outline-none focus:border-[#0284c7]"
                         value={formData.subject}
                         onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
                         required
@@ -172,12 +172,12 @@ export default function Contact() {
                     </div>
                   </div>
 
-                  <div className="space-y-1.5">
+                  <div className="space-y-1">
                     <Label htmlFor="message" className="text-xs font-semibold text-[#0a1e3f]">Message Details</Label>
                     <Textarea
                       id="message"
                       placeholder="Please provide details regarding your banking inquiry..."
-                      rows={4}
+                      rows={3}
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                       required
@@ -185,11 +185,11 @@ export default function Contact() {
                     />
                   </div>
 
-                  <div className="pt-2">
+                  <div className="pt-1">
                     <Button
                       type="submit"
                       variant="pill"
-                      size="lg"
+                      size="default"
                       className="w-full bg-[#0284c7] hover:bg-[#0369a1] text-white shadow-md shadow-sky-500/20 transform hover:-translate-y-0.5 transition-all"
                       disabled={submitting}
                     >
@@ -208,54 +208,54 @@ export default function Contact() {
             </div>
 
             {/* Direct Channels (5 cols) */}
-            <div className="lg:col-span-5 space-y-6">
+            <div className="lg:col-span-5 space-y-4">
               {/* Direct Info Card */}
-              <div className="p-8 rounded-3xl bg-gradient-to-br from-[#0a1e3f] via-[#450b03] to-[#250501] text-white space-y-6 border border-white/15">
-                <h3 className="font-heading text-lg font-semibold text-white pb-4 border-b border-white/15">
+              <div className="p-6 rounded-2xl bg-[#0a1e3f] text-white space-y-4 border border-white/10">
+                <h3 className="font-heading text-base font-semibold text-white pb-3 border-b border-white/10">
                   Head Office Channels
                 </h3>
 
-                <div className="space-y-4 text-xs text-white/85">
-                  <div className="flex items-start gap-3">
-                    <MapPin className="h-4 w-4 text-[#0284c7] shrink-0 mt-0.5" />
+                <div className="space-y-3 text-xs text-white/85">
+                  <div className="flex items-start gap-2.5">
+                    <MapPin className="h-4 w-4 text-[#38bdf8] shrink-0 mt-0.5" />
                     <span>No. 3 Evo Crescent, New GRA, Port Harcourt, Rivers State, Nigeria</span>
                   </div>
 
-                  <div className="flex items-center gap-3">
-                    <Phone className="h-4 w-4 text-[#0284c7] shrink-0" />
-                    <a href="tel:+2348119477050" className="hover:text-[#0284c7] transition-colors">
+                  <div className="flex items-center gap-2.5">
+                    <Phone className="h-4 w-4 text-[#38bdf8] shrink-0" />
+                    <a href="tel:+2348119477050" className="hover:text-[#38bdf8] transition-colors">
                       +234 811 947 7050
                     </a>
                   </div>
 
-                  <div className="flex items-center gap-3">
-                    <Mail className="h-4 w-4 text-[#0284c7] shrink-0" />
-                    <a href="mailto:info@rimamfb.com" className="hover:text-[#0284c7] transition-colors">
+                  <div className="flex items-center gap-2.5">
+                    <Mail className="h-4 w-4 text-[#38bdf8] shrink-0" />
+                    <a href="mailto:info@rimamfb.com" className="hover:text-[#38bdf8] transition-colors">
                       info@rimamfb.com
                     </a>
                   </div>
 
-                  <div className="flex items-center gap-3">
+                  <div className="flex items-center gap-2.5">
                     <Clock className="h-4 w-4 text-[#34c771] shrink-0" />
                     <span>Monday &ndash; Friday: 8:00 AM &ndash; 4:00 PM</span>
                   </div>
                 </div>
 
-                <div className="pt-4 border-t border-white/15">
+                <div className="pt-3 border-t border-white/10">
                   <a
                     href="https://wa.me/2348119477050"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center gap-2 w-full py-3 rounded-full bg-[#34c771]/20 text-[#34c771] border border-[#34c771]/40 text-xs font-semibold hover:bg-[#34c771]/30 transition-colors"
+                    className="inline-flex items-center justify-center gap-2 w-full py-2.5 rounded-full bg-[#34c771]/20 text-[#34c771] border border-[#34c771]/40 text-xs font-semibold hover:bg-[#34c771]/30 transition-colors"
                   >
-                    <MessageSquare className="h-4 w-4" />
+                    <MessageSquare className="h-3.5 w-3.5" />
                     Direct WhatsApp Chat
                   </a>
                 </div>
               </div>
 
               {/* Regulatory Assurance Card */}
-              <div className="p-6 rounded-2xl bg-white border border-[#e2e8f0] space-y-2">
+              <div className="p-4 sm:p-5 rounded-xl bg-white border border-[#e2e8f0] space-y-1.5">
                 <div className="flex items-center gap-2 text-xs font-bold text-[#0a1e3f]">
                   <ShieldCheck className="h-4 w-4 text-[#34c771]" />
                   <span>Regulatory Protection</span>

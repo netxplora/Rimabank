@@ -72,29 +72,29 @@ export default function About() {
   return (
     <Layout>
       {/* Editorial Hero */}
-      <section className="relative bg-white pt-12 pb-16 lg:pt-16 lg:pb-20 border-b border-[#e2e8f0]/60 overflow-hidden">
+      <section className="relative bg-white pt-8 pb-10 sm:pt-10 sm:pb-12 lg:pt-12 lg:pb-14 border-b border-[#e2e8f0]/60 overflow-hidden">
         {/* Animated Floating Background Orbs */}
         <div className="absolute top-10 right-0 w-[500px] h-[500px] bg-sky-200/50 rounded-full blur-3xl -z-10 opacity-70 pointer-events-none animate-pulse duration-[3000ms]" />
         <div className="absolute -bottom-20 left-10 w-[400px] h-[400px] bg-[#0a1e3f]/10 rounded-full blur-3xl -z-10 opacity-60 pointer-events-none animate-pulse delay-1000 duration-[4000ms]" />
 
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6 relative">
-          <div className="max-w-3xl space-y-6">
+          <div className="max-w-3xl space-y-4">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#f0f7ff] border border-[#e2e8f0] text-[#0a1e3f] text-xs font-semibold uppercase tracking-wider">
               <span>About Rima Microfinance Bank</span>
             </div>
 
-            <h1 className="font-heading text-4xl sm:text-5xl lg:text-6xl font-semibold text-[#0a1e3f] tracking-tight leading-[1.05]">
+            <h1 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-semibold text-[#0a1e3f] tracking-tight leading-[1.08]">
               Empowering regional growth with <span className="text-[#0284c7]">stability</span> and <span className="text-[#0284c7]">trust</span>.
             </h1>
 
-            <p className="text-[#0a1e3f]/80 text-base sm:text-lg leading-relaxed">
+            <p className="text-[#0a1e3f]/80 text-sm sm:text-base leading-relaxed">
               Founded on the belief that every hardworking individual, student, trader, and entrepreneur deserves accessible, structured, and ethical banking services.
             </p>
 
-            <div className="pt-2 flex flex-wrap items-center gap-4">
+            <div className="pt-1 flex flex-wrap items-center gap-3.5">
               <Button
                 variant="pill"
-                size="lg"
+                size="default"
                 asChild
                 className="bg-[#0284c7] hover:bg-[#0369a1] text-white shadow-md shadow-sky-500/20 transform hover:-translate-y-0.5 transition-all"
               >
@@ -103,7 +103,7 @@ export default function About() {
                   <ArrowRight className="h-4 w-4 ml-1.5" />
                 </Link>
               </Button>
-              <Button variant="outlineNeutral" size="lg" asChild className="rounded-full">
+              <Button variant="outlineNeutral" size="default" asChild className="rounded-full">
                 <Link to="/branches">
                   Find Branch Location
                 </Link>
@@ -114,7 +114,7 @@ export default function About() {
       </section>
 
       {/* Mission & Vision — Mobile-First */}
-      <section className="py-10 md:py-20 bg-white border-b border-[#e2e8f0]/60">
+      <section className="py-8 sm:py-10 md:py-12 bg-white border-b border-[#e2e8f0]/60">
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
           {/* Mobile: stacked compact cards */}
           <div className="flex flex-col gap-3 sm:hidden">
@@ -143,21 +143,21 @@ export default function About() {
           </div>
           {/* Desktop: side-by-side cards */}
           <div className="hidden sm:grid grid-cols-2 gap-5 lg:gap-8">
-            <div className="p-7 rounded-2xl bg-white border border-[#e2e8f0] shadow-lift transform hover:-translate-y-1 transition-all duration-500 animate-in fade-in slide-in-from-bottom-8 duration-700 fill-mode-both">
-              <div className="w-11 h-11 rounded-xl bg-[#bcffbb] text-[#34c771] flex items-center justify-center mb-5 shadow-sm">
+            <div className="p-6 rounded-2xl bg-white border border-[#e2e8f0] shadow-lift transform hover:-translate-y-1 transition-all duration-500 animate-in fade-in slide-in-from-bottom-8 duration-700 fill-mode-both">
+              <div className="w-10 h-10 rounded-xl bg-[#bcffbb] text-[#34c771] flex items-center justify-center mb-4 shadow-sm">
                 <Target className="h-5 w-5" />
               </div>
-              <h2 className="font-heading text-xl lg:text-2xl font-semibold text-[#0a1e3f] mb-2.5">Our Mission</h2>
-              <p className="text-[#0a1e3f]/75 text-sm leading-relaxed">
+              <h2 className="font-heading text-xl font-semibold text-[#0a1e3f] mb-2">Our Mission</h2>
+              <p className="text-[#0a1e3f]/75 text-xs sm:text-sm leading-relaxed">
                 To deliver accessible, dependable, and sustainable financial services that enable individuals, small businesses, and institutions to achieve financial stability and economic growth.
               </p>
             </div>
-            <div className="p-7 rounded-2xl bg-white border border-[#e2e8f0] shadow-lift transform hover:-translate-y-1 transition-all duration-500 animate-in fade-in slide-in-from-bottom-8 duration-700 fill-mode-both" style={{ animationDelay: '150ms' }}>
-              <div className="w-11 h-11 rounded-xl bg-[#f0f7ff] text-[#0284c7] flex items-center justify-center mb-5 shadow-sm">
+            <div className="p-6 rounded-2xl bg-white border border-[#e2e8f0] shadow-lift transform hover:-translate-y-1 transition-all duration-500 animate-in fade-in slide-in-from-bottom-8 duration-700 fill-mode-both" style={{ animationDelay: '150ms' }}>
+              <div className="w-10 h-10 rounded-xl bg-[#f0f7ff] text-[#0284c7] flex items-center justify-center mb-4 shadow-sm">
                 <Eye className="h-5 w-5" />
               </div>
-              <h2 className="font-heading text-xl lg:text-2xl font-semibold text-[#0a1e3f] mb-2.5">Our Vision</h2>
-              <p className="text-[#0a1e3f]/75 text-sm leading-relaxed">
+              <h2 className="font-heading text-xl font-semibold text-[#0a1e3f] mb-2">Our Vision</h2>
+              <p className="text-[#0a1e3f]/75 text-xs sm:text-sm leading-relaxed">
                 To be the primary microfinance bank in Rivers State, recognized for regulatory discipline, technological stability, and lasting community impact.
               </p>
             </div>
@@ -166,13 +166,13 @@ export default function About() {
       </section>
 
       {/* Institutional Values — Mobile-First */}
-      <section className="py-10 md:py-20 bg-white border-b border-[#e2e8f0]/60">
+      <section className="py-8 sm:py-10 md:py-12 bg-white border-b border-[#e2e8f0]/60">
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
-          <div className="mb-6 md:mb-12">
-            <span className="text-[10px] font-semibold uppercase tracking-wider text-[#0284c7] block mb-1.5">
+          <div className="mb-6 sm:mb-8">
+            <span className="text-[10px] font-semibold uppercase tracking-wider text-[#0284c7] block mb-1">
               Institutional Values
             </span>
-            <h2 className="font-heading text-xl sm:text-3xl lg:text-5xl font-semibold text-[#0a1e3f] tracking-tight leading-[1.08]">
+            <h2 className="font-heading text-xl sm:text-2xl lg:text-3xl font-semibold text-[#0a1e3f] tracking-tight leading-[1.1]">
               The principles guiding our banking operations.
             </h2>
           </div>
@@ -202,17 +202,17 @@ export default function About() {
             {coreValues.map((value, idx) => (
               <div 
                 key={value.title} 
-                className="p-6 rounded-2xl bg-white border border-[#e2e8f0] hover:border-[#0284c7]/30 hover:shadow-lg transform hover:-translate-y-1 transition-all duration-500 flex flex-col gap-3 animate-in fade-in slide-in-from-bottom-8 duration-700 fill-mode-both"
+                className="p-5 sm:p-6 rounded-2xl bg-white border border-[#e2e8f0] hover:border-[#0284c7]/30 hover:shadow-lg transform hover:-translate-y-1 transition-all duration-500 flex flex-col gap-3 animate-in fade-in slide-in-from-bottom-8 duration-700 fill-mode-both"
                 style={{ animationDelay: `${idx * 150}ms` }}
               >
                 <div
-                  className="w-10 h-10 rounded-xl flex items-center justify-center shadow-sm"
+                  className="w-9 h-9 rounded-xl flex items-center justify-center shadow-sm"
                   style={{ backgroundColor: value.bg, color: value.color }}
                 >
-                  <value.icon className="h-5 w-5" />
+                  <value.icon className="h-4.5 w-4.5" />
                 </div>
                 <div>
-                  <h3 className="font-heading text-sm font-semibold text-[#0a1e3f] mb-1.5">{value.title}</h3>
+                  <h3 className="font-heading text-sm font-semibold text-[#0a1e3f] mb-1">{value.title}</h3>
                   <p className="text-xs text-[#64748b] leading-relaxed">{value.description}</p>
                 </div>
               </div>
@@ -222,16 +222,16 @@ export default function About() {
       </section>
 
       {/* Corporate Governance — Mobile-First */}
-      <section className="py-10 md:py-20 bg-white border-b border-[#e2e8f0]/60">
+      <section className="py-8 sm:py-10 md:py-12 bg-white border-b border-[#e2e8f0]/60">
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
-          <div className="mb-6 md:mb-12">
-            <span className="text-[10px] font-semibold uppercase tracking-wider text-[#0284c7] block mb-1.5">
+          <div className="mb-6 sm:mb-8">
+            <span className="text-[10px] font-semibold uppercase tracking-wider text-[#0284c7] block mb-1">
               Corporate Governance
             </span>
-            <h2 className="font-heading text-xl sm:text-3xl lg:text-5xl font-semibold text-[#0a1e3f] tracking-tight leading-[1.08]">
+            <h2 className="font-heading text-xl sm:text-2xl lg:text-3xl font-semibold text-[#0a1e3f] tracking-tight leading-[1.1]">
               Experienced executive leadership.
             </h2>
-            <p className="text-[#0a1e3f]/70 text-xs sm:text-sm mt-2">
+            <p className="text-[#0a1e3f]/70 text-xs sm:text-sm mt-1.5">
               Guided by experienced financial professionals with decades of combined banking expertise and regulatory knowledge.
             </p>
           </div>
@@ -241,26 +241,26 @@ export default function About() {
       </section>
 
       {/* Historical Milestones 3-Column Grid */}
-      <section className="py-16 md:py-20 bg-[#0a1e3f] text-white">
+      <section className="py-10 sm:py-12 md:py-14 bg-[#0a1e3f] text-white">
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
-          <div className="max-w-2xl mb-12">
-            <span className="text-xs font-semibold uppercase tracking-wider text-[#0284c7] block mb-2">
+          <div className="max-w-2xl mb-8">
+            <span className="text-xs font-semibold uppercase tracking-wider text-[#0284c7] block mb-1.5">
               Chronology of Growth
             </span>
-            <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-semibold text-white tracking-tight leading-[1.08]">
-              Over 25 years of steady milestones.
+            <h2 className="font-heading text-2xl sm:text-3xl lg:text-4xl font-semibold text-white tracking-tight leading-[1.1]">
+              Decades of banking milestones in Rivers State.
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             {milestones.map((m, idx) => (
               <div 
                 key={m.year} 
-                className="p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm shadow-md hover:bg-white/10 hover:-translate-y-1 transition-all duration-500 animate-in fade-in slide-in-from-bottom-8 duration-700 fill-mode-both"
-                style={{ animationDelay: `${idx * 150}ms` }}
+                className="p-5 rounded-2xl bg-white/5 border border-white/10 hover:border-[#0284c7]/40 transition-all duration-300 animate-in fade-in slide-in-from-bottom-6 duration-700 fill-mode-both"
+                style={{ animationDelay: `${idx * 100}ms` }}
               >
-                <div className="text-2xl font-heading font-bold text-[#0284c7] mb-2">{m.year}</div>
-                <p className="text-xs text-white/80 leading-relaxed">{m.event}</p>
+                <span className="font-heading text-xl sm:text-2xl font-bold text-[#38bdf8] block mb-1.5">{m.year}</span>
+                <p className="text-xs text-blue-100/80 leading-relaxed">{m.event}</p>
               </div>
             ))}
           </div>
