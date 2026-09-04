@@ -40,6 +40,17 @@ const CMS_STORAGE_KEYS = {
   POPUPS: 'rima_cms_popups_v1',
 };
 
+function generateUUID(): string {
+  if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') {
+    return crypto.randomUUID();
+  }
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
+    const r = (Math.random() * 16) | 0;
+    const v = c === 'x' ? r : (r & 0x3) | 0x8;
+    return v.toString(16);
+  });
+}
+
 interface CMSContextType {
   siteContent: SiteContent;
   updateSiteContent: (newContent: Partial<SiteContent>, user: { id: string; name: string; role: UserRole }) => void;
@@ -222,14 +233,14 @@ export const CMSProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
 
     // Sync popups on load
     SupabaseSync.fetchAllPopups().then(remote => {
-      if (remote && remote.length > 0) setPopupConfigs(remote);
+      if (remote !== null) setPopupConfigs(remote);
     });
 
     const popupsChannel = supabase
       .channel('public_popup_configs')
       .on('postgres_changes', { event: '*', schema: 'public', table: 'popup_configs' }, async () => {
         const updated = await SupabaseSync.fetchAllPopups();
-        if (updated) setPopupConfigs(updated);
+        if (updated !== null) setPopupConfigs(updated);
       })
       .subscribe();
 
@@ -902,7 +913,7 @@ export const CMSProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
     popupData: Omit<PopupConfig, 'id' | 'createdAt' | 'updatedAt' | 'impressions' | 'dismissals' | 'ctaClicks'>,
     user: { id: string; name: string; role: UserRole }
   ) => {
-    const id = `popup-${Date.now()}`;
+    const id = generateUUID();
     const newPopup: PopupConfig = {
       ...popupData,
       id,
@@ -912,8 +923,12 @@ export const CMSProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
     };
-    setPopupConfigs(prev => [newPopup, ...prev]);
-    SupabaseSync.savePopupConfig(newPopup);
+    setPopupConfigs(prev => [newPopup, ...prev.filter(p => p.id !== id)]);
+    SupabaseSync.savePopupConfig(newPopup).then(res => {
+      if (res.data && res.data.id) {
+        setPopupConfigs(prev => prev.map(p => p.id === id ? { ...p, ...res.data } : p));
+      }
+    });
     logAuditAction({
       userId: user.id,
       userName: user.name,
@@ -934,7 +949,11 @@ export const CMSProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
     setPopupConfigs(prev => prev.map(p => {
       if (p.id === id) {
         const updated = { ...p, ...updates, updatedAt: new Date().toISOString() };
-        SupabaseSync.savePopupConfig(updated);
+        SupabaseSync.savePopupConfig(updated).then(res => {
+          if (res.data) {
+            setPopupConfigs(current => current.map(item => item.id === id ? { ...item, ...res.data } : item));
+          }
+        });
         logAuditAction({
           userId: user.id,
           userName: user.name,

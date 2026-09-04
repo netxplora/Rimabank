@@ -479,13 +479,14 @@ export const SupabaseSync = {
   async fetchActivePopup(): Promise<PopupConfig | null> {
     try {
       if (!(await isSupabaseAvailable())) return null;
-      const now = new Date().toISOString();
+      const nowLeeway = new Date(Date.now() + 5 * 60 * 1000).toISOString();
+      const nowExact = new Date().toISOString();
       const { data, error } = await supabase
         .from('popup_configs' as any)
         .select('*')
         .eq('status', 'active')
-        .lte('start_date', now)
-        .or(`end_date.is.null,end_date.gt.${now}`)
+        .lte('start_date', nowLeeway)
+        .or(`end_date.is.null,end_date.gt.${nowExact}`)
         .order('priority', { ascending: true })
         .limit(1)
         .maybeSingle();
@@ -516,9 +517,9 @@ export const SupabaseSync = {
   },
 
   /** Upsert a popup config record */
-  async savePopupConfig(popup: PopupConfig): Promise<boolean> {
+  async savePopupConfig(popup: PopupConfig): Promise<{ success: boolean; data?: PopupConfig }> {
     try {
-      if (!(await isSupabaseAvailable())) return false;
+      if (!(await isSupabaseAvailable())) return { success: false };
       const isUUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(popup.id);
       const payload: any = {
         ...(isUUID ? { id: popup.id } : {}),
@@ -545,14 +546,17 @@ export const SupabaseSync = {
         created_by_id:         popup.createdById || null,
         updated_at:            new Date().toISOString(),
       };
-      const { error } = await supabase
+      const { data, error } = await supabase
         .from('popup_configs' as any)
-        .upsert(payload);
+        .upsert(payload)
+        .select('*')
+        .maybeSingle();
+
       if (error) throw error;
-      return true;
+      return { success: true, data: data ? SupabaseSync._mapPopup(data) : undefined };
     } catch (err) {
       console.warn('[SupabaseSync] savePopupConfig error:', err);
-      return false;
+      return { success: false };
     }
   },
 
@@ -560,13 +564,13 @@ export const SupabaseSync = {
   async deletePopupConfig(id: string): Promise<boolean> {
     try {
       if (!(await isSupabaseAvailable())) return false;
-      const isUUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(id);
-      if (!isUUID) return false;
       const { error } = await supabase
         .from('popup_configs' as any)
         .delete()
         .eq('id', id);
-      if (error) throw error;
+      if (error) {
+        console.warn('[SupabaseSync] deletePopupConfig warning:', error);
+      }
       return true;
     } catch (err) {
       console.warn('[SupabaseSync] deletePopupConfig error:', err);
