@@ -141,7 +141,17 @@ export const AdminSidebar: React.FC<AdminSidebarProps> = ({ isOpen, onClose }) =
         {/* Brand Header */}
         <div className="h-16 px-5 flex items-center justify-between border-b border-white/10 shrink-0">
           <Link to="/admin" className="flex items-center gap-2.5">
-            <div className="h-8 w-8 rounded-lg bg-[#0284c7] flex items-center justify-center font-heading font-bold text-white text-base shadow-sm">
+            <img
+              src="/rima-logo.png"
+              alt="RIMA Bank"
+              className="h-8 w-auto object-contain"
+              onError={(e) => {
+                const el = e.currentTarget as HTMLImageElement;
+                el.style.display = 'none';
+                el.nextElementSibling?.classList.remove('hidden');
+              }}
+            />
+            <div className="h-8 w-8 rounded-lg bg-[#0284c7] flex items-center justify-center font-heading font-bold text-white text-base shadow-sm hidden">
               R
             </div>
             <div>

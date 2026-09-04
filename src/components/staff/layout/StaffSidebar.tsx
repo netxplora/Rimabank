@@ -90,7 +90,17 @@ export const StaffSidebar: React.FC<StaffSidebarProps> = ({ isOpen, onClose }) =
         {/* Brand Header */}
         <div className="h-16 flex items-center justify-between px-5 border-b border-slate-800/80 bg-[#071630]">
           <Link to="/staff" className="flex items-center gap-2.5">
-            <div className="h-8 w-8 rounded-xl bg-emerald-600 flex items-center justify-center font-heading font-bold text-white text-base shadow-sm">
+            <img
+              src="/rima-logo.png"
+              alt="RIMA Bank"
+              className="h-8 w-auto object-contain"
+              onError={(e) => {
+                const el = e.currentTarget as HTMLImageElement;
+                el.style.display = 'none';
+                el.nextElementSibling?.classList.remove('hidden');
+              }}
+            />
+            <div className="h-8 w-8 rounded-xl bg-emerald-600 flex items-center justify-center font-heading font-bold text-white text-base shadow-sm hidden">
               R
             </div>
             <div className="flex flex-col">
