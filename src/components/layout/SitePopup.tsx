@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { X, ExternalLink } from 'lucide-react';
 import { PopupConfig } from '@/types/cms';
 import { SupabaseSync } from '@/services/supabaseSync';
+import { useCMS } from '@/context/CMSContext';
 
 // ── Local storage key helpers ────────────────────────────────────────────────
 const sessionKey = (id: string) => `rima_popup_session_${id}`;
@@ -12,24 +13,42 @@ function hasSeenDevice(id: string)  { return !!localStorage.getItem(deviceKey(id
 function markSession(id: string)    { sessionStorage.setItem(sessionKey(id), '1');      }
 function markDevice(id: string)     { localStorage.setItem(deviceKey(id), '1');         }
 
+// ── Is this popup currently within its valid schedule? ───────────────────────
+function isScheduleValid(popup: PopupConfig): boolean {
+  const now = Date.now();
+  const start = popup.startDate ? new Date(popup.startDate).getTime() : 0;
+  const end   = popup.endDate   ? new Date(popup.endDate).getTime()   : Infinity;
+  return now >= start && now <= end;
+}
+
 // ── Should the popup appear on this visit? ────────────────────────────────────
 function shouldShow(popup: PopupConfig): boolean {
+  if (popup.status !== 'active') return false;
+  if (!isScheduleValid(popup))   return false;
+
   const isMobile = window.matchMedia('(max-width: 768px)').matches;
-  if (isMobile && !popup.showOnMobile)   return false;
-  if (!isMobile && !popup.showOnDesktop) return false;
+  if (isMobile  && !popup.showOnMobile)   return false;
+  if (!isMobile && !popup.showOnDesktop)  return false;
 
   switch (popup.displayFrequency) {
-    case 'every_visit':    return true;
-    case 'once_session':   return !hasSeenSession(popup.id);
-    case 'once_device':    return !hasSeenDevice(popup.id);
-    case 'until_dismissed':return !hasSeenDevice(popup.id);
-    default:               return true;
+    case 'every_visit':     return true;
+    case 'once_session':    return !hasSeenSession(popup.id);
+    case 'once_device':     return !hasSeenDevice(popup.id);
+    case 'until_dismissed': return !hasSeenDevice(popup.id);
+    default:                return true;
   }
+}
+
+// ── Pick the best popup from a list ──────────────────────────────────────────
+function pickBest(list: PopupConfig[]): PopupConfig | null {
+  const candidates = list
+    .filter(shouldShow)
+    .sort((a, b) => a.priority - b.priority);
+  return candidates[0] ?? null;
 }
 
 // ── Record first impression once ──────────────────────────────────────────────
 function markImpression(popup: PopupConfig) {
-  // Only fire once per mount
   if (!sessionStorage.getItem(`rima_imp_${popup.id}`)) {
     sessionStorage.setItem(`rima_imp_${popup.id}`, '1');
     SupabaseSync.trackPopupEvent(popup.id, 'impression');
@@ -38,29 +57,46 @@ function markImpression(popup: PopupConfig) {
 
 // ── SitePopup component ───────────────────────────────────────────────────────
 export function SitePopup() {
+  const { popupConfigs } = useCMS();
+
   const [popup, setPopup]     = useState<PopupConfig | null>(null);
   const [visible, setVisible] = useState(false);
   const [closed,  setClosed]  = useState(false);
   const closeRef = useRef<HTMLButtonElement>(null);
-  const triggerTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const triggerTimerRef   = useRef<ReturnType<typeof setTimeout> | null>(null);
   const scrollListenerRef = useRef<(() => void) | null>(null);
 
-  // Fetch active popup on mount
+  // ── Resolve popup: use context first (always up-to-date), fall back to DB ──
   useEffect(() => {
+    // 1. Try popupConfigs from context (loaded + real-time synced)
+    const fromContext = pickBest(popupConfigs);
+    if (fromContext) {
+      setPopup(fromContext);
+      return;
+    }
+
+    // 2. Fallback: fetch directly from Supabase in case context hasn't loaded yet
     SupabaseSync.fetchActivePopup().then(data => {
       if (!data) return;
       if (!shouldShow(data)) return;
       setPopup(data);
     });
+
     return () => {
-      if (triggerTimerRef.current) clearTimeout(triggerTimerRef.current);
+      if (triggerTimerRef.current)   clearTimeout(triggerTimerRef.current);
       if (scrollListenerRef.current) window.removeEventListener('scroll', scrollListenerRef.current);
     };
-  }, []);
+  // Re-run whenever the context list changes (e.g. admin publishes a new popup)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [popupConfigs]);
 
-  // Wire trigger once popup is loaded
+  // ── Wire trigger once popup is resolved ──────────────────────────────────
   useEffect(() => {
     if (!popup || closed) return;
+
+    // Clear any previous timer/scroll listener
+    if (triggerTimerRef.current)   clearTimeout(triggerTimerRef.current);
+    if (scrollListenerRef.current) window.removeEventListener('scroll', scrollListenerRef.current);
 
     const show = () => {
       setVisible(true);
@@ -81,13 +117,16 @@ export function SitePopup() {
       scrollListenerRef.current = onScroll;
       window.addEventListener('scroll', onScroll, { passive: true });
     }
+
+    return () => {
+      if (triggerTimerRef.current)   clearTimeout(triggerTimerRef.current);
+      if (scrollListenerRef.current) window.removeEventListener('scroll', scrollListenerRef.current);
+    };
   }, [popup, closed]);
 
   // Focus trap — move focus to close button when popup appears
   useEffect(() => {
-    if (visible && closeRef.current) {
-      closeRef.current.focus();
-    }
+    if (visible && closeRef.current) closeRef.current.focus();
   }, [visible]);
 
   // Keyboard escape closes
@@ -96,6 +135,7 @@ export function SitePopup() {
     const handler = (e: KeyboardEvent) => { if (e.key === 'Escape') handleClose(); };
     document.addEventListener('keydown', handler);
     return () => document.removeEventListener('keydown', handler);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [visible]);
 
   const handleClose = () => {
@@ -103,7 +143,7 @@ export function SitePopup() {
     setVisible(false);
     setClosed(true);
     SupabaseSync.trackPopupEvent(popup.id, 'dismissal');
-    if (popup.displayFrequency === 'once_session')    markSession(popup.id);
+    if (popup.displayFrequency === 'once_session') markSession(popup.id);
     if (popup.displayFrequency === 'once_device' || popup.displayFrequency === 'until_dismissed') markDevice(popup.id);
   };
 
