@@ -10,7 +10,7 @@ const recommendations = [
     description: "Designed for youth & university students with zero maintenance fees, campus debit card, and study financing access.",
     benefits: ["₦0 Monthly maintenance charges", "Free instant debit card", "Access to educational financing", "Digital mobile banking"],
     icon: GraduationCap,
-    ctaLink: "/personal-banking/student",
+    ctaLink: "/personal-banking#student",
     color: "#0284c7",
     bg: "#f0f7ff"
   },
@@ -32,7 +32,7 @@ const recommendations = [
     description: "Structured for employed individuals and professionals desiring frictionless salary deposits, cheque facilities, and overdrafts.",
     benefits: ["Direct salary direct-deposit", "Cheque book issuance", "Eligible for salary advance loans", "Free digital statement dispatch"],
     icon: User,
-    ctaLink: "/personal-banking/current",
+    ctaLink: "/personal-banking#current",
     color: "#0a1e3f",
     bg: "#f8fafc"
   }

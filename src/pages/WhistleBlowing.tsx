@@ -26,7 +26,7 @@ export default function WhistleBlowing() {
         <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#f0f7ff] rounded-full blur-3xl -z-10 opacity-70 pointer-events-none" />
 
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
-          <div className="max-w-3xl space-y-6">
+          <div className="max-w-3xl space-y-6 animate-in fade-in slide-in-from-bottom-8 duration-700">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#f0f7ff] border border-[#e2e8f0] text-[#0284c7] text-xs font-semibold uppercase tracking-wider">
               <Lock className="h-3.5 w-3.5 text-[#0284c7]" />
               <span>Confidential Compliance Channel</span>
@@ -49,7 +49,7 @@ export default function WhistleBlowing() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14">
             
             {/* Info Sidebar (4 cols) — Open Layout */}
-            <div className="lg:col-span-4 space-y-6">
+            <div className="lg:col-span-4 space-y-6 animate-in fade-in slide-in-from-bottom-8 duration-700 delay-150">
               <div className="space-y-3 pb-6 border-b border-[#e2e8f0]/80">
                 <h3 className="font-heading text-lg font-semibold text-[#0a1e3f]">Reportable Issues</h3>
                 <ul className="space-y-2 text-xs text-[#0a1e3f]/85">
@@ -84,8 +84,8 @@ export default function WhistleBlowing() {
             </div>
 
             {/* Reporting Form (8 cols) */}
-            <div className="lg:col-span-8">
-              <div className="rounded-2xl bg-white border border-[#e2e8f0] p-6 sm:p-8 space-y-6">
+            <div className="lg:col-span-8 animate-in fade-in slide-in-from-bottom-8 duration-700 delay-200">
+              <div className="rounded-2xl bg-white border border-[#e2e8f0] shadow-sm hover:border-[#0284c7]/30 transition-all duration-300 p-6 sm:p-8 space-y-6">
                 <div>
                   <h2 className="font-heading text-2xl font-semibold text-[#0a1e3f] tracking-tight">
                     Submit a Confidential Incident Report

@@ -18,7 +18,7 @@ const services = [
     accentColor: "#10b981",
     washBg: "#dcfce7",
     description: "Structured personal deposit plans offering steady annual interest yields, zero maintenance fees, and capital security.",
-    href: "/personal-banking/savings",
+    href: "/personal-banking#savings",
     features: ["Competitive Annual Interest", "Flexible Tenure Options", "Immediate Liquidity"],
   },
   {
@@ -38,7 +38,7 @@ const services = [
     accentColor: "#0284c7",
     washBg: "#e0f2fe",
     description: "Tailored commercial checking accounts, merchant services, and dedicated financial advisory for regional businesses.",
-    href: "/business-banking/sme",
+    href: "/business-banking#sme",
     features: ["Dedicated Relationship Officer", "High Limit POS Terminals", "Payroll Integration"],
   },
   {
@@ -48,7 +48,7 @@ const services = [
     accentColor: "#0a1e3f",
     washBg: "#f0f7ff",
     description: "Institutional cash management, structured trade financing, and treasury solutions for established corporations.",
-    href: "/business-banking/corporate",
+    href: "/business-banking#corporate",
     features: ["Cash Flow Management", "Trade Credit Lines", "Institutional Support"],
   },
   {
@@ -68,7 +68,7 @@ const services = [
     accentColor: "#0284c7",
     washBg: "#f0f7ff",
     description: "Specialized zero-fee accounts designed for secondary and tertiary students to manage allowances and develop financial discipline.",
-    href: "/personal-banking/student",
+    href: "/personal-banking#student",
     features: ["Zero Maintenance Fees", "Instant Debit Card", "Educational Study Loans"],
   },
 ];

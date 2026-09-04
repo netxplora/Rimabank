@@ -45,7 +45,7 @@ export default function AgentBanking() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
             
             {/* Left Content (7 cols) */}
-            <div className="lg:col-span-7 space-y-6">
+            <div className="lg:col-span-7 space-y-6 animate-in fade-in slide-in-from-bottom-8 duration-700">
               <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#f0f7ff] border border-[#e2e8f0] text-[#0a1e3f] text-xs font-semibold uppercase tracking-wider">
                 <span>Agency Banking Network</span>
               </div>
@@ -79,7 +79,7 @@ export default function AgentBanking() {
             </div>
 
             {/* Right Real Agent Showcase Image (5 cols) */}
-            <div className="lg:col-span-5 perspective-1000">
+            <div className="lg:col-span-5 perspective-1000 animate-in fade-in slide-in-from-bottom-8 duration-700 delay-200">
               <div className="rounded-3xl overflow-hidden shadow-md border border-[#e2e8f0] bg-[#f0f7ff] group">
                 <img
                   src="/images/rivers-agent-hero.png"
@@ -99,7 +99,7 @@ export default function AgentBanking() {
       {/* Partner Advantages Grid — Mobile-First */}
       <section className="py-10 md:py-20 bg-white border-b border-[#e2e8f0]/60">
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
-          <div className="mb-7 md:mb-12">
+          <div className="mb-7 md:mb-12 animate-in fade-in slide-in-from-bottom-8 duration-700 delay-150">
             <span className="text-[10px] font-semibold uppercase tracking-wider text-[#0284c7] block mb-1.5">
               Partner Advantages
             </span>
@@ -113,7 +113,8 @@ export default function AgentBanking() {
             {agentBenefits.map((benefit, idx) => (
               <div
                 key={idx}
-                className="rounded-xl bg-white border border-[#e2e8f0] p-3.5 flex flex-col gap-2.5"
+                className="rounded-xl bg-white border border-[#e2e8f0] p-3.5 flex flex-col gap-2.5 animate-in fade-in slide-in-from-bottom-8 duration-700"
+                style={{ animationDelay: `${(idx + 1) * 100}ms` }}
               >
                 <div
                   className="w-9 h-9 rounded-lg flex items-center justify-center shadow-sm"
@@ -134,7 +135,8 @@ export default function AgentBanking() {
             {agentBenefits.map((benefit, idx) => (
               <div
                 key={idx}
-                className="p-6 rounded-2xl bg-white border border-[#e2e8f0] hover:border-[#0284c7]/30 flex flex-col gap-4"
+                className="p-6 rounded-2xl bg-white border border-[#e2e8f0] hover:border-[#0284c7]/30 hover:-translate-y-1.5 hover:shadow-lg transition-all duration-300 flex flex-col gap-4 animate-in fade-in slide-in-from-bottom-8 duration-700"
+                style={{ animationDelay: `${(idx + 1) * 120}ms` }}
               >
                 <div
                   className="w-11 h-11 rounded-xl flex items-center justify-center shadow-sm"

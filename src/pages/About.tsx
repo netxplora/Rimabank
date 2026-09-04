@@ -73,9 +73,11 @@ export default function About() {
     <Layout>
       {/* Editorial Hero */}
       <section className="relative bg-white pt-12 pb-16 lg:pt-16 lg:pb-20 border-b border-[#e2e8f0]/60 overflow-hidden">
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#f0f7ff] rounded-full blur-3xl -z-10 opacity-70 pointer-events-none" />
+        {/* Animated Floating Background Orbs */}
+        <div className="absolute top-10 right-0 w-[500px] h-[500px] bg-sky-200/50 rounded-full blur-3xl -z-10 opacity-70 pointer-events-none animate-pulse duration-[3000ms]" />
+        <div className="absolute -bottom-20 left-10 w-[400px] h-[400px] bg-[#0a1e3f]/10 rounded-full blur-3xl -z-10 opacity-60 pointer-events-none animate-pulse delay-1000 duration-[4000ms]" />
 
-        <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 relative">
           <div className="max-w-3xl space-y-6">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#f0f7ff] border border-[#e2e8f0] text-[#0a1e3f] text-xs font-semibold uppercase tracking-wider">
               <span>About Rima Microfinance Bank</span>
@@ -141,7 +143,7 @@ export default function About() {
           </div>
           {/* Desktop: side-by-side cards */}
           <div className="hidden sm:grid grid-cols-2 gap-5 lg:gap-8">
-            <div className="p-7 rounded-2xl bg-white border border-[#e2e8f0]">
+            <div className="p-7 rounded-2xl bg-white border border-[#e2e8f0] shadow-lift transform hover:-translate-y-1 transition-all duration-500 animate-in fade-in slide-in-from-bottom-8 duration-700 fill-mode-both">
               <div className="w-11 h-11 rounded-xl bg-[#bcffbb] text-[#34c771] flex items-center justify-center mb-5 shadow-sm">
                 <Target className="h-5 w-5" />
               </div>
@@ -150,7 +152,7 @@ export default function About() {
                 To deliver accessible, dependable, and sustainable financial services that enable individuals, small businesses, and institutions to achieve financial stability and economic growth.
               </p>
             </div>
-            <div className="p-7 rounded-2xl bg-white border border-[#e2e8f0]">
+            <div className="p-7 rounded-2xl bg-white border border-[#e2e8f0] shadow-lift transform hover:-translate-y-1 transition-all duration-500 animate-in fade-in slide-in-from-bottom-8 duration-700 fill-mode-both" style={{ animationDelay: '150ms' }}>
               <div className="w-11 h-11 rounded-xl bg-[#f0f7ff] text-[#0284c7] flex items-center justify-center mb-5 shadow-sm">
                 <Eye className="h-5 w-5" />
               </div>
@@ -177,8 +179,12 @@ export default function About() {
 
           {/* Mobile: 2-column compact grid */}
           <div className="grid grid-cols-2 gap-3 sm:hidden">
-            {coreValues.map((value) => (
-              <div key={value.title} className="rounded-xl bg-white border border-[#e2e8f0] p-3.5 flex flex-col gap-2">
+            {coreValues.map((value, idx) => (
+              <div 
+                key={value.title} 
+                className="rounded-xl bg-white border border-[#e2e8f0] p-3.5 flex flex-col gap-2 animate-in fade-in slide-in-from-bottom-4 duration-700 fill-mode-both"
+                style={{ animationDelay: `${idx * 100}ms` }}
+              >
                 <div
                   className="w-8 h-8 rounded-lg flex items-center justify-center"
                   style={{ backgroundColor: value.bg, color: value.color }}
@@ -193,8 +199,12 @@ export default function About() {
 
           {/* Tablet / Desktop: 3-column rich cards */}
           <div className="hidden sm:grid grid-cols-2 lg:grid-cols-3 gap-5">
-            {coreValues.map((value) => (
-              <div key={value.title} className="p-6 rounded-2xl bg-white border border-[#e2e8f0] hover:border-[#0284c7]/30 flex flex-col gap-3">
+            {coreValues.map((value, idx) => (
+              <div 
+                key={value.title} 
+                className="p-6 rounded-2xl bg-white border border-[#e2e8f0] hover:border-[#0284c7]/30 hover:shadow-lg transform hover:-translate-y-1 transition-all duration-500 flex flex-col gap-3 animate-in fade-in slide-in-from-bottom-8 duration-700 fill-mode-both"
+                style={{ animationDelay: `${idx * 150}ms` }}
+              >
                 <div
                   className="w-10 h-10 rounded-xl flex items-center justify-center shadow-sm"
                   style={{ backgroundColor: value.bg, color: value.color }}
@@ -243,8 +253,12 @@ export default function About() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {milestones.map((m) => (
-              <div key={m.year} className="p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm shadow-md hover:bg-white/10 transition-all">
+            {milestones.map((m, idx) => (
+              <div 
+                key={m.year} 
+                className="p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm shadow-md hover:bg-white/10 hover:-translate-y-1 transition-all duration-500 animate-in fade-in slide-in-from-bottom-8 duration-700 fill-mode-both"
+                style={{ animationDelay: `${idx * 150}ms` }}
+              >
                 <div className="text-2xl font-heading font-bold text-[#0284c7] mb-2">{m.year}</div>
                 <p className="text-xs text-white/80 leading-relaxed">{m.event}</p>
               </div>

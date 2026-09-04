@@ -10,17 +10,17 @@ const navigation = [
     name: "Personal",
     href: "/personal-banking",
     children: [
-      { name: "Savings Accounts", href: "/personal-banking/savings", desc: "Structured savings with guaranteed growth" },
-      { name: "Current Accounts", href: "/personal-banking/current", desc: "Daily banking with zero hidden fees" },
-      { name: "Student Banking", href: "/personal-banking/student", desc: "Zero fees and educational financing" },
+      { name: "Savings Accounts", href: "/personal-banking#savings", desc: "Structured savings with guaranteed growth" },
+      { name: "Current Accounts", href: "/personal-banking#current", desc: "Daily banking with zero hidden fees" },
+      { name: "Student Banking", href: "/personal-banking#student", desc: "Zero fees and educational financing" },
     ],
   },
   {
     name: "Business",
     href: "/business-banking",
     children: [
-      { name: "SME Banking", href: "/business-banking/sme", desc: "Working capital and commercial accounts" },
-      { name: "Corporate Accounts", href: "/business-banking/corporate", desc: "Institutional-grade financial support" },
+      { name: "SME Banking", href: "/business-banking#sme", desc: "Working capital and commercial accounts" },
+      { name: "Corporate Accounts", href: "/business-banking#corporate", desc: "Institutional-grade financial support" },
     ],
   },
   {
@@ -41,7 +41,7 @@ const navigation = [
       { name: "About Rima MFB", href: "/about", desc: "Our heritage and mission" },
       { name: "Branch Network", href: "/branches", desc: "Locate our regional branches" },
       { name: "Media & Press", href: "/media", desc: "Latest corporate announcements" },
-      { name: "Careers", href: "/careers", desc: "Join our professional team" },
+      
     ],
   },
   { name: "Support", href: "/support" },
@@ -66,6 +66,18 @@ export function Header() {
     setIsMobileMenuOpen(false);
     setExpandedMobile(null);
   }, [location.pathname]);
+
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [isMobileMenuOpen]);
 
   const isActive = (href: string) => {
     if (href === "/" && location.pathname === "/") return true;
@@ -208,9 +220,9 @@ export function Header() {
           </div>
         </div>
 
-        {/* Mobile Menu */}
+        {/* Mobile Menu Overlay & Container */}
         {isMobileMenuOpen && (
-          <div className="lg:hidden bg-white border-t border-[#e2e8f0] shadow-xl overflow-y-auto max-h-[80vh]">
+          <div className="lg:hidden absolute top-full left-0 w-full bg-white/95 backdrop-blur-xl border-t border-[#e2e8f0] shadow-xl overflow-y-auto max-h-[calc(100vh-60px)] animate-in slide-in-from-top-2 fade-in duration-300">
             <div className="max-w-[1200px] mx-auto px-4 sm:px-6 py-4 space-y-1">
               {navigation.map((item) => (
                 <div key={item.name}>

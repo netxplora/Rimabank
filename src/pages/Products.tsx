@@ -111,9 +111,9 @@ export default function Products() {
         <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#f0f7ff] rounded-full blur-3xl -z-10 opacity-70 pointer-events-none" />
 
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
-          <div className="max-w-3xl space-y-6">
+          <div className="max-w-3xl space-y-6 animate-in fade-in slide-in-from-bottom-8 duration-700">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#f0f7ff] border border-[#e2e8f0] text-[#0a1e3f] text-xs font-semibold uppercase tracking-wider">
-              <span>Complete Product Catalog</span>
+              <span>Financial Products & Accounts</span>
             </div>
 
             <h1 className="font-heading text-4xl sm:text-5xl lg:text-6xl font-semibold text-[#0a1e3f] tracking-tight leading-[1.05]">
@@ -131,7 +131,7 @@ export default function Products() {
       <section className="py-16 md:py-20 bg-white border-b border-[#e2e8f0]/60">
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
           <Tabs defaultValue="savings" className="w-full">
-            <div className="flex justify-center mb-12">
+            <div className="flex justify-center mb-12 animate-in fade-in slide-in-from-bottom-8 duration-700 delay-150">
               <TabsList className="bg-[#f0f7ff] p-1.5 rounded-full border border-[#e2e8f0] h-auto flex flex-wrap gap-1">
                 <TabsTrigger value="savings" className="rounded-full px-5 sm:px-6 py-2.5 text-xs font-semibold uppercase tracking-wider data-[state=active]:bg-[#0a1e3f] data-[state=active]:text-white transition-all">
                   Savings & Deposits
@@ -145,10 +145,10 @@ export default function Products() {
               </TabsList>
             </div>
 
-            <TabsContent value="savings" className="space-y-8 animate-fade-in">
+            <TabsContent value="savings" className="space-y-8 animate-in fade-in slide-in-from-bottom-6 duration-500">
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-                {savingsProducts.map((product) => (
-                  <div key={product.name} className="p-7 sm:p-8 rounded-2xl bg-white border border-[#e2e8f0] flex flex-col justify-between hover:border-[#0284c7]/30 transition-all duration-300">
+                {savingsProducts.map((product, idx) => (
+                  <div key={product.name} className="p-7 sm:p-8 rounded-2xl bg-white border border-[#e2e8f0] flex flex-col justify-between hover:border-[#0284c7]/30 hover:-translate-y-1.5 hover:shadow-lg transition-all duration-300 animate-in fade-in slide-in-from-bottom-8 duration-700" style={{ animationDelay: `${(idx + 1) * 120}ms` }}>
                     <div>
                       <div className="flex items-center justify-between mb-6">
                         <div 

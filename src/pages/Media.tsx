@@ -92,7 +92,7 @@ export default function Media() {
         <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#f0f7ff] rounded-full blur-3xl -z-10 opacity-70 pointer-events-none" />
 
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
-          <div className="max-w-3xl space-y-6">
+          <div className="max-w-3xl space-y-6 animate-in fade-in slide-in-from-bottom-8 duration-700">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#f0f7ff] border border-[#e2e8f0] text-[#0a1e3f] text-xs font-semibold uppercase tracking-wider">
               <span>Press & Corporate Communications</span>
             </div>
@@ -110,9 +110,9 @@ export default function Media() {
 
       {/* Featured Article */}
       {featuredArticle && (
-        <section className="py-12 sm:py-16 bg-white border-b border-[#e2e8f0]/60">
+        <section className="py-12 sm:py-16 bg-white border-b border-[#e2e8f0]/60 animate-in fade-in slide-in-from-bottom-8 duration-700 delay-150">
           <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
-            <div className="rounded-3xl bg-white border border-[#e2e8f0] overflow-hidden grid grid-cols-1 lg:grid-cols-12 gap-0">
+            <div className="rounded-3xl bg-white border border-[#e2e8f0] shadow-sm hover:border-[#0284c7]/30 transition-all duration-300 overflow-hidden grid grid-cols-1 lg:grid-cols-12 gap-0">
               <div className="lg:col-span-6 aspect-[16/10] lg:aspect-auto overflow-hidden bg-[#f0f7ff]">
                 <Link to={`/media/${featuredArticle.slug}`}>
                   <img
@@ -169,7 +169,7 @@ export default function Media() {
       {/* 3-Column News Grid */}
       <section className="py-16 md:py-20 bg-white border-b border-[#e2e8f0]/60">
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
-          <div className="mb-10">
+          <div className="mb-10 animate-in fade-in slide-in-from-bottom-8 duration-700 delay-200">
             <span className="text-xs font-semibold uppercase tracking-wider text-[#0284c7] block mb-2">
               Recent Coverage
             </span>
@@ -179,10 +179,11 @@ export default function Media() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-            {otherArticles.map((article) => (
+            {otherArticles.map((article, idx) => (
               <div 
                 key={article.id} 
-                className="rounded-2xl bg-white border border-[#e2e8f0] overflow-hidden flex flex-col justify-between hover:border-[#0284c7]/30 transition-all duration-300 group"
+                className="rounded-2xl bg-white border border-[#e2e8f0] overflow-hidden flex flex-col justify-between hover:border-[#0284c7]/30 hover:-translate-y-1.5 hover:shadow-lg transition-all duration-300 group animate-in fade-in slide-in-from-bottom-8 duration-700"
+                style={{ animationDelay: `${(idx + 1) * 120}ms` }}
               >
                 <div>
                   <div className="h-48 overflow-hidden bg-[#f0f7ff]">

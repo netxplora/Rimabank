@@ -41,7 +41,7 @@ export default function Support() {
     { name: "Frequently Asked Questions", href: "/faq", icon: HelpCircle },
     { name: "Regulatory Disclosures & Privacy", href: "/privacy", icon: ShieldCheck },
     { name: "Official Dispute & Complaints", href: "/complaints", icon: HeartPulse },
-    { name: "Account Mandate & Download Forms", href: "/downloads", icon: ExternalLink },
+    { name: "Account Mandate & Download Forms", href: "/contact", icon: ExternalLink },
   ];
 
   return (
@@ -51,7 +51,7 @@ export default function Support() {
         <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#f0f7ff] rounded-full blur-3xl -z-10 opacity-70 pointer-events-none" />
 
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
-          <div className="max-w-3xl space-y-6">
+          <div className="max-w-3xl space-y-6 animate-in fade-in slide-in-from-bottom-8 duration-700">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#f0f7ff] border border-[#e2e8f0] text-[#0a1e3f] text-xs font-semibold uppercase tracking-wider">
               <span>Customer Help & Resolution</span>
             </div>
@@ -69,14 +69,14 @@ export default function Support() {
 
       {/* Main Support Channels 3-Column Grid */}
       <section className="py-16 md:py-20 bg-white border-b border-[#e2e8f0]/60">
-        <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 animate-in fade-in slide-in-from-bottom-8 duration-700 delay-150">
           
           {/* Support Channels — Open 3-Column Layout (No heavy card containers) */}
           <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-[#e2e8f0]/80 border-t border-b border-[#e2e8f0]/80 py-4 mb-16">
             {supportChannels.map((channel, idx) => (
               <div 
                 key={idx} 
-                className="py-8 md:p-6 lg:p-8 flex flex-col justify-between"
+                className="py-8 md:p-6 lg:p-8 flex flex-col justify-between hover:bg-[#f0f7ff]/30 transition-colors duration-300"
               >
                 <div>
                   <div 

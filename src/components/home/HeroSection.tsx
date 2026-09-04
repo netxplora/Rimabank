@@ -22,12 +22,6 @@ export function HeroSection() {
           {/* Left Hero Content (7 cols) */}
           <div className="lg:col-span-7 space-y-6 sm:space-y-8 animate-fade-in-up">
 
-            {/* Regulatory Badge */}
-            <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-white/90 border border-[#0284c7]/30 backdrop-blur-md text-[#0284c7] text-xs font-semibold tracking-wide shadow-sm">
-              <span className="w-2.5 h-2.5 rounded-full bg-[#0284c7] animate-pulse shrink-0"></span>
-              <span>CBN Licensed Microfinance Bank &bull; NDIC Insured</span>
-            </div>
-
             {/* Headline */}
             <h1 className="font-heading text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tight leading-[1.08] text-balance text-[#0a1e3f]">
               Dependable banking for <span className="text-[#0284c7]">you</span> and <span className="text-[#0284c7]">your business</span>.
@@ -119,7 +113,7 @@ export function HeroSection() {
                   Statutory Protection
                 </span>
                 <Link
-                  to="/personal-banking/savings"
+                  to="/personal-banking#savings"
                   className="text-[#0284c7] font-semibold hover:underline flex items-center gap-1 transition-all duration-150"
                 >
                   View Details <ArrowRight className="h-3 w-3" />

@@ -40,7 +40,7 @@ const actions = [
     icon: Download,
     title: "Forms & Downloads",
     description: "Official account forms and regulatory documents",
-    href: "/downloads",
+    href: "/contact",
     color: "#0a1e3f",
     bg: "#f0f7ff",
     badge: "PDF Downloads"

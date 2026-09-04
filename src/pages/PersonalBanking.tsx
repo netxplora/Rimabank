@@ -2,6 +2,12 @@ import { Layout } from "@/components/layout/Layout";
 import { Wallet, CreditCard, GraduationCap, CheckCircle2, ArrowRight, ShieldCheck, Landmark } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
 const personalServices = [
   {
@@ -12,13 +18,23 @@ const personalServices = [
     bg: "#bcffbb",
     accent: "#34c771",
     description: "Build capital with structured deposit plans offering competitive annualized interest yields and zero hidden maintenance fees.",
-    href: "/personal-banking/savings",
+    href: "/personal-banking#savings",
     benefits: [
-      "Competitive annual interest rates",
-      "Zero mandatory monthly maintenance charges",
-      "Free instant debit card issuance at branch",
-      "Immediate liquidity and flexible tenure"
-    ]
+      "Competitive annual interest yields calculated daily and credited quarterly",
+      "Zero mandatory minimum operating balance requirements",
+      "Instant debit card issuance for nationwide ATM and POS access",
+      "24/7 Mobile app and online banking platform access",
+      "Automated standing orders for structured monthly savings",
+      "Direct qualification for retail credit and salary advance facilities"
+    ],
+    requirements: [
+      "Duly completed Account Opening Form",
+      "Valid Government ID (NIN, Voter's Card, Driver's License, or Passport)",
+      "Bank Verification Number (BVN)",
+      "Recent Utility Bill (Electricity, Water, or Waste not older than 3 months)",
+      "Two (2) recent passport photographs"
+    ],
+    fees: "Zero monthly maintenance fees"
   },
   {
     id: "current",
@@ -28,13 +44,23 @@ const personalServices = [
     bg: "#e2e8f0",
     accent: "#477ee9",
     description: "Designed for day-to-day liquidity, salary deposits, personalized cheque books, and seamless digital transaction capacity.",
-    href: "/personal-banking/current",
+    href: "/personal-banking#current",
     benefits: [
-      "Transparent schedule of banking fees",
-      "Personalized cheque book provision",
-      "Eligible for overdraft facilities",
-      "Instant SMS and email notifications"
-    ]
+      "Unrestricted monthly transaction volume and deposit frequency",
+      "Personalized cheque book issuance and third-party clearing",
+      "Eligibility for personal overdrafts and short-term lines of credit",
+      "Instant debit card linkage for nationwide ATM, POS, and online checkout",
+      "Direct NIBSS instant settlement with real-time SMS/Email alerts",
+      "Priority branch customer desk assistance"
+    ],
+    requirements: [
+      "Duly completed Current Account Opening Form",
+      "Valid Government Identification (NIN, Voter's Card, Driver's License, or Passport)",
+      "Two (2) independent external account references",
+      "Proof of Residential Address (Utility Bill not older than 3 months)",
+      "Two (2) recent passport photographs"
+    ],
+    fees: "Transparent tariff aligned with Central Bank of Nigeria guidelines"
   },
   {
     id: "student",
@@ -44,13 +70,23 @@ const personalServices = [
     bg: "#f5ffbb",
     accent: "#0a1e3f",
     description: "Foundational banking accounts for secondary and university students with zero maintenance fees and study loan access.",
-    href: "/personal-banking/student",
+    href: "/personal-banking#student",
     benefits: [
-      "₦0 Monthly maintenance charges",
-      "Free student debit card",
-      "Access to educational micro-credit",
-      "Mobile banking on iOS and Android"
-    ]
+      "Zero monthly maintenance or administrative fees",
+      "Complimentary student Verve/Mastercard debit card",
+      "24/7 Mobile app banking for instant transfers",
+      "Exclusive eligibility for educational support micro-credit",
+      "Transparent zero-hidden-fee transaction terms",
+      "Campus financial literacy workshops and budgeting tools"
+    ],
+    requirements: [
+      "Valid Student Identification Card or Admission Letter",
+      "National Identity Number (NIN) or BVN",
+      "Two (2) recent passport photographs",
+      "Verified residential or campus hostel address",
+      "Zero initial deposit required to open"
+    ],
+    fees: "₦0 Monthly maintenance charges"
   }
 ];
 
@@ -62,7 +98,7 @@ export default function PersonalBanking() {
         <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#f0f7ff] rounded-full blur-3xl -z-10 opacity-70 pointer-events-none" />
 
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
-          <div className="max-w-3xl space-y-6">
+          <div className="max-w-3xl space-y-6 animate-in fade-in slide-in-from-bottom-8 duration-700">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#f0f7ff] border border-[#e2e8f0] text-[#0a1e3f] text-xs font-semibold uppercase tracking-wider">
               <span>Personal Banking Services</span>
             </div>
@@ -100,7 +136,7 @@ export default function PersonalBanking() {
       {/* Account Products 3-Column Grid */}
       <section className="py-16 md:py-20 bg-white border-b border-[#e2e8f0]/60">
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
-          <div className="max-w-2xl mb-12">
+          <div className="max-w-2xl mb-12 animate-in fade-in slide-in-from-bottom-8 duration-700 delay-150">
             <span className="text-xs font-semibold uppercase tracking-wider text-[#0284c7] block mb-2">
               Product Portfolio
             </span>
@@ -110,10 +146,11 @@ export default function PersonalBanking() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-            {personalServices.map((service) => (
+            {personalServices.map((service, index) => (
               <div 
                 key={service.id} 
-                className="p-7 sm:p-8 rounded-2xl bg-white border border-[#e2e8f0] flex flex-col justify-between hover:border-[#0284c7]/30 transition-all duration-300"
+                className="p-7 sm:p-8 rounded-2xl bg-white border border-[#e2e8f0] flex flex-col justify-between hover:border-[#0284c7]/30 hover:-translate-y-1.5 hover:shadow-lg transition-all duration-300 animate-in fade-in slide-in-from-bottom-8 duration-700"
+                style={{ animationDelay: `${(index + 1) * 150}ms` }}
               >
                 <div>
                   <div className="flex items-center justify-between mb-6">
@@ -139,7 +176,7 @@ export default function PersonalBanking() {
                     {service.description}
                   </p>
                   
-                  <div className="space-y-2.5 mb-8 pt-4 border-t border-[#e2e8f0]/60">
+                  <div className="space-y-2.5 mb-6 pt-4 border-t border-[#e2e8f0]/60">
                     {service.benefits.map((benefit, i) => (
                       <div key={i} className="flex items-start gap-2.5 text-xs text-[#0a1e3f]">
                         <CheckCircle2 className="h-4 w-4 text-[#34c771] shrink-0 mt-0.5" />
@@ -147,6 +184,29 @@ export default function PersonalBanking() {
                       </div>
                     ))}
                   </div>
+
+                  <Accordion type="single" collapsible className="w-full mb-8">
+                    <AccordionItem value="requirements" className="border-[#e2e8f0]/60">
+                      <AccordionTrigger className="py-3 text-[13px] font-semibold text-[#0a1e3f] hover:no-underline">
+                        Opening Requirements
+                      </AccordionTrigger>
+                      <AccordionContent>
+                        <ul className="list-disc pl-4 space-y-1.5 text-xs text-[#64748b]">
+                          {service.requirements.map((req, i) => (
+                            <li key={i}>{req}</li>
+                          ))}
+                        </ul>
+                      </AccordionContent>
+                    </AccordionItem>
+                    <AccordionItem value="fees" className="border-[#e2e8f0]/60">
+                      <AccordionTrigger className="py-3 text-[13px] font-semibold text-[#0a1e3f] hover:no-underline">
+                        Fees & Charges
+                      </AccordionTrigger>
+                      <AccordionContent className="text-xs text-[#64748b]">
+                        {service.fees}
+                      </AccordionContent>
+                    </AccordionItem>
+                  </Accordion>
                 </div>
 
                 <div className="pt-4 border-t border-[#e2e8f0]">
@@ -169,7 +229,7 @@ export default function PersonalBanking() {
       </section>
 
       {/* Trust Banner — Open Divided Layout (No card containers) */}
-      <section className="py-12 md:py-16 bg-white border-b border-[#e2e8f0]/60">
+      <section className="py-12 md:py-16 bg-white border-b border-[#e2e8f0]/60 animate-in fade-in slide-in-from-bottom-8 duration-700 delay-300">
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
           <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-[#e2e8f0]/80 border-t border-b border-[#e2e8f0]/80 py-2">
             <div className="py-6 md:p-6 flex items-start gap-4">

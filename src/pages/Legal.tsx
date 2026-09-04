@@ -204,7 +204,7 @@ export default function Legal() {
         <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#f0f7ff] rounded-full blur-3xl -z-10 opacity-70 pointer-events-none" />
 
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
-          <div className="max-w-3xl space-y-6">
+          <div className="max-w-3xl space-y-6 animate-in fade-in slide-in-from-bottom-8 duration-700">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#f0f7ff] border border-[#e2e8f0] text-[#0a1e3f] text-xs font-semibold uppercase tracking-wider">
               <span>Regulatory Governance</span>
             </div>
@@ -226,7 +226,7 @@ export default function Legal() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
             
             {/* Sidebar Tabs (4 cols) */}
-            <div className="lg:col-span-4 space-y-2 lg:sticky lg:top-24">
+            <div className="lg:col-span-4 space-y-2 lg:sticky lg:top-24 animate-in fade-in slide-in-from-bottom-8 duration-700 delay-150">
               <span className="text-xs font-semibold uppercase tracking-wider text-[#64748b] block mb-3 px-3">
                 Legal Documents
               </span>
@@ -247,7 +247,7 @@ export default function Legal() {
             </div>
 
             {/* Content Display (8 cols) */}
-            <div className="lg:col-span-8">
+            <div className="lg:col-span-8 animate-in fade-in slide-in-from-bottom-8 duration-700 delay-200">
               <div className="p-6 sm:p-10 lg:p-12 rounded-3xl bg-white border border-[#e2e8f0] space-y-6">
                 <div className="flex items-center gap-3 pb-5 border-b border-[#e2e8f0]/60">
                   <div className="w-10 h-10 rounded-xl bg-[#f0f7ff] flex items-center justify-center shadow-xs">

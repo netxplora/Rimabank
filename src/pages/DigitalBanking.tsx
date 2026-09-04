@@ -146,7 +146,8 @@ export default function DigitalBanking() {
             {features.map((feature, index) => (
               <div 
                 key={index} 
-                className="flex flex-col justify-between"
+                className="flex flex-col justify-between p-6 -m-6 rounded-2xl hover:bg-white hover:shadow-lift border border-transparent hover:border-[#e2e8f0]/80 transition-all duration-500 animate-in fade-in slide-in-from-bottom-8 duration-700 fill-mode-both"
+                style={{ animationDelay: `${index * 150}ms` }}
               >
                 <div>
                   <div 
@@ -177,7 +178,7 @@ export default function DigitalBanking() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-[#e2e8f0]/80 border-t border-b border-[#e2e8f0]/80 py-2">
-            <div className="py-6 md:p-6 space-y-3">
+            <div className="py-6 md:p-6 space-y-3 animate-in fade-in slide-in-from-right-8 duration-700 fill-mode-both">
               <div className="text-2xl font-heading font-bold text-[#0284c7]">01</div>
               <h3 className="font-heading text-base font-semibold text-[#0a1e3f]">Download the App</h3>
               <p className="text-xs text-[#64748b] leading-relaxed">
@@ -185,7 +186,7 @@ export default function DigitalBanking() {
               </p>
             </div>
 
-            <div className="py-6 md:p-6 space-y-3">
+            <div className="py-6 md:p-6 space-y-3 animate-in fade-in slide-in-from-right-8 duration-700 fill-mode-both" style={{ animationDelay: '150ms' }}>
               <div className="text-2xl font-heading font-bold text-[#0284c7]">02</div>
               <h3 className="font-heading text-base font-semibold text-[#0a1e3f]">Verify Credentials</h3>
               <p className="text-xs text-[#64748b] leading-relaxed">
@@ -193,7 +194,7 @@ export default function DigitalBanking() {
               </p>
             </div>
 
-            <div className="py-6 md:p-6 space-y-3">
+            <div className="py-6 md:p-6 space-y-3 animate-in fade-in slide-in-from-right-8 duration-700 fill-mode-both" style={{ animationDelay: '300ms' }}>
               <div className="text-2xl font-heading font-bold text-[#0284c7]">03</div>
               <h3 className="font-heading text-base font-semibold text-[#0a1e3f]">Begin Banking</h3>
               <p className="text-xs text-[#64748b] leading-relaxed">

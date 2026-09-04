@@ -18,19 +18,19 @@ import { Button } from "@/components/ui/button";
 const quickLinks = [
   { name: "About Rima MFB", href: "/about" },
   { name: "Branch Network", href: "/branches" },
-  { name: "Careers", href: "/careers" },
-  { name: "Financial Education", href: "/education" },
+  
+  
   { name: "Customer Support", href: "/support" },
-  { name: "Forms & Downloads", href: "/downloads" },
+  { name: "Forms & Downloads", href: "/contact" },
   { name: "Frequently Asked Questions", href: "/faq" },
 ];
 
 const products = [
-  { name: "Savings Accounts", href: "/personal-banking/savings" },
-  { name: "Current Accounts", href: "/personal-banking/current" },
-  { name: "Student Banking", href: "/personal-banking/student" },
-  { name: "SME Commercial Banking", href: "/business-banking/sme" },
-  { name: "Corporate Accounts", href: "/business-banking/corporate" },
+  { name: "Savings Accounts", href: "/personal-banking#savings" },
+  { name: "Current Accounts", href: "/personal-banking#current" },
+  { name: "Student Banking", href: "/personal-banking#student" },
+  { name: "SME Commercial Banking", href: "/business-banking#sme" },
+  { name: "Corporate Accounts", href: "/business-banking#corporate" },
   { name: "Micro & Business Credit", href: "/loans" },
   { name: "Agency Banking Network", href: "/agent-banking" },
 ];

@@ -2,6 +2,12 @@ import { Layout } from "@/components/layout/Layout";
 import { Briefcase, Building2, TrendingUp, CheckCircle2, ArrowRight, ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
 const businessServices = [
   {
@@ -12,13 +18,23 @@ const businessServices = [
     bg: "#f0f7ff",
     accent: "#0284c7",
     description: "Structured capital, low-commission merchant POS terminals, and operational support designed for retailers, contractors, and manufacturers.",
-    href: "/business-banking/sme",
+    href: "/business-banking#sme",
     benefits: [
-      "Streamlined commercial credit assessment",
-      "Dedicated corporate relationship officer",
-      "High-limit daily electronic transaction volume",
-      "Customized working capital overdraft lines"
-    ]
+      "Commercial working capital facilities up to ₦50 Million",
+      "Dedicated Business Banking Relationship Manager",
+      "Point-of-Sale (POS) terminal issuance for merchant payment collection",
+      "Higher daily electronic transfer thresholds for supplier payments",
+      "Direct NIBSS payroll automation for staff salary settlement",
+      "Business advisory, cash flow structuring, and financial audits"
+    ],
+    requirements: [
+      "CAC Business Registration / Incorporation Documents (Status Report or Certificate)",
+      "Tax Identification Number (TIN) Verification",
+      "Valid Government ID and BVN for all Directors and Signatories",
+      "Proof of Business Operational Address (Utility Bill not older than 3 months)",
+      "Two (2) external corporate account references"
+    ],
+    fees: "Transparent commercial transaction fees in line with CBN standards"
   },
   {
     id: "corporate",
@@ -28,13 +44,22 @@ const businessServices = [
     bg: "#e2e8f0",
     accent: "#0a1e3f",
     description: "Financial structure for established corporate entities and institutions requiring multi-signatory accounts and bulk cash flows.",
-    href: "/business-banking/corporate",
+    href: "/business-banking#corporate",
     benefits: [
       "Automated multi-tier payroll disbursement",
       "Structured trade finance and contractor credit",
       "Customized institutional treasury terms",
       "Priority branch and executive desk support"
-    ]
+    ],
+    requirements: [
+      "Board Resolution authorizing account opening",
+      "CAC Incorporation Documents (Status Report / Form 1.1)",
+      "Tax Identification Number (TIN) and VAT certificate",
+      "Valid IDs and BVN for all Directors and Authorized Signatories",
+      "Two independent corporate bank reference forms",
+      "SCUML certificate (for designated non-financial businesses)"
+    ],
+    fees: "Competitive corporate tariff per CBN guidelines"
   },
   {
     id: "investments",
@@ -44,13 +69,19 @@ const businessServices = [
     bg: "#bcffbb",
     accent: "#34c771",
     description: "Optimize corporate idle liquidity with secure, fixed-tenure deposit placements providing guaranteed yields and collateral backing.",
-    href: "/personal-banking/savings",
+    href: "/personal-banking#savings",
     benefits: [
       "Competitive institutional interest yields",
       "Flexible maturity tenures (30 to 365 days)",
       "Usable as collateral for credit lines",
       "Immediate quarterly or end-of-tenure interest payouts"
-    ]
+    ],
+    requirements: [
+      "Active corporate or SME operating account",
+      "Signed fixed deposit mandate letter",
+      "Minimum placement of ₦1,000,000"
+    ],
+    fees: "No placement or liquidation fees (penalties apply for premature liquidation)"
   }
 ];
 
@@ -62,7 +93,7 @@ export default function BusinessBanking() {
         <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#f0f7ff] rounded-full blur-3xl -z-10 opacity-70 pointer-events-none" />
 
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
-          <div className="max-w-3xl space-y-6">
+          <div className="max-w-3xl space-y-6 animate-in fade-in slide-in-from-bottom-8 duration-700">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#f0f7ff] border border-[#e2e8f0] text-[#0a1e3f] text-xs font-semibold uppercase tracking-wider">
               <span>Commercial & Business Banking</span>
             </div>
@@ -100,7 +131,7 @@ export default function BusinessBanking() {
       {/* Services 3-Column Grid */}
       <section className="py-16 md:py-20 bg-white border-b border-[#e2e8f0]/60">
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
-          <div className="max-w-2xl mb-12">
+          <div className="max-w-2xl mb-12 animate-in fade-in slide-in-from-bottom-8 duration-700 delay-150">
             <span className="text-xs font-semibold uppercase tracking-wider text-[#0284c7] block mb-2">
               Commercial Products
             </span>
@@ -110,10 +141,11 @@ export default function BusinessBanking() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-            {businessServices.map((service) => (
+            {businessServices.map((service, index) => (
               <div 
                 key={service.id} 
-                className="p-7 sm:p-8 rounded-2xl bg-white border border-[#e2e8f0] flex flex-col justify-between hover:border-[#0284c7]/30 transition-all duration-300"
+                className="p-7 sm:p-8 rounded-2xl bg-white border border-[#e2e8f0] flex flex-col justify-between hover:border-[#0284c7]/30 hover:-translate-y-1.5 hover:shadow-lg transition-all duration-300 animate-in fade-in slide-in-from-bottom-8 duration-700"
+                style={{ animationDelay: `${(index + 1) * 150}ms` }}
               >
                 <div>
                   <div className="flex items-center justify-between mb-6">
@@ -139,7 +171,7 @@ export default function BusinessBanking() {
                     {service.description}
                   </p>
                   
-                  <div className="space-y-2.5 mb-8 pt-4 border-t border-[#e2e8f0]/60">
+                  <div className="space-y-2.5 mb-6 pt-4 border-t border-[#e2e8f0]/60">
                     {service.benefits.map((benefit, i) => (
                       <div key={i} className="flex items-start gap-2.5 text-xs text-[#0a1e3f]">
                         <CheckCircle2 className="h-4 w-4 text-[#34c771] shrink-0 mt-0.5" />
@@ -147,6 +179,29 @@ export default function BusinessBanking() {
                       </div>
                     ))}
                   </div>
+
+                  <Accordion type="single" collapsible className="w-full mb-8">
+                    <AccordionItem value="requirements" className="border-[#e2e8f0]/60">
+                      <AccordionTrigger className="py-3 text-[13px] font-semibold text-[#0a1e3f] hover:no-underline">
+                        Opening Requirements
+                      </AccordionTrigger>
+                      <AccordionContent>
+                        <ul className="list-disc pl-4 space-y-1.5 text-xs text-[#64748b]">
+                          {service.requirements.map((req, i) => (
+                            <li key={i}>{req}</li>
+                          ))}
+                        </ul>
+                      </AccordionContent>
+                    </AccordionItem>
+                    <AccordionItem value="fees" className="border-[#e2e8f0]/60">
+                      <AccordionTrigger className="py-3 text-[13px] font-semibold text-[#0a1e3f] hover:no-underline">
+                        Fees & Charges
+                      </AccordionTrigger>
+                      <AccordionContent className="text-xs text-[#64748b]">
+                        {service.fees}
+                      </AccordionContent>
+                    </AccordionItem>
+                  </Accordion>
                 </div>
 
                 <div className="pt-4 border-t border-[#e2e8f0]">
@@ -169,7 +224,7 @@ export default function BusinessBanking() {
       </section>
 
       {/* Corporate Capabilities 2-Column Section */}
-      <section className="py-16 md:py-20 bg-gradient-to-b from-[#f0f7ff]/60 to-white border-b border-[#e2e8f0]/60">
+      <section className="py-16 md:py-20 bg-gradient-to-b from-[#f0f7ff]/60 to-white border-b border-[#e2e8f0]/60 animate-in fade-in slide-in-from-bottom-8 duration-700 delay-300">
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
             

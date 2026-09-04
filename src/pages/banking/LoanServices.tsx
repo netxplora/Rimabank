@@ -93,10 +93,11 @@ export default function LoanServices() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {loanTypes.map((loan) => (
+            {loanTypes.map((loan, idx) => (
               <div 
                 key={loan.id} 
-                className="p-6 rounded-2xl bg-white border border-[#e2e8f0] flex flex-col justify-between hover:border-[#0284c7]/30 transition-all duration-300"
+                className="p-6 rounded-2xl bg-white border border-[#e2e8f0] flex flex-col justify-between hover:border-[#0284c7]/30 shadow-sm hover:shadow-lift transform hover:-translate-y-1 transition-all duration-500 animate-in fade-in slide-in-from-bottom-8 duration-700 fill-mode-both"
+                style={{ animationDelay: `${idx * 200}ms` }}
               >
                 <div>
                   <div 
@@ -136,9 +137,13 @@ export default function LoanServices() {
               Financial Projection Calculators
             </h2>
           </div>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-stretch">
-            <LoanCalculator />
-            <SavingsCalculator />
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch mt-8">
+            <div className="rounded-[2rem] p-1 bg-gradient-to-b from-white to-[#f0f7ff]/50 border border-[#e2e8f0]/60 shadow-xl shadow-[#0a1e3f]/5 animate-in fade-in slide-in-from-left-8 duration-700 fill-mode-both">
+              <LoanCalculator />
+            </div>
+            <div className="rounded-[2rem] p-1 bg-gradient-to-b from-white to-[#bcffbb]/10 border border-[#e2e8f0]/60 shadow-xl shadow-[#34c771]/5 animate-in fade-in slide-in-from-right-8 duration-700 fill-mode-both" style={{ animationDelay: '200ms' }}>
+              <SavingsCalculator />
+            </div>
           </div>
         </section>
 

@@ -67,7 +67,7 @@ export function StudentBankingSection() {
                 asChild
                 className="bg-[#0284c7] hover:bg-[#0369a1] text-white shadow-brand transform hover:-translate-y-0.5 transition-all"
               >
-                <Link to="/personal-banking/student">
+                <Link to="/personal-banking#student">
                   Open Student Account
                   <ArrowRight className="h-4 w-4 ml-1.5" />
                 </Link>

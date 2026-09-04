@@ -81,7 +81,7 @@ export default function Contact() {
         <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#f0f7ff] rounded-full blur-3xl -z-10 opacity-70 pointer-events-none" />
 
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
-          <div className="max-w-3xl space-y-6">
+          <div className="max-w-3xl space-y-6 animate-in fade-in slide-in-from-bottom-8 duration-700">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#f0f7ff] border border-[#e2e8f0] text-[#0a1e3f] text-xs font-semibold uppercase tracking-wider">
               <span>Customer Service & Inquiries</span>
             </div>
@@ -103,8 +103,8 @@ export default function Contact() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14">
             
             {/* Contact Form (7 cols) */}
-            <div className="lg:col-span-7">
-              <div className="p-6 sm:p-10 rounded-3xl bg-white border border-[#e2e8f0] space-y-6">
+            <div className="lg:col-span-7 animate-in fade-in slide-in-from-bottom-8 duration-700 delay-150">
+              <div className="p-6 sm:p-10 rounded-3xl bg-white border border-[#e2e8f0] shadow-sm hover:border-[#0284c7]/30 transition-all duration-300 space-y-6">
                 <div>
                   <h2 className="font-heading text-2xl font-semibold text-[#0a1e3f] tracking-tight">
                     Submit an Inquiry

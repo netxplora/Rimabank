@@ -169,7 +169,7 @@ export function BankingServiceLayout({
                 )}
 
                 <Button variant="outlineNeutral" className="w-full rounded-full text-xs" asChild>
-                  <Link to="/downloads">
+                  <Link to="/contact">
                     Download Account Forms
                   </Link>
                 </Button>
