@@ -248,7 +248,7 @@ export default function Legal() {
 
             {/* Content Display (8 cols) */}
             <div className="lg:col-span-8">
-              <div className="card-3d p-6 sm:p-10 lg:p-12 rounded-3xl bg-white border border-[#e7dcdb] shadow-3d space-y-6">
+              <div className="p-6 sm:p-10 lg:p-12 rounded-3xl bg-white border border-[#e7dcdb] space-y-6">
                 <div className="flex items-center gap-3 pb-5 border-b border-[#e7dcdb]/60">
                   <div className="w-10 h-10 rounded-xl bg-[#fdedea] flex items-center justify-center shadow-xs">
                     {legalContent[activeTab].icon}

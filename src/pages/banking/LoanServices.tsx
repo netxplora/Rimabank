@@ -96,7 +96,7 @@ export default function LoanServices() {
             {loanTypes.map((loan) => (
               <div 
                 key={loan.id} 
-                className="card-3d p-6 rounded-2xl bg-white border border-[#e7dcdb] shadow-3d flex flex-col justify-between hover:border-[#f73b20]/30 transition-all duration-300"
+                className="p-6 rounded-2xl bg-white border border-[#e7dcdb] flex flex-col justify-between hover:border-[#f73b20]/30 transition-all duration-300"
               >
                 <div>
                   <div 
@@ -142,10 +142,10 @@ export default function LoanServices() {
           </div>
         </section>
 
-        {/* Loan FAQ 3D Card */}
+        {/* Loan FAQ Card */}
         <section id="loan-faq" className="space-y-4">
           <h2 className="text-2xl font-heading font-semibold text-[#360802]">Credit & Loan FAQs</h2>
-          <div className="card-3d rounded-2xl bg-white border border-[#e7dcdb] p-3 sm:p-5 shadow-3d">
+          <div className="rounded-2xl bg-white border border-[#e7dcdb] p-3 sm:p-5">
             <Accordion type="single" collapsible className="w-full">
               <AccordionItem value="item-1" className="border-b border-[#e7dcdb]/60 px-2">
                 <AccordionTrigger className="font-heading text-sm font-medium text-[#360802] hover:text-[#f73b20] py-4">

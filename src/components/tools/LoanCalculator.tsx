@@ -18,7 +18,7 @@ export function LoanCalculator() {
   }, [amount, months, rate]);
 
   return (
-    <div className="card-3d w-full h-full flex flex-col bg-white rounded-2xl border border-[#e7dcdb] p-6 sm:p-8 lg:p-10 shadow-3d">
+    <div className="w-full h-full flex flex-col bg-white rounded-2xl border border-[#e7dcdb] p-6 sm:p-8 lg:p-10">
       <div className="flex items-center gap-3 mb-6">
         <div className="w-10 h-10 rounded-xl bg-[#fdedea] text-[#f73b20] flex items-center justify-center shadow-xs">
           <Calculator className="h-5 w-5" />

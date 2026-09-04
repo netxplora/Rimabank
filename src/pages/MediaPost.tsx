@@ -137,7 +137,7 @@ export default function MediaPost() {
 
         {/* Featured Image */}
         <div className="max-w-[1000px] mx-auto px-4 sm:px-6 py-8">
-          <div className="card-3d rounded-2xl overflow-hidden aspect-[16/9] shadow-3d border border-[#e7dcdb]">
+          <div className="rounded-2xl overflow-hidden aspect-[16/9] border border-[#e7dcdb]">
             <img
               src={post.featured_image || '/images/media-sme.png'}
               alt={post.title}

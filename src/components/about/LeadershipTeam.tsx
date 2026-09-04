@@ -78,7 +78,7 @@ export function LeadershipTeam() {
         {team.map((member, idx) => (
           <div
             key={idx}
-            className="card-3d rounded-2xl overflow-hidden bg-white border border-[#e7dcdb] shadow-3d hover:border-[#f73b20]/40 flex flex-col justify-between group"
+            className="rounded-2xl overflow-hidden bg-white border border-[#e7dcdb] hover:border-[#f73b20]/40 flex flex-col justify-between group transition-colors"
           >
             <div className="aspect-[4/4.5] overflow-hidden bg-[#fdedea] relative">
               <img

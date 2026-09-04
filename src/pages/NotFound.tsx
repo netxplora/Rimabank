@@ -14,7 +14,7 @@ export default function NotFound() {
   return (
     <Layout>
       <div className="min-h-[70vh] flex items-center justify-center bg-white py-20">
-        <div className="card-3d text-center max-w-md mx-auto px-6 sm:px-8 py-12 rounded-3xl bg-white border border-[#e7dcdb] shadow-3d space-y-6">
+        <div className="text-center max-w-md mx-auto px-6 sm:px-8 py-12 rounded-3xl bg-white border border-[#e7dcdb] space-y-6">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#fdedea] border border-[#e7dcdb] text-[#f73b20] text-xs font-semibold uppercase tracking-wider">
             <span>HTTP Status 404</span>
           </div>

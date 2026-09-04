@@ -113,7 +113,7 @@ export default function BusinessBanking() {
             {businessServices.map((service) => (
               <div 
                 key={service.id} 
-                className="card-3d p-7 sm:p-8 rounded-2xl bg-white border border-[#e7dcdb] shadow-3d flex flex-col justify-between hover:border-[#f73b20]/30 transition-all duration-300"
+                className="p-7 sm:p-8 rounded-2xl bg-white border border-[#e7dcdb] flex flex-col justify-between hover:border-[#f73b20]/30 transition-all duration-300"
               >
                 <div>
                   <div className="flex items-center justify-between mb-6">
@@ -217,7 +217,7 @@ export default function BusinessBanking() {
 
             {/* Right Desk Card (5 cols) */}
             <div className="lg:col-span-5 perspective-1000">
-              <div className="card-3d rounded-3xl bg-white border border-[#e7dcdb] p-7 sm:p-8 shadow-3d-lift space-y-5">
+              <div className="rounded-3xl bg-white border border-[#e7dcdb] p-7 sm:p-8 space-y-5">
                 <div className="flex items-center gap-3 pb-4 border-b border-[#e7dcdb]">
                   <ShieldCheck className="h-6 w-6 text-[#f73b20]" />
                   <div>

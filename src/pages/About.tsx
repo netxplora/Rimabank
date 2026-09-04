@@ -139,9 +139,9 @@ export default function About() {
               </div>
             </div>
           </div>
-          {/* Desktop: side-by-side 3D cards */}
+          {/* Desktop: side-by-side cards */}
           <div className="hidden sm:grid grid-cols-2 gap-5 lg:gap-8">
-            <div className="card-3d p-7 rounded-2xl bg-white border border-[#e7dcdb] shadow-3d">
+            <div className="p-7 rounded-2xl bg-white border border-[#e7dcdb]">
               <div className="w-11 h-11 rounded-xl bg-[#bcffbb] text-[#34c771] flex items-center justify-center mb-5 shadow-sm">
                 <Target className="h-5 w-5" />
               </div>
@@ -150,7 +150,7 @@ export default function About() {
                 To deliver accessible, dependable, and sustainable financial services that enable individuals, small businesses, and institutions to achieve financial stability and economic growth.
               </p>
             </div>
-            <div className="card-3d p-7 rounded-2xl bg-white border border-[#e7dcdb] shadow-3d">
+            <div className="p-7 rounded-2xl bg-white border border-[#e7dcdb]">
               <div className="w-11 h-11 rounded-xl bg-[#fdedea] text-[#f73b20] flex items-center justify-center mb-5 shadow-sm">
                 <Eye className="h-5 w-5" />
               </div>
@@ -194,7 +194,7 @@ export default function About() {
           {/* Tablet / Desktop: 3-column rich cards */}
           <div className="hidden sm:grid grid-cols-2 lg:grid-cols-3 gap-5">
             {coreValues.map((value) => (
-              <div key={value.title} className="card-3d p-6 rounded-2xl bg-white border border-[#e7dcdb] shadow-3d hover:border-[#f73b20]/30 flex flex-col gap-3">
+              <div key={value.title} className="p-6 rounded-2xl bg-white border border-[#e7dcdb] hover:border-[#f73b20]/30 flex flex-col gap-3">
                 <div
                   className="w-10 h-10 rounded-xl flex items-center justify-center shadow-sm"
                   style={{ backgroundColor: value.bg, color: value.color }}

@@ -134,7 +134,7 @@ export default function AgentBanking() {
             {agentBenefits.map((benefit, idx) => (
               <div
                 key={idx}
-                className="card-3d p-6 rounded-2xl bg-white border border-[#e7dcdb] shadow-3d hover:border-[#f73b20]/30 flex flex-col gap-4"
+                className="p-6 rounded-2xl bg-white border border-[#e7dcdb] hover:border-[#f73b20]/30 flex flex-col gap-4"
               >
                 <div
                   className="w-11 h-11 rounded-xl flex items-center justify-center shadow-sm"

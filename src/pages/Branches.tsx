@@ -136,7 +136,7 @@ export default function Branches() {
                 />
               </div>
 
-              <div className="space-y-4 max-h-[650px] overflow-y-auto pr-1">
+              <div className="space-y-3 max-h-[650px] overflow-y-auto pr-1">
                 {filteredBranches.length === 0 ? (
                   <div className="text-center py-16 text-xs text-[#ababab]">
                     No branches found matching your search.
@@ -147,7 +147,7 @@ export default function Branches() {
                       key={branch.id}
                       onClick={() => handleViewOnMap(branch.id)}
                       className={cn(
-                        "card-3d p-6 rounded-2xl border transition-all duration-200 cursor-pointer shadow-3d",
+                        "p-5 rounded-2xl border transition-all duration-200 cursor-pointer",
                         activeBranchId === branch.id
                           ? "border-[#f73b20] bg-[#fdedea]/40 ring-1 ring-[#f73b20]/30"
                           : "border-[#e7dcdb] bg-white hover:border-[#f73b20]/40"
@@ -213,7 +213,7 @@ export default function Branches() {
             {/* Map Side (6 cols) */}
             <div id="map-container" className="lg:col-span-6">
               <div className="lg:sticky lg:top-24">
-                <div className="rounded-3xl overflow-hidden h-[400px] lg:h-[650px] border border-[#e7dcdb] shadow-3d-lift bg-[#fdedea] relative">
+                <div className="rounded-3xl overflow-hidden h-[400px] lg:h-[650px] border border-[#e7dcdb] bg-[#fdedea] relative">
                   {activeBranch && activeBranch.latitude && activeBranch.longitude ? (
                     <div className="w-full h-full">
                       <iframe
@@ -226,8 +226,8 @@ export default function Branches() {
                         src={`https://maps.google.com/maps?q=${activeBranch.latitude},${activeBranch.longitude}&hl=en&z=15&output=embed`}
                       ></iframe>
 
-                      {/* Map Location 3D Badge */}
-                      <div className="absolute top-4 left-4 bg-white/95 backdrop-blur-md rounded-2xl shadow-3d border border-[#e7dcdb] p-3.5 text-xs text-[#360802] max-w-xs">
+                      {/* Map Location Badge */}
+                      <div className="absolute top-4 left-4 bg-white/95 backdrop-blur-md rounded-2xl border border-[#e7dcdb] p-3.5 text-xs text-[#360802] max-w-xs shadow-sm">
                         <span className="font-heading font-bold text-xs block">{activeBranch.name}</span>
                         <span className="text-[11px] text-[#ababab]">{activeBranch.address}</span>
                       </div>

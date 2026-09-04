@@ -85,8 +85,8 @@ export function BankingServiceLayout({
             
             {/* Left Content (8 cols) */}
             <div className="lg:col-span-8 space-y-10">
-              {/* Product Overview 3D Card */}
-              <div className="card-3d p-6 sm:p-8 rounded-2xl bg-white border border-[#e7dcdb] shadow-3d space-y-4">
+              {/* Product Overview Card */}
+              <div className="p-6 sm:p-8 rounded-2xl bg-white border border-[#e7dcdb] space-y-4">
                 <h2 className="font-heading text-2xl font-semibold text-[#360802] tracking-tight">
                   Product Overview
                 </h2>
@@ -106,7 +106,7 @@ export function BankingServiceLayout({
                 </h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   {benefits.map((benefit, idx) => (
-                    <div key={idx} className="card-3d p-4 sm:p-5 rounded-2xl bg-white border border-[#e7dcdb] shadow-3d flex items-start gap-3">
+                    <div key={idx} className="p-4 sm:p-5 rounded-2xl bg-white border border-[#e7dcdb] flex items-start gap-3">
                       <CheckCircle2 className="h-5 w-5 text-[#34c771] shrink-0 mt-0.5" />
                       <span className="text-xs font-semibold text-[#360802] leading-snug">{benefit}</span>
                     </div>
@@ -117,8 +117,8 @@ export function BankingServiceLayout({
               {/* Children custom page slots */}
               {children}
 
-              {/* Action 3D Banner */}
-              <div className="p-8 rounded-3xl bg-gradient-to-br from-[#360802] via-[#450b03] to-[#250501] text-white shadow-3d-lift flex flex-col md:flex-row items-start md:items-center justify-between gap-6 border border-white/15">
+              {/* Action Banner */}
+              <div className="p-8 rounded-3xl bg-gradient-to-br from-[#360802] via-[#450b03] to-[#250501] text-white flex flex-col md:flex-row items-start md:items-center justify-between gap-6 border border-white/15">
                 <div className="max-w-md">
                   <h3 className="font-heading text-xl font-semibold text-white mb-1">
                     Ready to open your account?
@@ -143,8 +143,8 @@ export function BankingServiceLayout({
 
             {/* Right Sticky Sidebar (4 cols) */}
             <div className="lg:col-span-4 space-y-6">
-              {/* Requirements 3D Card */}
-              <div className="card-3d rounded-2xl bg-white border border-[#e7dcdb] p-6 sm:p-7 shadow-3d lg:sticky lg:top-24">
+              {/* Requirements Card */}
+              <div className="rounded-2xl bg-white border border-[#e7dcdb] p-6 sm:p-7 lg:sticky lg:top-24">
                 <div className="flex items-center gap-2 pb-4 border-b border-[#e7dcdb] mb-5">
                   <ShieldCheck className="h-5 w-5 text-[#f73b20]" />
                   <h4 className="font-heading text-base font-semibold text-[#360802]">

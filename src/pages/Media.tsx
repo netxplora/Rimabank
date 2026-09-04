@@ -108,11 +108,11 @@ export default function Media() {
         </div>
       </section>
 
-      {/* 3D Featured Article */}
+      {/* Featured Article */}
       {featuredArticle && (
         <section className="py-12 sm:py-16 bg-white border-b border-[#e7dcdb]/60">
           <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
-            <div className="card-3d rounded-3xl bg-white border border-[#e7dcdb] shadow-3d-lift overflow-hidden grid grid-cols-1 lg:grid-cols-12 gap-0">
+            <div className="rounded-3xl bg-white border border-[#e7dcdb] overflow-hidden grid grid-cols-1 lg:grid-cols-12 gap-0">
               <div className="lg:col-span-6 aspect-[16/10] lg:aspect-auto overflow-hidden bg-[#fdedea]">
                 <Link to={`/media/${featuredArticle.slug}`}>
                   <img
@@ -182,7 +182,7 @@ export default function Media() {
             {otherArticles.map((article) => (
               <div 
                 key={article.id} 
-                className="card-3d rounded-2xl bg-white border border-[#e7dcdb] shadow-3d overflow-hidden flex flex-col justify-between hover:border-[#f73b20]/30 transition-all duration-300 group"
+                className="rounded-2xl bg-white border border-[#e7dcdb] overflow-hidden flex flex-col justify-between hover:border-[#f73b20]/30 transition-all duration-300 group"
               >
                 <div>
                   <div className="h-48 overflow-hidden bg-[#fdedea]">

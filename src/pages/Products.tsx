@@ -148,7 +148,7 @@ export default function Products() {
             <TabsContent value="savings" className="space-y-8 animate-fade-in">
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
                 {savingsProducts.map((product) => (
-                  <div key={product.name} className="card-3d p-7 sm:p-8 rounded-2xl bg-white border border-[#e7dcdb] shadow-3d flex flex-col justify-between hover:border-[#f73b20]/30 transition-all duration-300">
+                  <div key={product.name} className="p-7 sm:p-8 rounded-2xl bg-white border border-[#e7dcdb] flex flex-col justify-between hover:border-[#f73b20]/30 transition-all duration-300">
                     <div>
                       <div className="flex items-center justify-between mb-6">
                         <div 
@@ -196,7 +196,7 @@ export default function Products() {
             <TabsContent value="loans" className="space-y-8 animate-fade-in">
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
                 {loanProducts.map((product) => (
-                  <div key={product.name} className="card-3d p-7 sm:p-8 rounded-2xl bg-white border border-[#e7dcdb] shadow-3d flex flex-col justify-between hover:border-[#f73b20]/30 transition-all duration-300">
+                  <div key={product.name} className="p-7 sm:p-8 rounded-2xl bg-white border border-[#e7dcdb] flex flex-col justify-between hover:border-[#f73b20]/30 transition-all duration-300">
                     <div>
                       <div className="flex items-center justify-between mb-6">
                         <div 
@@ -244,7 +244,7 @@ export default function Products() {
             <TabsContent value="accounts" className="space-y-8 animate-fade-in">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 max-w-4xl mx-auto">
                 {accountTypes.map((product) => (
-                  <div key={product.name} className="card-3d p-7 sm:p-8 rounded-2xl bg-white border border-[#e7dcdb] shadow-3d flex flex-col justify-between hover:border-[#f73b20]/30 transition-all duration-300">
+                  <div key={product.name} className="p-7 sm:p-8 rounded-2xl bg-white border border-[#e7dcdb] flex flex-col justify-between hover:border-[#f73b20]/30 transition-all duration-300">
                     <div>
                       <div className="flex items-center justify-between mb-6">
                         <div 

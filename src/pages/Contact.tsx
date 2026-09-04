@@ -104,7 +104,7 @@ export default function Contact() {
             
             {/* Contact Form (7 cols) */}
             <div className="lg:col-span-7">
-              <div className="card-3d p-6 sm:p-10 rounded-3xl bg-white border border-[#e7dcdb] shadow-3d space-y-6">
+              <div className="p-6 sm:p-10 rounded-3xl bg-white border border-[#e7dcdb] space-y-6">
                 <div>
                   <h2 className="font-heading text-2xl font-semibold text-[#360802] tracking-tight">
                     Submit an Inquiry
@@ -209,8 +209,8 @@ export default function Contact() {
 
             {/* Direct Channels (5 cols) */}
             <div className="lg:col-span-5 space-y-6">
-              {/* Direct Info 3D Card */}
-              <div className="p-8 rounded-3xl bg-gradient-to-br from-[#360802] via-[#450b03] to-[#250501] text-white shadow-3d-lift space-y-6 border border-white/15">
+              {/* Direct Info Card */}
+              <div className="p-8 rounded-3xl bg-gradient-to-br from-[#360802] via-[#450b03] to-[#250501] text-white space-y-6 border border-white/15">
                 <h3 className="font-heading text-lg font-semibold text-white pb-4 border-b border-white/15">
                   Head Office Channels
                 </h3>
@@ -254,8 +254,8 @@ export default function Contact() {
                 </div>
               </div>
 
-              {/* Regulatory Assurance 3D Card */}
-              <div className="card-3d p-6 rounded-2xl bg-white border border-[#e7dcdb] shadow-3d space-y-2">
+              {/* Regulatory Assurance Card */}
+              <div className="p-6 rounded-2xl bg-white border border-[#e7dcdb] space-y-2">
                 <div className="flex items-center gap-2 text-xs font-bold text-[#360802]">
                   <ShieldCheck className="h-4 w-4 text-[#34c771]" />
                   <span>Regulatory Protection</span>
