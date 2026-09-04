@@ -8,7 +8,8 @@ import {
   MediaAsset,
   StaffUser,
   AuditLog,
-  SystemSettings
+  SystemSettings,
+  PopupConfig
 } from '@/types/cms';
 
 // Connectivity guard — avoids cascading errors when project is offline
@@ -432,5 +433,153 @@ export const SupabaseSync = {
       console.warn('[SupabaseSync] deleteMediaAsset error:', err);
       return false;
     }
-  }
+  },
+
+  // ----------------------------------------------------------------
+  // 6. Popup Configs
+  // ----------------------------------------------------------------
+
+  /** Maps a raw DB row to PopupConfig */
+  _mapPopup(item: any): PopupConfig {
+    return {
+      id:                   item.id,
+      sourceType:           item.source_type,
+      sourceId:             item.source_id || undefined,
+      displayMode:          item.display_mode,
+      title:                item.title,
+      content:              item.content || '',
+      featuredImage:        item.featured_image || undefined,
+      ctaText:              item.cta_text || undefined,
+      ctaUrl:               item.cta_url || undefined,
+      showCloseButton:      Boolean(item.show_close_button),
+      startDate:            item.start_date,
+      endDate:              item.end_date || undefined,
+      triggerType:          item.trigger_type,
+      triggerDelaySeconds:  Number(item.trigger_delay_seconds) || 2,
+      displayFrequency:     item.display_frequency,
+      priority:             Number(item.priority) || 5,
+      showOnDesktop:        Boolean(item.show_on_desktop),
+      showOnMobile:         Boolean(item.show_on_mobile),
+      overlayEnabled:       Boolean(item.overlay_enabled),
+      status:               item.status,
+      createdBy:            item.created_by || '',
+      createdById:          item.created_by_id || undefined,
+      createdAt:            item.created_at,
+      updatedAt:            item.updated_at,
+      impressions:          Number(item.impressions) || 0,
+      dismissals:           Number(item.dismissals)  || 0,
+      ctaClicks:            Number(item.cta_clicks)  || 0,
+    };
+  },
+
+  /** Fetch the single highest-priority, currently-active popup for the public site */
+  async fetchActivePopup(): Promise<PopupConfig | null> {
+    try {
+      if (!(await isSupabaseAvailable())) return null;
+      const now = new Date().toISOString();
+      const { data, error } = await supabase
+        .from('popup_configs' as any)
+        .select('*')
+        .eq('status', 'active')
+        .lte('start_date', now)
+        .or(`end_date.is.null,end_date.gt.${now}`)
+        .order('priority', { ascending: true })
+        .limit(1)
+        .maybeSingle();
+
+      if (error || !data) return null;
+      return SupabaseSync._mapPopup(data);
+    } catch (err) {
+      console.warn('[SupabaseSync] fetchActivePopup error:', err);
+      return null;
+    }
+  },
+
+  /** Fetch all popup configs for the CMS (admin/staff) */
+  async fetchAllPopups(): Promise<PopupConfig[] | null> {
+    try {
+      if (!(await isSupabaseAvailable())) return null;
+      const { data, error } = await supabase
+        .from('popup_configs' as any)
+        .select('*')
+        .order('priority', { ascending: true });
+
+      if (error || !data) return null;
+      return (data as any[]).map(SupabaseSync._mapPopup);
+    } catch (err) {
+      console.warn('[SupabaseSync] fetchAllPopups error:', err);
+      return null;
+    }
+  },
+
+  /** Upsert a popup config record */
+  async savePopupConfig(popup: PopupConfig): Promise<boolean> {
+    try {
+      if (!(await isSupabaseAvailable())) return false;
+      const isUUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(popup.id);
+      const payload: any = {
+        ...(isUUID ? { id: popup.id } : {}),
+        source_type:           popup.sourceType,
+        source_id:             popup.sourceId || null,
+        display_mode:          popup.displayMode,
+        title:                 popup.title,
+        content:               popup.content,
+        featured_image:        popup.featuredImage || null,
+        cta_text:              popup.ctaText || null,
+        cta_url:               popup.ctaUrl || null,
+        show_close_button:     popup.showCloseButton,
+        start_date:            popup.startDate,
+        end_date:              popup.endDate || null,
+        trigger_type:          popup.triggerType,
+        trigger_delay_seconds: popup.triggerDelaySeconds,
+        display_frequency:     popup.displayFrequency,
+        priority:              popup.priority,
+        show_on_desktop:       popup.showOnDesktop,
+        show_on_mobile:        popup.showOnMobile,
+        overlay_enabled:       popup.overlayEnabled,
+        status:                popup.status,
+        created_by:            popup.createdBy,
+        created_by_id:         popup.createdById || null,
+        updated_at:            new Date().toISOString(),
+      };
+      const { error } = await supabase
+        .from('popup_configs' as any)
+        .upsert(payload);
+      if (error) throw error;
+      return true;
+    } catch (err) {
+      console.warn('[SupabaseSync] savePopupConfig error:', err);
+      return false;
+    }
+  },
+
+  /** Delete a popup config by id */
+  async deletePopupConfig(id: string): Promise<boolean> {
+    try {
+      if (!(await isSupabaseAvailable())) return false;
+      const isUUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(id);
+      if (!isUUID) return false;
+      const { error } = await supabase
+        .from('popup_configs' as any)
+        .delete()
+        .eq('id', id);
+      if (error) throw error;
+      return true;
+    } catch (err) {
+      console.warn('[SupabaseSync] deletePopupConfig error:', err);
+      return false;
+    }
+  },
+
+  /** Increment an analytics counter via the server-side RPC */
+  async trackPopupEvent(id: string, event: 'impression' | 'dismissal' | 'cta_click'): Promise<void> {
+    try {
+      const isUUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(id);
+      if (!isUUID) return;
+      await supabase.rpc('track_popup_event' as any, { p_popup_id: id, p_event: event });
+    } catch (err) {
+      console.warn('[SupabaseSync] trackPopupEvent error:', err);
+    }
+  },
 };
+

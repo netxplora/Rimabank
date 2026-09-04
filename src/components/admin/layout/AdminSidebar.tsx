@@ -14,10 +14,25 @@ import {
   ExternalLink,
   ChevronRight,
   ShieldAlert,
+  Layers,
   X
 } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 import { useCMS } from '@/context/CMSContext';
+
+interface NavItem {
+  name: string;
+  href: string;
+  icon: React.ElementType;
+  badge: string | null;
+  badgeColor?: string;
+  adminOnly?: boolean;
+}
+
+interface NavGroup {
+  title: string;
+  items: NavItem[];
+}
 
 interface AdminSidebarProps {
   isOpen: boolean;
@@ -27,13 +42,15 @@ interface AdminSidebarProps {
 export const AdminSidebar: React.FC<AdminSidebarProps> = ({ isOpen, onClose }) => {
   const location = useLocation();
   const { user } = useAuth();
-  const { enquiries, announcements, publications } = useCMS();
+  const { enquiries, announcements, publications, popupConfigs } = useCMS();
 
   const unreadEnquiriesCount = enquiries.filter(e => e.status === 'unread').length;
   const draftPubsCount = publications.filter(p => p.status === 'draft' || p.status === 'review').length;
   const activeAlertsCount = announcements.filter(a => a.status === 'published' && a.displayAsBanner).length;
+  const activePopupsCount = popupConfigs.filter(p => p.status === 'active').length;
+  const pendingPopupsCount = popupConfigs.filter(p => p.status === 'scheduled').length;
 
-  const navigationGroups = [
+  const navigationGroups: NavGroup[] = [
     {
       title: "Core Operations",
       items: [
@@ -73,6 +90,13 @@ export const AdminSidebar: React.FC<AdminSidebarProps> = ({ isOpen, onClose }) =
           icon: BookOpen,
           badge: draftPubsCount > 0 ? `${draftPubsCount} Draft` : null,
           badgeColor: 'bg-sky-500'
+        },
+        {
+          name: "Popup Manager",
+          href: "/admin/popups",
+          icon: Layers,
+          badge: pendingPopupsCount > 0 ? `${pendingPopupsCount} Pending` : activePopupsCount > 0 ? `${activePopupsCount} Live` : null,
+          badgeColor: pendingPopupsCount > 0 ? 'bg-amber-500' : 'bg-emerald-500'
         }
       ]
     },

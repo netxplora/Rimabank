@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
-import { useNavigate, useLocation, Link } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { ShieldCheck, Lock, Mail, ArrowRight, AlertCircle, Shield } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
 
 export default function AdminLogin() {
-  const [email, setEmail] = useState('admin@rimamfb.com');
-  const [password, setPassword] = useState('RimaAdmin2026!');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
   
@@ -83,7 +83,6 @@ export default function AdminLogin() {
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="admin@rimamfb.com"
                   className="w-full pl-10 pr-3.5 py-2.5 rounded-xl border border-[#e2e8f0] text-xs sm:text-sm text-[#0a1e3f] focus:border-[#0284c7] outline-none transition-all"
                 />
               </div>
@@ -101,19 +100,9 @@ export default function AdminLogin() {
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  placeholder="Enter administrator password"
                   className="w-full pl-10 pr-3.5 py-2.5 rounded-xl border border-[#e2e8f0] text-xs sm:text-sm text-[#0a1e3f] focus:border-[#0284c7] outline-none transition-all font-mono"
                 />
               </div>
-            </div>
-
-            {/* Quick Demo Pre-fill notice */}
-            <div className="p-3 rounded-xl bg-slate-50 border border-slate-200/80 text-[11px] text-slate-600 space-y-1">
-              <div className="font-semibold text-[#0a1e3f] flex items-center justify-between">
-                <span>Super Administrator Credentials</span>
-                <span className="text-[10px] px-2 py-0.5 rounded bg-sky-100 text-[#0284c7] font-bold">FULL ACCESS</span>
-              </div>
-              <p className="text-slate-500 font-mono text-[10px]">admin@rimamfb.com • RimaAdmin2026!</p>
             </div>
 
             {/* Submit Button */}
@@ -126,17 +115,6 @@ export default function AdminLogin() {
               <ArrowRight className="h-4 w-4" />
             </Button>
           </form>
-
-          {/* Dedicated Staff Portal Link */}
-          <div className="mt-6 pt-5 border-t border-slate-100 flex flex-col items-center gap-2">
-            <span className="text-xs text-slate-500">Not an executive administrator?</span>
-            <Link
-              to="/staff/login"
-              className="inline-flex items-center gap-1.5 text-xs text-[#10b981] hover:text-[#059669] font-semibold transition-all hover:underline"
-            >
-              Access the Staff Operations Portal →
-            </Link>
-          </div>
         </div>
 
         <div className="mt-4 text-center">

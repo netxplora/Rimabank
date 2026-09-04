@@ -5,6 +5,7 @@ import { ScrollToTop } from "./ScrollToTop";
 import { PageLoadingBar } from "./PageLoadingBar";
 import { PageTransition } from "./PageTransition";
 import { AnnouncementBanner } from "./AnnouncementBanner";
+import { SitePopup } from "./SitePopup";
 
 interface LayoutProps {
   children: ReactNode;
@@ -21,6 +22,7 @@ export function Layout({ children }: LayoutProps) {
         <PageTransition>{children}</PageTransition>
       </main>
       <Footer />
+      <SitePopup />
     </div>
   );
 }

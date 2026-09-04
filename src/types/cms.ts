@@ -2,13 +2,49 @@ export type ContentStatus = 'draft' | 'review' | 'approved' | 'published' | 'sch
 export type UserRole = 'admin' | 'staff';
 export type PriorityLevel = 'low' | 'normal' | 'high' | 'urgent';
 
+// --- Popup system types ---
+export type PopupDisplayMode = 'standard' | 'popup' | 'both';
+export type PopupTrigger    = 'immediate' | 'delay' | 'scroll';
+export type PopupFrequency  = 'every_visit' | 'once_session' | 'once_device' | 'until_dismissed';
+export type PopupStatus     = 'draft' | 'scheduled' | 'active' | 'paused' | 'expired' | 'archived';
+
+export interface PopupConfig {
+  id: string;
+  sourceType: 'promotion' | 'announcement' | 'publication' | 'standalone';
+  sourceId?: string;
+  displayMode: PopupDisplayMode;
+  title: string;
+  content: string;
+  featuredImage?: string;
+  ctaText?: string;
+  ctaUrl?: string;
+  showCloseButton: boolean;
+  startDate: string;
+  endDate?: string;
+  triggerType: PopupTrigger;
+  triggerDelaySeconds: number;
+  displayFrequency: PopupFrequency;
+  priority: number;        // 1 = highest priority
+  showOnDesktop: boolean;
+  showOnMobile: boolean;
+  overlayEnabled: boolean;
+  status: PopupStatus;
+  createdBy: string;
+  createdById?: string;
+  createdAt: string;
+  updatedAt: string;
+  impressions: number;
+  dismissals: number;
+  ctaClicks: number;
+}
+
 export interface AuditLog {
   id: string;
   userId: string;
   userName: string;
   userRole: UserRole;
   action: 'CREATE' | 'UPDATE' | 'DELETE' | 'PUBLISH' | 'UNPUBLISH' | 'APPROVE' | 'LOGIN' | 'ROLE_CHANGE' | 'SETTINGS_CHANGE';
-  resourceType: 'LANDING_PAGE' | 'PROMOTION' | 'ANNOUNCEMENT' | 'PUBLICATION' | 'ENQUIRY' | 'MEDIA' | 'USER' | 'SETTINGS';
+  resourceType: 'LANDING_PAGE' | 'PROMOTION' | 'ANNOUNCEMENT' | 'PUBLICATION' | 'ENQUIRY' | 'MEDIA' | 'USER' | 'SETTINGS' | 'POPUP';
   resourceId?: string;
   resourceTitle?: string;
   details: string;

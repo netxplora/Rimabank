@@ -10,6 +10,7 @@ import {
   ChevronRight,
   X,
   ShieldCheck,
+  Layers,
   Briefcase
 } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
@@ -23,11 +24,15 @@ interface StaffSidebarProps {
 export const StaffSidebar: React.FC<StaffSidebarProps> = ({ isOpen, onClose }) => {
   const location = useLocation();
   const { user } = useAuth();
-  const { enquiries, announcements, publications } = useCMS();
+  const { enquiries, announcements, publications, popupConfigs } = useCMS();
 
   const unreadEnquiriesCount = enquiries.filter(e => e.status === 'unread').length;
   const draftPubsCount = publications.filter(p => p.status === 'draft' || p.status === 'review').length;
   const activeAlertsCount = announcements.filter(a => a.status === 'published').length;
+  const myDraftPopups = popupConfigs.filter(p =>
+    (p.createdById === user?.id || p.createdBy === user?.name) &&
+    (p.status === 'draft' || p.status === 'scheduled')
+  ).length;
 
   const staffNavItems = [
     {
@@ -68,6 +73,13 @@ export const StaffSidebar: React.FC<StaffSidebarProps> = ({ isOpen, onClose }) =
       href: "/staff/profile",
       icon: User,
       badge: null
+    },
+    {
+      name: "Popup Drafts",
+      href: "/staff/popups",
+      icon: Layers,
+      badge: myDraftPopups > 0 ? `${myDraftPopups} Draft` : null,
+      badgeColor: 'bg-sky-500'
     }
   ];
 

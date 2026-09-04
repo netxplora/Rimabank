@@ -10,7 +10,8 @@ import {
   StaffUser,
   AuditLog,
   SystemSettings,
-  UserRole
+  UserRole,
+  PopupConfig
 } from '@/types/cms';
 import {
   initialSiteContent,
@@ -36,6 +37,7 @@ const CMS_STORAGE_KEYS = {
   STAFF: 'rima_cms_staff_v1',
   AUDIT_LOGS: 'rima_cms_audit_logs_v1',
   SETTINGS: 'rima_cms_settings_v1',
+  POPUPS: 'rima_cms_popups_v1',
 };
 
 interface CMSContextType {
@@ -92,6 +94,13 @@ interface CMSContextType {
   // Settings
   systemSettings: SystemSettings;
   updateSystemSettings: (settings: Partial<SystemSettings>, user: { id: string; name: string; role: UserRole }) => void;
+
+  // Popup Configs
+  popupConfigs: PopupConfig[];
+  addPopupConfig: (popup: Omit<PopupConfig, 'id' | 'createdAt' | 'updatedAt' | 'impressions' | 'dismissals' | 'ctaClicks'>, user: { id: string; name: string; role: UserRole }) => void;
+  updatePopupConfig: (id: string, updates: Partial<PopupConfig>, user: { id: string; name: string; role: UserRole }) => void;
+  deletePopupConfig: (id: string, user: { id: string; name: string; role: UserRole }) => void;
+  togglePopupStatus: (id: string, user: { id: string; name: string; role: UserRole }) => void;
 }
 
 const CMSContext = createContext<CMSContextType | undefined>(undefined);
@@ -141,6 +150,11 @@ export const CMSProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
   const [systemSettings, setSystemSettings] = useState<SystemSettings>(() => {
     const saved = localStorage.getItem(CMS_STORAGE_KEYS.SETTINGS);
     return saved ? JSON.parse(saved) : initialSystemSettings;
+  });
+
+  const [popupConfigs, setPopupConfigs] = useState<PopupConfig[]>(() => {
+    const saved = localStorage.getItem(CMS_STORAGE_KEYS.POPUPS);
+    return saved ? JSON.parse(saved) : [];
   });
 
   // 2. Supabase Live Initial Sync & Real-time Subscriptions
@@ -206,11 +220,25 @@ export const CMSProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
       })
       .subscribe();
 
+    // Sync popups on load
+    SupabaseSync.fetchAllPopups().then(remote => {
+      if (remote && remote.length > 0) setPopupConfigs(remote);
+    });
+
+    const popupsChannel = supabase
+      .channel('public_popup_configs')
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'popup_configs' }, async () => {
+        const updated = await SupabaseSync.fetchAllPopups();
+        if (updated) setPopupConfigs(updated);
+      })
+      .subscribe();
+
     return () => {
       supabase.removeChannel(newsChannel);
       supabase.removeChannel(contactChannel);
       supabase.removeChannel(pagesChannel);
       supabase.removeChannel(mediaChannel);
+      supabase.removeChannel(popupsChannel);
     };
   }, []);
 
@@ -250,6 +278,10 @@ export const CMSProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
   useEffect(() => {
     localStorage.setItem(CMS_STORAGE_KEYS.SETTINGS, JSON.stringify(systemSettings));
   }, [systemSettings]);
+
+  useEffect(() => {
+    localStorage.setItem(CMS_STORAGE_KEYS.POPUPS, JSON.stringify(popupConfigs));
+  }, [popupConfigs]);
 
   // Logging Helper
   const logAuditAction = (log: Omit<AuditLog, 'id' | 'timestamp'>) => {
@@ -865,6 +897,100 @@ export const CMSProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
     });
   };
 
+  // Popup Config Methods
+  const addPopupConfig = (
+    popupData: Omit<PopupConfig, 'id' | 'createdAt' | 'updatedAt' | 'impressions' | 'dismissals' | 'ctaClicks'>,
+    user: { id: string; name: string; role: UserRole }
+  ) => {
+    const id = `popup-${Date.now()}`;
+    const newPopup: PopupConfig = {
+      ...popupData,
+      id,
+      impressions: 0,
+      dismissals: 0,
+      ctaClicks: 0,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    };
+    setPopupConfigs(prev => [newPopup, ...prev]);
+    SupabaseSync.savePopupConfig(newPopup);
+    logAuditAction({
+      userId: user.id,
+      userName: user.name,
+      userRole: user.role,
+      action: 'CREATE',
+      resourceType: 'POPUP',
+      resourceId: id,
+      resourceTitle: newPopup.title,
+      details: `Created popup "${newPopup.title}" (status: ${newPopup.status})`
+    });
+  };
+
+  const updatePopupConfig = (
+    id: string,
+    updates: Partial<PopupConfig>,
+    user: { id: string; name: string; role: UserRole }
+  ) => {
+    setPopupConfigs(prev => prev.map(p => {
+      if (p.id === id) {
+        const updated = { ...p, ...updates, updatedAt: new Date().toISOString() };
+        SupabaseSync.savePopupConfig(updated);
+        logAuditAction({
+          userId: user.id,
+          userName: user.name,
+          userRole: user.role,
+          action: 'UPDATE',
+          resourceType: 'POPUP',
+          resourceId: id,
+          resourceTitle: updated.title,
+          details: `Updated popup "${updated.title}"`
+        });
+        return updated;
+      }
+      return p;
+    }));
+  };
+
+  const deletePopupConfig = (id: string, user: { id: string; name: string; role: UserRole }) => {
+    const target = popupConfigs.find(p => p.id === id);
+    setPopupConfigs(prev => prev.filter(p => p.id !== id));
+    SupabaseSync.deletePopupConfig(id);
+    if (target) {
+      logAuditAction({
+        userId: user.id,
+        userName: user.name,
+        userRole: user.role,
+        action: 'DELETE',
+        resourceType: 'POPUP',
+        resourceId: id,
+        resourceTitle: target.title,
+        details: `Deleted popup "${target.title}"`
+      });
+    }
+  };
+
+  const togglePopupStatus = (id: string, user: { id: string; name: string; role: UserRole }) => {
+    setPopupConfigs(prev => prev.map(p => {
+      if (p.id === id) {
+        const newStatus = p.status === 'active' ? 'paused' : 'active';
+        const updated = { ...p, status: newStatus as PopupConfig['status'], updatedAt: new Date().toISOString() };
+        SupabaseSync.savePopupConfig(updated);
+        logAuditAction({
+          userId: user.id,
+          userName: user.name,
+          userRole: user.role,
+          action: 'UPDATE',
+          resourceType: 'POPUP',
+          resourceId: id,
+          resourceTitle: p.title,
+          details: `${newStatus === 'active' ? 'Activated' : 'Paused'} popup "${p.title}"`
+        });
+        return updated;
+      }
+      return p;
+    }));
+  };
+
   return (
     <CMSContext.Provider
       value={{
@@ -904,7 +1030,12 @@ export const CMSProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
         auditLogs,
         logAuditAction,
         systemSettings,
-        updateSystemSettings
+        updateSystemSettings,
+        popupConfigs,
+        addPopupConfig,
+        updatePopupConfig,
+        deletePopupConfig,
+        togglePopupStatus,
       }}
     >
       {children}

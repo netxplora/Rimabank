@@ -43,6 +43,7 @@ import MediaLibrary from "./pages/admin/MediaLibrary";
 import StaffManager from "./pages/admin/StaffManager";
 import AuditLogsView from "./pages/admin/AuditLogsView";
 import SystemSettingsView from "./pages/admin/SystemSettingsView";
+import PopupManager from "./pages/admin/PopupManager";
 
 // Staff Operations Pages
 import StaffLogin from "./pages/staff/StaffLogin";
@@ -51,6 +52,7 @@ import StaffDraftPublications from "./pages/staff/StaffDraftPublications";
 import StaffAnnouncementsView from "./pages/staff/StaffAnnouncementsView";
 import StaffProfile from "./pages/staff/StaffProfile";
 import StaffMedia from "./pages/staff/StaffMedia";
+import StaffPopupView from "./pages/staff/StaffPopupView";
 
 const queryClient = new QueryClient();
 
@@ -105,6 +107,7 @@ const App = () => (
                 <Route path="publications" element={<PublicationsManager />} />
                 <Route path="enquiries" element={<EnquiriesManager />} />
                 <Route path="media" element={<MediaLibrary />} />
+                <Route path="popups" element={<PopupManager />} />
 
                 {/* Governance (Admin Only) */}
                 <Route
@@ -152,6 +155,7 @@ const App = () => (
                 <Route path="media" element={<StaffMedia />} />
                 <Route path="announcements" element={<StaffAnnouncementsView />} />
                 <Route path="profile" element={<StaffProfile />} />
+                <Route path="popups" element={<StaffPopupView />} />
               </Route>
 
               {/* 404 Fallback */}
