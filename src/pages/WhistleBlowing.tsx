@@ -1,22 +1,70 @@
+import { useState } from "react";
 import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { AlertCircle, Send, Lock, ShieldCheck } from "lucide-react";
+import { AlertCircle, Send, Lock, ShieldCheck, Loader2 } from "lucide-react";
 import { toast } from "sonner";
-import { useState } from "react";
+import { useCMS } from "@/context/CMSContext";
+import { SupabaseSync } from "@/services/supabaseSync";
 
 export default function WhistleBlowing() {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const { addEnquiry } = useCMS();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    category: "",
+    description: ""
+  });
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!formData.category) {
+      toast.error("Please select a violation category.");
+      return;
+    }
+    if (!formData.description.trim()) {
+      toast.error("Please describe the incident.");
+      return;
+    }
+
     setIsSubmitting(true);
-    setTimeout(() => {
+    const subject = `[Confidential Whistleblower Report] ${formData.category.toUpperCase()}`;
+    const message = `Incident Category: ${formData.category}\nReporter: ${formData.name || 'Anonymous'}\nReporter Email: ${formData.email || 'Not Provided'}\n\nDescription:\n${formData.description}`;
+
+    try {
+      addEnquiry({
+        name: formData.name.trim() || "Anonymous Reporter",
+        email: formData.email.trim() || "anonymous@whistleblower.internal",
+        subject,
+        message,
+        category: "Whistleblower Report",
+        status: "unread",
+        priority: "urgent"
+      });
+
+      await SupabaseSync.saveContactMessage({
+        name: formData.name.trim() || "Anonymous Reporter",
+        email: formData.email.trim() || "anonymous@whistleblower.internal",
+        subject,
+        message
+      });
+
+      toast.success("Confidential incident report securely transmitted to the Compliance & Audit Committee.");
+      setFormData({
+        name: "",
+        email: "",
+        category: "",
+        description: ""
+      });
+    } catch (err) {
+      toast.error("Failed to submit report. Please contact the compliance desk directly.");
+    } finally {
       setIsSubmitting(false);
-      toast.success("Confidential report submitted to the Compliance & Audit Committee.");
-    }, 1200);
+    }
   };
 
   return (
@@ -100,6 +148,8 @@ export default function WhistleBlowing() {
                     <div className="space-y-1.5">
                       <Label className="text-xs font-semibold text-[#0a1e3f]">Your Name (Optional)</Label>
                       <Input
+                        value={formData.name}
+                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                         placeholder="Leave blank for anonymity"
                         className="bg-[#f0f7ff]/40 border-[#e2e8f0] rounded-xl text-xs text-[#0a1e3f] focus:border-[#0284c7] h-11"
                       />
@@ -108,6 +158,8 @@ export default function WhistleBlowing() {
                       <Label className="text-xs font-semibold text-[#0a1e3f]">Email Address (Optional)</Label>
                       <Input
                         type="email"
+                        value={formData.email}
+                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                         placeholder="For follow-up correspondence"
                         className="bg-[#f0f7ff]/40 border-[#e2e8f0] rounded-xl text-xs text-[#0a1e3f] focus:border-[#0284c7] h-11"
                       />
@@ -115,25 +167,29 @@ export default function WhistleBlowing() {
                   </div>
 
                   <div className="space-y-1.5">
-                    <Label className="text-xs font-semibold text-[#0a1e3f]">Category of Violation</Label>
+                    <Label className="text-xs font-semibold text-[#0a1e3f]">Category of Violation *</Label>
                     <select 
                       required
+                      value={formData.category}
+                      onChange={(e) => setFormData({ ...formData, category: e.target.value })}
                       className="flex h-11 w-full rounded-xl border border-[#e2e8f0] bg-[#f0f7ff]/40 px-3 py-2 text-xs text-[#0a1e3f] focus:outline-none focus:border-[#0284c7]"
                     >
                       <option value="">Select violation category</option>
-                      <option value="fraud">Financial Fraud & Theft</option>
-                      <option value="ethics">Unethical Professional Conduct</option>
-                      <option value="compliance">Regulatory & Policy Non-Compliance</option>
-                      <option value="harassment">Workplace Harassment</option>
-                      <option value="other">Other Incident</option>
+                      <option value="Financial Fraud & Theft">Financial Fraud & Theft</option>
+                      <option value="Unethical Professional Conduct">Unethical Professional Conduct</option>
+                      <option value="Regulatory & Policy Non-Compliance">Regulatory & Policy Non-Compliance</option>
+                      <option value="Workplace Harassment">Workplace Harassment</option>
+                      <option value="Other Incident">Other Incident</option>
                     </select>
                   </div>
 
                   <div className="space-y-1.5">
-                    <Label className="text-xs font-semibold text-[#0a1e3f]">Incident Description & Parties Involved</Label>
+                    <Label className="text-xs font-semibold text-[#0a1e3f]">Incident Description & Parties Involved *</Label>
                     <Textarea
                       required
                       rows={5}
+                      value={formData.description}
+                      onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                       placeholder="Detail what occurred, dates, branch or department, and persons involved..."
                       className="bg-[#f0f7ff]/40 border-[#e2e8f0] rounded-xl text-xs text-[#0a1e3f] focus:border-[#0284c7]"
                     />
@@ -151,11 +207,20 @@ export default function WhistleBlowing() {
                       type="submit" 
                       variant="pill" 
                       size="lg" 
-                      className="w-full bg-[#0284c7] hover:bg-[#0284c7]/90 text-white shadow-md shadow-sky-500/20 transform hover:-translate-y-0.5 transition-all"
+                      className="w-full bg-[#0284c7] hover:bg-[#0284c7]/90 text-white shadow-md shadow-sky-500/20 transform hover:-translate-y-0.5 transition-all flex items-center justify-center gap-2"
                       disabled={isSubmitting}
                     >
-                      {isSubmitting ? "Encrypting and Submitting..." : "Submit Confidential Report"}
-                      <Send className="h-4 w-4 ml-1.5" />
+                      {isSubmitting ? (
+                        <>
+                          <Loader2 className="h-4 w-4 animate-spin" />
+                          <span>Encrypting and Submitting...</span>
+                        </>
+                      ) : (
+                        <>
+                          <span>Submit Confidential Report</span>
+                          <Send className="h-4 w-4 ml-1.5" />
+                        </>
+                      )}
                     </Button>
                   </div>
                 </form>

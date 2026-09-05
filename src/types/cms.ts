@@ -168,9 +168,9 @@ export interface Enquiry {
   ticketNumber: string;
   name: string;
   email: string;
-  phone: string;
+  phone?: string;
   subject: string;
-  category: 'Account Opening' | 'Loans & Credit' | 'Agent Banking' | 'Digital Banking' | 'Cards' | 'General Support' | 'Complaint';
+  category: 'Account Opening' | 'Loans & Credit' | 'Agent Banking' | 'Digital Banking' | 'Cards' | 'General Support' | 'Complaint' | 'Whistleblower Report';
   message: string;
   status: 'unread' | 'read' | 'in_progress' | 'resolved' | 'closed' | 'archived';
   priority: PriorityLevel;

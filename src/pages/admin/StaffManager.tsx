@@ -11,7 +11,10 @@ import {
   X,
   Mail,
   Building,
-  Lock
+  Lock,
+  KeyRound,
+  Copy,
+  Check
 } from 'lucide-react';
 import { useCMS } from '@/context/CMSContext';
 import { useAuth } from '@/context/AuthContext';
@@ -28,13 +31,23 @@ export default function StaffManager() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingStaff, setEditingStaff] = useState<StaffUser | null>(null);
 
+  // Credentials dialog state
+  const [createdCredentials, setCreatedCredentials] = useState<{
+    name: string;
+    email: string;
+    tempPassword?: string;
+    role: string;
+  } | null>(null);
+  const [copied, setCopied] = useState(false);
+
   // Form State
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     role: 'staff' as UserRole,
     department: 'Customer Support',
-    status: 'active' as StaffUser['status']
+    status: 'active' as StaffUser['status'],
+    temporaryPassword: ''
   });
 
   const filteredStaff = staffUsers.filter(s => {
@@ -43,14 +56,25 @@ export default function StaffManager() {
     return matchesSearch && matchesRole;
   });
 
+  const generateTempPassword = () => {
+    const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnpqrstuvwxyz23456789!@#$%';
+    let pwd = 'Rmb-';
+    for (let i = 0; i < 8; i++) {
+      pwd += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    return pwd;
+  };
+
   const handleOpenCreate = () => {
     setEditingStaff(null);
+    const pwd = generateTempPassword();
     setFormData({
       name: '',
       email: '',
       role: 'staff',
-      department: 'Corporate Communications',
-      status: 'active'
+      department: 'Customer Support',
+      status: 'active',
+      temporaryPassword: pwd
     });
     setIsModalOpen(true);
   };
@@ -62,7 +86,8 @@ export default function StaffManager() {
       email: staff.email,
       role: staff.role,
       department: staff.department,
-      status: staff.status
+      status: staff.status,
+      temporaryPassword: ''
     });
     setIsModalOpen(true);
   };
@@ -82,10 +107,30 @@ export default function StaffManager() {
     }
 
     if (editingStaff) {
-      updateStaffUser(editingStaff.id, formData, { id: user.id, name: user.name, role: user.role });
+      updateStaffUser(editingStaff.id, {
+        name: formData.name,
+        email: formData.email,
+        role: formData.role,
+        department: formData.department,
+        status: formData.status
+      }, { id: user.id, name: user.name, role: user.role });
       toast.success(`Staff profile for ${formData.name} updated.`);
     } else {
-      addStaffUser(formData, { id: user.id, name: user.name, role: user.role });
+      addStaffUser({
+        name: formData.name,
+        email: formData.email,
+        role: formData.role,
+        department: formData.department,
+        status: formData.status
+      }, { id: user.id, name: user.name, role: user.role });
+
+      setCreatedCredentials({
+        name: formData.name,
+        email: formData.email,
+        tempPassword: formData.temporaryPassword,
+        role: formData.role
+      });
+
       toast.success(`New staff member ${formData.name} onboarded.`);
     }
 
@@ -102,16 +147,37 @@ export default function StaffManager() {
     toast.success(`Status for ${staff.name} updated to ${staff.status === 'active' ? 'suspended' : 'active'}.`);
   };
 
+  const handleResetPassword = (staff: StaffUser) => {
+    if (!user || !can('manage_staff', 'staff_users')) return;
+    const newPwd = generateTempPassword();
+    setCreatedCredentials({
+      name: staff.name,
+      email: staff.email,
+      tempPassword: newPwd,
+      role: staff.role
+    });
+    toast.success(`Temporary reset password generated for ${staff.name}`);
+  };
+
+  const copyCredentials = () => {
+    if (!createdCredentials) return;
+    const text = `RIMA MFB STAFF PORTAL CREDENTIALS\nName: ${createdCredentials.name}\nEmail: ${createdCredentials.email}\nTemporary Password: ${createdCredentials.tempPassword}\nPortal Login URL: ${window.location.origin}/staff/login`;
+    navigator.clipboard.writeText(text);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2500);
+    toast.success('Credentials copied to clipboard.');
+  };
+
   return (
     <div className="space-y-6">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-5 rounded-2xl border border-[#e2e8f0] shadow-xs">
         <div>
           <h1 className="text-xl font-heading font-bold text-[#0a1e3f] tracking-tight">
-            Staff Governance & Role-Based Access Control (RBAC)
+            Staff Governance & Role-Based Access Control
           </h1>
           <p className="text-xs text-slate-500 mt-0.5">
-            Configure administrative staff accounts, assign granular permissions, and manage active sessions.
+            Configure administrative staff accounts, assign granular permissions, and issue portal credentials.
           </p>
         </div>
 
@@ -203,9 +269,16 @@ export default function StaffManager() {
                   <td className="py-3.5 px-4 text-right">
                     <div className="flex items-center justify-end gap-1.5">
                       <button
+                        onClick={() => handleResetPassword(staff)}
+                        className="p-1.5 rounded-lg text-slate-400 hover:text-[#0284c7] hover:bg-sky-50 transition-all"
+                        title="Generate New Credentials"
+                      >
+                        <KeyRound className="h-4 w-4" />
+                      </button>
+                      <button
                         onClick={() => handleOpenEdit(staff)}
                         className="p-1.5 rounded-lg text-slate-500 hover:text-[#0284c7] hover:bg-sky-50 transition-all"
-                        title="Edit Role & Permissions"
+                        title="Edit Profile"
                       >
                         <Edit2 className="h-4 w-4" />
                       </button>
@@ -282,7 +355,7 @@ export default function StaffManager() {
                   type="text"
                   value={formData.department}
                   onChange={(e) => setFormData({ ...formData, department: e.target.value })}
-                  placeholder="e.g. Customer Support & Agency Desk"
+                  placeholder="e.g. Customer Support & Operations"
                   className="w-full p-2.5 rounded-xl border border-[#e2e8f0] text-xs font-medium focus:border-[#0284c7] outline-none"
                 />
               </div>
@@ -296,10 +369,38 @@ export default function StaffManager() {
                   onChange={(e) => setFormData({ ...formData, role: e.target.value as UserRole })}
                   className="w-full p-2.5 rounded-xl border border-[#e2e8f0] text-xs font-medium focus:border-[#0284c7] outline-none bg-white"
                 >
-                  <option value="staff">Staff Officer (Least Privilege: Drafts & Inquiries)</option>
-                  <option value="admin">Super Administrator (Full System & Governance Control)</option>
+                  <option value="staff">Staff Officer (Drafts, Media, Enquiries)</option>
+                  <option value="admin">Super Administrator (Full System Control)</option>
                 </select>
               </div>
+
+              {!editingStaff && (
+                <div className="p-3 bg-slate-50 border border-slate-200 rounded-xl space-y-1">
+                  <label className="block text-[11px] font-semibold text-slate-700">
+                    Generated Temporary Password
+                  </label>
+                  <div className="flex items-center gap-2">
+                    <input
+                      type="text"
+                      readOnly
+                      value={formData.temporaryPassword}
+                      className="w-full p-2 rounded-lg bg-white border border-[#e2e8f0] text-xs font-mono text-slate-800"
+                    />
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="sm"
+                      onClick={() => setFormData({ ...formData, temporaryPassword: generateTempPassword() })}
+                      className="text-xs shrink-0"
+                    >
+                      Regenerate
+                    </Button>
+                  </div>
+                  <p className="text-[10px] text-slate-400">
+                    The staff officer will use this credential to log in at /staff/login.
+                  </p>
+                </div>
+              )}
 
               <div>
                 <label className="block text-xs font-semibold text-[#0a1e3f] mb-1">
@@ -334,6 +435,52 @@ export default function StaffManager() {
                 </Button>
               </div>
             </form>
+          </div>
+        </div>
+      )}
+
+      {/* Generated Credentials Popup Modal */}
+      {createdCredentials && (
+        <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
+          <div className="bg-white rounded-2xl shadow-2xl border border-[#e2e8f0] w-full max-w-md p-6 space-y-4 animate-in zoom-in-95">
+            <div className="flex items-center gap-3 text-[#0a1e3f]">
+              <div className="h-10 w-10 rounded-xl bg-sky-100 text-[#0284c7] flex items-center justify-center">
+                <KeyRound className="h-5 w-5" />
+              </div>
+              <div>
+                <h3 className="font-heading font-bold text-sm">Staff Credentials Issued</h3>
+                <p className="text-xs text-slate-500">Copy and provide these login details to the staff member.</p>
+              </div>
+            </div>
+
+            <div className="p-4 bg-slate-50 border border-slate-200 rounded-xl space-y-2 text-xs font-mono text-slate-800">
+              <div><span className="text-slate-400 font-sans">Name:</span> {createdCredentials.name}</div>
+              <div><span className="text-slate-400 font-sans">Email:</span> {createdCredentials.email}</div>
+              <div><span className="text-slate-400 font-sans">Temp Password:</span> <span className="font-bold text-[#0284c7]">{createdCredentials.tempPassword}</span></div>
+              <div><span className="text-slate-400 font-sans">Role:</span> {createdCredentials.role === 'admin' ? 'Super Administrator' : 'Staff Officer'}</div>
+              <div><span className="text-slate-400 font-sans">Portal URL:</span> {window.location.origin}/staff/login</div>
+            </div>
+
+            <div className="flex items-center justify-end gap-2 pt-2">
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                onClick={copyCredentials}
+                className="rounded-xl text-xs flex items-center gap-1.5"
+              >
+                {copied ? <Check className="h-4 w-4 text-emerald-600" /> : <Copy className="h-4 w-4" />}
+                <span>{copied ? 'Copied' : 'Copy Credentials'}</span>
+              </Button>
+              <Button
+                type="button"
+                size="sm"
+                onClick={() => setCreatedCredentials(null)}
+                className="rounded-xl bg-[#0284c7] text-white text-xs font-semibold"
+              >
+                Done
+              </Button>
+            </div>
           </div>
         </div>
       )}

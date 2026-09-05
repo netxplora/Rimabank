@@ -4,8 +4,13 @@ import { AlertTriangle, Bell, Info, X, ArrowRight } from 'lucide-react';
 import { useCMS } from '@/context/CMSContext';
 
 export const AnnouncementBanner: React.FC = () => {
-  const { announcements } = useCMS();
+  const { announcements, systemSettings } = useCMS();
   const [dismissed, setDismissed] = useState(false);
+
+  // If system settings has disabled alert banner globally, do not render
+  if (systemSettings && systemSettings.enableAlertBanner === false) {
+    return null;
+  }
 
   const activeBanner = announcements.find(
     a => a.status === 'published' && a.displayAsBanner

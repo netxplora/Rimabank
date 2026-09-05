@@ -17,6 +17,7 @@ import { useCMS } from '@/context/CMSContext';
 import { useAuth } from '@/context/AuthContext';
 import { Publication } from '@/types/cms';
 import { Button } from '@/components/ui/button';
+import { RichEditor } from '@/components/admin/RichEditor';
 import { MediaPickerModal } from '@/components/admin/media/MediaPickerModal';
 import { toast } from 'sonner';
 
@@ -252,15 +253,12 @@ export default function StaffDraftPublications() {
 
             <div>
               <label className="block text-xs font-semibold text-[#0a1e3f] mb-1">
-                Article Body Content (Markdown / Text)
+                Article Body Content (Rich HTML Format)
               </label>
-              <textarea
-                rows={8}
-                required
+              <RichEditor
                 value={formData.content}
-                onChange={(e) => setFormData({ ...formData, content: e.target.value })}
-                placeholder="Write the full publication content here..."
-                className="w-full px-3.5 py-2 rounded-xl border border-[#e2e8f0] text-xs sm:text-sm focus:border-emerald-600 outline-none font-mono"
+                onChange={(content) => setFormData({ ...formData, content })}
+                minHeight="220px"
               />
             </div>
 

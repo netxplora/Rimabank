@@ -154,6 +154,8 @@ export default function EnquiriesManager() {
             <option value="Account Opening">Account Opening</option>
             <option value="Digital Banking">Digital Banking</option>
             <option value="General Support">General Support</option>
+            <option value="Whistleblower Report">Whistleblower Report</option>
+            <option value="Complaint">Complaint</option>
           </select>
         </div>
       </div>

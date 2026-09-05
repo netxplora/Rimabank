@@ -107,6 +107,30 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     }
   }, [user]);
 
+  // Session Inactivity Timeout Guard (Default 30 minutes)
+  useEffect(() => {
+    if (!user) return;
+
+    let timeoutId: ReturnType<typeof setTimeout>;
+    const timeoutDurationMs = 30 * 60 * 1000; // 30 minutes
+
+    const resetInactivityTimer = () => {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => {
+        logout();
+      }, timeoutDurationMs);
+    };
+
+    const activityEvents = ['mousedown', 'mousemove', 'keydown', 'scroll', 'touchstart'];
+    activityEvents.forEach((evt) => window.addEventListener(evt, resetInactivityTimer, { passive: true }));
+    resetInactivityTimer();
+
+    return () => {
+      clearTimeout(timeoutId);
+      activityEvents.forEach((evt) => window.removeEventListener(evt, resetInactivityTimer));
+    };
+  }, [user]);
+
   const login = async (
     email: string,
     role: UserRole = 'admin',

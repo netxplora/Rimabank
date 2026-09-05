@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import {
   FileText,
@@ -57,15 +57,39 @@ export default function AdminDashboard() {
   const totalPublishedContent = publishedPromos.length + publishedPubs.length + announcements.filter(a => a.status === 'published').length + 1; // +1 for landing page
   const totalDraftContent = draftPromos.length + draftPubs.length + announcements.filter(a => a.status === 'draft').length;
 
-  // Chart Data: Enquiry Volume by Month
-  const enquiryTrendData = [
-    { month: 'Apr', volume: 24, resolved: 22 },
-    { month: 'May', volume: 38, resolved: 36 },
-    { month: 'Jun', volume: 45, resolved: 41 },
-    { month: 'Jul', volume: 52, resolved: 50 },
-    { month: 'Aug', volume: 68, resolved: 65 },
-    { month: 'Sep', volume: enquiries.length + 72, resolved: 70 }
-  ];
+  // Real Dynamic Chart Data: Inflow & Resolution aggregated by Month
+  const enquiryTrendData = useMemo(() => {
+    const monthMap: { [key: string]: { month: string; volume: number; resolved: number; order: number } } = {};
+    const now = new Date();
+
+    // Create 6 monthly buckets (current month and 5 preceding)
+    for (let i = 5; i >= 0; i--) {
+      const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
+      const shortName = d.toLocaleString('en-US', { month: 'short' });
+      const key = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
+      monthMap[key] = { month: shortName, volume: 0, resolved: 0, order: 5 - i };
+    }
+
+    enquiries.forEach(enq => {
+      if (!enq.createdAt) return;
+      const d = new Date(enq.createdAt);
+      const key = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
+      if (monthMap[key]) {
+        monthMap[key].volume += 1;
+        if (enq.status === 'resolved' || enq.status === 'closed') {
+          monthMap[key].resolved += 1;
+        }
+      }
+    });
+
+    const result = Object.values(monthMap).sort((a, b) => a.order - b.order);
+    // If no enquiries exist yet in current window, provide a baseline with actual count
+    if (result.every(r => r.volume === 0) && enquiries.length > 0) {
+      result[result.length - 1].volume = enquiries.length;
+      result[result.length - 1].resolved = enquiries.filter(e => e.status === 'resolved' || e.status === 'closed').length;
+    }
+    return result;
+  }, [enquiries]);
 
   // Chart Data: Content by Category
   const contentDistributionData = [
@@ -240,7 +264,7 @@ export default function AdminDashboard() {
                   </linearGradient>
                 </defs>
                 <XAxis dataKey="month" stroke="#94a3b8" fontSize={11} tickLine={false} />
-                <YAxis stroke="#94a3b8" fontSize={11} tickLine={false} />
+                <YAxis stroke="#94a3b8" fontSize={11} tickLine={false} allowDecimals={false} />
                 <Tooltip
                   contentStyle={{ backgroundColor: '#0a1e3f', borderRadius: '12px', border: 'none', color: '#fff', fontSize: '12px' }}
                 />
@@ -297,7 +321,6 @@ export default function AdminDashboard() {
 
       {/* Quick Actions & Recent Activity Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        
         {/* Quick Actions Panel (1 col) */}
         <div className="p-5 rounded-2xl bg-white border border-[#e2e8f0] shadow-xs space-y-3">
           <h3 className="font-heading font-bold text-sm text-[#0a1e3f]">
@@ -396,7 +419,6 @@ export default function AdminDashboard() {
             ))}
           </div>
         </div>
-
       </div>
     </div>
   );
