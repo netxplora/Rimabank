@@ -280,56 +280,62 @@ export default function PopupManager() {
 
   // ── Save
   const handleSave = async () => {
-    if (!form.title.trim()) { toast.error('Popup title is required'); return; }
-    if (!form.content.trim()) { toast.error('Popup content is required'); return; }
-    
-    const activeUser = user || {
-      id: 'a0000000-0000-0000-0000-000000000001',
-      name: 'Executive Administrator',
-      role: 'admin' as const,
-      department: 'Executive Management',
-      lastLogin: new Date().toISOString(),
-      email: 'admin@rimamfb.com'
-    };
-
-    let startIso: string;
     try {
-      startIso = form.startDate ? new Date(form.startDate).toISOString() : new Date().toISOString();
-    } catch {
-      startIso = new Date().toISOString();
-    }
+      if (!form.title || !form.title.trim()) { toast.error('Popup title is required'); return; }
+      if (!form.content || !form.content.trim()) { toast.error('Popup content is required'); return; }
 
-    let endIso: string | undefined = undefined;
-    if (form.endDate && typeof form.endDate === 'string' && form.endDate.trim() !== '') {
+      const activeUser = user || {
+        id: 'a0000000-0000-0000-0000-000000000001',
+        name: 'Executive Administrator',
+        role: 'admin' as const,
+        department: 'Executive Management',
+        lastLogin: new Date().toISOString(),
+        email: 'admin@rimamfb.com'
+      };
+
+      let startIso: string;
       try {
-        endIso = new Date(form.endDate).toISOString();
+        startIso = form.startDate ? new Date(form.startDate).toISOString() : new Date().toISOString();
       } catch {
-        endIso = undefined;
+        startIso = new Date().toISOString();
       }
-    }
 
-    if (editingId) {
-      const success = await updatePopupConfig(editingId, { ...form, startDate: startIso, endDate: endIso }, activeUser);
-      if (success) {
-        toast.success('Popup updated successfully');
-      } else {
-        toast.error('Failed to update popup. Please try again.');
+      let endIso: string | undefined = undefined;
+      if (form.endDate && typeof form.endDate === 'string' && form.endDate.trim() !== '') {
+        try {
+          endIso = new Date(form.endDate).toISOString();
+        } catch {
+          endIso = undefined;
+        }
       }
-    } else {
-      const success = await addPopupConfig({
-        ...form,
-        startDate: startIso,
-        endDate: endIso,
-        createdBy: activeUser.name,
-        createdById: activeUser.id
-      }, activeUser);
-      if (success) {
-        toast.success('Popup created successfully');
+
+      if (editingId) {
+        const result = await updatePopupConfig(editingId, { ...form, startDate: startIso, endDate: endIso }, activeUser);
+        if (result.ok) {
+          toast.success('Popup updated successfully');
+          setIsModalOpen(false);
+        } else {
+          toast.error(result.error ?? 'Failed to update popup. Please try again.');
+        }
       } else {
-        toast.error('Failed to save popup. Please try again.');
+        const result = await addPopupConfig({
+          ...form,
+          startDate: startIso,
+          endDate: endIso,
+          createdBy: activeUser.name,
+          createdById: activeUser.id
+        }, activeUser);
+        if (result.ok) {
+          toast.success('Popup created successfully');
+          setIsModalOpen(false);
+        } else {
+          toast.error(result.error ?? 'Failed to save popup. Please try again.');
+        }
       }
+    } catch (err: any) {
+      console.error('[PopupManager] Unhandled error in handleSave:', err);
+      toast.error('An unexpected error occurred: ' + (err?.message || 'Unknown error'));
     }
-    setIsModalOpen(false);
   };
 
   // ── Delete

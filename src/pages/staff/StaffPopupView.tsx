@@ -142,18 +142,20 @@ export default function StaffPopupView() {
     } as Omit<PopupConfig, 'id' | 'createdAt' | 'updatedAt' | 'impressions' | 'dismissals' | 'ctaClicks'>;
 
     if (editingId) {
-      const ok = await updatePopupConfig(editingId, { ...payload }, user);
-      if (ok) {
+      const result = await updatePopupConfig(editingId, { ...payload }, user);
+      if (result.ok) {
         toast.success(submitForReview ? 'Popup submitted for Admin review' : 'Draft saved');
       } else {
-        toast.error('Failed to update popup draft.');
+        toast.error(result.error ?? 'Failed to update popup draft.');
+        return;
       }
     } else {
-      const ok = await addPopupConfig(payload, user);
-      if (ok) {
+      const result = await addPopupConfig(payload, user);
+      if (result.ok) {
         toast.success(submitForReview ? 'Popup submitted for Admin review' : 'Draft saved');
       } else {
-        toast.error('Failed to create popup draft.');
+        toast.error(result.error ?? 'Failed to create popup draft.');
+        return;
       }
     }
     setIsModalOpen(false);

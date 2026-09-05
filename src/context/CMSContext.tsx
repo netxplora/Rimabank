@@ -107,8 +107,8 @@ interface CMSContextType {
 
   // Popup Configs
   popupConfigs: PopupConfig[];
-  addPopupConfig: (popup: Omit<PopupConfig, 'id' | 'createdAt' | 'updatedAt' | 'impressions' | 'dismissals' | 'ctaClicks'>, user: { id: string; name: string; role: UserRole }) => Promise<boolean>;
-  updatePopupConfig: (id: string, updates: Partial<PopupConfig>, user: { id: string; name: string; role: UserRole }) => Promise<boolean>;
+  addPopupConfig: (popup: Omit<PopupConfig, 'id' | 'createdAt' | 'updatedAt' | 'impressions' | 'dismissals' | 'ctaClicks'>, user: { id: string; name: string; role: UserRole }) => Promise<{ ok: boolean; error?: string }>;
+  updatePopupConfig: (id: string, updates: Partial<PopupConfig>, user: { id: string; name: string; role: UserRole }) => Promise<{ ok: boolean; error?: string }>;
   deletePopupConfig: (id: string, user: { id: string; name: string; role: UserRole }) => Promise<boolean>;
   togglePopupStatus: (id: string, user: { id: string; name: string; role: UserRole }) => Promise<boolean>;
 }
@@ -933,7 +933,7 @@ export const CMSProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
     if (!res.success) {
       // Database reported failure — do NOT touch local state
       console.error('[CMSContext] addPopupConfig failed:', res.errorMessage);
-      return false;
+      return { ok: false, error: res.errorMessage ?? 'Database insert failed.' };
     }
 
     // Step 2 — Use the DB-returned record as the source of truth
@@ -952,7 +952,7 @@ export const CMSProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
       details:       `Created popup "${saved.title}" (status: ${saved.status})`,
     });
 
-    return true;
+    return { ok: true };
   };
 
   const updatePopupConfig = async (
@@ -980,7 +980,7 @@ export const CMSProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
 
     if (!res.success) {
       console.error('[CMSContext] updatePopupConfig failed:', res.errorMessage);
-      return false;
+      return { ok: false, error: res.errorMessage ?? 'Database update failed.' };
     }
 
     // Step 2 — Use the DB-returned record as the source of truth
@@ -999,7 +999,7 @@ export const CMSProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
       details:       `Updated popup "${saved.title}"`,
     });
 
-    return true;
+    return { ok: true };
   };
 
   const deletePopupConfig = async (id: string, user: { id: string; name: string; role: UserRole }): Promise<boolean> => {

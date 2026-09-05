@@ -39,6 +39,16 @@ CREATE TABLE IF NOT EXISTS public.popup_configs (
   cta_clicks            integer NOT NULL DEFAULT 0
 );
 
+-- 1.5 Safely add columns if the table already existed but was missing them
+ALTER TABLE public.popup_configs
+  ADD COLUMN IF NOT EXISTS trigger_type text NOT NULL DEFAULT 'delay',
+  ADD COLUMN IF NOT EXISTS trigger_delay_seconds integer NOT NULL DEFAULT 2,
+  ADD COLUMN IF NOT EXISTS display_frequency text NOT NULL DEFAULT 'once_session',
+  ADD COLUMN IF NOT EXISTS priority integer NOT NULL DEFAULT 5,
+  ADD COLUMN IF NOT EXISTS show_on_desktop boolean NOT NULL DEFAULT true,
+  ADD COLUMN IF NOT EXISTS show_on_mobile boolean NOT NULL DEFAULT true,
+  ADD COLUMN IF NOT EXISTS overlay_enabled boolean NOT NULL DEFAULT true;
+
 -- 2. Indexes
 CREATE INDEX IF NOT EXISTS idx_popup_configs_status     ON public.popup_configs (status);
 CREATE INDEX IF NOT EXISTS idx_popup_configs_source     ON public.popup_configs (source_type, source_id);
