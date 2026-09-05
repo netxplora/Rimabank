@@ -1,7 +1,9 @@
+import { useState, useMemo } from "react";
 import { Layout } from "@/components/layout/Layout";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { CreditCard, Building2, Smartphone, ArrowRight } from "lucide-react";
+import { CreditCard, Building2, Smartphone, ArrowRight, Search, ShieldCheck, HelpCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { Link } from "react-router-dom";
 
 const accountFaqs = [
@@ -30,11 +32,11 @@ const loanFaqs = [
   },
   {
     q: "What are the interest rates and repayment terms?",
-    a: "Our commercial and personal loan interest rates are calculated transparently based on loan duration, cash flow analysis, and collateral structure without hidden fees."
+    a: "Our commercial and personal loan interest rates are calculated transparently starting from 2.5% monthly based on loan duration, cash flow analysis, and collateral structure without hidden fees."
   },
   {
     q: "How long does the loan evaluation and disbursement take?",
-    a: "Micro-loans are typically evaluated and disbursed within 48 hours following document completion. Larger commercial SME lines may require 5 to 7 business days for on-site assessment."
+    a: "Micro-loans are typically evaluated and disbursed within 48 hours following document completion. Larger commercial SME lines may require 5 business days for on-site assessment."
   },
   {
     q: "Can I liquidate a loan before the scheduled maturity date?",
@@ -58,14 +60,42 @@ const digitalFaqs = [
 ];
 
 export default function FAQ() {
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const filteredAccountFaqs = useMemo(() => {
+    if (!searchQuery) return accountFaqs;
+    return accountFaqs.filter(f => 
+      f.q.toLowerCase().includes(searchQuery.toLowerCase()) || 
+      f.a.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+  }, [searchQuery]);
+
+  const filteredLoanFaqs = useMemo(() => {
+    if (!searchQuery) return loanFaqs;
+    return loanFaqs.filter(f => 
+      f.q.toLowerCase().includes(searchQuery.toLowerCase()) || 
+      f.a.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+  }, [searchQuery]);
+
+  const filteredDigitalFaqs = useMemo(() => {
+    if (!searchQuery) return digitalFaqs;
+    return digitalFaqs.filter(f => 
+      f.q.toLowerCase().includes(searchQuery.toLowerCase()) || 
+      f.a.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+  }, [searchQuery]);
+
+  const totalResults = filteredAccountFaqs.length + filteredLoanFaqs.length + filteredDigitalFaqs.length;
+
   return (
     <Layout>
-      {/* Editorial Hero */}
-      <section className="relative bg-white pt-8 pb-10 sm:pt-10 sm:pb-12 lg:pt-12 lg:pb-14 border-b border-[#e2e8f0]/60 overflow-hidden">
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#f0f7ff] rounded-full blur-3xl -z-10 opacity-70 pointer-events-none" />
+      {/* Editorial Hero with Interactive Search Bar */}
+      <section className="relative bg-white pt-8 pb-12 sm:pt-12 sm:pb-16 lg:pt-14 lg:pb-20 border-b border-[#e2e8f0]/60 overflow-hidden">
+        <div className="absolute top-0 right-0 w-[550px] h-[550px] bg-[#f0f7ff] rounded-full blur-3xl -z-10 opacity-70 pointer-events-none" />
 
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
-          <div className="max-w-3xl space-y-4 animate-in fade-in slide-in-from-bottom-8 duration-700">
+          <div className="max-w-3xl space-y-5 animate-in fade-in slide-in-from-bottom-8 duration-700">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#f0f7ff] border border-[#e2e8f0] text-[#0a1e3f] text-xs font-semibold uppercase tracking-wider">
               <span>Knowledge Base & Support</span>
             </div>
@@ -74,32 +104,49 @@ export default function FAQ() {
               Frequently asked <span className="text-[#0284c7]">questions</span>.
             </h1>
 
-            <p className="text-[#0a1e3f]/80 text-base sm:text-lg leading-relaxed">
-              Find answers regarding account documentation, loan facilities, debit card security, and regulatory deposit guarantees.
+            <p className="text-[#0a1e3f]/80 text-sm sm:text-base leading-relaxed">
+              Find instant answers regarding account documentation, loan facilities, debit card security, and regulatory deposit guarantees.
             </p>
+
+            {/* Interactive Search Bar */}
+            <div className="relative max-w-xl pt-2">
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-[#64748b]" />
+              <Input
+                type="text"
+                placeholder="Search questions (e.g., 'documentation', 'interest rate', 'transfers')..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="pl-11 pr-4 h-12 rounded-2xl bg-[#f8fafc] border-[#e2e8f0] text-xs sm:text-sm text-[#0a1e3f] shadow-xs focus:border-[#0284c7]"
+              />
+              {searchQuery && (
+                <span className="absolute right-3.5 top-1/2 -translate-y-1/2 text-[11px] text-[#64748b]">
+                  {totalResults} {totalResults === 1 ? "result" : "results"}
+                </span>
+              )}
+            </div>
           </div>
         </div>
       </section>
 
       {/* Main FAQ Content */}
-      <section className="py-8 sm:py-10 md:py-12 bg-white border-b border-[#e2e8f0]/60">
-        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 animate-in fade-in slide-in-from-bottom-8 duration-700 delay-150">
+      <section className="py-10 sm:py-12 md:py-16 bg-white border-b border-[#e2e8f0]/60">
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
             
             {/* Category Navigation (4 cols) */}
             <div className="lg:col-span-4 lg:sticky lg:top-24 space-y-2 hidden lg:block">
               <span className="text-xs font-semibold uppercase tracking-wider text-[#64748b] block mb-3 px-3">
-                Topics
+                Categories
               </span>
-              <a href="#accounts" className="flex items-center gap-3 px-4 py-3 rounded-2xl bg-[#f0f7ff] text-[#0a1e3f] font-semibold text-xs transition-colors shadow-xs">
+              <a href="#accounts" className="flex items-center gap-3 px-4 py-3.5 rounded-2xl bg-[#f0f7ff] text-[#0a1e3f] font-semibold text-xs transition-colors shadow-xs">
                 <Building2 className="h-4 w-4 text-[#0284c7]" />
                 <span>Account Opening & KYC</span>
               </a>
-              <a href="#loans" className="flex items-center gap-3 px-4 py-3 rounded-2xl hover:bg-[#f0f7ff] text-[#0a1e3f]/80 hover:text-[#0284c7] font-medium text-xs transition-colors">
-                <CreditCard className="h-4 w-4 text-[#34c771]" />
+              <a href="#loans" className="flex items-center gap-3 px-4 py-3.5 rounded-2xl hover:bg-[#f0f7ff] text-[#0a1e3f]/80 hover:text-[#0284c7] font-medium text-xs transition-colors">
+                <CreditCard className="h-4 w-4 text-[#16a34a]" />
                 <span>Credit & Loan Facilities</span>
               </a>
-              <a href="#digital" className="flex items-center gap-3 px-4 py-3 rounded-2xl hover:bg-[#f0f7ff] text-[#0a1e3f]/80 hover:text-[#0284c7] font-medium text-xs transition-colors">
+              <a href="#digital" className="flex items-center gap-3 px-4 py-3.5 rounded-2xl hover:bg-[#f0f7ff] text-[#0a1e3f]/80 hover:text-[#0284c7] font-medium text-xs transition-colors">
                 <Smartphone className="h-4 w-4 text-[#477ee9]" />
                 <span>Digital Banking & Security</span>
               </a>
@@ -109,64 +156,78 @@ export default function FAQ() {
             <div className="lg:col-span-8 space-y-10">
               
               {/* Account section */}
-              <div id="accounts" className="space-y-3">
-                <h3 className="font-heading text-lg font-semibold text-[#0a1e3f] flex items-center gap-2 pb-2 border-b border-[#e2e8f0]">
-                  <Building2 className="h-4.5 w-4.5 text-[#0284c7]" />
-                  Account Opening & KYC
-                </h3>
-                <Accordion type="single" collapsible className="w-full divide-y divide-[#e2e8f0]/70">
-                  {accountFaqs.map((faq, i) => (
-                    <AccordionItem key={i} value={`account-${i}`} className="border-b-0 py-1">
-                      <AccordionTrigger className="text-left font-heading font-medium text-sm text-[#0a1e3f] hover:text-[#0284c7] py-3.5">
-                        {faq.q}
-                      </AccordionTrigger>
-                      <AccordionContent className="text-xs text-[#64748b] leading-relaxed pb-3">
-                        {faq.a}
-                      </AccordionContent>
-                    </AccordionItem>
-                  ))}
-                </Accordion>
-              </div>
+              {filteredAccountFaqs.length > 0 && (
+                <div id="accounts" className="space-y-4">
+                  <h3 className="font-heading text-lg font-semibold text-[#0a1e3f] flex items-center gap-2 pb-2 border-b border-[#e2e8f0]">
+                    <Building2 className="h-5 w-5 text-[#0284c7]" />
+                    Account Opening & KYC
+                  </h3>
+                  <Accordion type="single" collapsible className="w-full divide-y divide-[#e2e8f0]">
+                    {filteredAccountFaqs.map((faq, i) => (
+                      <AccordionItem key={i} value={`account-${i}`} className="border-b-0 py-1">
+                        <AccordionTrigger className="text-left font-heading font-medium text-sm text-[#0a1e3f] hover:text-[#0284c7] py-3.5">
+                          {faq.q}
+                        </AccordionTrigger>
+                        <AccordionContent className="text-xs text-[#64748b] leading-relaxed pb-3">
+                          {faq.a}
+                        </AccordionContent>
+                      </AccordionItem>
+                    ))}
+                  </Accordion>
+                </div>
+              )}
 
               {/* Loans section */}
-              <div id="loans" className="space-y-3">
-                <h3 className="font-heading text-lg font-semibold text-[#0a1e3f] flex items-center gap-2 pb-2 border-b border-[#e2e8f0]">
-                  <CreditCard className="h-4.5 w-4.5 text-[#34c771]" />
-                  Credit & Loan Facilities
-                </h3>
-                <Accordion type="single" collapsible className="w-full divide-y divide-[#e2e8f0]/70">
-                  {loanFaqs.map((faq, i) => (
-                    <AccordionItem key={i} value={`loan-${i}`} className="border-b-0 py-1">
-                      <AccordionTrigger className="text-left font-heading font-medium text-sm text-[#0a1e3f] hover:text-[#0284c7] py-3.5">
-                        {faq.q}
-                      </AccordionTrigger>
-                      <AccordionContent className="text-xs text-[#64748b] leading-relaxed pb-3">
-                        {faq.a}
-                      </AccordionContent>
-                    </AccordionItem>
-                  ))}
-                </Accordion>
-              </div>
+              {filteredLoanFaqs.length > 0 && (
+                <div id="loans" className="space-y-4">
+                  <h3 className="font-heading text-lg font-semibold text-[#0a1e3f] flex items-center gap-2 pb-2 border-b border-[#e2e8f0]">
+                    <CreditCard className="h-5 w-5 text-[#16a34a]" />
+                    Credit & Loan Facilities
+                  </h3>
+                  <Accordion type="single" collapsible className="w-full divide-y divide-[#e2e8f0]">
+                    {filteredLoanFaqs.map((faq, i) => (
+                      <AccordionItem key={i} value={`loan-${i}`} className="border-b-0 py-1">
+                        <AccordionTrigger className="text-left font-heading font-medium text-sm text-[#0a1e3f] hover:text-[#0284c7] py-3.5">
+                          {faq.q}
+                        </AccordionTrigger>
+                        <AccordionContent className="text-xs text-[#64748b] leading-relaxed pb-3">
+                          {faq.a}
+                        </AccordionContent>
+                      </AccordionItem>
+                    ))}
+                  </Accordion>
+                </div>
+              )}
 
               {/* Digital section */}
-              <div id="digital" className="space-y-3">
-                <h3 className="font-heading text-lg font-semibold text-[#0a1e3f] flex items-center gap-2 pb-2 border-b border-[#e2e8f0]">
-                  <Smartphone className="h-4.5 w-4.5 text-[#477ee9]" />
-                  Digital Banking & Security
-                </h3>
-                <Accordion type="single" collapsible className="w-full divide-y divide-[#e2e8f0]/70">
-                  {digitalFaqs.map((faq, i) => (
-                    <AccordionItem key={i} value={`digital-${i}`} className="border-b-0 py-1">
-                      <AccordionTrigger className="text-left font-heading font-medium text-sm text-[#0a1e3f] hover:text-[#0284c7] py-3.5">
-                        {faq.q}
-                      </AccordionTrigger>
-                      <AccordionContent className="text-xs text-[#64748b] leading-relaxed pb-3">
-                        {faq.a}
-                      </AccordionContent>
-                    </AccordionItem>
-                  ))}
-                </Accordion>
-              </div>
+              {filteredDigitalFaqs.length > 0 && (
+                <div id="digital" className="space-y-4">
+                  <h3 className="font-heading text-lg font-semibold text-[#0a1e3f] flex items-center gap-2 pb-2 border-b border-[#e2e8f0]">
+                    <Smartphone className="h-5 w-5 text-[#477ee9]" />
+                    Digital Banking & Security
+                  </h3>
+                  <Accordion type="single" collapsible className="w-full divide-y divide-[#e2e8f0]">
+                    {filteredDigitalFaqs.map((faq, i) => (
+                      <AccordionItem key={i} value={`digital-${i}`} className="border-b-0 py-1">
+                        <AccordionTrigger className="text-left font-heading font-medium text-sm text-[#0a1e3f] hover:text-[#0284c7] py-3.5">
+                          {faq.q}
+                        </AccordionTrigger>
+                        <AccordionContent className="text-xs text-[#64748b] leading-relaxed pb-3">
+                          {faq.a}
+                        </AccordionContent>
+                      </AccordionItem>
+                    ))}
+                  </Accordion>
+                </div>
+              )}
+
+              {totalResults === 0 && (
+                <div className="text-center py-12 p-8 rounded-3xl bg-[#f8fafc] border border-[#e2e8f0] space-y-3">
+                  <HelpCircle className="h-8 w-8 text-[#64748b] mx-auto" />
+                  <h4 className="font-heading text-base font-semibold text-[#0a1e3f]">No matching answers found</h4>
+                  <p className="text-xs text-[#64748b]">Try searching with a different term or contact our support desk directly.</p>
+                </div>
+              )}
 
             </div>
           </div>
@@ -174,7 +235,7 @@ export default function FAQ() {
       </section>
 
       {/* Still Have Questions CTA */}
-      <section className="py-8 sm:py-10 md:py-12 bg-gradient-to-b from-[#f0f7ff] to-white">
+      <section className="py-10 sm:py-12 md:py-16 bg-[#f8fafc]">
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6 text-center">
           <div className="max-w-2xl mx-auto space-y-4">
             <h3 className="font-heading text-2xl md:text-3xl font-semibold text-[#0a1e3f]">
@@ -183,7 +244,7 @@ export default function FAQ() {
             <p className="text-xs sm:text-sm text-[#64748b] leading-relaxed">
               Our customer service team is ready to answer questions regarding account upgrades, credit approvals, or card issuance.
             </p>
-            <div className="pt-2 flex flex-wrap justify-center gap-4">
+            <div className="pt-2 flex flex-wrap justify-center gap-3.5">
               <Button
                 variant="pill"
                 size="default"

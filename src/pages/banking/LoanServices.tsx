@@ -1,5 +1,5 @@
 import { BankingServiceLayout } from "@/components/layout/BankingServiceLayout";
-import { TrendingUp, Users, Briefcase, CreditCard, CheckCircle2 } from "lucide-react";
+import { TrendingUp, Users, Briefcase, CreditCard, CheckCircle2, ShieldCheck, Clock, FileCheck } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { LoanCalculator } from "@/components/tools/LoanCalculator";
 import SavingsCalculator from "@/components/tools/SavingsCalculator";
@@ -10,14 +10,15 @@ export default function LoanServices() {
       id: "microloan",
       title: "Micro-Credit Facilities",
       icon: Users,
+      badge: "Fast 24-48h Approval",
       bg: "#bcffbb",
-      accent: "#34c771",
-      description: "Accessible short-term credit designed for independent retailers and artisans requiring immediate liquidity without complex collateral.",
+      accent: "#16a34a",
+      description: "Accessible short-term credit designed for independent retailers and artisans requiring immediate working capital without complex collateral.",
       benefits: [
-        "Minimal collateral hurdles",
-        "Fast 24 to 48-hour approval processing",
+        "Minimal collateral requirements",
+        "Fast 24 to 48-hour approval turnaround",
         "Structured weekly or monthly repayment cycles",
-        "Credit limit increases upon prompt liquidation"
+        "Automatic credit limit upgrades upon timely repayment"
       ],
       whoItIsFor: "Independent traders, artisans, and sole proprietors."
     },
@@ -25,29 +26,31 @@ export default function LoanServices() {
       id: "business",
       title: "Commercial SME Loans",
       icon: Briefcase,
+      badge: "Up to ₦50 Million",
       bg: "#f0f7ff",
       accent: "#0284c7",
-      description: "Structured commercial funding engineered for registered enterprises to optimize working capital and acquire operational assets.",
+      description: "Structured commercial funding engineered for registered enterprises to purchase inventory, expand capacity, and acquire capital assets.",
       benefits: [
-        "Substantial credit facilities up to ₦50 Million",
-        "Extended repayment tenors up to 24 months",
-        "Dedicated commercial credit analyst assigned",
-        "Transparent monthly interest calculation"
+        "Credit lines up to ₦50 Million",
+        "Flexible repayment terms up to 24 months",
+        "Dedicated commercial loan relationship manager",
+        "Direct trade and equipment financing options"
       ],
-      whoItIsFor: "Registered SMEs, corporate contractors, and commercial ventures."
+      whoItIsFor: "Registered SMEs, corporate contractors, and commercial businesses."
     },
     {
       id: "personal",
       title: "Personal Salary Advance",
       icon: CreditCard,
+      badge: "Same-Day Liquidity",
       bg: "#e2e8f0",
       accent: "#477ee9",
-      description: "Fast personal credit for formally employed salary earners to address immediate household expenses prior to payday.",
+      description: "Short-term personal credit for formally employed salary earners to address immediate household expenses prior to payday.",
       benefits: [
-        "Up to 50% of net verified monthly salary",
-        "Automated direct payroll deduction",
-        "Same-day approval and fund disbursement",
-        "Zero physical asset collateral required"
+        "Up to 50% of verified monthly salary",
+        "Automated direct payroll repayment",
+        "Same-day approval and disbursement",
+        "Zero physical asset pledge required"
       ],
       whoItIsFor: "Verified public and private sector salary earners."
     }
@@ -79,47 +82,60 @@ export default function LoanServices() {
       fees="Interest from 2.5% monthly"
       ctaText="Apply for Credit"
     >
-      <div className="mt-6 space-y-8 sm:space-y-10">
+      <div className="mt-6 space-y-10 sm:space-y-12">
         
-        {/* Credit Facilities Grid */}
+        {/* Credit Facilities Grid with 3D Elevation */}
         <section id="loan-types">
-          <div className="mb-4 sm:mb-6">
-            <span className="text-xs font-semibold uppercase tracking-wider text-[#0284c7] block mb-1">
-              Credit Categories
-            </span>
-            <h2 className="text-xl sm:text-2xl lg:text-3xl font-heading font-semibold text-[#0a1e3f]">
-              Structured Credit Facilities
-            </h2>
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2 mb-6">
+            <div>
+              <span className="text-xs font-semibold uppercase tracking-wider text-[#0284c7] block mb-1">
+                Credit Categories
+              </span>
+              <h2 className="text-xl sm:text-2xl lg:text-3xl font-heading font-semibold text-[#0a1e3f]">
+                Structured Credit Facilities
+              </h2>
+            </div>
+            <div className="flex items-center gap-2 text-xs text-[#64748b]">
+              <ShieldCheck className="h-4 w-4 text-[#16a34a]" />
+              <span>CBN Regulated Interest Structures</span>
+            </div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {loanTypes.map((loan, idx) => (
               <div 
                 key={loan.id} 
-                className="p-5 sm:p-6 rounded-2xl bg-white border border-[#e2e8f0] flex flex-col justify-between hover:border-[#0284c7]/30 shadow-sm hover:shadow-lift transform hover:-translate-y-1 transition-all duration-500 animate-in fade-in slide-in-from-bottom-8 duration-700 fill-mode-both"
-                style={{ animationDelay: `${idx * 200}ms` }}
+                className="p-6 rounded-3xl bg-white border border-[#e2e8f0] flex flex-col justify-between hover:border-[#0284c7]/40 shadow-sm hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 relative group overflow-hidden"
               >
-                <div>
-                  <div 
-                    className="w-10 h-10 rounded-xl flex items-center justify-center mb-4 shadow-sm"
-                    style={{ backgroundColor: loan.bg, color: loan.accent }}
-                  >
-                    <loan.icon className="h-5 w-5" />
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between">
+                    <div 
+                      className="w-12 h-12 rounded-2xl flex items-center justify-center shadow-xs group-hover:scale-105 transition-transform"
+                      style={{ backgroundColor: loan.bg, color: loan.accent }}
+                    >
+                      <loan.icon className="h-6 w-6" />
+                    </div>
+                    <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-[#f8fafc] text-[#0a1e3f] border border-[#e2e8f0]">
+                      {loan.badge}
+                    </span>
                   </div>
-                  <h3 className="font-heading text-base font-semibold text-[#0a1e3f] mb-1.5">{loan.title}</h3>
-                  <p className="text-xs text-[#64748b] leading-relaxed mb-4">{loan.description}</p>
 
-                  <div className="space-y-2 mb-4 pt-3 border-t border-[#e2e8f0]/60">
+                  <div>
+                    <h3 className="font-heading text-lg font-semibold text-[#0a1e3f] mb-1.5">{loan.title}</h3>
+                    <p className="text-xs text-[#64748b] leading-relaxed">{loan.description}</p>
+                  </div>
+
+                  <div className="space-y-2 pt-3 border-t border-[#e2e8f0]">
                     {loan.benefits.map((benefit, i) => (
                       <div key={i} className="flex items-start gap-2 text-xs text-[#0a1e3f]">
-                        <CheckCircle2 className="h-3.5 w-3.5 text-[#34c771] shrink-0 mt-0.5" />
+                        <CheckCircle2 className="h-4 w-4 text-[#16a34a] shrink-0 mt-0.5" />
                         <span>{benefit}</span>
                       </div>
                     ))}
                   </div>
                 </div>
 
-                <div className="pt-3 border-t border-[#e2e8f0] text-[11px] text-[#64748b]">
+                <div className="pt-4 mt-4 border-t border-[#e2e8f0] text-[11px] text-[#64748b] bg-[#f8fafc] -mx-6 -mb-6 p-4 rounded-b-3xl">
                   <span className="font-semibold text-[#0a1e3f]">Eligibility: </span>{loan.whoItIsFor}
                 </div>
               </div>
@@ -129,50 +145,95 @@ export default function LoanServices() {
 
         {/* Financial Calculators 2-Column Grid */}
         <section id="loan-calculators">
-          <div className="mb-4 sm:mb-6">
+          <div className="mb-6">
             <span className="text-xs font-semibold uppercase tracking-wider text-[#0284c7] block mb-1">
               Interactive Tools
             </span>
             <h2 className="text-xl sm:text-2xl lg:text-3xl font-heading font-semibold text-[#0a1e3f]">
               Financial Projection Calculators
             </h2>
+            <p className="text-xs sm:text-sm text-[#64748b] mt-1">
+              Simulate monthly loan repayments or forecast compound interest returns on term deposits.
+            </p>
           </div>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-stretch mt-4">
-            <div className="rounded-2xl p-1 bg-gradient-to-b from-white to-[#f0f7ff]/50 border border-[#e2e8f0]/60 shadow-md shadow-[#0a1e3f]/5 animate-in fade-in slide-in-from-left-8 duration-700 fill-mode-both">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-stretch">
+            <div className="h-full">
               <LoanCalculator />
             </div>
-            <div className="rounded-2xl p-1 bg-gradient-to-b from-white to-[#bcffbb]/10 border border-[#e2e8f0]/60 shadow-md shadow-[#34c771]/5 animate-in fade-in slide-in-from-right-8 duration-700 fill-mode-both" style={{ animationDelay: '200ms' }}>
+            <div className="h-full">
               <SavingsCalculator />
             </div>
           </div>
         </section>
 
+        {/* 4-Step Loan Application Workflow */}
+        <section className="bg-[#0a1e3f] text-white rounded-3xl p-6 sm:p-8 lg:p-10 relative overflow-hidden shadow-xl border border-white/10">
+          <div className="absolute top-0 right-0 w-80 h-80 bg-[#0284c7]/20 rounded-full blur-3xl pointer-events-none" />
+          
+          <div className="relative z-10 space-y-6">
+            <div>
+              <span className="text-xs font-semibold uppercase tracking-wider text-[#38bdf8] block mb-1">
+                Application Workflow
+              </span>
+              <h2 className="text-xl sm:text-2xl lg:text-3xl font-heading font-semibold text-white">
+                How Our Credit Approval Process Works
+              </h2>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              <div className="p-4 rounded-2xl bg-white/5 border border-white/10 space-y-2">
+                <div className="w-8 h-8 rounded-full bg-[#38bdf8] text-[#0a1e3f] font-bold text-xs flex items-center justify-center">1</div>
+                <h4 className="font-heading text-sm font-semibold text-white">Submit Request</h4>
+                <p className="text-xs text-blue-100/75 leading-relaxed">Complete the credit application online or at any branch customer desk.</p>
+              </div>
+
+              <div className="p-4 rounded-2xl bg-white/5 border border-white/10 space-y-2">
+                <div className="w-8 h-8 rounded-full bg-[#38bdf8] text-[#0a1e3f] font-bold text-xs flex items-center justify-center">2</div>
+                <h4 className="font-heading text-sm font-semibold text-white">Document Review</h4>
+                <p className="text-xs text-blue-100/75 leading-relaxed">Provide 3-6 months bank statement and valid identification documents.</p>
+              </div>
+
+              <div className="p-4 rounded-2xl bg-white/5 border border-white/10 space-y-2">
+                <div className="w-8 h-8 rounded-full bg-[#38bdf8] text-[#0a1e3f] font-bold text-xs flex items-center justify-center">3</div>
+                <h4 className="font-heading text-sm font-semibold text-white">Credit Assessment</h4>
+                <p className="text-xs text-blue-100/75 leading-relaxed">Credit analysts evaluate turnover and determine optimum facility terms.</p>
+              </div>
+
+              <div className="p-4 rounded-2xl bg-white/5 border border-white/10 space-y-2">
+                <div className="w-8 h-8 rounded-full bg-[#4ade80] text-[#0a1e3f] font-bold text-xs flex items-center justify-center">4</div>
+                <h4 className="font-heading text-sm font-semibold text-white">Fast Disbursement</h4>
+                <p className="text-xs text-blue-100/75 leading-relaxed">Approved loan funds are credited directly to your verified Rima MFB account.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* Loan FAQ Card */}
-        <section id="loan-faq" className="space-y-3">
+        <section id="loan-faq" className="space-y-4">
           <h2 className="text-xl sm:text-2xl font-heading font-semibold text-[#0a1e3f]">Credit & Loan FAQs</h2>
-          <div className="rounded-2xl bg-white border border-[#e2e8f0] p-2 sm:p-4">
-            <Accordion type="single" collapsible className="w-full">
-              <AccordionItem value="item-1" className="border-b border-[#e2e8f0]/60 px-2">
-                <AccordionTrigger className="font-heading text-sm font-medium text-[#0a1e3f] hover:text-[#0284c7] py-4">
+          <div className="rounded-3xl bg-white border border-[#e2e8f0] p-4 sm:p-6 shadow-sm">
+            <Accordion type="single" collapsible className="w-full divide-y divide-[#e2e8f0]">
+              <AccordionItem value="item-1" className="border-b-0 py-2">
+                <AccordionTrigger className="font-heading text-sm font-medium text-[#0a1e3f] hover:text-[#0284c7] text-left">
                   How long does loan evaluation and disbursement take?
                 </AccordionTrigger>
-                <AccordionContent className="text-xs text-[#64748b] leading-relaxed pb-4">
+                <AccordionContent className="text-xs text-[#64748b] leading-relaxed pt-2">
                   Personal microloans and salary advances are disbursed within 24 to 48 hours of document verification. Commercial SME loans may require 5 business days for facility inspection.
                 </AccordionContent>
               </AccordionItem>
-              <AccordionItem value="item-2" className="border-b border-[#e2e8f0]/60 px-2">
-                <AccordionTrigger className="font-heading text-sm font-medium text-[#0a1e3f] hover:text-[#0284c7] py-4">
+              <AccordionItem value="item-2" className="border-b-0 py-2">
+                <AccordionTrigger className="font-heading text-sm font-medium text-[#0a1e3f] hover:text-[#0284c7] text-left">
                   What is required as collateral security?
                 </AccordionTrigger>
-                <AccordionContent className="text-xs text-[#64748b] leading-relaxed pb-4">
+                <AccordionContent className="text-xs text-[#64748b] leading-relaxed pt-2">
                   Collateral terms depend on loan volume. Salary advances require only employer payroll standing orders; microloans require a verifiable guarantor, while commercial facilities use commercial equipment or property debentures.
                 </AccordionContent>
               </AccordionItem>
-              <AccordionItem value="item-3" className="border-b-0 px-2">
-                <AccordionTrigger className="font-heading text-sm font-medium text-[#0a1e3f] hover:text-[#0284c7] py-4">
+              <AccordionItem value="item-3" className="border-b-0 py-2">
+                <AccordionTrigger className="font-heading text-sm font-medium text-[#0a1e3f] hover:text-[#0284c7] text-left">
                   Can I liquidate early without extra charges?
                 </AccordionTrigger>
-                <AccordionContent className="text-xs text-[#64748b] leading-relaxed pb-4">
+                <AccordionContent className="text-xs text-[#64748b] leading-relaxed pt-2">
                   Yes. Accountholders can liquidate principal balances early at any time without penalty, improving their credit scoring for future higher credit limits.
                 </AccordionContent>
               </AccordionItem>
