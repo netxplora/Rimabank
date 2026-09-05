@@ -908,9 +908,9 @@ export default function MediaLibrary() {
       {/* UPLOAD & URL IMPORT MODAL                                     */}
       {/* ============================================================ */}
       {isUploadModalOpen && (
-        <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-50 flex items-center justify-center p-4 animate-in fade-in duration-150">
-          <div className="bg-white rounded-2xl border border-slate-200 shadow-2xl max-w-xl w-full flex flex-col max-h-[90vh] overflow-hidden">
-            <div className="px-6 py-4 border-b border-slate-100 flex items-center justify-between bg-slate-50">
+        <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-50 flex items-center justify-center p-3 sm:p-6 animate-in fade-in duration-150">
+          <div className="bg-white rounded-2xl border border-slate-200 shadow-2xl max-w-xl w-full flex flex-col max-h-[92vh] overflow-hidden">
+            <div className="px-5 sm:px-6 py-3.5 sm:py-4 border-b border-slate-100 flex items-center justify-between bg-slate-50 shrink-0">
               <h3 className="font-heading font-bold text-sm text-[#0a1e3f]">
                 Add Media to Library
               </h3>
@@ -923,10 +923,10 @@ export default function MediaLibrary() {
             </div>
 
             {/* Sub-tabs */}
-            <div className="px-6 border-b border-slate-100 flex items-center gap-4 text-xs font-semibold">
+            <div className="px-4 sm:px-6 border-b border-slate-100 flex items-center gap-2 sm:gap-4 text-xs font-semibold overflow-x-auto shrink-0 scrollbar-none">
               <button
                 onClick={() => setUploadTab('file')}
-                className={`py-3 border-b-2 flex items-center gap-1.5 transition-all ${
+                className={`py-3 border-b-2 flex items-center gap-1.5 whitespace-nowrap shrink-0 transition-all ${
                   uploadTab === 'file' ? 'border-[#0284c7] text-[#0284c7] font-bold' : 'border-transparent text-slate-500'
                 }`}
               >
@@ -936,7 +936,7 @@ export default function MediaLibrary() {
 
               <button
                 onClick={() => setUploadTab('url')}
-                className={`py-3 border-b-2 flex items-center gap-1.5 transition-all ${
+                className={`py-3 border-b-2 flex items-center gap-1.5 whitespace-nowrap shrink-0 transition-all ${
                   uploadTab === 'url' ? 'border-[#0284c7] text-[#0284c7] font-bold' : 'border-transparent text-slate-500'
                 }`}
               >
@@ -945,12 +945,12 @@ export default function MediaLibrary() {
               </button>
             </div>
 
-            <div className="p-6 overflow-y-auto flex-1">
+            <div className="p-4 sm:p-6 overflow-y-auto flex-1">
               {uploadTab === 'file' ? (
                 <form onSubmit={handleFileUpload} className="space-y-4">
                   <div
                     onClick={() => fileInputRef.current?.click()}
-                    className="border-2 border-dashed border-slate-300 hover:border-[#0284c7] rounded-2xl p-8 text-center cursor-pointer bg-slate-50/60 space-y-2"
+                    className="border-2 border-dashed border-slate-300 hover:border-[#0284c7] rounded-2xl p-6 sm:p-8 text-center cursor-pointer bg-slate-50/60 space-y-2 transition-all"
                   >
                     <input
                       ref={fileInputRef}
@@ -970,8 +970,8 @@ export default function MediaLibrary() {
 
                     {uploadPreview ? (
                       <div className="space-y-2">
-                        <img src={uploadPreview} alt="Preview" className="h-32 mx-auto rounded-xl object-contain border border-slate-200" />
-                        <p className="text-xs text-emerald-600 font-semibold">Selected: {uploadFile?.name}</p>
+                        <img src={uploadPreview} alt="Preview" className="h-28 sm:h-32 mx-auto rounded-xl object-contain border border-slate-200" />
+                        <p className="text-xs text-emerald-600 font-semibold truncate max-w-xs mx-auto">Selected: {uploadFile?.name}</p>
                       </div>
                     ) : (
                       <>
@@ -982,9 +982,9 @@ export default function MediaLibrary() {
                     )}
                   </div>
 
-                  <div className="grid grid-cols-2 gap-3">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div>
-                      <label className="block text-xs font-semibold text-[#0a1e3f] mb-1">Title</label>
+                      <label className="block text-xs font-semibold text-[#0a1e3f] mb-1">Title *</label>
                       <input
                         type="text"
                         required
@@ -1024,7 +1024,7 @@ export default function MediaLibrary() {
                   <Button
                     type="submit"
                     disabled={!uploadFile || isUploading}
-                    className="w-full bg-[#0284c7] hover:bg-[#0369a1] text-white text-xs font-semibold rounded-xl"
+                    className="w-full bg-[#0284c7] hover:bg-[#0369a1] text-white text-xs font-semibold rounded-xl h-10"
                   >
                     {isUploading ? 'Uploading to Storage...' : 'Upload & Add to Vault'}
                   </Button>
@@ -1032,7 +1032,7 @@ export default function MediaLibrary() {
               ) : (
                 <form onSubmit={handleUrlImport} className="space-y-4">
                   <div>
-                    <label className="block text-xs font-semibold text-[#0a1e3f] mb-1">Image URL</label>
+                    <label className="block text-xs font-semibold text-[#0a1e3f] mb-1">Image URL *</label>
                     <input
                       type="url"
                       required
@@ -1043,9 +1043,9 @@ export default function MediaLibrary() {
                     />
                   </div>
 
-                  <div className="grid grid-cols-2 gap-3">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div>
-                      <label className="block text-xs font-semibold text-[#0a1e3f] mb-1">Title</label>
+                      <label className="block text-xs font-semibold text-[#0a1e3f] mb-1">Title *</label>
                       <input
                         type="text"
                         required
@@ -1074,7 +1074,7 @@ export default function MediaLibrary() {
                   <Button
                     type="submit"
                     disabled={!externalUrl.trim() || isValidatingUrl}
-                    className="w-full bg-[#0284c7] hover:bg-[#0369a1] text-white text-xs font-semibold rounded-xl"
+                    className="w-full bg-[#0284c7] hover:bg-[#0369a1] text-white text-xs font-semibold rounded-xl h-10"
                   >
                     {isValidatingUrl ? 'Verifying Link...' : 'Register Image URL'}
                   </Button>

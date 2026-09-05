@@ -331,6 +331,10 @@ export interface SiteContent {
 export interface SystemSettings {
   siteName: string;
   tagline: string;
+  contactEmail?: string;
+  contactPhone?: string;
+  headquartersAddress?: string;
+  supportHours?: string;
   maintenanceMode: boolean;
   maintenanceMessage: string;
   enableAlertBanner: boolean;
@@ -338,4 +342,6 @@ export interface SystemSettings {
   sessionTimeoutMinutes: number;
   passwordPolicyMinLength: number;
   maxUploadSizeBytes: number; // default 5MB (5242880)
+  require2FAForAdmin?: boolean;
 }
+

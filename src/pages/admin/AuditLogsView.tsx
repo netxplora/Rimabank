@@ -190,9 +190,9 @@ export default function AuditLogsView() {
 
       {/* Log Detail Modal */}
       {selectedLog && (
-        <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
-          <div className="bg-white rounded-2xl shadow-2xl border border-[#e2e8f0] w-full max-w-lg overflow-hidden animate-in zoom-in-95 duration-150">
-            <div className="px-6 py-4 border-b border-[#e2e8f0] flex items-center justify-between bg-slate-50">
+        <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-3 sm:p-6 overflow-y-auto animate-in fade-in-50">
+          <div className="bg-white rounded-2xl shadow-2xl border border-[#e2e8f0] w-full max-w-lg flex flex-col max-h-[92vh] overflow-hidden">
+            <div className="px-5 sm:px-6 py-3.5 sm:py-4 border-b border-[#e2e8f0] flex items-center justify-between bg-slate-50 shrink-0">
               <h3 className="font-heading font-bold text-sm text-[#0a1e3f]">
                 Audit Event Record Details
               </h3>
@@ -204,8 +204,8 @@ export default function AuditLogsView() {
               </button>
             </div>
 
-            <div className="p-6 space-y-3.5 text-xs">
-              <div className="grid grid-cols-2 gap-3 p-3 bg-slate-50 rounded-xl border border-slate-100">
+            <div className="p-5 sm:p-6 space-y-3.5 text-xs overflow-y-auto flex-1">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 p-3.5 bg-slate-50 rounded-xl border border-slate-100">
                 <div>
                   <span className="block text-[10px] uppercase font-bold text-slate-400">Actor</span>
                   <span className="font-bold text-[#0a1e3f]">{selectedLog.userName} ({selectedLog.userRole})</span>
@@ -226,27 +226,27 @@ export default function AuditLogsView() {
 
               <div>
                 <span className="block text-[10px] uppercase font-bold text-slate-400 mb-1">Details</span>
-                <p className="p-3 rounded-xl bg-white border border-[#e2e8f0] text-slate-700 leading-relaxed font-medium">
+                <p className="p-3 rounded-xl bg-white border border-[#e2e8f0] text-slate-700 leading-relaxed font-medium whitespace-pre-wrap">
                   {selectedLog.details}
                 </p>
               </div>
 
               <div>
                 <span className="block text-[10px] uppercase font-bold text-slate-400 mb-1">Timestamp</span>
-                <p className="font-mono text-slate-500">
+                <p className="font-mono text-slate-500 break-all">
                   {new Date(selectedLog.timestamp).toUTCString()} ({selectedLog.timestamp})
                 </p>
               </div>
+            </div>
 
-              <div className="pt-3 border-t border-[#e2e8f0] flex justify-end">
-                <Button
-                  size="sm"
-                  onClick={() => setSelectedLog(null)}
-                  className="rounded-xl text-xs bg-[#0a1e3f] text-white"
-                >
-                  Close Record
-                </Button>
-              </div>
+            <div className="px-5 sm:px-6 py-3 border-t border-[#e2e8f0] bg-slate-50 flex justify-end shrink-0">
+              <Button
+                size="sm"
+                onClick={() => setSelectedLog(null)}
+                className="rounded-xl text-xs bg-[#0a1e3f] hover:bg-[#0284c7] text-white"
+              >
+                Close Record
+              </Button>
             </div>
           </div>
         </div>

@@ -227,6 +227,12 @@ export const CMSProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
         });
         setPopupConfigs(checked);
       }
+
+      // Sync System Settings
+      const remoteSettings = await SupabaseSync.fetchSystemSettings();
+      if (remoteSettings) {
+        setSystemSettings(remoteSettings);
+      }
     };
 
     syncFromDatabase();
@@ -959,7 +965,7 @@ export const CMSProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
   const updateSystemSettings = (updates: Partial<SystemSettings>, user: { id: string; name: string; role: UserRole }) => {
     setSystemSettings(prev => {
       const updated = { ...prev, ...updates };
-      SupabaseSync.savePageContent('system_settings', 'System Configuration', updated);
+      SupabaseSync.saveSystemSettings(updated);
       logAuditAction({
         userId: user.id,
         userName: user.name,

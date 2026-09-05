@@ -445,9 +445,9 @@ export default function PublicationsManager() {
 
       {/* Editor Modal */}
       {isModalOpen && (
-        <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
-          <div className="bg-white rounded-2xl shadow-2xl border border-[#e2e8f0] w-full max-w-3xl overflow-hidden animate-in zoom-in-95 duration-150 my-8">
-            <div className="px-6 py-4 border-b border-[#e2e8f0] flex items-center justify-between bg-slate-50">
+        <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-3 sm:p-6 overflow-y-auto animate-in fade-in-50">
+          <div className="bg-white rounded-2xl shadow-2xl border border-[#e2e8f0] w-full max-w-3xl flex flex-col max-h-[92vh] overflow-hidden">
+            <div className="px-5 sm:px-6 py-3.5 sm:py-4 border-b border-[#e2e8f0] flex items-center justify-between bg-slate-50 shrink-0">
               <h3 className="font-heading font-bold text-sm text-[#0a1e3f]">
                 {editingPub ? 'Edit Publication' : 'Author New Publication'}
               </h3>
@@ -459,190 +459,184 @@ export default function PublicationsManager() {
               </button>
             </div>
 
-            <form onSubmit={handleSave} className="p-6 space-y-4 max-h-[75vh] overflow-y-auto">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="sm:col-span-2">
-                  <label className="block text-xs font-semibold text-[#0a1e3f] mb-1">
-                    Publication Title *
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    value={formData.title}
-                    onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                    placeholder="e.g. Rima Microfinance Bank Expands Agency Network"
-                    className="w-full p-2.5 rounded-xl border border-[#e2e8f0] text-xs font-medium focus:border-[#0284c7] outline-none"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-xs font-semibold text-[#0a1e3f] mb-1">
-                    Category
-                  </label>
-                  <select
-                    value={formData.category}
-                    onChange={(e) => setFormData({ ...formData, category: e.target.value as any })}
-                    className="w-full p-2.5 rounded-xl border border-[#e2e8f0] text-xs font-medium focus:border-[#0284c7] outline-none bg-white"
-                  >
-                    <option value="Bank Notice">Bank Notice</option>
-                    <option value="Financial Report">Financial Report</option>
-                    <option value="Press Release">Press Release</option>
-                    <option value="Articles">Articles</option>
-                    <option value="Statement">Statement</option>
-                  </select>
-                </div>
-
-                <div>
-                  <label className="block text-xs font-semibold text-[#0a1e3f] mb-1">
-                    Author / Department
-                  </label>
-                  <input
-                    type="text"
-                    value={formData.author}
-                    onChange={(e) => setFormData({ ...formData, author: e.target.value })}
-                    className="w-full p-2.5 rounded-xl border border-[#e2e8f0] text-xs font-medium focus:border-[#0284c7] outline-none"
-                  />
-                </div>
-
-                {/* Site Popup Display Option */}
-                <div className="sm:col-span-2 p-3 bg-sky-50/60 border border-sky-100 rounded-xl space-y-2.5">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <Sparkles className="w-4 h-4 text-[#0284c7]" />
-                      <span className="text-xs font-semibold text-[#0a1e3f]">Site Popup Display Option</span>
-                    </div>
-                    <label className="flex items-center gap-2 cursor-pointer">
-                      <input
-                        type="checkbox"
-                        checked={formData.isPopupEnabled}
-                        onChange={(e) => {
-                          const checked = e.target.checked;
-                          setFormData({
-                            ...formData,
-                            isPopupEnabled: checked,
-                            displayMode: checked ? (formData.displayMode === 'standard' ? 'both' : formData.displayMode) : 'standard'
-                          });
-                        }}
-                        className="w-4 h-4 rounded text-[#0284c7] focus:ring-[#0284c7]"
-                      />
-                      <span className="text-xs font-medium text-slate-700">Enable Popup</span>
+            <form onSubmit={handleSave} className="flex flex-col flex-1 overflow-hidden">
+              <div className="p-5 sm:p-6 space-y-4 overflow-y-auto flex-1">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="sm:col-span-2">
+                    <label className="block text-xs font-semibold text-[#0a1e3f] mb-1">
+                      Publication Title *
                     </label>
+                    <input
+                      type="text"
+                      required
+                      value={formData.title}
+                      onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+                      placeholder="e.g. Rima Microfinance Bank Expands Agency Network"
+                      className="w-full p-2.5 rounded-xl border border-[#e2e8f0] text-xs font-medium focus:border-[#0284c7] outline-none"
+                    />
                   </div>
 
-                  {formData.isPopupEnabled && (
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 border-t border-sky-100">
-                      <div>
-                        <label className="block text-[11px] font-semibold text-slate-600 mb-1">Display Mode</label>
-                        <select
-                          value={formData.displayMode}
-                          onChange={(e) => setFormData({ ...formData, displayMode: e.target.value as PopupDisplayMode })}
-                          className="w-full p-2 rounded-lg bg-white border border-[#e2e8f0] text-xs font-medium outline-none focus:border-[#0284c7]"
-                        >
-                          <option value="both">Both Press Room & Site Popup</option>
-                          <option value="popup">Site Popup Only</option>
-                          <option value="standard">Press Room Only</option>
-                        </select>
-                      </div>
-                      <div className="text-[11px] text-slate-500 flex items-center">
-                        Feature major bank news or releases with instant interactive popup cards for site visitors.
-                      </div>
-                    </div>
-                  )}
-                </div>
-
-                <div className="sm:col-span-2">
-                  <label className="block text-xs font-semibold text-[#0a1e3f] mb-1">
-                    Brief Excerpt / Summary (Appears in previews)
-                  </label>
-                  <textarea
-                    rows={2}
-                    value={formData.excerpt}
-                    onChange={(e) => setFormData({ ...formData, excerpt: e.target.value })}
-                    className="w-full p-2.5 rounded-xl border border-[#e2e8f0] text-xs font-medium focus:border-[#0284c7] outline-none"
-                  />
-                </div>
-
-                <div className="sm:col-span-2">
-                  <label className="block text-xs font-semibold text-[#0a1e3f] mb-1">
-                    Full Content & Narrative (Rich HTML Format)
-                  </label>
-                  <RichEditor
-                    value={formData.content}
-                    onChange={(content) => setFormData({ ...formData, content })}
-                    minHeight="220px"
-                  />
-                </div>
-
-                {/* Featured Image Picker */}
-                <div className="sm:col-span-2">
-                  <label className="block text-xs font-semibold text-[#0a1e3f] mb-1">
-                    Featured Article Cover Image
-                  </label>
-                  <div className="flex items-center gap-4 p-3 bg-slate-50 border border-[#e2e8f0] rounded-xl">
-                    <div className="w-20 h-14 rounded-lg bg-slate-200 overflow-hidden shrink-0 border border-slate-300 flex items-center justify-center">
-                      {formData.featuredImage ? (
-                        <img
-                          src={formData.featuredImage}
-                          alt="Cover Preview"
-                          className="w-full h-full object-cover"
-                        />
-                      ) : (
-                        <ImageIcon className="w-6 h-6 text-slate-400" />
-                      )}
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <input
-                        type="text"
-                        value={formData.featuredImage}
-                        onChange={(e) => setFormData({ ...formData, featuredImage: e.target.value })}
-                        placeholder="Image URL or choose from library"
-                        className="w-full p-2 bg-white border border-[#e2e8f0] rounded-lg text-xs font-mono text-slate-700 outline-none focus:border-[#0284c7]"
-                      />
-                      <p className="text-[11px] text-slate-400 mt-1">Displayed at top of article and in press room cards.</p>
-                    </div>
-                    <Button
-                      type="button"
-                      variant="outline"
-                      size="sm"
-                      onClick={() => setMediaPickerOpen(true)}
-                      className="shrink-0 border-sky-200 text-[#0284c7] hover:bg-sky-50 text-xs"
+                  <div>
+                    <label className="block text-xs font-semibold text-[#0a1e3f] mb-1">
+                      Category
+                    </label>
+                    <select
+                      value={formData.category}
+                      onChange={(e) => setFormData({ ...formData, category: e.target.value as any })}
+                      className="w-full p-2.5 rounded-xl border border-[#e2e8f0] text-xs font-medium focus:border-[#0284c7] outline-none bg-white"
                     >
-                      <ImageIcon className="w-3.5 h-3.5 mr-1" />
-                      Media Library
-                    </Button>
+                      <option value="Bank Notice">Bank Notice</option>
+                      <option value="Financial Report">Financial Report</option>
+                      <option value="Press Release">Press Release</option>
+                      <option value="Articles">Articles</option>
+                      <option value="Statement">Statement</option>
+                    </select>
                   </div>
-                </div>
 
-                <div>
-                  <label className="block text-xs font-semibold text-[#0a1e3f] mb-1">
-                    Publish Date
-                  </label>
-                  <input
-                    type="date"
-                    value={formData.publishDate}
-                    onChange={(e) => setFormData({ ...formData, publishDate: e.target.value })}
-                    className="w-full p-2.5 rounded-xl border border-[#e2e8f0] text-xs font-medium focus:border-[#0284c7] outline-none"
-                  />
-                </div>
+                  <div>
+                    <label className="block text-xs font-semibold text-[#0a1e3f] mb-1">
+                      Author / Department
+                    </label>
+                    <input
+                      type="text"
+                      value={formData.author}
+                      onChange={(e) => setFormData({ ...formData, author: e.target.value })}
+                      className="w-full p-2.5 rounded-xl border border-[#e2e8f0] text-xs font-medium focus:border-[#0284c7] outline-none"
+                    />
+                  </div>
 
-                <div>
-                  <label className="block text-xs font-semibold text-[#0a1e3f] mb-1">
-                    Status
-                  </label>
-                  <select
-                    value={formData.status}
-                    onChange={(e) => setFormData({ ...formData, status: e.target.value as ContentStatus })}
-                    className="w-full p-2.5 rounded-xl border border-[#e2e8f0] text-xs font-medium focus:border-[#0284c7] outline-none bg-white"
-                  >
-                    <option value="published">Published</option>
-                    <option value="review">In Review (Staff)</option>
-                    <option value="draft">Draft</option>
-                    <option value="archived">Archived</option>
-                  </select>
+                  {/* Site Popup Display Option */}
+                  <div className="sm:col-span-2 p-3 bg-sky-50/60 border border-sky-100 rounded-xl space-y-2.5">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <Sparkles className="w-4 h-4 text-[#0284c7]" />
+                        <span className="text-xs font-semibold text-[#0a1e3f]">Site Popup Display Option</span>
+                      </div>
+                      <label className="flex items-center gap-2 cursor-pointer">
+                        <input
+                          type="checkbox"
+                          checked={formData.isPopupEnabled}
+                          onChange={(e) => {
+                            const checked = e.target.checked;
+                            setFormData({
+                              ...formData,
+                              isPopupEnabled: checked,
+                              displayMode: checked ? (formData.displayMode === 'standard' ? 'both' : formData.displayMode) : 'standard'
+                            });
+                          }}
+                          className="w-4 h-4 rounded text-[#0284c7] focus:ring-[#0284c7]"
+                        />
+                        <span className="text-xs font-medium text-slate-700">Enable Popup</span>
+                      </label>
+                    </div>
+
+                    {formData.isPopupEnabled && (
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 border-t border-sky-100">
+                        <div>
+                          <label className="block text-[11px] font-semibold text-slate-600 mb-1">Display Mode</label>
+                          <select
+                            value={formData.displayMode}
+                            onChange={(e) => setFormData({ ...formData, displayMode: e.target.value as PopupDisplayMode })}
+                            className="w-full p-2 rounded-lg bg-white border border-[#e2e8f0] text-xs font-medium outline-none focus:border-[#0284c7]"
+                          >
+                            <option value="both">Both Standard Article & Site Popup</option>
+                            <option value="popup">Site Popup Only</option>
+                            <option value="standard">Standard Article Only</option>
+                          </select>
+                        </div>
+                        <div className="text-[11px] text-slate-500 flex items-center">
+                          When enabled, this publication will also trigger a popup alert to site visitors.
+                        </div>
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="sm:col-span-2">
+                    <label className="block text-xs font-semibold text-[#0a1e3f] mb-1">
+                      Excerpt / Summary Hook *
+                    </label>
+                    <textarea
+                      rows={2}
+                      required
+                      value={formData.excerpt}
+                      onChange={(e) => setFormData({ ...formData, excerpt: e.target.value })}
+                      placeholder="Brief 1-2 sentence preview text..."
+                      className="w-full p-2.5 rounded-xl border border-[#e2e8f0] text-xs font-medium focus:border-[#0284c7] outline-none"
+                    />
+                  </div>
+
+                  <div className="sm:col-span-2">
+                    <label className="block text-xs font-semibold text-[#0a1e3f] mb-1">
+                      Full Article Body Content *
+                    </label>
+                    <textarea
+                      rows={6}
+                      required
+                      value={formData.content}
+                      onChange={(e) => setFormData({ ...formData, content: e.target.value })}
+                      placeholder="Full official publication text..."
+                      className="w-full p-2.5 rounded-xl border border-[#e2e8f0] text-xs font-medium focus:border-[#0284c7] outline-none font-sans leading-relaxed"
+                    />
+                  </div>
+
+                  <div className="sm:col-span-2">
+                    <label className="block text-xs font-semibold text-[#0a1e3f] mb-1">
+                      Cover Featured Image
+                    </label>
+                    <div className="flex flex-col sm:flex-row sm:items-center gap-3 p-3 bg-slate-50 border border-[#e2e8f0] rounded-xl">
+                      <div className="w-full sm:w-20 h-20 sm:h-14 rounded-lg bg-slate-200 overflow-hidden shrink-0 border border-slate-300 flex items-center justify-center">
+                        {formData.featuredImage ? (
+                          <img
+                            src={formData.featuredImage}
+                            alt="Cover Preview"
+                            className="w-full h-full object-cover"
+                          />
+                        ) : (
+                          <ImageIcon className="w-6 h-6 text-slate-400" />
+                        )}
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <input
+                          type="text"
+                          value={formData.featuredImage}
+                          onChange={(e) => setFormData({ ...formData, featuredImage: e.target.value })}
+                          placeholder="Image URL or choose from library"
+                          className="w-full p-2 bg-white border border-[#e2e8f0] rounded-lg text-xs font-mono text-slate-700 outline-none focus:border-[#0284c7]"
+                        />
+                        <p className="text-[11px] text-slate-400 mt-1">Recommended format: 1200x630px JPG or WebP</p>
+                      </div>
+                      <Button
+                        type="button"
+                        variant="outline"
+                        size="sm"
+                        onClick={() => setMediaPickerOpen(true)}
+                        className="shrink-0 border-sky-200 text-[#0284c7] hover:bg-sky-50 text-xs"
+                      >
+                        <ImageIcon className="w-3.5 h-3.5 mr-1" />
+                        Media Vault
+                      </Button>
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-semibold text-[#0a1e3f] mb-1">
+                      Status
+                    </label>
+                    <select
+                      value={formData.status}
+                      onChange={(e) => setFormData({ ...formData, status: e.target.value as ContentStatus })}
+                      className="w-full p-2.5 rounded-xl border border-[#e2e8f0] text-xs font-medium focus:border-[#0284c7] outline-none bg-white"
+                    >
+                      <option value="published">Published</option>
+                      <option value="review">In Review (Staff)</option>
+                      <option value="draft">Draft</option>
+                      <option value="archived">Archived</option>
+                    </select>
+                  </div>
                 </div>
               </div>
 
-              <div className="pt-4 border-t border-[#e2e8f0] flex items-center justify-end gap-2.5">
+              <div className="px-5 sm:px-6 py-3.5 border-t border-[#e2e8f0] bg-slate-50 flex items-center justify-end gap-2.5 shrink-0">
                 <Button
                   type="button"
                   variant="outline"

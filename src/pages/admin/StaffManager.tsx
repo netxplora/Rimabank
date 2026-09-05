@@ -304,9 +304,9 @@ export default function StaffManager() {
 
       {/* Add / Edit Staff Modal */}
       {isModalOpen && (
-        <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
-          <div className="bg-white rounded-2xl shadow-2xl border border-[#e2e8f0] w-full max-w-md overflow-hidden animate-in zoom-in-95 duration-150">
-            <div className="px-6 py-4 border-b border-[#e2e8f0] flex items-center justify-between bg-slate-50">
+        <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4 overflow-y-auto animate-in fade-in-50">
+          <div className="bg-white rounded-2xl shadow-2xl border border-[#e2e8f0] w-full max-w-md flex flex-col max-h-[92vh] overflow-hidden">
+            <div className="px-5 sm:px-6 py-3.5 sm:py-4 border-b border-[#e2e8f0] flex items-center justify-between bg-slate-50 shrink-0">
               <h3 className="font-heading font-bold text-sm text-[#0a1e3f]">
                 {editingStaff ? 'Edit Staff Permissions' : 'Add New Staff Account'}
               </h3>
@@ -318,7 +318,7 @@ export default function StaffManager() {
               </button>
             </div>
 
-            <form onSubmit={handleSave} className="p-6 space-y-4">
+            <form onSubmit={handleSave} className="p-5 sm:p-6 space-y-4 overflow-y-auto flex-1">
               <div>
                 <label className="block text-xs font-semibold text-[#0a1e3f] mb-1">
                   Full Staff Name *
@@ -441,10 +441,10 @@ export default function StaffManager() {
 
       {/* Generated Credentials Popup Modal */}
       {createdCredentials && (
-        <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl shadow-2xl border border-[#e2e8f0] w-full max-w-md p-6 space-y-4 animate-in zoom-in-95">
+        <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4 animate-in fade-in-50">
+          <div className="bg-white rounded-2xl shadow-2xl border border-[#e2e8f0] w-full max-w-md p-5 sm:p-6 space-y-4 max-h-[92vh] overflow-y-auto">
             <div className="flex items-center gap-3 text-[#0a1e3f]">
-              <div className="h-10 w-10 rounded-xl bg-sky-100 text-[#0284c7] flex items-center justify-center">
+              <div className="h-10 w-10 rounded-xl bg-sky-100 text-[#0284c7] flex items-center justify-center shrink-0">
                 <KeyRound className="h-5 w-5" />
               </div>
               <div>
@@ -453,7 +453,7 @@ export default function StaffManager() {
               </div>
             </div>
 
-            <div className="p-4 bg-slate-50 border border-slate-200 rounded-xl space-y-2 text-xs font-mono text-slate-800">
+            <div className="p-4 bg-slate-50 border border-slate-200 rounded-xl space-y-2 text-xs font-mono text-slate-800 break-all">
               <div><span className="text-slate-400 font-sans">Name:</span> {createdCredentials.name}</div>
               <div><span className="text-slate-400 font-sans">Email:</span> {createdCredentials.email}</div>
               <div><span className="text-slate-400 font-sans">Temp Password:</span> <span className="font-bold text-[#0284c7]">{createdCredentials.tempPassword}</span></div>

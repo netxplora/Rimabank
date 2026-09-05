@@ -413,9 +413,9 @@ export default function AnnouncementsManager() {
 
       {/* Create / Edit Modal */}
       {isModalOpen && (
-        <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
-          <div className="bg-white rounded-2xl shadow-2xl border border-[#e2e8f0] w-full max-w-xl overflow-hidden animate-in zoom-in-95 duration-150 my-8">
-            <div className="px-6 py-4 border-b border-[#e2e8f0] flex items-center justify-between bg-slate-50">
+        <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-3 sm:p-6 overflow-y-auto animate-in fade-in-50">
+          <div className="bg-white rounded-2xl shadow-2xl border border-[#e2e8f0] w-full max-w-xl flex flex-col max-h-[92vh] overflow-hidden">
+            <div className="px-5 sm:px-6 py-3.5 sm:py-4 border-b border-[#e2e8f0] flex items-center justify-between bg-slate-50 shrink-0">
               <h3 className="font-heading font-bold text-sm text-[#0a1e3f]">
                 {editingAnn ? 'Edit Announcement' : 'Create New Announcement'}
               </h3>
@@ -427,155 +427,157 @@ export default function AnnouncementsManager() {
               </button>
             </div>
 
-            <form onSubmit={handleSave} className="p-6 space-y-4 max-h-[75vh] overflow-y-auto">
-              <div>
-                <label className="block text-xs font-semibold text-[#0a1e3f] mb-1">
-                  Announcement Title *
-                </label>
-                <input
-                  type="text"
-                  required
-                  value={formData.title}
-                  onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                  placeholder="e.g. Scheduled Core Banking Maintenance Notice"
-                  className="w-full p-2.5 rounded-xl border border-[#e2e8f0] text-xs font-medium focus:border-[#0284c7] outline-none"
-                />
-              </div>
-
-              <div>
-                <label className="block text-xs font-semibold text-[#0a1e3f] mb-1">
-                  Message / Full Notice Body *
-                </label>
-                <textarea
-                  rows={3}
-                  required
-                  value={formData.message}
-                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                  placeholder="Detailed notification text for customers..."
-                  className="w-full p-2.5 rounded-xl border border-[#e2e8f0] text-xs font-medium focus:border-[#0284c7] outline-none"
-                />
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <form onSubmit={handleSave} className="flex flex-col flex-1 overflow-hidden">
+              <div className="p-5 sm:p-6 space-y-4 overflow-y-auto flex-1">
                 <div>
                   <label className="block text-xs font-semibold text-[#0a1e3f] mb-1">
-                    Category
+                    Announcement Title *
                   </label>
-                  <select
-                    value={formData.category}
-                    onChange={(e) => setFormData({ ...formData, category: e.target.value as any })}
-                    className="w-full p-2.5 rounded-xl border border-[#e2e8f0] text-xs font-medium focus:border-[#0284c7] outline-none bg-white"
-                  >
-                    <option value="maintenance">Maintenance</option>
-                    <option value="regulatory">Regulatory</option>
-                    <option value="security">Security</option>
-                    <option value="feature">New Feature</option>
-                    <option value="general">General</option>
-                  </select>
+                  <input
+                    type="text"
+                    required
+                    value={formData.title}
+                    onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+                    placeholder="e.g. Scheduled Core Banking Maintenance Notice"
+                    className="w-full p-2.5 rounded-xl border border-[#e2e8f0] text-xs font-medium focus:border-[#0284c7] outline-none"
+                  />
                 </div>
 
                 <div>
                   <label className="block text-xs font-semibold text-[#0a1e3f] mb-1">
-                    Priority Level
+                    Message / Full Notice Body *
                   </label>
-                  <select
-                    value={formData.priority}
-                    onChange={(e) => setFormData({ ...formData, priority: e.target.value as PriorityLevel })}
-                    className="w-full p-2.5 rounded-xl border border-[#e2e8f0] text-xs font-medium focus:border-[#0284c7] outline-none bg-white"
-                  >
-                    <option value="normal">Normal</option>
-                    <option value="high">High</option>
-                    <option value="urgent">Urgent / Critical</option>
-                  </select>
+                  <textarea
+                    rows={3}
+                    required
+                    value={formData.message}
+                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                    placeholder="Detailed notification text for customers..."
+                    className="w-full p-2.5 rounded-xl border border-[#e2e8f0] text-xs font-medium focus:border-[#0284c7] outline-none"
+                  />
                 </div>
 
-                <div className="sm:col-span-2 p-3 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-between">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <span className="block text-xs font-bold text-[#0a1e3f]">Display as Top Website Alert Banner</span>
-                    <span className="block text-[11px] text-slate-500">Shows floating warning strip across the top of public pages</span>
-                  </div>
-                  <input
-                    type="checkbox"
-                    checked={formData.displayAsBanner}
-                    onChange={(e) => setFormData({ ...formData, displayAsBanner: e.target.checked })}
-                    className="h-4 w-4 text-[#0284c7] rounded border-slate-300 focus:ring-[#0284c7]"
-                  />
-                </div>
-
-                {/* Site Popup Display Option */}
-                <div className="sm:col-span-2 p-3 bg-sky-50/60 border border-sky-100 rounded-xl space-y-2.5">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <Sparkles className="w-4 h-4 text-[#0284c7]" />
-                      <span className="text-xs font-semibold text-[#0a1e3f]">Site Popup Display Option</span>
-                    </div>
-                    <label className="flex items-center gap-2 cursor-pointer">
-                      <input
-                        type="checkbox"
-                        checked={formData.isPopupEnabled}
-                        onChange={(e) => {
-                          const checked = e.target.checked;
-                          setFormData({
-                            ...formData,
-                            isPopupEnabled: checked,
-                            displayMode: checked ? (formData.displayMode === 'standard' ? 'both' : formData.displayMode) : 'standard'
-                          });
-                        }}
-                        className="w-4 h-4 rounded text-[#0284c7] focus:ring-[#0284c7]"
-                      />
-                      <span className="text-xs font-medium text-slate-700">Enable Popup</span>
+                    <label className="block text-xs font-semibold text-[#0a1e3f] mb-1">
+                      Category
                     </label>
+                    <select
+                      value={formData.category}
+                      onChange={(e) => setFormData({ ...formData, category: e.target.value as any })}
+                      className="w-full p-2.5 rounded-xl border border-[#e2e8f0] text-xs font-medium focus:border-[#0284c7] outline-none bg-white"
+                    >
+                      <option value="maintenance">Maintenance</option>
+                      <option value="regulatory">Regulatory</option>
+                      <option value="security">Security</option>
+                      <option value="feature">New Feature</option>
+                      <option value="general">General</option>
+                    </select>
                   </div>
 
-                  {formData.isPopupEnabled && (
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 border-t border-sky-100">
-                      <div>
-                        <label className="block text-[11px] font-semibold text-slate-600 mb-1">Display Mode</label>
-                        <select
-                          value={formData.displayMode}
-                          onChange={(e) => setFormData({ ...formData, displayMode: e.target.value as PopupDisplayMode })}
-                          className="w-full p-2 rounded-lg bg-white border border-[#e2e8f0] text-xs font-medium outline-none focus:border-[#0284c7]"
-                        >
-                          <option value="both">Both Top Banner & Site Popup</option>
-                          <option value="popup">Site Popup Only</option>
-                          <option value="standard">Top Banner Only</option>
-                        </select>
-                      </div>
-                      <div className="text-[11px] text-slate-500 flex items-center">
-                        Critical notices can be shown immediately to visitors via a modal popup dialog.
-                      </div>
+                  <div>
+                    <label className="block text-xs font-semibold text-[#0a1e3f] mb-1">
+                      Priority Level
+                    </label>
+                    <select
+                      value={formData.priority}
+                      onChange={(e) => setFormData({ ...formData, priority: e.target.value as PriorityLevel })}
+                      className="w-full p-2.5 rounded-xl border border-[#e2e8f0] text-xs font-medium focus:border-[#0284c7] outline-none bg-white"
+                    >
+                      <option value="normal">Normal</option>
+                      <option value="high">High</option>
+                      <option value="urgent">Urgent / Critical</option>
+                    </select>
+                  </div>
+
+                  <div className="sm:col-span-2 p-3 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-between">
+                    <div>
+                      <span className="block text-xs font-bold text-[#0a1e3f]">Display as Top Website Alert Banner</span>
+                      <span className="block text-[11px] text-slate-500">Shows floating warning strip across the top of public pages</span>
                     </div>
-                  )}
-                </div>
+                    <input
+                      type="checkbox"
+                      checked={formData.displayAsBanner}
+                      onChange={(e) => setFormData({ ...formData, displayAsBanner: e.target.checked })}
+                      className="h-4 w-4 text-[#0284c7] rounded border-slate-300 focus:ring-[#0284c7]"
+                    />
+                  </div>
 
-                <div>
-                  <label className="block text-xs font-semibold text-[#0a1e3f] mb-1">
-                    Action Button Text
-                  </label>
-                  <input
-                    type="text"
-                    value={formData.actionText}
-                    onChange={(e) => setFormData({ ...formData, actionText: e.target.value })}
-                    placeholder="e.g. Read Notice"
-                    className="w-full p-2.5 rounded-xl border border-[#e2e8f0] text-xs font-medium focus:border-[#0284c7] outline-none"
-                  />
-                </div>
+                  {/* Site Popup Display Option */}
+                  <div className="sm:col-span-2 p-3 bg-sky-50/60 border border-sky-100 rounded-xl space-y-2.5">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <Sparkles className="w-4 h-4 text-[#0284c7]" />
+                        <span className="text-xs font-semibold text-[#0a1e3f]">Site Popup Display Option</span>
+                      </div>
+                      <label className="flex items-center gap-2 cursor-pointer">
+                        <input
+                          type="checkbox"
+                          checked={formData.isPopupEnabled}
+                          onChange={(e) => {
+                            const checked = e.target.checked;
+                            setFormData({
+                              ...formData,
+                              isPopupEnabled: checked,
+                              displayMode: checked ? (formData.displayMode === 'standard' ? 'both' : formData.displayMode) : 'standard'
+                            });
+                          }}
+                          className="w-4 h-4 rounded text-[#0284c7] focus:ring-[#0284c7]"
+                        />
+                        <span className="text-xs font-medium text-slate-700">Enable Popup</span>
+                      </label>
+                    </div>
 
-                <div>
-                  <label className="block text-xs font-semibold text-[#0a1e3f] mb-1">
-                    Action Link URL
-                  </label>
-                  <input
-                    type="text"
-                    value={formData.actionLink}
-                    onChange={(e) => setFormData({ ...formData, actionLink: e.target.value })}
-                    placeholder="e.g. /media"
-                    className="w-full p-2.5 rounded-xl border border-[#e2e8f0] text-xs font-medium focus:border-[#0284c7] outline-none"
-                  />
+                    {formData.isPopupEnabled && (
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 border-t border-sky-100">
+                        <div>
+                          <label className="block text-[11px] font-semibold text-slate-600 mb-1">Display Mode</label>
+                          <select
+                            value={formData.displayMode}
+                            onChange={(e) => setFormData({ ...formData, displayMode: e.target.value as PopupDisplayMode })}
+                            className="w-full p-2 rounded-lg bg-white border border-[#e2e8f0] text-xs font-medium outline-none focus:border-[#0284c7]"
+                          >
+                            <option value="both">Both Top Banner & Site Popup</option>
+                            <option value="popup">Site Popup Only</option>
+                            <option value="standard">Top Banner Only</option>
+                          </select>
+                        </div>
+                        <div className="text-[11px] text-slate-500 flex items-center">
+                          Critical notices can be shown immediately to visitors via a modal popup dialog.
+                        </div>
+                      </div>
+                    )}
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-semibold text-[#0a1e3f] mb-1">
+                      Action Button Text
+                    </label>
+                    <input
+                      type="text"
+                      value={formData.actionText}
+                      onChange={(e) => setFormData({ ...formData, actionText: e.target.value })}
+                      placeholder="e.g. Read Notice"
+                      className="w-full p-2.5 rounded-xl border border-[#e2e8f0] text-xs font-medium focus:border-[#0284c7] outline-none"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-semibold text-[#0a1e3f] mb-1">
+                      Action Link URL
+                    </label>
+                    <input
+                      type="text"
+                      value={formData.actionLink}
+                      onChange={(e) => setFormData({ ...formData, actionLink: e.target.value })}
+                      placeholder="e.g. /media"
+                      className="w-full p-2.5 rounded-xl border border-[#e2e8f0] text-xs font-medium focus:border-[#0284c7] outline-none"
+                    />
+                  </div>
                 </div>
               </div>
 
-              <div className="pt-4 border-t border-[#e2e8f0] flex items-center justify-end gap-2.5">
+              <div className="px-5 sm:px-6 py-3.5 border-t border-[#e2e8f0] bg-slate-50 flex items-center justify-end gap-2.5 shrink-0">
                 <Button
                   type="button"
                   variant="outline"

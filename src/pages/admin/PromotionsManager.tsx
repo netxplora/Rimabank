@@ -436,9 +436,9 @@ export default function PromotionsManager() {
 
       {/* Create / Edit Modal */}
       {isModalOpen && (
-        <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
-          <div className="bg-white rounded-2xl shadow-2xl border border-[#e2e8f0] w-full max-w-2xl overflow-hidden animate-in zoom-in-95 duration-150 my-8">
-            <div className="px-6 py-4 border-b border-[#e2e8f0] flex items-center justify-between bg-slate-50">
+        <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-3 sm:p-6 overflow-y-auto animate-in fade-in-50">
+          <div className="bg-white rounded-2xl shadow-2xl border border-[#e2e8f0] w-full max-w-2xl flex flex-col max-h-[92vh] overflow-hidden">
+            <div className="px-5 sm:px-6 py-3.5 sm:py-4 border-b border-[#e2e8f0] flex items-center justify-between bg-slate-50 shrink-0">
               <h3 className="font-heading font-bold text-sm text-[#0a1e3f]">
                 {editingPromo ? 'Edit Promotion Campaign' : 'Create New Promotion Campaign'}
               </h3>
@@ -450,224 +450,226 @@ export default function PromotionsManager() {
               </button>
             </div>
 
-            <form onSubmit={handleSave} className="p-6 space-y-4 max-h-[75vh] overflow-y-auto">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="sm:col-span-2">
-                  <label className="block text-xs font-semibold text-[#0a1e3f] mb-1">
-                    Promotion Title *
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    value={formData.title}
-                    onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                    placeholder="e.g. SME Growth Booster Loan 2026"
-                    className="w-full p-2.5 rounded-xl border border-[#e2e8f0] text-xs font-medium focus:border-[#0284c7] outline-none"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-xs font-semibold text-[#0a1e3f] mb-1">
-                    Badge Label
-                  </label>
-                  <input
-                    type="text"
-                    value={formData.badgeText}
-                    onChange={(e) => setFormData({ ...formData, badgeText: e.target.value })}
-                    placeholder="e.g. Seasonal Offer"
-                    className="w-full p-2.5 rounded-xl border border-[#e2e8f0] text-xs font-medium focus:border-[#0284c7] outline-none"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-xs font-semibold text-[#0a1e3f] mb-1">
-                    Display Priority (1 = Highest)
-                  </label>
-                  <input
-                    type="number"
-                    min={1}
-                    value={formData.priority}
-                    onChange={(e) => setFormData({ ...formData, priority: parseInt(e.target.value) || 1 })}
-                    className="w-full p-2.5 rounded-xl border border-[#e2e8f0] text-xs font-medium focus:border-[#0284c7] outline-none"
-                  />
-                </div>
-
-                {/* Display Mode & Site Popup Settings */}
-                <div className="sm:col-span-2 p-3 bg-sky-50/60 border border-sky-100 rounded-xl space-y-2.5">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <Sparkles className="w-4 h-4 text-[#0284c7]" />
-                      <span className="text-xs font-semibold text-[#0a1e3f]">Site Popup Display Option</span>
-                    </div>
-                    <label className="flex items-center gap-2 cursor-pointer">
-                      <input
-                        type="checkbox"
-                        checked={formData.isPopupEnabled}
-                        onChange={(e) => {
-                          const checked = e.target.checked;
-                          setFormData({
-                            ...formData,
-                            isPopupEnabled: checked,
-                            displayMode: checked ? (formData.displayMode === 'standard' ? 'both' : formData.displayMode) : 'standard'
-                          });
-                        }}
-                        className="w-4 h-4 rounded text-[#0284c7] focus:ring-[#0284c7]"
-                      />
-                      <span className="text-xs font-medium text-slate-700">Enable Popup</span>
+            <form onSubmit={handleSave} className="flex flex-col flex-1 overflow-hidden">
+              <div className="p-5 sm:p-6 space-y-4 overflow-y-auto flex-1">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="sm:col-span-2">
+                    <label className="block text-xs font-semibold text-[#0a1e3f] mb-1">
+                      Promotion Title *
                     </label>
+                    <input
+                      type="text"
+                      required
+                      value={formData.title}
+                      onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+                      placeholder="e.g. SME Growth Booster Loan 2026"
+                      className="w-full p-2.5 rounded-xl border border-[#e2e8f0] text-xs font-medium focus:border-[#0284c7] outline-none"
+                    />
                   </div>
 
-                  {formData.isPopupEnabled && (
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 border-t border-sky-100">
-                      <div>
-                        <label className="block text-[11px] font-semibold text-slate-600 mb-1">Display Mode</label>
-                        <select
-                          value={formData.displayMode}
-                          onChange={(e) => setFormData({ ...formData, displayMode: e.target.value as PopupDisplayMode })}
-                          className="w-full p-2 rounded-lg bg-white border border-[#e2e8f0] text-xs font-medium outline-none focus:border-[#0284c7]"
-                        >
-                          <option value="both">Both Standard Page & Site Popup</option>
-                          <option value="popup">Site Popup Only (Hidden on Page)</option>
-                          <option value="standard">Standard Page Only</option>
-                        </select>
+                  <div>
+                    <label className="block text-xs font-semibold text-[#0a1e3f] mb-1">
+                      Badge Label
+                    </label>
+                    <input
+                      type="text"
+                      value={formData.badgeText}
+                      onChange={(e) => setFormData({ ...formData, badgeText: e.target.value })}
+                      placeholder="e.g. Seasonal Offer"
+                      className="w-full p-2.5 rounded-xl border border-[#e2e8f0] text-xs font-medium focus:border-[#0284c7] outline-none"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-semibold text-[#0a1e3f] mb-1">
+                      Display Priority (1 = Highest)
+                    </label>
+                    <input
+                      type="number"
+                      min={1}
+                      value={formData.priority}
+                      onChange={(e) => setFormData({ ...formData, priority: parseInt(e.target.value) || 1 })}
+                      className="w-full p-2.5 rounded-xl border border-[#e2e8f0] text-xs font-medium focus:border-[#0284c7] outline-none"
+                    />
+                  </div>
+
+                  {/* Display Mode & Site Popup Settings */}
+                  <div className="sm:col-span-2 p-3 bg-sky-50/60 border border-sky-100 rounded-xl space-y-2.5">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <Sparkles className="w-4 h-4 text-[#0284c7]" />
+                        <span className="text-xs font-semibold text-[#0a1e3f]">Site Popup Display Option</span>
                       </div>
-                      <div className="text-[11px] text-slate-500 flex items-center">
-                        When enabled, visitors will see this promotion featured as an interactive site popup.
-                      </div>
-                    </div>
-                  )}
-                </div>
-
-                <div className="sm:col-span-2">
-                  <label className="block text-xs font-semibold text-[#0a1e3f] mb-1">
-                    Subtitle / Highlight Hook
-                  </label>
-                  <input
-                    type="text"
-                    value={formData.subtitle}
-                    onChange={(e) => setFormData({ ...formData, subtitle: e.target.value })}
-                    placeholder="e.g. Access up to ₦10M with zero processing fee"
-                    className="w-full p-2.5 rounded-xl border border-[#e2e8f0] text-xs font-medium focus:border-[#0284c7] outline-none"
-                  />
-                </div>
-
-                <div className="sm:col-span-2">
-                  <label className="block text-xs font-semibold text-[#0a1e3f] mb-1">
-                    Full Promotional Description
-                  </label>
-                  <textarea
-                    rows={3}
-                    value={formData.description}
-                    onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                    className="w-full p-2.5 rounded-xl border border-[#e2e8f0] text-xs font-medium focus:border-[#0284c7] outline-none"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-xs font-semibold text-[#0a1e3f] mb-1">
-                    CTA Button Text
-                  </label>
-                  <input
-                    type="text"
-                    value={formData.ctaText}
-                    onChange={(e) => setFormData({ ...formData, ctaText: e.target.value })}
-                    className="w-full p-2.5 rounded-xl border border-[#e2e8f0] text-xs font-medium focus:border-[#0284c7] outline-none"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-xs font-semibold text-[#0a1e3f] mb-1">
-                    CTA Link Destination
-                  </label>
-                  <input
-                    type="text"
-                    value={formData.ctaLink}
-                    onChange={(e) => setFormData({ ...formData, ctaLink: e.target.value })}
-                    className="w-full p-2.5 rounded-xl border border-[#e2e8f0] text-xs font-medium focus:border-[#0284c7] outline-none"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-xs font-semibold text-[#0a1e3f] mb-1">
-                    Start Date
-                  </label>
-                  <input
-                    type="date"
-                    value={formData.startDate}
-                    onChange={(e) => setFormData({ ...formData, startDate: e.target.value })}
-                    className="w-full p-2.5 rounded-xl border border-[#e2e8f0] text-xs font-medium focus:border-[#0284c7] outline-none"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-xs font-semibold text-[#0a1e3f] mb-1">
-                    Expiration Date
-                  </label>
-                  <input
-                    type="date"
-                    value={formData.endDate}
-                    onChange={(e) => setFormData({ ...formData, endDate: e.target.value })}
-                    className="w-full p-2.5 rounded-xl border border-[#e2e8f0] text-xs font-medium focus:border-[#0284c7] outline-none"
-                  />
-                </div>
-
-                <div className="sm:col-span-2">
-                  <label className="block text-xs font-semibold text-[#0a1e3f] mb-1">
-                    Promotion Banner Image
-                  </label>
-                  <div className="flex items-center gap-4 p-3 bg-slate-50 border border-[#e2e8f0] rounded-xl">
-                    <div className="w-20 h-14 rounded-lg bg-slate-200 overflow-hidden shrink-0 border border-slate-300 flex items-center justify-center">
-                      {formData.imageUrl ? (
-                        <img
-                          src={formData.imageUrl}
-                          alt="Banner Preview"
-                          className="w-full h-full object-cover"
+                      <label className="flex items-center gap-2 cursor-pointer">
+                        <input
+                          type="checkbox"
+                          checked={formData.isPopupEnabled}
+                          onChange={(e) => {
+                            const checked = e.target.checked;
+                            setFormData({
+                              ...formData,
+                              isPopupEnabled: checked,
+                              displayMode: checked ? (formData.displayMode === 'standard' ? 'both' : formData.displayMode) : 'standard'
+                            });
+                          }}
+                          className="w-4 h-4 rounded text-[#0284c7] focus:ring-[#0284c7]"
                         />
-                      ) : (
-                        <ImageIcon className="w-6 h-6 text-slate-400" />
-                      )}
+                        <span className="text-xs font-medium text-slate-700">Enable Popup</span>
+                      </label>
                     </div>
-                    <div className="flex-1 min-w-0">
-                      <input
-                        type="text"
-                        value={formData.imageUrl}
-                        onChange={(e) => setFormData({ ...formData, imageUrl: e.target.value })}
-                        placeholder="Image URL or select from library"
-                        className="w-full p-2 bg-white border border-[#e2e8f0] rounded-lg text-xs font-mono text-slate-700 outline-none focus:border-[#0284c7]"
-                      />
-                      <p className="text-[11px] text-slate-400 mt-1">Recommended size: 1200x630 or 16:9 banner format</p>
-                    </div>
-                    <Button
-                      type="button"
-                      variant="outline"
-                      size="sm"
-                      onClick={() => setMediaPickerOpen(true)}
-                      className="shrink-0 border-sky-200 text-[#0284c7] hover:bg-sky-50 text-xs"
-                    >
-                      <ImageIcon className="w-3.5 h-3.5 mr-1" />
-                      Media Library
-                    </Button>
-                  </div>
-                </div>
 
-                <div>
-                  <label className="block text-xs font-semibold text-[#0a1e3f] mb-1">
-                    Status
-                  </label>
-                  <select
-                    value={formData.status}
-                    onChange={(e) => setFormData({ ...formData, status: e.target.value as ContentStatus })}
-                    className="w-full p-2.5 rounded-xl border border-[#e2e8f0] text-xs font-medium focus:border-[#0284c7] outline-none bg-white"
-                  >
-                    <option value="published">Active / Published</option>
-                    <option value="draft">Draft</option>
-                    <option value="scheduled">Scheduled</option>
-                    <option value="archived">Archived</option>
-                  </select>
+                    {formData.isPopupEnabled && (
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 border-t border-sky-100">
+                        <div>
+                          <label className="block text-[11px] font-semibold text-slate-600 mb-1">Display Mode</label>
+                          <select
+                            value={formData.displayMode}
+                            onChange={(e) => setFormData({ ...formData, displayMode: e.target.value as PopupDisplayMode })}
+                            className="w-full p-2 rounded-lg bg-white border border-[#e2e8f0] text-xs font-medium outline-none focus:border-[#0284c7]"
+                          >
+                            <option value="both">Both Standard Page & Site Popup</option>
+                            <option value="popup">Site Popup Only (Hidden on Page)</option>
+                            <option value="standard">Standard Page Only</option>
+                          </select>
+                        </div>
+                        <div className="text-[11px] text-slate-500 flex items-center">
+                          When enabled, visitors will see this promotion featured as an interactive site popup.
+                        </div>
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="sm:col-span-2">
+                    <label className="block text-xs font-semibold text-[#0a1e3f] mb-1">
+                      Subtitle / Highlight Hook
+                    </label>
+                    <input
+                      type="text"
+                      value={formData.subtitle}
+                      onChange={(e) => setFormData({ ...formData, subtitle: e.target.value })}
+                      placeholder="e.g. Access up to ₦10M with zero processing fee"
+                      className="w-full p-2.5 rounded-xl border border-[#e2e8f0] text-xs font-medium focus:border-[#0284c7] outline-none"
+                    />
+                  </div>
+
+                  <div className="sm:col-span-2">
+                    <label className="block text-xs font-semibold text-[#0a1e3f] mb-1">
+                      Full Promotional Description
+                    </label>
+                    <textarea
+                      rows={3}
+                      value={formData.description}
+                      onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                      className="w-full p-2.5 rounded-xl border border-[#e2e8f0] text-xs font-medium focus:border-[#0284c7] outline-none"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-semibold text-[#0a1e3f] mb-1">
+                      CTA Button Text
+                    </label>
+                    <input
+                      type="text"
+                      value={formData.ctaText}
+                      onChange={(e) => setFormData({ ...formData, ctaText: e.target.value })}
+                      className="w-full p-2.5 rounded-xl border border-[#e2e8f0] text-xs font-medium focus:border-[#0284c7] outline-none"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-semibold text-[#0a1e3f] mb-1">
+                      CTA Link Destination
+                    </label>
+                    <input
+                      type="text"
+                      value={formData.ctaLink}
+                      onChange={(e) => setFormData({ ...formData, ctaLink: e.target.value })}
+                      className="w-full p-2.5 rounded-xl border border-[#e2e8f0] text-xs font-medium focus:border-[#0284c7] outline-none"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-semibold text-[#0a1e3f] mb-1">
+                      Start Date
+                    </label>
+                    <input
+                      type="date"
+                      value={formData.startDate}
+                      onChange={(e) => setFormData({ ...formData, startDate: e.target.value })}
+                      className="w-full p-2.5 rounded-xl border border-[#e2e8f0] text-xs font-medium focus:border-[#0284c7] outline-none"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-semibold text-[#0a1e3f] mb-1">
+                      Expiration Date
+                    </label>
+                    <input
+                      type="date"
+                      value={formData.endDate}
+                      onChange={(e) => setFormData({ ...formData, endDate: e.target.value })}
+                      className="w-full p-2.5 rounded-xl border border-[#e2e8f0] text-xs font-medium focus:border-[#0284c7] outline-none"
+                    />
+                  </div>
+
+                  <div className="sm:col-span-2">
+                    <label className="block text-xs font-semibold text-[#0a1e3f] mb-1">
+                      Promotion Banner Image
+                    </label>
+                    <div className="flex flex-col sm:flex-row sm:items-center gap-3 p-3 bg-slate-50 border border-[#e2e8f0] rounded-xl">
+                      <div className="w-full sm:w-20 h-20 sm:h-14 rounded-lg bg-slate-200 overflow-hidden shrink-0 border border-slate-300 flex items-center justify-center">
+                        {formData.imageUrl ? (
+                          <img
+                            src={formData.imageUrl}
+                            alt="Banner Preview"
+                            className="w-full h-full object-cover"
+                          />
+                        ) : (
+                          <ImageIcon className="w-6 h-6 text-slate-400" />
+                        )}
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <input
+                          type="text"
+                          value={formData.imageUrl}
+                          onChange={(e) => setFormData({ ...formData, imageUrl: e.target.value })}
+                          placeholder="Image URL or select from library"
+                          className="w-full p-2 bg-white border border-[#e2e8f0] rounded-lg text-xs font-mono text-slate-700 outline-none focus:border-[#0284c7]"
+                        />
+                        <p className="text-[11px] text-slate-400 mt-1">Recommended size: 1200x630 or 16:9 banner format</p>
+                      </div>
+                      <Button
+                        type="button"
+                        variant="outline"
+                        size="sm"
+                        onClick={() => setMediaPickerOpen(true)}
+                        className="shrink-0 border-sky-200 text-[#0284c7] hover:bg-sky-50 text-xs"
+                      >
+                        <ImageIcon className="w-3.5 h-3.5 mr-1" />
+                        Media Library
+                      </Button>
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-semibold text-[#0a1e3f] mb-1">
+                      Status
+                    </label>
+                    <select
+                      value={formData.status}
+                      onChange={(e) => setFormData({ ...formData, status: e.target.value as ContentStatus })}
+                      className="w-full p-2.5 rounded-xl border border-[#e2e8f0] text-xs font-medium focus:border-[#0284c7] outline-none bg-white"
+                    >
+                      <option value="published">Active / Published</option>
+                      <option value="draft">Draft</option>
+                      <option value="scheduled">Scheduled</option>
+                      <option value="archived">Archived</option>
+                    </select>
+                  </div>
                 </div>
               </div>
 
-              <div className="pt-4 border-t border-[#e2e8f0] flex items-center justify-end gap-2.5">
+              <div className="px-5 sm:px-6 py-3.5 border-t border-[#e2e8f0] bg-slate-50 flex items-center justify-end gap-2.5 shrink-0">
                 <Button
                   type="button"
                   variant="outline"
