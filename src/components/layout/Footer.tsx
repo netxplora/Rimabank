@@ -89,7 +89,7 @@ export function Footer() {
   };
 
   return (
-    <footer className="bg-[#0a1e3f] text-white pt-10 sm:pt-14 pb-10 border-t border-blue-950 selection:bg-[#0284c7] selection:text-white">
+    <footer className="bg-[#0a1e3f] text-white pt-10 sm:pt-14 pb-4 sm:pb-6 border-t border-blue-950 selection:bg-[#0284c7] selection:text-white">
       
       {/* Stay Informed Newsletter Banner */}
       <div className="max-w-[1200px] mx-auto px-4 sm:px-6 mb-8 sm:mb-12">
