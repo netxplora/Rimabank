@@ -505,12 +505,16 @@ export const SupabaseSync = {
     }
   },
 
-  /** Upsert a popup config record */
+  /** Insert or update a popup config record */
   async savePopupConfig(popup: PopupConfig): Promise<{ success: boolean; data?: PopupConfig }> {
     try {
-      const isUUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(popup.id);
+      const isExistingUUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(popup.id);
+
+      // Always include the id so Supabase can resolve conflicts correctly.
+      // We use upsert with onConflict:'id' — this works for both new inserts
+      // (id doesn't exist yet → INSERT) and updates (id exists → UPDATE).
       const payload: any = {
-        ...(isUUID ? { id: popup.id } : {}),
+        id:                    isExistingUUID ? popup.id : undefined, // omit if not a valid UUID so DB generates one
         source_type:           popup.sourceType || 'standalone',
         source_id:             popup.sourceId || null,
         display_mode:          popup.displayMode || 'popup',
@@ -534,16 +538,32 @@ export const SupabaseSync = {
         created_by_id:         popup.createdById || null,
         updated_at:            new Date().toISOString(),
       };
+
+      // Remove undefined keys so Supabase doesn't complain
+      Object.keys(payload).forEach(k => payload[k] === undefined && delete payload[k]);
+
       const { data, error } = await supabase
         .from('popup_configs' as any)
-        .upsert(payload)
+        .upsert(payload, { onConflict: 'id' })
         .select('*')
         .maybeSingle();
 
       if (error) {
-        console.error('[SupabaseSync] savePopupConfig error:', error);
+        console.error('[SupabaseSync] savePopupConfig error:', JSON.stringify(error));
         throw error;
       }
+
+      // Supabase upsert can return null data even on success in some configs.
+      // Fall back to a targeted SELECT to retrieve the saved record.
+      if (!data && isExistingUUID) {
+        const { data: fetched } = await supabase
+          .from('popup_configs' as any)
+          .select('*')
+          .eq('id', popup.id)
+          .maybeSingle();
+        return { success: true, data: fetched ? SupabaseSync._mapPopup(fetched) : undefined };
+      }
+
       return { success: true, data: data ? SupabaseSync._mapPopup(data) : undefined };
     } catch (err) {
       console.error('[SupabaseSync] savePopupConfig exception:', err);

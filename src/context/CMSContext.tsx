@@ -945,15 +945,25 @@ export const CMSProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
     updates: Partial<PopupConfig>,
     user: { id: string; name: string; role: UserRole }
   ): Promise<boolean> => {
+    // Capture the current record BEFORE any state mutation to avoid stale closure issues
     let previousPopup: PopupConfig | undefined;
+    let mergedPayload: PopupConfig | undefined;
+
     setPopupConfigs(prev => {
       previousPopup = prev.find(p => p.id === id);
-      return prev.map(p => (p.id === id ? { ...p, ...updates, updatedAt: new Date().toISOString() } : p));
+      if (previousPopup) {
+        mergedPayload = { ...previousPopup, ...updates, id, updatedAt: new Date().toISOString() };
+      }
+      return prev.map(p => (p.id === id ? (mergedPayload ?? { ...p, ...updates, updatedAt: new Date().toISOString() }) : p));
     });
 
-    const target = popupConfigs.find(p => p.id === id);
-    const updated = { ...(target || previousPopup || {}), ...updates, id, updatedAt: new Date().toISOString() } as PopupConfig;
-    const res = await SupabaseSync.savePopupConfig(updated);
+    // If we couldn't find the record in state, nothing to update
+    if (!mergedPayload) {
+      console.warn('[CMSContext] updatePopupConfig: popup not found in local state, id:', id);
+      return false;
+    }
+
+    const res = await SupabaseSync.savePopupConfig(mergedPayload);
     if (res.success) {
       if (res.data) {
         setPopupConfigs(current => current.map(item => item.id === id ? { ...item, ...res.data } : item));
@@ -965,11 +975,12 @@ export const CMSProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
         action: 'UPDATE',
         resourceType: 'POPUP',
         resourceId: id,
-        resourceTitle: updated.title,
-        details: `Updated popup "${updated.title}"`
+        resourceTitle: mergedPayload.title,
+        details: `Updated popup "${mergedPayload.title}"`
       });
       return true;
     } else {
+      // Rollback to the previous state on failure
       if (previousPopup) {
         setPopupConfigs(prev => prev.map(p => p.id === id ? previousPopup! : p));
       }
