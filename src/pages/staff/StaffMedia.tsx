@@ -574,12 +574,12 @@ export default function StaffMedia() {
 
       {/* UPLOAD / IMPORT MODAL */}
       {isUploadModalOpen && (
-        <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl max-w-xl w-full p-6 shadow-2xl border border-slate-200 animate-in fade-in zoom-in-95 duration-200">
-            <div className="flex items-center justify-between border-b border-slate-100 pb-4 mb-4">
+        <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-3 sm:p-6 overflow-y-auto animate-in fade-in-50">
+          <div className="bg-white rounded-2xl max-w-xl w-full flex flex-col max-h-[92vh] overflow-hidden shadow-2xl border border-slate-200">
+            <div className="flex items-center justify-between border-b border-slate-100 px-5 sm:px-6 py-3.5 sm:py-4 bg-slate-50 shrink-0">
               <div>
-                <h3 className="text-lg font-bold text-slate-900 font-poppins">Upload Media Asset</h3>
-                <p className="text-xs text-slate-500 font-inter">Add images to the central repository for your content.</p>
+                <h3 className="text-base font-bold text-slate-900 font-poppins">Upload Media Asset</h3>
+                <p className="text-[11px] text-slate-500 font-inter">Add images to the central repository for your content.</p>
               </div>
               <button
                 onClick={() => setIsUploadModalOpen(false)}
@@ -590,13 +590,13 @@ export default function StaffMedia() {
             </div>
 
             {/* Tab switch: File Upload vs URL Import */}
-            <div className="flex border-b border-slate-200 mb-5">
+            <div className="flex border-b border-slate-200 px-4 sm:px-6 bg-white overflow-x-auto shrink-0 scrollbar-none">
               <button
                 type="button"
                 onClick={() => setUploadTab('file')}
-                className={`py-2 px-4 text-xs font-semibold border-b-2 transition-all flex items-center gap-2 ${
+                className={`py-3 px-3 text-xs font-semibold border-b-2 transition-all flex items-center gap-2 whitespace-nowrap shrink-0 ${
                   uploadTab === 'file'
-                    ? 'border-emerald-600 text-emerald-700'
+                    ? 'border-emerald-600 text-emerald-700 font-bold'
                     : 'border-transparent text-slate-500 hover:text-slate-800'
                 }`}
               >
