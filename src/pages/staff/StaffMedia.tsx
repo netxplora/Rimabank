@@ -617,218 +617,220 @@ export default function StaffMedia() {
               </button>
             </div>
 
-            {uploadTab === 'file' ? (
-              /* LOCAL FILE UPLOAD TAB */
-              <form onSubmit={handleUploadSubmit} className="space-y-4 font-inter">
-                {/* Drag & Drop Area */}
-                <div
-                  onClick={() => fileInputRef.current?.click()}
-                  className={`border-2 border-dashed rounded-xl p-6 text-center cursor-pointer transition-all ${
-                    uploadPreview
-                      ? 'border-emerald-400 bg-emerald-50/20'
-                      : 'border-slate-300 hover:border-emerald-500 hover:bg-slate-50'
-                  }`}
-                >
-                  <input
-                    ref={fileInputRef}
-                    type="file"
-                    accept="image/jpeg,image/png,image/webp,image/svg+xml,image/gif"
-                    onChange={handleFileSelect}
-                    className="hidden"
-                  />
+            <div className="p-4 sm:p-6 overflow-y-auto flex-1">
+              {uploadTab === 'file' ? (
+                /* LOCAL FILE UPLOAD TAB */
+                <form onSubmit={handleUploadSubmit} className="space-y-4 font-inter">
+                  {/* Drag & Drop Area */}
+                  <div
+                    onClick={() => fileInputRef.current?.click()}
+                    className={`border-2 border-dashed rounded-xl p-5 sm:p-6 text-center cursor-pointer transition-all ${
+                      uploadPreview
+                        ? 'border-emerald-400 bg-emerald-50/20'
+                        : 'border-slate-300 hover:border-emerald-500 hover:bg-slate-50'
+                    }`}
+                  >
+                    <input
+                      ref={fileInputRef}
+                      type="file"
+                      accept="image/jpeg,image/png,image/webp,image/svg+xml,image/gif"
+                      onChange={handleFileSelect}
+                      className="hidden"
+                    />
 
-                  {uploadPreview ? (
-                    <div className="space-y-3">
-                      <img
-                        src={uploadPreview}
-                        alt="Preview"
-                        className="max-h-40 mx-auto rounded-lg object-contain shadow-sm border border-slate-200"
+                    {uploadPreview ? (
+                      <div className="space-y-3">
+                        <img
+                          src={uploadPreview}
+                          alt="Preview"
+                          className="max-h-36 mx-auto rounded-lg object-contain shadow-sm border border-slate-200"
+                        />
+                        <p className="text-xs text-slate-600 font-medium truncate max-w-xs mx-auto">{uploadFile?.name} ({formatFileSize(uploadFile?.size)})</p>
+                        <span className="text-xs text-emerald-700 hover:underline">Click to choose another file</span>
+                      </div>
+                    ) : (
+                      <div className="space-y-2">
+                        <div className="w-12 h-12 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center mx-auto">
+                          <Upload className="w-6 h-6" />
+                        </div>
+                        <div className="text-sm font-medium text-slate-800">
+                          Click to upload or drag and drop image here
+                        </div>
+                        <p className="text-xs text-slate-400">
+                          Supports PNG, JPG, WebP, SVG (Max file size: 10MB)
+                        </p>
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                      <label className="block text-xs font-semibold text-slate-700 mb-1">Asset Title *</label>
+                      <input
+                        type="text"
+                        required
+                        value={uploadTitle}
+                        onChange={e => setUploadTitle(e.target.value)}
+                        placeholder="e.g. Q3 Banking Report Banner"
+                        className="w-full text-xs px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none"
                       />
-                      <p className="text-xs text-slate-600 font-medium">{uploadFile?.name} ({formatFileSize(uploadFile?.size)})</p>
-                      <span className="text-xs text-emerald-700 hover:underline">Click to choose another file</span>
                     </div>
-                  ) : (
-                    <div className="space-y-2">
-                      <div className="w-12 h-12 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center mx-auto">
-                        <Upload className="w-6 h-6" />
-                      </div>
-                      <div className="text-sm font-medium text-slate-800">
-                        Click to upload or drag and drop image here
-                      </div>
-                      <p className="text-xs text-slate-400">
-                        Supports PNG, JPG, WebP, SVG (Max file size: 10MB)
-                      </p>
+
+                    <div>
+                      <label className="block text-xs font-semibold text-slate-700 mb-1">Category</label>
+                      <select
+                        value={uploadCategory}
+                        onChange={e => setUploadCategory(e.target.value as any)}
+                        className="w-full text-xs px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none bg-white"
+                      >
+                        <option value="banners">Banners & Promotions</option>
+                        <option value="products">Products & Services</option>
+                        <option value="team">Staff & Team</option>
+                        <option value="documents">Documents & Reports</option>
+                        <option value="general">General Asset</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-semibold text-slate-700 mb-1">Alt Text (Accessibility)</label>
+                    <input
+                      type="text"
+                      value={uploadAltText}
+                      onChange={e => setUploadAltText(e.target.value)}
+                      placeholder="Short description of what the image shows"
+                      className="w-full text-xs px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none"
+                    />
+                  </div>
+
+                  <div className="flex justify-end gap-2 pt-2 border-t border-slate-100">
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      onClick={() => setIsUploadModalOpen(false)}
+                      disabled={isUploading}
+                      className="text-xs"
+                    >
+                      Cancel
+                    </Button>
+                    <Button
+                      type="submit"
+                      disabled={!uploadFile || isUploading}
+                      className="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-medium"
+                    >
+                      {isUploading ? (
+                        <>
+                          <Loader2 className="w-3.5 h-3.5 animate-spin mr-1.5" />
+                          Uploading to Storage...
+                        </>
+                      ) : (
+                        'Save & Add to Library'
+                      )}
+                    </Button>
+                  </div>
+                </form>
+              ) : (
+                /* EXTERNAL URL TAB */
+                <form onSubmit={handleUrlImportSubmit} className="space-y-4 font-inter">
+                  <div>
+                    <label className="block text-xs font-semibold text-slate-700 mb-1">Direct Image URL *</label>
+                    <input
+                      type="url"
+                      required
+                      value={externalUrl}
+                      onChange={e => setExternalUrl(e.target.value)}
+                      placeholder="https://images.unsplash.com/photo-..."
+                      className="w-full text-xs px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none font-mono"
+                    />
+                  </div>
+
+                  {externalUrl && (
+                    <div className="p-3 bg-slate-50 border border-slate-200 rounded-lg flex items-center justify-center">
+                      <img
+                        src={externalUrl}
+                        alt="URL Preview"
+                        className="max-h-32 object-contain rounded"
+                        onError={() => toast.error('Unable to display preview from this URL')}
+                      />
                     </div>
                   )}
-                </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                      <label className="block text-xs font-semibold text-slate-700 mb-1">Asset Title *</label>
+                      <input
+                        type="text"
+                        required
+                        value={urlTitle}
+                        onChange={e => setUrlTitle(e.target.value)}
+                        placeholder="e.g. Modern Branch Office"
+                        className="w-full text-xs px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-semibold text-slate-700 mb-1">Category</label>
+                      <select
+                        value={urlCategory}
+                        onChange={e => setUrlCategory(e.target.value as any)}
+                        className="w-full text-xs px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none bg-white"
+                      >
+                        <option value="banners">Banners & Promotions</option>
+                        <option value="products">Products & Services</option>
+                        <option value="team">Staff & Team</option>
+                        <option value="documents">Documents & Reports</option>
+                        <option value="general">General Asset</option>
+                      </select>
+                    </div>
+                  </div>
+
                   <div>
-                    <label className="block text-xs font-semibold text-slate-700 mb-1">Asset Title *</label>
+                    <label className="block text-xs font-semibold text-slate-700 mb-1">Alt Text</label>
                     <input
                       type="text"
-                      required
-                      value={uploadTitle}
-                      onChange={e => setUploadTitle(e.target.value)}
-                      placeholder="e.g. Q3 Banking Report Banner"
+                      value={urlAltText}
+                      onChange={e => setUrlAltText(e.target.value)}
+                      placeholder="Describe image for screen readers"
                       className="w-full text-xs px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none"
                     />
                   </div>
 
-                  <div>
-                    <label className="block text-xs font-semibold text-slate-700 mb-1">Category</label>
-                    <select
-                      value={uploadCategory}
-                      onChange={e => setUploadCategory(e.target.value as any)}
-                      className="w-full text-xs px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none bg-white"
+                  <div className="flex justify-end gap-2 pt-2 border-t border-slate-100">
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      onClick={() => setIsUploadModalOpen(false)}
+                      disabled={isValidatingUrl}
+                      className="text-xs"
                     >
-                      <option value="banners">Banners & Promotions</option>
-                      <option value="products">Products & Services</option>
-                      <option value="team">Staff & Team</option>
-                      <option value="documents">Documents & Reports</option>
-                      <option value="general">General Asset</option>
-                    </select>
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-xs font-semibold text-slate-700 mb-1">Alt Text (Accessibility)</label>
-                  <input
-                    type="text"
-                    value={uploadAltText}
-                    onChange={e => setUploadAltText(e.target.value)}
-                    placeholder="Short description of what the image shows"
-                    className="w-full text-xs px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none"
-                  />
-                </div>
-
-                <div className="flex justify-end gap-2 pt-2 border-t border-slate-100">
-                  <Button
-                    type="button"
-                    variant="ghost"
-                    onClick={() => setIsUploadModalOpen(false)}
-                    disabled={isUploading}
-                    className="text-xs"
-                  >
-                    Cancel
-                  </Button>
-                  <Button
-                    type="submit"
-                    disabled={!uploadFile || isUploading}
-                    className="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-medium"
-                  >
-                    {isUploading ? (
-                      <>
-                        <Loader2 className="w-3.5 h-3.5 animate-spin mr-1.5" />
-                        Uploading to Storage...
-                      </>
-                    ) : (
-                      'Save & Add to Library'
-                    )}
-                  </Button>
-                </div>
-              </form>
-            ) : (
-              /* EXTERNAL URL TAB */
-              <form onSubmit={handleUrlImportSubmit} className="space-y-4 font-inter">
-                <div>
-                  <label className="block text-xs font-semibold text-slate-700 mb-1">Direct Image URL *</label>
-                  <input
-                    type="url"
-                    required
-                    value={externalUrl}
-                    onChange={e => setExternalUrl(e.target.value)}
-                    placeholder="https://images.unsplash.com/photo-..."
-                    className="w-full text-xs px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none font-mono"
-                  />
-                </div>
-
-                {externalUrl && (
-                  <div className="p-3 bg-slate-50 border border-slate-200 rounded-lg flex items-center justify-center">
-                    <img
-                      src={externalUrl}
-                      alt="URL Preview"
-                      className="max-h-32 object-contain rounded"
-                      onError={() => toast.error('Unable to display preview from this URL')}
-                    />
-                  </div>
-                )}
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  <div>
-                    <label className="block text-xs font-semibold text-slate-700 mb-1">Asset Title *</label>
-                    <input
-                      type="text"
-                      required
-                      value={urlTitle}
-                      onChange={e => setUrlTitle(e.target.value)}
-                      placeholder="e.g. Modern Branch Office"
-                      className="w-full text-xs px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-xs font-semibold text-slate-700 mb-1">Category</label>
-                    <select
-                      value={urlCategory}
-                      onChange={e => setUrlCategory(e.target.value as any)}
-                      className="w-full text-xs px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none bg-white"
+                      Cancel
+                    </Button>
+                    <Button
+                      type="submit"
+                      disabled={!externalUrl || isValidatingUrl}
+                      className="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-medium"
                     >
-                      <option value="banners">Banners & Promotions</option>
-                      <option value="products">Products & Services</option>
-                      <option value="team">Staff & Team</option>
-                      <option value="documents">Documents & Reports</option>
-                      <option value="general">General Asset</option>
-                    </select>
+                      {isValidatingUrl ? (
+                        <>
+                          <Loader2 className="w-3.5 h-3.5 animate-spin mr-1.5" />
+                          Validating URL...
+                        </>
+                      ) : (
+                        'Save Image Link'
+                      )}
+                    </Button>
                   </div>
-                </div>
-
-                <div>
-                  <label className="block text-xs font-semibold text-slate-700 mb-1">Alt Text</label>
-                  <input
-                    type="text"
-                    value={urlAltText}
-                    onChange={e => setUrlAltText(e.target.value)}
-                    placeholder="Describe image for screen readers"
-                    className="w-full text-xs px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none"
-                  />
-                </div>
-
-                <div className="flex justify-end gap-2 pt-2 border-t border-slate-100">
-                  <Button
-                    type="button"
-                    variant="ghost"
-                    onClick={() => setIsUploadModalOpen(false)}
-                    disabled={isValidatingUrl}
-                    className="text-xs"
-                  >
-                    Cancel
-                  </Button>
-                  <Button
-                    type="submit"
-                    disabled={!externalUrl || isValidatingUrl}
-                    className="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-medium"
-                  >
-                    {isValidatingUrl ? (
-                      <>
-                        <Loader2 className="w-3.5 h-3.5 animate-spin mr-1.5" />
-                        Validating URL...
-                      </>
-                    ) : (
-                      'Save Image Link'
-                    )}
-                  </Button>
-                </div>
-              </form>
-            )}
+                </form>
+              )}
+            </div>
           </div>
         </div>
       )}
 
       {/* INSPECTOR / DETAIL MODAL */}
       {inspectingAsset && (
-        <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto p-6 shadow-2xl border border-slate-200 animate-in fade-in zoom-in-95 duration-200">
+        <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-3 sm:p-6 overflow-y-auto animate-in fade-in-50">
+          <div className="bg-white rounded-2xl max-w-3xl w-full flex flex-col max-h-[92vh] overflow-hidden shadow-2xl border border-slate-200">
             <div className="flex items-center justify-between border-b border-slate-100 pb-3 mb-4">
               <div className="flex items-center gap-2">
                 <span className="px-2 py-0.5 rounded text-[11px] font-semibold bg-emerald-100 text-emerald-800 capitalize">
