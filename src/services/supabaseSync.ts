@@ -431,6 +431,34 @@ export const SupabaseSync = {
   // 6. Popup Configs
   // ----------------------------------------------------------------
 
+  /** Shared: build a DB-column payload from a PopupConfig object */
+  _buildPopupPayload(popup: PopupConfig): Record<string, any> {
+    return {
+      source_type:           popup.sourceType           || 'standalone',
+      source_id:             popup.sourceId             || null,
+      display_mode:          popup.displayMode          || 'popup',
+      title:                 popup.title,
+      content:               popup.content              || '',
+      featured_image:        popup.featuredImage        || null,
+      cta_text:              popup.ctaText              || null,
+      cta_url:               popup.ctaUrl               || null,
+      show_close_button:     popup.showCloseButton      !== false,
+      start_date:            popup.startDate            || new Date().toISOString(),
+      end_date:              popup.endDate              || null,
+      trigger_type:          popup.triggerType          || 'delay',
+      trigger_delay_seconds: Number(popup.triggerDelaySeconds) || 2,
+      display_frequency:     popup.displayFrequency     || 'once_session',
+      priority:              Number(popup.priority)     || 5,
+      show_on_desktop:       popup.showOnDesktop        !== false,
+      show_on_mobile:        popup.showOnMobile         !== false,
+      overlay_enabled:       popup.overlayEnabled       !== false,
+      status:                popup.status               || 'draft',
+      created_by:            popup.createdBy            || 'Administrator',
+      created_by_id:         popup.createdById          || null,
+      updated_at:            new Date().toISOString(),
+    };
+  },
+
   /** Maps a raw DB row to PopupConfig */
   _mapPopup(item: any): PopupConfig {
     return {
@@ -488,104 +516,146 @@ export const SupabaseSync = {
     }
   },
 
-  /** Fetch all popup configs for the CMS (admin/staff) */
+  /**
+   * Fetch all popup configs for the CMS (admin/staff).
+   * Returns null if the table doesn't exist or Supabase is unreachable.
+   * Returns an empty array [] if the table exists but has no rows.
+   */
   async fetchAllPopups(): Promise<PopupConfig[] | null> {
     try {
-      if (!(await isSupabaseAvailable())) return null;
       const { data, error } = await supabase
         .from('popup_configs' as any)
         .select('*')
         .order('priority', { ascending: true });
 
-      if (error || !data) return null;
-      return (data as any[]).map(SupabaseSync._mapPopup);
+      if (error) {
+        // Code 42P01 = relation does not exist (table missing)
+        if ((error as any).code === '42P01') {
+          console.error(
+            '[SupabaseSync] fetchAllPopups: The popup_configs table does not exist in your Supabase database.\n' +
+            'Please run the migration SQL found in src/services/popupMigration.sql in your Supabase SQL Editor.'
+          );
+        } else {
+          console.error('[SupabaseSync] fetchAllPopups DB error:', JSON.stringify(error));
+        }
+        return null;
+      }
+
+      return data ? (data as any[]).map(SupabaseSync._mapPopup) : [];
     } catch (err) {
-      console.warn('[SupabaseSync] fetchAllPopups error:', err);
+      console.error('[SupabaseSync] fetchAllPopups exception:', err);
       return null;
     }
   },
 
-  /** Insert or update a popup config record */
-  async savePopupConfig(popup: PopupConfig): Promise<{ success: boolean; data?: PopupConfig }> {
+  /**
+   * INSERT a brand-new popup config.
+   * Always uses INSERT — never upsert — so we get a real error if the table
+   * is missing or the id already exists (rather than a silent no-op).
+   */
+  async createPopupConfig(
+    popup: PopupConfig
+  ): Promise<{ success: boolean; data?: PopupConfig; errorMessage?: string }> {
     try {
-      const isExistingUUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(popup.id);
-
-      // Always include the id so Supabase can resolve conflicts correctly.
-      // We use upsert with onConflict:'id' — this works for both new inserts
-      // (id doesn't exist yet → INSERT) and updates (id exists → UPDATE).
-      const payload: any = {
-        id:                    isExistingUUID ? popup.id : undefined, // omit if not a valid UUID so DB generates one
-        source_type:           popup.sourceType || 'standalone',
-        source_id:             popup.sourceId || null,
-        display_mode:          popup.displayMode || 'popup',
-        title:                 popup.title,
-        content:               popup.content || '',
-        featured_image:        popup.featuredImage || null,
-        cta_text:              popup.ctaText || null,
-        cta_url:               popup.ctaUrl || null,
-        show_close_button:     popup.showCloseButton !== false,
-        start_date:            popup.startDate || new Date().toISOString(),
-        end_date:              popup.endDate || null,
-        trigger_type:          popup.triggerType || 'delay',
-        trigger_delay_seconds: Number(popup.triggerDelaySeconds) || 2,
-        display_frequency:     popup.displayFrequency || 'once_session',
-        priority:              Number(popup.priority) || 5,
-        show_on_desktop:       popup.showOnDesktop !== false,
-        show_on_mobile:        popup.showOnMobile !== false,
-        overlay_enabled:       popup.overlayEnabled !== false,
-        status:                popup.status || 'draft',
-        created_by:            popup.createdBy || 'Administrator',
-        created_by_id:         popup.createdById || null,
-        updated_at:            new Date().toISOString(),
+      const payload = {
+        id: popup.id,                         // client-generated UUID
+        ...SupabaseSync._buildPopupPayload(popup),
       };
-
-      // Remove undefined keys so Supabase doesn't complain
-      Object.keys(payload).forEach(k => payload[k] === undefined && delete payload[k]);
 
       const { data, error } = await supabase
         .from('popup_configs' as any)
-        .upsert(payload, { onConflict: 'id' })
+        .insert(payload)
         .select('*')
-        .maybeSingle();
+        .single();                            // single() errors if 0 rows returned
 
       if (error) {
-        console.error('[SupabaseSync] savePopupConfig error:', JSON.stringify(error));
-        throw error;
+        const msg = (error as any).code === '42P01'
+          ? 'The popup_configs table does not exist. Please run popupMigration.sql in Supabase.'
+          : `Database error (${(error as any).code}): ${error.message}`;
+        console.error('[SupabaseSync] createPopupConfig error:', JSON.stringify(error));
+        return { success: false, errorMessage: msg };
       }
 
-      // Supabase upsert can return null data even on success in some configs.
-      // Fall back to a targeted SELECT to retrieve the saved record.
-      if (!data && isExistingUUID) {
-        const { data: fetched } = await supabase
-          .from('popup_configs' as any)
-          .select('*')
-          .eq('id', popup.id)
-          .maybeSingle();
-        return { success: true, data: fetched ? SupabaseSync._mapPopup(fetched) : undefined };
+      if (!data) {
+        const msg = 'Database did not return the created record — the row may not have been saved.';
+        console.error('[SupabaseSync] createPopupConfig:', msg);
+        return { success: false, errorMessage: msg };
       }
 
-      return { success: true, data: data ? SupabaseSync._mapPopup(data) : undefined };
-    } catch (err) {
-      console.error('[SupabaseSync] savePopupConfig exception:', err);
-      return { success: false };
+      return { success: true, data: SupabaseSync._mapPopup(data) };
+    } catch (err: any) {
+      console.error('[SupabaseSync] createPopupConfig exception:', err);
+      return { success: false, errorMessage: err?.message ?? 'Unknown error' };
     }
   },
 
-  /** Delete a popup config by id */
+  /**
+   * UPDATE an existing popup config by its UUID.
+   * Always uses UPDATE — never upsert — so a missing row produces an error
+   * rather than silently creating a duplicate.
+   */
+  async updatePopupConfigInDb(
+    id: string,
+    popup: PopupConfig
+  ): Promise<{ success: boolean; data?: PopupConfig; errorMessage?: string }> {
+    try {
+      const payload = SupabaseSync._buildPopupPayload(popup);
+
+      const { data, error } = await supabase
+        .from('popup_configs' as any)
+        .update(payload)
+        .eq('id', id)
+        .select('*')
+        .single();                            // single() errors if 0 rows matched
+
+      if (error) {
+        const msg = (error as any).code === '42P01'
+          ? 'The popup_configs table does not exist. Please run popupMigration.sql in Supabase.'
+          : `Database error (${(error as any).code}): ${error.message}`;
+        console.error('[SupabaseSync] updatePopupConfigInDb error:', JSON.stringify(error));
+        return { success: false, errorMessage: msg };
+      }
+
+      if (!data) {
+        const msg = `No popup record found with id "${id}" — update had no effect.`;
+        console.error('[SupabaseSync] updatePopupConfigInDb:', msg);
+        return { success: false, errorMessage: msg };
+      }
+
+      return { success: true, data: SupabaseSync._mapPopup(data) };
+    } catch (err: any) {
+      console.error('[SupabaseSync] updatePopupConfigInDb exception:', err);
+      return { success: false, errorMessage: err?.message ?? 'Unknown error' };
+    }
+  },
+
+  /**
+   * DELETE a popup config by its UUID.
+   * Verifies the deletion actually occurred before reporting success.
+   */
   async deletePopupConfig(id: string): Promise<boolean> {
     try {
       const isUUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(id);
       if (!isUUID) {
-        return true;
+        console.warn('[SupabaseSync] deletePopupConfig: id is not a valid UUID, skipping DB delete:', id);
+        return true; // local-only record, nothing to delete in DB
       }
-      const { error } = await supabase
+
+      const { error, count } = await supabase
         .from('popup_configs' as any)
-        .delete()
+        .delete({ count: 'exact' })
         .eq('id', id);
+
       if (error) {
-        console.error('[SupabaseSync] deletePopupConfig error:', error);
+        console.error('[SupabaseSync] deletePopupConfig DB error:', JSON.stringify(error));
         return false;
       }
+
+      if (count === 0) {
+        // Row didn't exist — treat as already deleted (idempotent)
+        console.warn('[SupabaseSync] deletePopupConfig: no row matched id', id);
+      }
+
       return true;
     } catch (err) {
       console.error('[SupabaseSync] deletePopupConfig exception:', err);

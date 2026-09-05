@@ -902,7 +902,16 @@ export const CMSProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
     });
   };
 
-  // Popup Config Methods
+  // ── Popup Config Methods ──────────────────────────────────────────────────
+  //
+  // All mutations are DATABASE-FIRST:
+  //   1. Attempt the DB operation.
+  //   2. Only update local React state if the DB confirms success.
+  //   3. Use the DB-returned record (not the client-built object) as the
+  //      source of truth for local state.
+  //   4. Return false on any DB failure so the UI can show a real error.
+  // ─────────────────────────────────────────────────────────────────────────
+
   const addPopupConfig = async (
     popupData: Omit<PopupConfig, 'id' | 'createdAt' | 'updatedAt' | 'impressions' | 'dismissals' | 'ctaClicks'>,
     user: { id: string; name: string; role: UserRole }
@@ -912,32 +921,38 @@ export const CMSProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
       ...popupData,
       id,
       impressions: 0,
-      dismissals: 0,
-      ctaClicks: 0,
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
+      dismissals:  0,
+      ctaClicks:   0,
+      createdAt:   new Date().toISOString(),
+      updatedAt:   new Date().toISOString(),
     };
-    setPopupConfigs(prev => [newPopup, ...prev.filter(p => p.id !== id)]);
-    const res = await SupabaseSync.savePopupConfig(newPopup);
-    if (res.success) {
-      if (res.data && res.data.id) {
-        setPopupConfigs(prev => prev.map(p => p.id === id ? { ...p, ...res.data } : p));
-      }
-      logAuditAction({
-        userId: user.id,
-        userName: user.name,
-        userRole: user.role,
-        action: 'CREATE',
-        resourceType: 'POPUP',
-        resourceId: id,
-        resourceTitle: newPopup.title,
-        details: `Created popup "${newPopup.title}" (status: ${newPopup.status})`
-      });
-      return true;
-    } else {
-      setPopupConfigs(prev => prev.filter(p => p.id !== id));
+
+    // Step 1 — Database first: attempt the INSERT
+    const res = await SupabaseSync.createPopupConfig(newPopup);
+
+    if (!res.success) {
+      // Database reported failure — do NOT touch local state
+      console.error('[CMSContext] addPopupConfig failed:', res.errorMessage);
       return false;
     }
+
+    // Step 2 — Use the DB-returned record as the source of truth
+    const saved = res.data ?? newPopup;
+    setPopupConfigs(prev => [saved, ...prev.filter(p => p.id !== saved.id)]);
+
+    // Step 3 — Audit log (fire-and-forget, non-blocking)
+    logAuditAction({
+      userId:        user.id,
+      userName:      user.name,
+      userRole:      user.role,
+      action:        'CREATE',
+      resourceType:  'POPUP',
+      resourceId:    saved.id,
+      resourceTitle: saved.title,
+      details:       `Created popup "${saved.title}" (status: ${saved.status})`,
+    });
+
+    return true;
   };
 
   const updatePopupConfig = async (
@@ -945,91 +960,84 @@ export const CMSProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
     updates: Partial<PopupConfig>,
     user: { id: string; name: string; role: UserRole }
   ): Promise<boolean> => {
-    // Capture the current record BEFORE any state mutation to avoid stale closure issues
-    let previousPopup: PopupConfig | undefined;
-    let mergedPayload: PopupConfig | undefined;
+    // Read the current record synchronously — no stale closure risk
+    // because this runs after any prior setPopupConfigs calls have settled.
+    const currentPopup = popupConfigs.find(p => p.id === id);
+    if (!currentPopup) {
+      console.error('[CMSContext] updatePopupConfig: popup not found in local state, id:', id);
+      return false;
+    }
 
-    setPopupConfigs(prev => {
-      previousPopup = prev.find(p => p.id === id);
-      if (previousPopup) {
-        mergedPayload = { ...previousPopup, ...updates, id, updatedAt: new Date().toISOString() };
-      }
-      return prev.map(p => (p.id === id ? (mergedPayload ?? { ...p, ...updates, updatedAt: new Date().toISOString() }) : p));
+    const merged: PopupConfig = {
+      ...currentPopup,
+      ...updates,
+      id,
+      updatedAt: new Date().toISOString(),
+    };
+
+    // Step 1 — Database first: attempt the UPDATE
+    const res = await SupabaseSync.updatePopupConfigInDb(id, merged);
+
+    if (!res.success) {
+      console.error('[CMSContext] updatePopupConfig failed:', res.errorMessage);
+      return false;
+    }
+
+    // Step 2 — Use the DB-returned record as the source of truth
+    const saved = res.data ?? merged;
+    setPopupConfigs(prev => prev.map(p => (p.id === id ? saved : p)));
+
+    // Step 3 — Audit log
+    logAuditAction({
+      userId:        user.id,
+      userName:      user.name,
+      userRole:      user.role,
+      action:        'UPDATE',
+      resourceType:  'POPUP',
+      resourceId:    id,
+      resourceTitle: saved.title,
+      details:       `Updated popup "${saved.title}"`,
     });
 
-    // If we couldn't find the record in state, nothing to update
-    if (!mergedPayload) {
-      console.warn('[CMSContext] updatePopupConfig: popup not found in local state, id:', id);
-      return false;
-    }
-
-    const res = await SupabaseSync.savePopupConfig(mergedPayload);
-    if (res.success) {
-      if (res.data) {
-        setPopupConfigs(current => current.map(item => item.id === id ? { ...item, ...res.data } : item));
-      }
-      logAuditAction({
-        userId: user.id,
-        userName: user.name,
-        userRole: user.role,
-        action: 'UPDATE',
-        resourceType: 'POPUP',
-        resourceId: id,
-        resourceTitle: mergedPayload.title,
-        details: `Updated popup "${mergedPayload.title}"`
-      });
-      return true;
-    } else {
-      // Rollback to the previous state on failure
-      if (previousPopup) {
-        setPopupConfigs(prev => prev.map(p => p.id === id ? previousPopup! : p));
-      }
-      return false;
-    }
+    return true;
   };
 
   const deletePopupConfig = async (id: string, user: { id: string; name: string; role: UserRole }): Promise<boolean> => {
     const target = popupConfigs.find(p => p.id === id);
 
-    // Optimistic: remove from local state immediately so the UI feels instant
-    setPopupConfigs(prev => prev.filter(p => p.id !== id));
-
-    // Attempt the real delete in Supabase
+    // Step 1 — Database first: attempt the DELETE
     const success = await SupabaseSync.deletePopupConfig(id);
 
     if (!success) {
-      // Rollback: put the popup back if the DB delete failed
-      if (target) {
-        setPopupConfigs(prev => {
-          const alreadyRestored = prev.some(p => p.id === target.id);
-          if (alreadyRestored) return prev;
-          return [...prev, target].sort((a, b) => a.priority - b.priority);
-        });
-      }
+      // DB delete failed — do NOT remove from local state
       return false;
     }
 
-    // Only log on confirmed success
+    // Step 2 — DB confirmed deletion; remove from local state
+    setPopupConfigs(prev => prev.filter(p => p.id !== id));
+
+    // Step 3 — Audit log
     if (target) {
       logAuditAction({
-        userId: user.id,
-        userName: user.name,
-        userRole: user.role,
-        action: 'DELETE',
-        resourceType: 'POPUP',
-        resourceId: id,
+        userId:        user.id,
+        userName:      user.name,
+        userRole:      user.role,
+        action:        'DELETE',
+        resourceType:  'POPUP',
+        resourceId:    id,
         resourceTitle: target.title,
-        details: `Deleted popup "${target.title}"`
+        details:       `Deleted popup "${target.title}"`,
       });
     }
+
     return true;
   };
 
   const togglePopupStatus = async (id: string, user: { id: string; name: string; role: UserRole }): Promise<boolean> => {
     const target = popupConfigs.find(p => p.id === id);
     if (!target) return false;
-    const newStatus = target.status === 'active' ? 'paused' : 'active';
-    return updatePopupConfig(id, { status: newStatus as PopupConfig['status'] }, user);
+    const newStatus: PopupConfig['status'] = target.status === 'active' ? 'paused' : 'active';
+    return updatePopupConfig(id, { status: newStatus }, user);
   };
 
   return (
