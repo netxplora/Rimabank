@@ -575,7 +575,7 @@ export default function MediaLibrary() {
         /* List View */
         <div className="bg-white rounded-2xl border border-[#e2e8f0] overflow-hidden shadow-xs">
           <div className="overflow-x-auto">
-            <table className="w-full text-left text-xs">
+            <table className="w-full min-w-[800px] text-left text-xs">
               <thead className="bg-slate-50 text-slate-500 font-semibold border-b border-slate-200">
                 <tr>
                   <th className="py-3 px-4">Asset Preview</th>

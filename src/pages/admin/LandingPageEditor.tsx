@@ -120,29 +120,29 @@ export default function LandingPageEditor() {
       {/* Main Tabs Container */}
       <div className="bg-white rounded-2xl border border-[#e2e8f0] p-6 shadow-xs">
         <Tabs defaultValue="hero" className="w-full">
-          <TabsList className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-1 bg-slate-100 p-1 rounded-xl mb-6">
-            <TabsTrigger value="hero" className="rounded-lg text-xs font-semibold">
+          <TabsList className="flex overflow-x-auto gap-2 bg-slate-100 p-1.5 rounded-xl mb-6 w-full scrollbar-hide">
+            <TabsTrigger value="hero" className="rounded-lg text-xs font-semibold whitespace-nowrap shrink-0 px-4">
               Hero Section
             </TabsTrigger>
-            <TabsTrigger value="stats" className="rounded-lg text-xs font-semibold">
+            <TabsTrigger value="stats" className="rounded-lg text-xs font-semibold whitespace-nowrap shrink-0 px-4">
               Trust & Stats
             </TabsTrigger>
-            <TabsTrigger value="about" className="rounded-lg text-xs font-semibold">
+            <TabsTrigger value="about" className="rounded-lg text-xs font-semibold whitespace-nowrap shrink-0 px-4">
               About & Purpose
             </TabsTrigger>
-            <TabsTrigger value="products" className="rounded-lg text-xs font-semibold">
+            <TabsTrigger value="products" className="rounded-lg text-xs font-semibold whitespace-nowrap shrink-0 px-4">
               Products
             </TabsTrigger>
-            <TabsTrigger value="specialized" className="rounded-lg text-xs font-semibold">
+            <TabsTrigger value="specialized" className="rounded-lg text-xs font-semibold whitespace-nowrap shrink-0 px-4">
               Specialized
             </TabsTrigger>
-            <TabsTrigger value="testimonials" className="rounded-lg text-xs font-semibold">
+            <TabsTrigger value="testimonials" className="rounded-lg text-xs font-semibold whitespace-nowrap shrink-0 px-4">
               Testimonials
             </TabsTrigger>
-            <TabsTrigger value="branches" className="rounded-lg text-xs font-semibold">
+            <TabsTrigger value="branches" className="rounded-lg text-xs font-semibold whitespace-nowrap shrink-0 px-4">
               Branches
             </TabsTrigger>
-            <TabsTrigger value="seo" className="rounded-lg text-xs font-semibold">
+            <TabsTrigger value="seo" className="rounded-lg text-xs font-semibold whitespace-nowrap shrink-0 px-4">
               SEO & Footer
             </TabsTrigger>
           </TabsList>
