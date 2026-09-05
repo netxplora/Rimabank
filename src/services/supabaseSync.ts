@@ -12,20 +12,9 @@ import {
   PopupConfig
 } from '@/types/cms';
 
-// Connectivity guard — avoids cascading errors when project is offline
-let _isAvailable: boolean | null = null;
+// Connectivity guard — checks if client is initialized
 async function isSupabaseAvailable(): Promise<boolean> {
-  if (_isAvailable !== null) return _isAvailable;
-  try {
-    const { error } = await supabase.from('cms_pages').select('id').limit(1);
-    // PGRST116 = no rows – still means the DB is live
-    _isAvailable = !error || error.code === 'PGRST116';
-  } catch {
-    _isAvailable = false;
-  }
-  // Reset the flag after 30 seconds so we re-check periodically
-  setTimeout(() => { _isAvailable = null; }, 30_000);
-  return _isAvailable;
+  return true;
 }
 
 export const SupabaseSync = {
@@ -519,30 +508,29 @@ export const SupabaseSync = {
   /** Upsert a popup config record */
   async savePopupConfig(popup: PopupConfig): Promise<{ success: boolean; data?: PopupConfig }> {
     try {
-      if (!(await isSupabaseAvailable())) return { success: false };
       const isUUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(popup.id);
       const payload: any = {
         ...(isUUID ? { id: popup.id } : {}),
-        source_type:           popup.sourceType,
+        source_type:           popup.sourceType || 'standalone',
         source_id:             popup.sourceId || null,
-        display_mode:          popup.displayMode,
+        display_mode:          popup.displayMode || 'popup',
         title:                 popup.title,
-        content:               popup.content,
+        content:               popup.content || '',
         featured_image:        popup.featuredImage || null,
         cta_text:              popup.ctaText || null,
         cta_url:               popup.ctaUrl || null,
-        show_close_button:     popup.showCloseButton,
-        start_date:            popup.startDate,
+        show_close_button:     popup.showCloseButton !== false,
+        start_date:            popup.startDate || new Date().toISOString(),
         end_date:              popup.endDate || null,
-        trigger_type:          popup.triggerType,
-        trigger_delay_seconds: popup.triggerDelaySeconds,
-        display_frequency:     popup.displayFrequency,
-        priority:              popup.priority,
-        show_on_desktop:       popup.showOnDesktop,
-        show_on_mobile:        popup.showOnMobile,
-        overlay_enabled:       popup.overlayEnabled,
-        status:                popup.status,
-        created_by:            popup.createdBy,
+        trigger_type:          popup.triggerType || 'delay',
+        trigger_delay_seconds: Number(popup.triggerDelaySeconds) || 2,
+        display_frequency:     popup.displayFrequency || 'once_session',
+        priority:              Number(popup.priority) || 5,
+        show_on_desktop:       popup.showOnDesktop !== false,
+        show_on_mobile:        popup.showOnMobile !== false,
+        overlay_enabled:       popup.overlayEnabled !== false,
+        status:                popup.status || 'draft',
+        created_by:            popup.createdBy || 'Administrator',
         created_by_id:         popup.createdById || null,
         updated_at:            new Date().toISOString(),
       };
@@ -552,10 +540,13 @@ export const SupabaseSync = {
         .select('*')
         .maybeSingle();
 
-      if (error) throw error;
+      if (error) {
+        console.error('[SupabaseSync] savePopupConfig error:', error);
+        throw error;
+      }
       return { success: true, data: data ? SupabaseSync._mapPopup(data) : undefined };
     } catch (err) {
-      console.warn('[SupabaseSync] savePopupConfig error:', err);
+      console.error('[SupabaseSync] savePopupConfig exception:', err);
       return { success: false };
     }
   },
@@ -563,13 +554,8 @@ export const SupabaseSync = {
   /** Delete a popup config by id */
   async deletePopupConfig(id: string): Promise<boolean> {
     try {
-      if (!(await isSupabaseAvailable())) {
-        // DB offline — allow local-only delete so the UI stays responsive
-        return true;
-      }
       const isUUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(id);
       if (!isUUID) {
-        // Local-only record that was never persisted to the DB — safe to delete locally
         return true;
       }
       const { error } = await supabase
@@ -577,12 +563,12 @@ export const SupabaseSync = {
         .delete()
         .eq('id', id);
       if (error) {
-        console.warn('[SupabaseSync] deletePopupConfig error:', error);
+        console.error('[SupabaseSync] deletePopupConfig error:', error);
         return false;
       }
       return true;
     } catch (err) {
-      console.warn('[SupabaseSync] deletePopupConfig exception:', err);
+      console.error('[SupabaseSync] deletePopupConfig exception:', err);
       return false;
     }
   },

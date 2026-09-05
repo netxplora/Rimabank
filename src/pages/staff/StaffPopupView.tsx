@@ -126,7 +126,7 @@ export default function StaffPopupView() {
     setIsModalOpen(true);
   };
 
-  const handleSave = (submitForReview = false) => {
+  const handleSave = async (submitForReview = false) => {
     if (!form.title.trim()) { toast.error('Title is required'); return; }
     if (!form.content.trim()) { toast.error('Message is required'); return; }
     if (!user) return;
@@ -142,11 +142,19 @@ export default function StaffPopupView() {
     } as Omit<PopupConfig, 'id' | 'createdAt' | 'updatedAt' | 'impressions' | 'dismissals' | 'ctaClicks'>;
 
     if (editingId) {
-      updatePopupConfig(editingId, { ...payload }, user);
-      toast.success(submitForReview ? 'Popup submitted for Admin review' : 'Draft saved');
+      const ok = await updatePopupConfig(editingId, { ...payload }, user);
+      if (ok) {
+        toast.success(submitForReview ? 'Popup submitted for Admin review' : 'Draft saved');
+      } else {
+        toast.error('Failed to update popup draft.');
+      }
     } else {
-      addPopupConfig(payload, user);
-      toast.success(submitForReview ? 'Popup submitted for Admin review' : 'Draft saved');
+      const ok = await addPopupConfig(payload, user);
+      if (ok) {
+        toast.success(submitForReview ? 'Popup submitted for Admin review' : 'Draft saved');
+      } else {
+        toast.error('Failed to create popup draft.');
+      }
     }
     setIsModalOpen(false);
   };
@@ -156,8 +164,8 @@ export default function StaffPopupView() {
       {/* Header */}
       <div className="flex items-start justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-heading font-bold text-white">Popup Drafts</h1>
-          <p className="text-sm text-slate-400 mt-0.5">Create popup configurations and submit them to Admin for approval.</p>
+          <h1 className="text-2xl font-heading font-bold text-[#0a1e3f]">Popup Drafts</h1>
+          <p className="text-sm text-slate-500 mt-0.5">Create popup configurations and submit them to Admin for approval.</p>
         </div>
         <Button onClick={handleCreate} className="bg-emerald-600 hover:bg-emerald-500 text-white gap-2 shrink-0">
           <Plus className="h-4 w-4" /> New Draft

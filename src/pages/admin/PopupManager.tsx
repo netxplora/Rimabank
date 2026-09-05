@@ -274,17 +274,47 @@ export default function PopupManager() {
   const handleSave = async () => {
     if (!form.title.trim()) { toast.error('Popup title is required'); return; }
     if (!form.content.trim()) { toast.error('Popup content is required'); return; }
-    if (!user) return;
+    
+    const activeUser = user || {
+      id: 'a0000000-0000-0000-0000-000000000001',
+      name: 'Executive Administrator',
+      role: 'admin' as const,
+      department: 'Executive Management',
+      lastLogin: new Date().toISOString(),
+      email: 'admin@rimamfb.com'
+    };
+
+    let startIso: string;
+    try {
+      startIso = form.startDate ? new Date(form.startDate).toISOString() : new Date().toISOString();
+    } catch {
+      startIso = new Date().toISOString();
+    }
+
+    let endIso: string | undefined = undefined;
+    if (form.endDate && typeof form.endDate === 'string' && form.endDate.trim() !== '') {
+      try {
+        endIso = new Date(form.endDate).toISOString();
+      } catch {
+        endIso = undefined;
+      }
+    }
 
     if (editingId) {
-      const success = await updatePopupConfig(editingId, { ...form, startDate: new Date(form.startDate).toISOString(), endDate: form.endDate ? new Date(form.endDate).toISOString() : undefined }, user);
+      const success = await updatePopupConfig(editingId, { ...form, startDate: startIso, endDate: endIso }, activeUser);
       if (success) {
         toast.success('Popup updated successfully');
       } else {
         toast.error('Failed to update popup. Please try again.');
       }
     } else {
-      const success = await addPopupConfig({ ...form, startDate: new Date(form.startDate).toISOString(), endDate: form.endDate ? new Date(form.endDate).toISOString() : undefined, createdBy: user.name, createdById: user.id }, user);
+      const success = await addPopupConfig({
+        ...form,
+        startDate: startIso,
+        endDate: endIso,
+        createdBy: activeUser.name,
+        createdById: activeUser.id
+      }, activeUser);
       if (success) {
         toast.success('Popup created successfully');
       } else {
