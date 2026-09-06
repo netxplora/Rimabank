@@ -1064,38 +1064,11 @@ export const SupabaseSync = {
   },
 
   // ==========================================================================
-  // 10. System Settings (system_settings table or cms_pages)
+  // 10. System Settings (stored in cms_pages with slug: 'system_settings')
   // ==========================================================================
   async fetchSystemSettings(): Promise<SystemSettings | null> {
     try {
       if (!(await isSupabaseAvailable())) return null;
-      // First try dedicated system_settings table
-      const { data, error } = await supabase
-        .from('system_settings' as any)
-        .select('*')
-        .limit(1)
-        .maybeSingle();
-
-      if (data && !error) {
-        return {
-          siteName: data.site_name || 'Rima Microfinance Bank',
-          tagline: data.tagline || 'Empowering Growth, Securing Futures',
-          contactEmail: data.contact_email || 'info@rimamfb.com',
-          contactPhone: data.contact_phone || '+234 800 000 7462',
-          headquartersAddress: data.headquarters_address || 'Head Office: Sokoto, Nigeria',
-          supportHours: data.support_hours || 'Mon - Fri: 8:00 AM - 5:00 PM',
-          maintenanceMode: Boolean(data.maintenance_mode),
-          maintenanceMessage: data.maintenance_message || 'Our digital banking services are currently undergoing scheduled routine maintenance. Please check back shortly.',
-          enableAlertBanner: data.enable_alert_banner !== false,
-          allowPublicEnquiries: data.allow_public_enquiries !== false,
-          sessionTimeoutMinutes: Number(data.session_timeout_minutes) || 30,
-          passwordPolicyMinLength: Number(data.password_policy_min_length) || 8,
-          maxUploadSizeBytes: Number(data.max_upload_size_bytes) || 5242880,
-          require2FAForAdmin: Boolean(data.require_2fa_for_admin)
-        };
-      }
-
-      // Fallback to cms_pages table
       const pageFallback = await SupabaseSync.fetchPageContent('system_settings');
       if (pageFallback) return pageFallback;
       return null;
@@ -1108,37 +1081,10 @@ export const SupabaseSync = {
   async saveSystemSettings(settings: SystemSettings): Promise<boolean> {
     try {
       if (!(await isSupabaseAvailable())) return false;
-      const payload: any = {
-        site_name: settings.siteName,
-        tagline: settings.tagline,
-        contact_email: settings.contactEmail || 'info@rimamfb.com',
-        contact_phone: settings.contactPhone || '+234 800 000 7462',
-        headquarters_address: settings.headquartersAddress || 'Head Office: Sokoto, Nigeria',
-        support_hours: settings.supportHours || 'Mon - Fri: 8:00 AM - 5:00 PM',
-        maintenance_mode: Boolean(settings.maintenanceMode),
-        maintenance_message: settings.maintenanceMessage,
-        enable_alert_banner: Boolean(settings.enableAlertBanner),
-        allow_public_enquiries: Boolean(settings.allowPublicEnquiries),
-        session_timeout_minutes: Number(settings.sessionTimeoutMinutes) || 30,
-        password_policy_min_length: Number(settings.passwordPolicyMinLength) || 8,
-        max_upload_size_bytes: Number(settings.maxUploadSizeBytes) || 5242880,
-        require_2fa_for_admin: Boolean(settings.require2FAForAdmin),
-        updated_at: new Date().toISOString()
-      };
-
-      const { error } = await supabase
-        .from('system_settings' as any)
-        .upsert({ id: 'primary', ...payload });
-
-      if (error) {
-        // Fallback to cms_pages
-        await SupabaseSync.savePageContent('system_settings', 'System Configuration', settings);
-      }
-      return true;
+      return await SupabaseSync.savePageContent('system_settings', 'System Configuration', settings);
     } catch (err) {
       console.warn('[SupabaseSync] saveSystemSettings error:', err);
-      await SupabaseSync.savePageContent('system_settings', 'System Configuration', settings);
-      return true;
+      return false;
     }
   }
 };
