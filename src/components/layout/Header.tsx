@@ -4,7 +4,6 @@ import {
   Menu,
   X,
   ChevronDown,
-  Phone,
   ArrowRight,
   Shield,
   Briefcase,
@@ -215,14 +214,6 @@ export function Header() {
               <Shield className="h-3.5 w-3.5 text-[#38bdf8]" />
               Central Bank of Nigeria Licensed &bull; NDIC Insured
             </span>
-            <span className="text-white/20">|</span>
-            <a
-              href="tel:+2348119477050"
-              className="flex items-center gap-1.5 hover:text-[#38bdf8] transition-colors"
-            >
-              <Phone className="h-3 w-3 text-[#38bdf8]" />
-              +234 811 947 7050
-            </a>
           </div>
           <div className="flex items-center gap-5 text-blue-100/75">
             <Link to="/branches" className="hover:text-[#38bdf8] transition-colors">
@@ -336,15 +327,8 @@ export function Header() {
               </div>
             </nav>
 
-            {/* Desktop Actions: Sign In + Create Account */}
+            {/* Desktop Actions: Create Account */}
             <div className="hidden lg:flex items-center gap-3 shrink-0">
-              <Link
-                to="/digital-banking"
-                className="text-xs font-semibold text-[#0a1e3f] hover:text-[#0284c7] px-3.5 py-2 rounded-xl hover:bg-[#f0f7ff] transition-colors"
-              >
-                Sign In
-              </Link>
-
               <Button
                 variant="pill"
                 size="default"
@@ -536,166 +520,188 @@ export function Header() {
           </div>
         )}
 
-        {/* ── 4. Mobile Navigation Drawer ── */}
+        {/* ── 4. Mobile Right-Side Navigation Drawer ── */}
+        {/* Backdrop Overlay */}
         {isMobileMenuOpen && (
-          <div className="lg:hidden absolute top-full left-0 w-full bg-white border-t border-[#e2e8f0] shadow-2xl overflow-y-auto max-h-[calc(100vh-68px)] animate-in slide-in-from-top-1 fade-in duration-200">
-            <div className="px-4 py-5 space-y-4">
-              {/* Category 1: What We Offer Accordion */}
-              <div className="border border-[#e2e8f0] rounded-2xl overflow-hidden">
-                <button
-                  type="button"
-                  onClick={() =>
-                    setExpandedMobileCategory(
-                      expandedMobileCategory === "offer" ? null : "offer"
-                    )
-                  }
-                  className="w-full flex items-center justify-between p-4 text-left font-heading font-bold text-sm text-[#0a1e3f] bg-slate-50/70 hover:bg-slate-100 transition-colors"
-                >
-                  <div className="flex items-center gap-2.5">
-                    <Briefcase className="h-4 w-4 text-[#0284c7]" />
-                    <span>What We Offer</span>
-                  </div>
-                  <ChevronDown
-                    className={cn(
-                      "h-4 w-4 text-slate-500 transition-transform",
-                      expandedMobileCategory === "offer" && "rotate-180 text-[#0284c7]"
-                    )}
-                  />
-                </button>
+          <div
+            className="fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-50 lg:hidden animate-in fade-in duration-300"
+            onClick={() => setIsMobileMenuOpen(false)}
+            aria-hidden="true"
+          />
+        )}
 
-                {expandedMobileCategory === "offer" && (
-                  <div className="p-3 space-y-3 bg-white divide-y divide-slate-100">
-                    {whatWeOfferMenu.groups.map((group) => (
-                      <div key={group.title} className="pt-2 first:pt-0">
-                        <button
-                          type="button"
-                          onClick={() =>
-                            setExpandedMobileGroup(
-                              expandedMobileGroup === group.title ? null : group.title
-                            )
-                          }
-                          className="w-full flex items-center justify-between py-2 text-xs font-bold uppercase tracking-wider text-[#0a1e3f]"
-                        >
-                          <span>{group.title}</span>
-                          <ChevronDown
-                            className={cn(
-                              "h-3 w-3 text-slate-400 transition-transform",
-                              expandedMobileGroup === group.title && "rotate-180"
-                            )}
-                          />
-                        </button>
-
-                        {(expandedMobileGroup === group.title || true) && (
-                          <ul className="space-y-1 pt-1 pl-1">
-                            {group.items.map((item) => (
-                              <li key={item.name}>
-                                <Link
-                                  to={item.href}
-                                  onClick={() => setIsMobileMenuOpen(false)}
-                                  className="block py-2 px-2.5 rounded-lg text-xs font-medium text-slate-700 hover:text-[#0284c7] hover:bg-[#f0f7ff]"
-                                >
-                                  {item.name}
-                                </Link>
-                              </li>
-                            ))}
-                          </ul>
-                        )}
-                      </div>
-                    ))}
-                  </div>
-                )}
+        {/* Right-Side Slide Drawer */}
+        <div
+          className={cn(
+            "fixed top-0 right-0 h-full w-[85%] max-w-[340px] bg-white z-50 shadow-2xl flex flex-col transition-transform duration-300 ease-in-out lg:hidden border-l border-slate-200",
+            isMobileMenuOpen ? "translate-x-0" : "translate-x-full pointer-events-none"
+          )}
+        >
+          {/* Drawer Header */}
+          <div className="p-4 border-b border-slate-100 flex items-center justify-between bg-white shrink-0">
+            <div className="flex items-center gap-2.5">
+              <div className="h-8 w-8 rounded-lg bg-[#f0f7ff] flex items-center justify-center border border-slate-200 p-1">
+                <img
+                  src="/rima-logo.png"
+                  alt="RIMA Microfinance Bank Logo"
+                  className="h-full w-auto object-contain"
+                />
               </div>
-
-              {/* Category 2: Who We Are Accordion */}
-              <div className="border border-[#e2e8f0] rounded-2xl overflow-hidden">
-                <button
-                  type="button"
-                  onClick={() =>
-                    setExpandedMobileCategory(
-                      expandedMobileCategory === "about" ? null : "about"
-                    )
-                  }
-                  className="w-full flex items-center justify-between p-4 text-left font-heading font-bold text-sm text-[#0a1e3f] bg-slate-50/70 hover:bg-slate-100 transition-colors"
-                >
-                  <div className="flex items-center gap-2.5">
-                    <Building2 className="h-4 w-4 text-[#0284c7]" />
-                    <span>Who We Are</span>
-                  </div>
-                  <ChevronDown
-                    className={cn(
-                      "h-4 w-4 text-slate-500 transition-transform",
-                      expandedMobileCategory === "about" && "rotate-180 text-[#0284c7]"
-                    )}
-                  />
-                </button>
-
-                {expandedMobileCategory === "about" && (
-                  <div className="p-3 space-y-3 bg-white divide-y divide-slate-100">
-                    {whoWeAreMenu.groups.map((group) => (
-                      <div key={group.title} className="pt-2 first:pt-0">
-                        <span className="block py-1 text-xs font-bold uppercase tracking-wider text-[#0a1e3f]">
-                          {group.title}
-                        </span>
-                        <ul className="space-y-1 pt-1 pl-1">
-                          {group.items.map((item) => (
-                            <li key={item.name}>
-                              <Link
-                                to={item.href}
-                                onClick={() => setIsMobileMenuOpen(false)}
-                                className="block py-2 px-2.5 rounded-lg text-xs font-medium text-slate-700 hover:text-[#0284c7] hover:bg-[#f0f7ff]"
-                              >
-                                {item.name}
-                              </Link>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    ))}
-                  </div>
-                )}
+              <div className="flex flex-col leading-tight">
+                <span className="font-heading text-sm font-bold text-[#0a1e3f]">
+                  RIMA Bank
+                </span>
+                <span className="text-[9px] text-slate-500 font-semibold uppercase tracking-wider">
+                  Microfinance Bank
+                </span>
               </div>
+            </div>
+            <button
+              type="button"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="p-1.5 rounded-lg text-slate-500 hover:text-slate-800 hover:bg-slate-100 transition-colors"
+              aria-label="Close menu"
+            >
+              <X className="h-5 w-5" />
+            </button>
+          </div>
 
-              {/* Mobile Direct Action Buttons */}
-              <div className="pt-2 space-y-2.5">
-                <Button
-                  variant="pill"
-                  size="default"
-                  className="w-full bg-[#0284c7] hover:bg-[#0369a1] text-white text-xs font-semibold h-11"
-                  asChild
-                >
-                  <Link to="/contact" onClick={() => setIsMobileMenuOpen(false)}>
-                    <span>Create Account</span>
-                    <ArrowRight className="h-4 w-4 ml-1.5" />
-                  </Link>
-                </Button>
-
-                <Button
-                  variant="outline"
-                  size="default"
-                  className="w-full border-slate-300 text-[#0a1e3f] text-xs font-semibold h-11"
-                  asChild
-                >
-                  <Link to="/digital-banking" onClick={() => setIsMobileMenuOpen(false)}>
-                    Sign In to Digital Banking
-                  </Link>
-                </Button>
-              </div>
-
-              {/* Quick Contacts Footer */}
-              <div className="pt-4 border-t border-[#e2e8f0] text-center space-y-1.5 text-[11px] text-slate-500">
-                <p className="font-semibold text-[#0a1e3f]">RIMA Microfinance Bank</p>
-                <p>Licensed by the Central Bank of Nigeria &bull; NDIC Insured</p>
-                <div className="pt-1 flex items-center justify-center gap-4 text-xs font-semibold text-[#0284c7]">
-                  <a href="tel:+2348119477050">+234 811 947 7050</a>
-                  <span>&bull;</span>
-                  <Link to="/branches" onClick={() => setIsMobileMenuOpen(false)}>
-                    Branches
-                  </Link>
+          {/* Drawer Body (Scrollable) */}
+          <div className="flex-1 overflow-y-auto px-4 py-5 space-y-4">
+            {/* Category 1: What We Offer Accordion */}
+            <div className="border border-[#e2e8f0] rounded-2xl overflow-hidden shadow-xs">
+              <button
+                type="button"
+                onClick={() =>
+                  setExpandedMobileCategory(
+                    expandedMobileCategory === "offer" ? null : "offer"
+                  )
+                }
+                className="w-full flex items-center justify-between p-3.5 text-left font-heading font-bold text-xs text-[#0a1e3f] bg-slate-50/70 hover:bg-slate-100 transition-colors"
+              >
+                <div className="flex items-center gap-2.5">
+                  <Briefcase className="h-4 w-4 text-[#0284c7]" />
+                  <span>What We Offer</span>
                 </div>
+                <ChevronDown
+                  className={cn(
+                    "h-4 w-4 text-slate-500 transition-transform",
+                    expandedMobileCategory === "offer" && "rotate-180 text-[#0284c7]"
+                  )}
+                />
+              </button>
+
+              {expandedMobileCategory === "offer" && (
+                <div className="p-3 space-y-3 bg-white divide-y divide-slate-100">
+                  {whatWeOfferMenu.groups.map((group) => (
+                    <div key={group.title} className="pt-2 first:pt-0">
+                      <div className="py-1 text-[11px] font-bold uppercase tracking-wider text-[#0a1e3f]">
+                        {group.title}
+                      </div>
+
+                      <ul className="space-y-1 pt-1 pl-1">
+                        {group.items.map((item) => (
+                          <li key={item.name}>
+                            <Link
+                              to={item.href}
+                              onClick={() => setIsMobileMenuOpen(false)}
+                              className="block py-1.5 px-2.5 rounded-lg text-xs font-medium text-slate-700 hover:text-[#0284c7] hover:bg-[#f0f7ff] transition-colors"
+                            >
+                              {item.name}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* Category 2: Who We Are Accordion */}
+            <div className="border border-[#e2e8f0] rounded-2xl overflow-hidden shadow-xs">
+              <button
+                type="button"
+                onClick={() =>
+                  setExpandedMobileCategory(
+                    expandedMobileCategory === "about" ? null : "about"
+                  )
+                }
+                className="w-full flex items-center justify-between p-3.5 text-left font-heading font-bold text-xs text-[#0a1e3f] bg-slate-50/70 hover:bg-slate-100 transition-colors"
+              >
+                <div className="flex items-center gap-2.5">
+                  <Building2 className="h-4 w-4 text-[#0284c7]" />
+                  <span>Who We Are</span>
+                </div>
+                <ChevronDown
+                  className={cn(
+                    "h-4 w-4 text-slate-500 transition-transform",
+                    expandedMobileCategory === "about" && "rotate-180 text-[#0284c7]"
+                  )}
+                />
+              </button>
+
+              {expandedMobileCategory === "about" && (
+                <div className="p-3 space-y-3 bg-white divide-y divide-slate-100">
+                  {whoWeAreMenu.groups.map((group) => (
+                    <div key={group.title} className="pt-2 first:pt-0">
+                      <span className="block py-1 text-[11px] font-bold uppercase tracking-wider text-[#0a1e3f]">
+                        {group.title}
+                      </span>
+                      <ul className="space-y-1 pt-1 pl-1">
+                        {group.items.map((item) => (
+                          <li key={item.name}>
+                            <Link
+                              to={item.href}
+                              onClick={() => setIsMobileMenuOpen(false)}
+                              className="block py-1.5 px-2.5 rounded-lg text-xs font-medium text-slate-700 hover:text-[#0284c7] hover:bg-[#f0f7ff] transition-colors"
+                            >
+                              {item.name}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* Mobile Direct Action Buttons */}
+            <div className="pt-2">
+              <Button
+                variant="pill"
+                size="default"
+                className="w-full bg-[#0284c7] hover:bg-[#0369a1] text-white text-xs font-semibold h-11 shadow-sm"
+                asChild
+              >
+                <Link to="/contact" onClick={() => setIsMobileMenuOpen(false)}>
+                  <span>Create Account</span>
+                  <ArrowRight className="h-4 w-4 ml-1.5" />
+                </Link>
+              </Button>
+            </div>
+
+            {/* Quick Links & Regulatory Footer */}
+            <div className="pt-4 border-t border-[#e2e8f0] text-center space-y-1.5 text-[11px] text-slate-500">
+              <p className="font-semibold text-[#0a1e3f]">RIMA Microfinance Bank</p>
+              <p className="text-[10px] text-slate-400">Central Bank of Nigeria Licensed &bull; NDIC Insured</p>
+              <div className="pt-2 flex items-center justify-center gap-3 text-xs font-semibold text-[#0284c7]">
+                <Link to="/branches" onClick={() => setIsMobileMenuOpen(false)} className="hover:underline">
+                  Branches
+                </Link>
+                <span className="text-slate-300">&bull;</span>
+                <Link to="/faq" onClick={() => setIsMobileMenuOpen(false)} className="hover:underline">
+                  Help Center
+                </Link>
+                <span className="text-slate-300">&bull;</span>
+                <Link to="/whistle-blowing" onClick={() => setIsMobileMenuOpen(false)} className="hover:underline">
+                  Whistleblowing
+                </Link>
               </div>
             </div>
           </div>
-        )}
+        </div>
       </header>
     </>
   );

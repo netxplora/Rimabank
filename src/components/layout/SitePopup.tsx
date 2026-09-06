@@ -157,11 +157,11 @@ export function SitePopup() {
         role="dialog"
         aria-modal="true"
         aria-labelledby="site-popup-title"
-        className="fixed inset-0 z-[999] flex items-center justify-center p-4 pointer-events-none"
+        className="fixed inset-0 z-[999] flex items-center justify-center p-3 sm:p-4 pointer-events-none"
       >
         <div
           className={`
-            pointer-events-auto relative w-full max-w-md
+            pointer-events-auto relative w-full max-w-[320px] sm:max-w-[360px]
             bg-white rounded-2xl shadow-2xl overflow-hidden
             transform transition-all duration-300 ease-out
             motion-safe:animate-in motion-safe:fade-in motion-safe:zoom-in-95
@@ -170,7 +170,7 @@ export function SitePopup() {
         >
           {/* Featured image */}
           {popup.featuredImage && (
-            <div className="relative h-44 w-full overflow-hidden">
+            <div className="relative h-28 sm:h-32 w-full overflow-hidden bg-slate-100">
               <img
                 src={popup.featuredImage}
                 alt={popup.title}
@@ -181,15 +181,15 @@ export function SitePopup() {
           )}
 
           {/* Content */}
-          <div className="px-6 pt-5 pb-6 space-y-3">
+          <div className="px-4 sm:px-5 pt-3.5 sm:pt-4 pb-4 sm:pb-5 space-y-2 sm:space-y-2.5">
             <h2
               id="site-popup-title"
-              className="font-heading font-bold text-[#0a1e3f] text-lg leading-snug"
+              className="font-heading font-bold text-[#0a1e3f] text-sm sm:text-base leading-snug"
             >
               {popup.title}
             </h2>
 
-            <p className="text-slate-600 text-sm leading-relaxed">
+            <p className="text-slate-600 text-xs leading-relaxed line-clamp-3 sm:line-clamp-4">
               {popup.content}
             </p>
 
@@ -197,17 +197,17 @@ export function SitePopup() {
             {popup.ctaText && (
               <button
                 onClick={handleCta}
-                className="mt-2 w-full py-3 px-5 rounded-xl bg-[#0284c7] hover:bg-sky-500 text-white font-semibold text-sm transition-colors duration-200 flex items-center justify-center gap-2 shadow-md shadow-sky-900/20"
+                className="mt-1.5 w-full py-2 sm:py-2.5 px-4 rounded-xl bg-[#0284c7] hover:bg-sky-500 text-white font-semibold text-xs transition-colors duration-200 flex items-center justify-center gap-1.5 shadow-sm shadow-sky-900/20"
               >
-                {popup.ctaText}
-                {popup.ctaUrl?.startsWith('http') && <ExternalLink className="h-3.5 w-3.5 opacity-70" />}
+                <span>{popup.ctaText}</span>
+                {popup.ctaUrl?.startsWith('http') && <ExternalLink className="h-3 w-3 opacity-70" />}
               </button>
             )}
 
             {/* Dismiss link */}
             <button
               onClick={handleClose}
-              className="w-full text-center text-xs text-slate-400 hover:text-slate-600 transition-colors py-1"
+              className="w-full text-center text-[11px] text-slate-400 hover:text-slate-600 transition-colors py-0.5"
             >
               Dismiss
             </button>
@@ -219,9 +219,9 @@ export function SitePopup() {
               ref={closeRef}
               onClick={handleClose}
               aria-label="Close popup"
-              className="absolute top-3 right-3 h-8 w-8 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-500 hover:text-slate-700 transition-colors focus:outline-none focus:ring-2 focus:ring-sky-500"
+              className="absolute top-2.5 right-2.5 h-7 w-7 rounded-full bg-slate-900/10 sm:bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-600 hover:text-slate-900 transition-colors focus:outline-none focus:ring-2 focus:ring-sky-500 z-10"
             >
-              <X className="h-4 w-4" />
+              <X className="h-3.5 w-3.5" />
             </button>
           )}
         </div>
