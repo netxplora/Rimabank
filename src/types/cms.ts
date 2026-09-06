@@ -142,7 +142,7 @@ export interface Publication {
   id: string;
   title: string;
   slug: string;
-  category: 'News' | 'Press Release' | 'Financial Report' | 'Statement' | 'Bank Notice';
+  category: 'News' | 'Press Release' | 'Financial Report' | 'Statement' | 'Bank Notice' | 'Articles';
   excerpt: string;
   content: string; // HTML / Rich Text
   featuredImage: string;
@@ -251,6 +251,16 @@ export interface BranchItem {
   isHeadquarters?: boolean;
 }
 
+export interface GovernanceMember {
+  id: string;
+  name: string;
+  role: string;
+  bio: string;
+  image: string;
+  linkedin?: string;
+  twitter?: string;
+}
+
 export interface SiteContent {
   hero: HeroContent;
   trustStats: TrustStat[];
@@ -260,9 +270,13 @@ export interface SiteContent {
     heading: string;
     description1: string;
     description2: string;
+    featuredImage?: string;
     stats: { value: string; label: string }[];
     mission: string;
     vision: string;
+    governanceHeading?: string;
+    governanceSubheading?: string;
+    governanceTeam?: GovernanceMember[];
   };
   agentBanking: {
     badge: string;

@@ -41,13 +41,43 @@ export const initialSiteContent: SiteContent = {
     heading: "Building Community Prosperity Through Inclusive Financial Services",
     description1: "Rima Microfinance Bank was established with a singular vision: to democratize access to financial capital, elevate micro, small, and medium enterprises, and provide reliable savings solutions for families across Nigeria.",
     description2: "Combining strong local community relationships with contemporary digital banking technology, we ensure every artisan, merchant, entrepreneur, and student receives the attention and financial support they deserve.",
+    featuredImage: "/images/hero-about.png",
     stats: [
       { value: '15+ Years', label: 'Institutional Heritage' },
       { value: '₦50M', label: 'Single Facility Capacity' },
       { value: '100%', label: 'Regulatory Compliance' }
     ],
     mission: "To provide accessible, ethical, and technology-driven financial solutions that empower grassroots entrepreneurs and enhance family livelihoods.",
-    vision: "To become the benchmark microfinance institution recognized for integrity, customer-centricity, and sustainable financial inclusion."
+    vision: "To become the benchmark microfinance institution recognized for integrity, customer-centricity, and sustainable financial inclusion.",
+    governanceHeading: "Experienced executive leadership.",
+    governanceSubheading: "Guided by experienced financial professionals with decades of combined commercial banking expertise, corporate governance rigor, and regulatory knowledge.",
+    governanceTeam: [
+      {
+        id: "gov-1",
+        name: "Pastor Jonathan Tobin",
+        role: "Managing Director / CEO",
+        bio: "With over 25 years of leadership experience in Nigerian banking, Pastor Tobin directs Rima MFB's mission of expanding financial inclusion and sustainable credit access.",
+        image: "/images/team-ceo.jpg",
+        linkedin: "#",
+        twitter: "#"
+      },
+      {
+        id: "gov-2",
+        name: "Otonye Mac-Barango",
+        role: "Group Company Secretary & Legal Adviser",
+        bio: "An experienced legal counsel ensuring statutory corporate governance, compliance adherence, and regulatory alignment with Central Bank of Nigeria mandates.",
+        image: "/images/secretary.jpg",
+        linkedin: "#"
+      },
+      {
+        id: "gov-3",
+        name: "Sokari Josiah Monday",
+        role: "Head, Internal Control & Audit",
+        bio: "Enforces rigorous accountability frameworks, continuous financial risk surveillance, and operational integrity across all branch operations.",
+        image: "/images/Sokari.jpg",
+        linkedin: "#"
+      }
+    ]
   },
   agentBanking: {
     badge: "Rima Agency Network",

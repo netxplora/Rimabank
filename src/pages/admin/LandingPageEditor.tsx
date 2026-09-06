@@ -506,6 +506,47 @@ export default function LandingPageEditor() {
                   className="w-full p-2.5 rounded-xl border border-[#e2e8f0] text-xs font-medium focus:border-[#0284c7] outline-none"
                 />
               </div>
+              {/* Featured Section Image */}
+              <div className="md:col-span-2">
+                <label className="block text-xs font-semibold text-[#0a1e3f] mb-1">
+                  About Section Featured Image
+                </label>
+                <div className="flex gap-2">
+                  <input
+                    type="text"
+                    value={formData.aboutSnapshot.featuredImage || ''}
+                    onChange={(e) => setFormData({
+                      ...formData,
+                      aboutSnapshot: { ...formData.aboutSnapshot, featuredImage: e.target.value }
+                    })}
+                    className="flex-1 p-2.5 rounded-xl border border-[#e2e8f0] text-xs font-medium focus:border-[#0284c7] outline-none"
+                    placeholder="/images/hero-about.png"
+                  />
+                  <Button
+                    type="button"
+                    variant="outline"
+                    onClick={() => openMediaPicker(
+                      formData.aboutSnapshot.featuredImage || '/images/hero-about.png',
+                      (url) => setFormData({
+                        ...formData,
+                        aboutSnapshot: { ...formData.aboutSnapshot, featuredImage: url }
+                      })
+                    )}
+                    className="h-10 px-4 rounded-xl text-xs font-semibold shrink-0"
+                  >
+                    <ImageIcon className="h-4 w-4 mr-2" /> Select Media
+                  </Button>
+                </div>
+                {formData.aboutSnapshot.featuredImage && (
+                  <div className="mt-2 h-20 w-32 rounded-lg border border-slate-200 overflow-hidden bg-slate-50">
+                    <img
+                      src={formData.aboutSnapshot.featuredImage}
+                      alt="Featured Preview"
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                )}
+              </div>
             </div>
 
             {/* About Stats */}
@@ -578,6 +619,277 @@ export default function LandingPageEditor() {
                 {(!formData.aboutSnapshot.stats || formData.aboutSnapshot.stats.length === 0) && (
                   <div className="text-center py-4 text-xs text-slate-400 border border-dashed border-slate-200 rounded-xl">
                     No statistics added. Click "Add Stat" to create one.
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Corporate Governance & Executive Leadership */}
+            <div className="mt-6 pt-6 border-t border-slate-100 space-y-4">
+              <div className="flex items-center justify-between">
+                <div>
+                  <h4 className="font-heading font-bold text-sm text-[#0a1e3f]">Corporate Governance & Leadership</h4>
+                  <p className="text-xs text-slate-400">Manage board of directors, executive management profiles, and leadership photos.</p>
+                </div>
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  onClick={() => {
+                    const newId = `gov-${Date.now()}`;
+                    const newMember = {
+                      id: newId,
+                      name: '',
+                      role: '',
+                      bio: '',
+                      image: '/images/hero-about.png',
+                      linkedin: '',
+                      twitter: ''
+                    };
+                    const updated = [...(formData.aboutSnapshot.governanceTeam || []), newMember];
+                    setFormData({
+                      ...formData,
+                      aboutSnapshot: { ...formData.aboutSnapshot, governanceTeam: updated }
+                    });
+                  }}
+                  className="h-8 text-xs font-semibold text-[#0284c7] border-sky-200 hover:bg-sky-50"
+                >
+                  <Plus className="h-3.5 w-3.5 mr-1" /> Add Executive Member
+                </Button>
+              </div>
+
+              {/* Headings */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-xs font-semibold text-[#0a1e3f] mb-1">
+                    Governance Section Title
+                  </label>
+                  <input
+                    type="text"
+                    value={formData.aboutSnapshot.governanceHeading || ''}
+                    onChange={(e) => setFormData({
+                      ...formData,
+                      aboutSnapshot: { ...formData.aboutSnapshot, governanceHeading: e.target.value }
+                    })}
+                    placeholder="Experienced executive leadership."
+                    className="w-full p-2.5 rounded-xl border border-[#e2e8f0] text-xs font-medium focus:border-[#0284c7] outline-none"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-semibold text-[#0a1e3f] mb-1">
+                    Governance Subheading / Overview
+                  </label>
+                  <input
+                    type="text"
+                    value={formData.aboutSnapshot.governanceSubheading || ''}
+                    onChange={(e) => setFormData({
+                      ...formData,
+                      aboutSnapshot: { ...formData.aboutSnapshot, governanceSubheading: e.target.value }
+                    })}
+                    placeholder="Guided by experienced financial professionals with decades of combined commercial banking expertise..."
+                    className="w-full p-2.5 rounded-xl border border-[#e2e8f0] text-xs font-medium focus:border-[#0284c7] outline-none"
+                  />
+                </div>
+              </div>
+
+              {/* Team Members List */}
+              <div className="space-y-4 pt-2">
+                {formData.aboutSnapshot.governanceTeam?.map((member, idx) => (
+                  <div key={member.id || idx} className="p-4 bg-slate-50 border border-slate-200 rounded-2xl space-y-3">
+                    <div className="flex items-center justify-between pb-2 border-b border-slate-200">
+                      <div className="flex items-center gap-2">
+                        <span className="w-5 h-5 rounded-full bg-[#0a1e3f] text-white text-[10px] font-bold flex items-center justify-center">
+                          {idx + 1}
+                        </span>
+                        <span className="font-heading font-bold text-xs text-[#0a1e3f]">
+                          {member.name || `Executive Profile #${idx + 1}`}
+                        </span>
+                      </div>
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => {
+                          const updated = formData.aboutSnapshot.governanceTeam?.filter((_, i) => i !== idx) || [];
+                          setFormData({
+                            ...formData,
+                            aboutSnapshot: { ...formData.aboutSnapshot, governanceTeam: updated }
+                          });
+                        }}
+                        className="h-8 px-2 text-red-500 hover:bg-red-50 hover:text-red-600 text-xs"
+                      >
+                        <Trash2 className="h-4 w-4 mr-1" /> Remove
+                      </Button>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-start">
+                      {/* Photo column */}
+                      <div className="md:col-span-4 space-y-2">
+                        <label className="block text-[11px] font-semibold text-[#0a1e3f]">
+                          Profile Photo
+                        </label>
+                        <div className="flex flex-col gap-2">
+                          <div className="h-32 w-28 rounded-xl border border-slate-300 overflow-hidden bg-[#f0f7ff] shrink-0 relative group">
+                            <img
+                              src={member.image || '/images/hero-about.png'}
+                              alt={member.name}
+                              className="w-full h-full object-cover object-top"
+                              onError={(e) => {
+                                (e.target as HTMLImageElement).src = '/images/hero-about.png';
+                              }}
+                            />
+                          </div>
+                          <div className="flex gap-2">
+                            <input
+                              type="text"
+                              value={member.image || ''}
+                              onChange={(e) => {
+                                const updated = [...(formData.aboutSnapshot.governanceTeam || [])];
+                                updated[idx].image = e.target.value;
+                                setFormData({
+                                  ...formData,
+                                  aboutSnapshot: { ...formData.aboutSnapshot, governanceTeam: updated }
+                                });
+                              }}
+                              placeholder="/images/team-member.jpg"
+                              className="w-full p-2 rounded-lg bg-white border border-[#e2e8f0] text-xs"
+                            />
+                            <Button
+                              type="button"
+                              variant="outline"
+                              size="sm"
+                              onClick={() => openMediaPicker(
+                                member.image || '/images/hero-about.png',
+                                (url) => {
+                                  const updated = [...(formData.aboutSnapshot.governanceTeam || [])];
+                                  updated[idx].image = url;
+                                  setFormData({
+                                    ...formData,
+                                    aboutSnapshot: { ...formData.aboutSnapshot, governanceTeam: updated }
+                                  });
+                                }
+                              )}
+                              className="h-8 px-2.5 rounded-lg text-xs font-semibold shrink-0"
+                            >
+                              <ImageIcon className="h-3.5 w-3.5 mr-1" /> Select
+                            </Button>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Details columns */}
+                      <div className="md:col-span-8 space-y-3">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                          <div>
+                            <label className="block text-[11px] font-semibold text-[#0a1e3f] mb-1">
+                              Full Name
+                            </label>
+                            <input
+                              type="text"
+                              value={member.name}
+                              onChange={(e) => {
+                                const updated = [...(formData.aboutSnapshot.governanceTeam || [])];
+                                updated[idx].name = e.target.value;
+                                setFormData({
+                                  ...formData,
+                                  aboutSnapshot: { ...formData.aboutSnapshot, governanceTeam: updated }
+                                });
+                              }}
+                              placeholder="e.g. Pastor Jonathan Tobin"
+                              className="w-full p-2 rounded-lg bg-white border border-[#e2e8f0] text-xs font-bold text-[#0a1e3f]"
+                            />
+                          </div>
+
+                          <div>
+                            <label className="block text-[11px] font-semibold text-[#0a1e3f] mb-1">
+                              Official Role / Title
+                            </label>
+                            <input
+                              type="text"
+                              value={member.role}
+                              onChange={(e) => {
+                                const updated = [...(formData.aboutSnapshot.governanceTeam || [])];
+                                updated[idx].role = e.target.value;
+                                setFormData({
+                                  ...formData,
+                                  aboutSnapshot: { ...formData.aboutSnapshot, governanceTeam: updated }
+                                });
+                              }}
+                              placeholder="e.g. Managing Director / CEO"
+                              className="w-full p-2 rounded-lg bg-white border border-[#e2e8f0] text-xs text-[#0284c7] font-semibold"
+                            />
+                          </div>
+                        </div>
+
+                        <div>
+                          <label className="block text-[11px] font-semibold text-[#0a1e3f] mb-1">
+                            Executive Biography
+                          </label>
+                          <textarea
+                            rows={3}
+                            value={member.bio}
+                            onChange={(e) => {
+                              const updated = [...(formData.aboutSnapshot.governanceTeam || [])];
+                              updated[idx].bio = e.target.value;
+                              setFormData({
+                                ...formData,
+                                aboutSnapshot: { ...formData.aboutSnapshot, governanceTeam: updated }
+                              });
+                            }}
+                            placeholder="With over 25 years of leadership experience in Nigerian banking..."
+                            className="w-full p-2 rounded-lg bg-white border border-[#e2e8f0] text-xs leading-relaxed"
+                          />
+                        </div>
+
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                          <div>
+                            <label className="block text-[10px] font-semibold text-slate-500 mb-1">
+                              LinkedIn URL (Optional)
+                            </label>
+                            <input
+                              type="text"
+                              value={member.linkedin || ''}
+                              onChange={(e) => {
+                                const updated = [...(formData.aboutSnapshot.governanceTeam || [])];
+                                updated[idx].linkedin = e.target.value;
+                                setFormData({
+                                  ...formData,
+                                  aboutSnapshot: { ...formData.aboutSnapshot, governanceTeam: updated }
+                                });
+                              }}
+                              placeholder="https://linkedin.com/in/..."
+                              className="w-full p-2 rounded-lg bg-white border border-[#e2e8f0] text-xs text-slate-600"
+                            />
+                          </div>
+
+                          <div>
+                            <label className="block text-[10px] font-semibold text-slate-500 mb-1">
+                              Twitter / X URL (Optional)
+                            </label>
+                            <input
+                              type="text"
+                              value={member.twitter || ''}
+                              onChange={(e) => {
+                                const updated = [...(formData.aboutSnapshot.governanceTeam || [])];
+                                updated[idx].twitter = e.target.value;
+                                setFormData({
+                                  ...formData,
+                                  aboutSnapshot: { ...formData.aboutSnapshot, governanceTeam: updated }
+                                });
+                              }}
+                              placeholder="https://twitter.com/..."
+                              className="w-full p-2 rounded-lg bg-white border border-[#e2e8f0] text-xs text-slate-600"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+
+                {(!formData.aboutSnapshot.governanceTeam || formData.aboutSnapshot.governanceTeam.length === 0) && (
+                  <div className="text-center py-6 text-xs text-slate-400 border border-dashed border-slate-200 rounded-xl bg-slate-50/50">
+                    No executive leadership profiles added. Click "Add Executive Member" above to add leadership profiles.
                   </div>
                 )}
               </div>

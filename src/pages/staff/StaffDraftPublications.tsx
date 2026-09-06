@@ -190,10 +190,11 @@ export default function StaffDraftPublications() {
                   className="w-full px-3.5 py-2 rounded-xl border border-[#e2e8f0] text-xs sm:text-sm focus:border-emerald-600 outline-none bg-white"
                 >
                   <option value="Bank Notice">Bank Notice</option>
-                  <option value="Press Release">Press Release</option>
                   <option value="Financial Report">Financial Report</option>
-                  <option value="Community">Community & Impact</option>
-                  <option value="Guides & Insights">Guides & Insights</option>
+                  <option value="Press Release">Press Release</option>
+                  <option value="Articles">Articles & Insights</option>
+                  <option value="News">News & Announcements</option>
+                  <option value="Statement">Official Statement</option>
                 </select>
               </div>
             </div>

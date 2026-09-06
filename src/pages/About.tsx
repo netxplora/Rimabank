@@ -18,6 +18,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { LeadershipTeam } from "@/components/about/LeadershipTeam";
+import { useCMS } from "@/context/CMSContext";
 import { cn } from "@/lib/utils";
 
 const stats = [
@@ -158,10 +159,12 @@ const milestones = [
 ];
 
 export default function About() {
+  const { siteContent } = useCMS();
   const [activePillar, setActivePillar] = useState(operationalPillars[0].id);
 
   const selectedPillar = operationalPillars.find(p => p.id === activePillar) || operationalPillars[0];
   const PillarIcon = selectedPillar.icon;
+  const about = siteContent?.aboutSnapshot;
 
   return (
     <Layout>
@@ -409,10 +412,10 @@ export default function About() {
               Corporate Governance
             </span>
             <h2 className="font-heading text-xl sm:text-2xl lg:text-3xl font-semibold text-[#0a1e3f] tracking-tight leading-tight">
-              Experienced executive leadership.
+              {about?.governanceHeading || "Experienced executive leadership."}
             </h2>
             <p className="text-[#0a1e3f]/70 text-xs sm:text-sm mt-1 max-w-2xl">
-              Guided by experienced financial professionals with decades of combined commercial banking expertise, corporate governance rigor, and regulatory knowledge.
+              {about?.governanceSubheading || "Guided by experienced financial professionals with decades of combined commercial banking expertise, corporate governance rigor, and regulatory knowledge."}
             </p>
           </div>
 

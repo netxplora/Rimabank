@@ -1,30 +1,39 @@
 import { Linkedin, Twitter } from "lucide-react";
+import { useCMS } from "@/context/CMSContext";
 
-const team = [
+const defaultTeam = [
   {
+    id: "gov-1",
     name: "Pastor Jonathan Tobin",
     role: "Managing Director / CEO",
     bio: "With over 25 years of leadership experience in Nigerian banking, Pastor Tobin directs Rima MFB's mission of expanding financial inclusion and sustainable credit access.",
     image: "/images/team-ceo.jpg",
-    social: { linkedin: "#", twitter: "#" }
+    linkedin: "#",
+    twitter: "#"
   },
   {
+    id: "gov-2",
     name: "Otonye Mac-Barango",
     role: "Group Company Secretary & Legal Adviser",
     bio: "An experienced legal counsel ensuring statutory corporate governance, compliance adherence, and regulatory alignment with Central Bank of Nigeria mandates.",
     image: "/images/secretary.jpg",
-    social: { linkedin: "#" }
+    linkedin: "#"
   },
   {
+    id: "gov-3",
     name: "Sokari Josiah Monday",
     role: "Head, Internal Control & Audit",
     bio: "Enforces rigorous accountability frameworks, continuous financial risk surveillance, and operational integrity across all branch operations.",
     image: "/images/Sokari.jpg",
-    social: { linkedin: "#" }
+    linkedin: "#"
   }
 ];
 
 export function LeadershipTeam() {
+  const { siteContent } = useCMS();
+  const team = siteContent?.aboutSnapshot?.governanceTeam?.length 
+    ? siteContent.aboutSnapshot.governanceTeam 
+    : defaultTeam;
   return (
     <>
       {/* Mobile: horizontal scroll strip */}
@@ -49,18 +58,18 @@ export function LeadershipTeam() {
               <h3 className="font-heading text-[11px] font-semibold text-[#0a1e3f] leading-snug">{member.name}</h3>
               <p className="text-[9px] font-semibold uppercase tracking-wider text-[#0284c7] leading-tight">{member.role}</p>
               <div className="flex gap-1.5 pt-2 border-t border-[#e2e8f0]/60 mt-1">
-                {member.social.linkedin && (
+                {(member.linkedin || (member as any).social?.linkedin) && (
                   <a
-                    href={member.social.linkedin}
+                    href={member.linkedin || (member as any).social?.linkedin}
                     aria-label="LinkedIn"
                     className="w-6 h-6 rounded-full bg-[#f0f7ff] text-[#0a1e3f] flex items-center justify-center hover:bg-[#0284c7] hover:text-white transition-all"
                   >
                     <Linkedin className="h-3 w-3" />
                   </a>
                 )}
-                {member.social.twitter && (
+                {(member.twitter || (member as any).social?.twitter) && (
                   <a
-                    href={member.social.twitter}
+                    href={member.twitter || (member as any).social?.twitter}
                     aria-label="Twitter"
                     className="w-6 h-6 rounded-full bg-[#f0f7ff] text-[#0a1e3f] flex items-center justify-center hover:bg-[#0284c7] hover:text-white transition-all"
                   >
@@ -98,18 +107,18 @@ export function LeadershipTeam() {
                 {member.bio}
               </p>
               <div className="flex gap-2 pt-2.5 border-t border-[#e2e8f0]/60">
-                {member.social.linkedin && (
+                {(member.linkedin || (member as any).social?.linkedin) && (
                   <a
-                    href={member.social.linkedin}
+                    href={member.linkedin || (member as any).social?.linkedin}
                     aria-label="LinkedIn"
                     className="w-7 h-7 rounded-full bg-[#f0f7ff] text-[#0a1e3f] flex items-center justify-center hover:bg-[#0284c7] hover:text-white transition-all shadow-xs"
                   >
                     <Linkedin className="h-3 w-3" />
                   </a>
                 )}
-                {member.social.twitter && (
+                {(member.twitter || (member as any).social?.twitter) && (
                   <a
-                    href={member.social.twitter}
+                    href={member.twitter || (member as any).social?.twitter}
                     aria-label="Twitter"
                     className="w-7 h-7 rounded-full bg-[#f0f7ff] text-[#0a1e3f] flex items-center justify-center hover:bg-[#0284c7] hover:text-white transition-all shadow-xs"
                   >
