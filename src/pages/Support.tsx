@@ -68,22 +68,22 @@ export default function Support() {
         </div>
       </section>
 
-      {/* Main Support Channels 3-Column Grid */}
-      <section className="py-10 sm:py-12 md:py-16 bg-white border-b border-[#e2e8f0]/60">
+      {/* Main Support Channels 3-Column Grid (Minimal Open Layout) */}
+      <section className="py-14 sm:py-20 bg-white border-b border-[#e2e8f0]/60">
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+          <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-slate-200 border-t border-b border-slate-200 mb-16">
             {supportChannels.map((channel, idx) => (
               <div 
                 key={idx} 
-                className="p-6 sm:p-8 rounded-3xl bg-white border border-[#e2e8f0] hover:border-[#0284c7]/40 shadow-sm hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between"
+                className="py-8 md:p-6 lg:p-8 flex flex-col justify-between"
               >
                 <div>
                   <div 
-                    className="w-12 h-12 rounded-2xl flex items-center justify-center mb-5 shadow-xs"
+                    className="w-10 h-10 rounded-xl flex items-center justify-center mb-5"
                     style={{ backgroundColor: channel.bg, color: channel.color }}
                   >
-                    <channel.icon className="h-6 w-6" />
+                    <channel.icon className="h-5 w-5" />
                   </div>
                   <h3 className="font-heading text-lg font-semibold text-[#0a1e3f] mb-1.5">{channel.title}</h3>
                   <p className="text-xs text-[#64748b] leading-relaxed mb-4">{channel.description}</p>
@@ -92,7 +92,7 @@ export default function Support() {
                 <div>
                   <Button 
                     variant={idx === 1 ? "pill" : "outlineNeutral"} 
-                    className={`w-full text-xs ${idx === 1 ? "bg-[#0284c7] hover:bg-[#0369a1] text-white shadow-md shadow-sky-500/20" : "rounded-full"}`} 
+                    className={`w-full text-xs ${idx === 1 ? "bg-[#0284c7] hover:bg-[#0369a1] text-white shadow-sm" : "rounded-full"}`} 
                     asChild
                   >
                     <a href={channel.link}>

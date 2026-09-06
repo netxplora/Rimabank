@@ -157,26 +157,26 @@ export default function About() {
         </div>
       </section>
 
-      {/* Mission & Vision */}
-      <section className="py-10 sm:py-12 md:py-16 bg-white border-b border-[#e2e8f0]/60">
+      {/* Mission & Vision (Minimal Open Layout) */}
+      <section className="py-14 sm:py-20 bg-white border-b border-[#e2e8f0]/60">
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="p-6 sm:p-8 rounded-3xl bg-white border border-[#e2e8f0] shadow-sm hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 space-y-4">
-              <div className="w-12 h-12 rounded-2xl bg-[#bcffbb] text-[#16a34a] flex items-center justify-center shadow-xs">
-                <Target className="h-6 w-6" />
+          <div className="grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-slate-200 border-t border-b border-slate-200">
+            <div className="py-8 md:p-8 lg:p-10 space-y-4">
+              <div className="w-10 h-10 rounded-xl bg-[#bcffbb] text-[#16a34a] flex items-center justify-center">
+                <Target className="h-5 w-5" />
               </div>
-              <h2 className="font-heading text-xl font-semibold text-[#0a1e3f]">Our Mission</h2>
-              <p className="text-[#0a1e3f]/75 text-xs sm:text-sm leading-relaxed">
+              <h2 className="font-heading text-2xl font-semibold text-[#0a1e3f]">Our Mission</h2>
+              <p className="text-[#0a1e3f]/75 text-sm leading-relaxed">
                 To deliver accessible, dependable, and sustainable financial services that enable individuals, small businesses, and commercial institutions to achieve financial stability and economic growth.
               </p>
             </div>
             
-            <div className="p-6 sm:p-8 rounded-3xl bg-white border border-[#e2e8f0] shadow-sm hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 space-y-4">
-              <div className="w-12 h-12 rounded-2xl bg-[#f0f7ff] text-[#0284c7] flex items-center justify-center shadow-xs">
-                <Eye className="h-6 w-6" />
+            <div className="py-8 md:p-8 lg:p-10 space-y-4">
+              <div className="w-10 h-10 rounded-xl bg-[#f0f7ff] text-[#0284c7] flex items-center justify-center">
+                <Eye className="h-5 w-5" />
               </div>
-              <h2 className="font-heading text-xl font-semibold text-[#0a1e3f]">Our Vision</h2>
-              <p className="text-[#0a1e3f]/75 text-xs sm:text-sm leading-relaxed">
+              <h2 className="font-heading text-2xl font-semibold text-[#0a1e3f]">Our Vision</h2>
+              <p className="text-[#0a1e3f]/75 text-sm leading-relaxed">
                 To be the primary microfinance bank in Rivers State, recognized for regulatory discipline, technological stability, and lasting positive community impact.
               </p>
             </div>
@@ -184,10 +184,10 @@ export default function About() {
         </div>
       </section>
 
-      {/* Institutional Values */}
-      <section className="py-10 sm:py-12 md:py-16 bg-[#f8fafc] border-b border-[#e2e8f0]/60">
+      {/* Institutional Values (Minimal Open Grid) */}
+      <section className="py-14 sm:py-20 bg-white border-b border-[#e2e8f0]/60">
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
-          <div className="mb-8">
+          <div className="max-w-2xl mb-12">
             <span className="text-xs font-semibold uppercase tracking-wider text-[#0284c7] block mb-1">
               Institutional Values
             </span>
@@ -196,18 +196,18 @@ export default function About() {
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {coreValues.map((value, idx) => (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-10 border-t border-[#e2e8f0] pt-10">
+            {coreValues.map((value) => (
               <div 
                 key={value.title} 
-                className="p-6 rounded-3xl bg-white border border-[#e2e8f0] hover:border-[#0284c7]/40 hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between"
+                className="flex flex-col justify-between"
               >
                 <div>
                   <div
-                    className="w-12 h-12 rounded-2xl flex items-center justify-center mb-4 shadow-xs"
+                    className="w-10 h-10 rounded-xl flex items-center justify-center mb-4"
                     style={{ backgroundColor: value.bg, color: value.color }}
                   >
-                    <value.icon className="h-6 w-6" />
+                    <value.icon className="h-5 w-5" />
                   </div>
                   <h3 className="font-heading text-base font-semibold text-[#0a1e3f] mb-1.5">{value.title}</h3>
                   <p className="text-xs text-[#64748b] leading-relaxed">{value.description}</p>
@@ -219,7 +219,7 @@ export default function About() {
       </section>
 
       {/* Corporate Governance */}
-      <section className="py-10 sm:py-12 md:py-16 bg-white border-b border-[#e2e8f0]/60">
+      <section className="py-14 sm:py-20 bg-white border-b border-[#e2e8f0]/60">
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
           <div className="mb-8">
             <span className="text-xs font-semibold uppercase tracking-wider text-[#0284c7] block mb-1">
@@ -237,10 +237,10 @@ export default function About() {
         </div>
       </section>
 
-      {/* Historical Milestones 3-Column Grid */}
-      <section className="py-12 sm:py-14 md:py-16 bg-[#0a1e3f] text-white">
+      {/* Historical Milestones (Minimal Open Layout) */}
+      <section className="py-14 sm:py-20 bg-[#0a1e3f] text-white">
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
-          <div className="max-w-2xl mb-10">
+          <div className="max-w-2xl mb-12">
             <span className="text-xs font-semibold uppercase tracking-wider text-[#38bdf8] block mb-1.5">
               Chronology of Growth
             </span>
@@ -249,16 +249,14 @@ export default function About() {
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {milestones.map((m, idx) => (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 border-t border-white/10 pt-10">
+            {milestones.map((m) => (
               <div 
                 key={m.year} 
-                className="p-6 rounded-3xl bg-white/5 border border-white/10 hover:border-[#38bdf8]/40 transition-all duration-300 flex flex-col justify-between"
+                className="space-y-2"
               >
-                <div>
-                  <span className="font-heading text-2xl sm:text-3xl font-bold text-[#38bdf8] block mb-2">{m.year}</span>
-                  <p className="text-xs text-blue-100/80 leading-relaxed">{m.event}</p>
-                </div>
+                <span className="font-heading text-2xl sm:text-3xl font-bold text-[#38bdf8] block">{m.year}</span>
+                <p className="text-xs text-blue-100/80 leading-relaxed">{m.event}</p>
               </div>
             ))}
           </div>

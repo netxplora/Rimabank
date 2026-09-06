@@ -84,9 +84,9 @@ export default function LoanServices() {
     >
       <div className="mt-6 space-y-10 sm:space-y-12">
         
-        {/* Credit Facilities Grid with 3D Elevation */}
+        {/* Credit Facilities (Minimal Open Layout) */}
         <section id="loan-types">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2 mb-6">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2 mb-8">
             <div>
               <span className="text-xs font-semibold uppercase tracking-wider text-[#0284c7] block mb-1">
                 Credit Categories
@@ -101,21 +101,21 @@ export default function LoanServices() {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {loanTypes.map((loan, idx) => (
+          <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-slate-200 border-t border-b border-slate-200">
+            {loanTypes.map((loan) => (
               <div 
                 key={loan.id} 
-                className="p-6 rounded-3xl bg-white border border-[#e2e8f0] flex flex-col justify-between hover:border-[#0284c7]/40 shadow-sm hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 relative group overflow-hidden"
+                className="py-8 md:p-6 lg:p-8 flex flex-col justify-between"
               >
                 <div className="space-y-4">
                   <div className="flex items-center justify-between">
                     <div 
-                      className="w-12 h-12 rounded-2xl flex items-center justify-center shadow-xs group-hover:scale-105 transition-transform"
+                      className="w-10 h-10 rounded-xl flex items-center justify-center"
                       style={{ backgroundColor: loan.bg, color: loan.accent }}
                     >
-                      <loan.icon className="h-6 w-6" />
+                      <loan.icon className="h-5 w-5" />
                     </div>
-                    <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-[#f8fafc] text-[#0a1e3f] border border-[#e2e8f0]">
+                    <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-[#f8fafc] text-[#0a1e3f] border border-[#e2e8f0]">
                       {loan.badge}
                     </span>
                   </div>
@@ -135,7 +135,7 @@ export default function LoanServices() {
                   </div>
                 </div>
 
-                <div className="pt-4 mt-4 border-t border-[#e2e8f0] text-[11px] text-[#64748b] bg-[#f8fafc] -mx-6 -mb-6 p-4 rounded-b-3xl">
+                <div className="pt-4 mt-6 border-t border-[#e2e8f0] text-[11px] text-[#64748b]">
                   <span className="font-semibold text-[#0a1e3f]">Eligibility: </span>{loan.whoItIsFor}
                 </div>
               </div>
@@ -166,7 +166,7 @@ export default function LoanServices() {
           </div>
         </section>
 
-        {/* 4-Step Loan Application Workflow */}
+        {/* 4-Step Loan Application Workflow (Minimal Open Layout) */}
         <section className="bg-[#0a1e3f] text-white rounded-3xl p-6 sm:p-8 lg:p-10 relative overflow-hidden shadow-xl border border-white/10">
           <div className="absolute top-0 right-0 w-80 h-80 bg-[#0284c7]/20 rounded-full blur-3xl pointer-events-none" />
           
@@ -180,27 +180,27 @@ export default function LoanServices() {
               </h2>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-              <div className="p-4 rounded-2xl bg-white/5 border border-white/10 space-y-2">
-                <div className="w-8 h-8 rounded-full bg-[#38bdf8] text-[#0a1e3f] font-bold text-xs flex items-center justify-center">1</div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 pt-4 border-t border-white/10">
+              <div className="space-y-2">
+                <div className="text-xs font-bold text-[#38bdf8] uppercase tracking-widest">Step 01</div>
                 <h4 className="font-heading text-sm font-semibold text-white">Submit Request</h4>
                 <p className="text-xs text-blue-100/75 leading-relaxed">Complete the credit application online or at any branch customer desk.</p>
               </div>
 
-              <div className="p-4 rounded-2xl bg-white/5 border border-white/10 space-y-2">
-                <div className="w-8 h-8 rounded-full bg-[#38bdf8] text-[#0a1e3f] font-bold text-xs flex items-center justify-center">2</div>
+              <div className="space-y-2">
+                <div className="text-xs font-bold text-[#38bdf8] uppercase tracking-widest">Step 02</div>
                 <h4 className="font-heading text-sm font-semibold text-white">Document Review</h4>
                 <p className="text-xs text-blue-100/75 leading-relaxed">Provide 3-6 months bank statement and valid identification documents.</p>
               </div>
 
-              <div className="p-4 rounded-2xl bg-white/5 border border-white/10 space-y-2">
-                <div className="w-8 h-8 rounded-full bg-[#38bdf8] text-[#0a1e3f] font-bold text-xs flex items-center justify-center">3</div>
+              <div className="space-y-2">
+                <div className="text-xs font-bold text-[#38bdf8] uppercase tracking-widest">Step 03</div>
                 <h4 className="font-heading text-sm font-semibold text-white">Credit Assessment</h4>
                 <p className="text-xs text-blue-100/75 leading-relaxed">Credit analysts evaluate turnover and determine optimum facility terms.</p>
               </div>
 
-              <div className="p-4 rounded-2xl bg-white/5 border border-white/10 space-y-2">
-                <div className="w-8 h-8 rounded-full bg-[#4ade80] text-[#0a1e3f] font-bold text-xs flex items-center justify-center">4</div>
+              <div className="space-y-2">
+                <div className="text-xs font-bold text-[#4ade80] uppercase tracking-widest">Step 04</div>
                 <h4 className="font-heading text-sm font-semibold text-white">Fast Disbursement</h4>
                 <p className="text-xs text-blue-100/75 leading-relaxed">Approved loan funds are credited directly to your verified Rima MFB account.</p>
               </div>

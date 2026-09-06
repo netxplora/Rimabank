@@ -162,10 +162,10 @@ export default function AgentBanking() {
         </div>
       </section>
 
-      {/* Partner Advantages Grid */}
-      <section className="py-10 sm:py-12 md:py-16 bg-white border-b border-[#e2e8f0]/60">
+      {/* Partner Advantages (Minimal Open Layout) */}
+      <section className="py-14 sm:py-20 bg-white border-b border-[#e2e8f0]/60">
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
-          <div className="mb-8">
+          <div className="max-w-2xl mb-12">
             <span className="text-xs font-semibold uppercase tracking-wider text-[#0284c7] block mb-1">
               Partner Advantages
             </span>
@@ -174,18 +174,18 @@ export default function AgentBanking() {
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 border-t border-[#e2e8f0] pt-10">
             {agentBenefits.map((benefit, idx) => (
               <div
                 key={idx}
-                className="p-6 rounded-3xl bg-white border border-[#e2e8f0] hover:border-[#0284c7]/40 hover:-translate-y-1 hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
+                className="flex flex-col justify-between"
               >
                 <div>
                   <div
-                    className="w-12 h-12 rounded-2xl flex items-center justify-center mb-4 shadow-xs"
+                    className="w-10 h-10 rounded-xl flex items-center justify-center mb-4"
                     style={{ backgroundColor: benefit.bg, color: benefit.color }}
                   >
-                    <benefit.icon className="h-6 w-6" />
+                    <benefit.icon className="h-5 w-5" />
                   </div>
                   <h3 className="font-heading text-base font-semibold text-[#0a1e3f] mb-1.5">{benefit.title}</h3>
                   <p className="text-xs text-[#64748b] leading-relaxed">{benefit.description}</p>
@@ -197,7 +197,7 @@ export default function AgentBanking() {
       </section>
 
       {/* Interactive Agent Commission Estimator */}
-      <section className="py-10 sm:py-12 md:py-16 bg-[#f8fafc] border-b border-[#e2e8f0]/60">
+      <section className="py-14 sm:py-20 bg-[#f8fafc] border-b border-[#e2e8f0]/60">
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
           <div className="max-w-2xl mb-8">
             <span className="text-xs font-semibold uppercase tracking-wider text-[#0284c7] block mb-1">
@@ -314,24 +314,25 @@ export default function AgentBanking() {
         </div>
       </section>
 
-      {/* Services Menu & Eligibility Criteria */}
-      <section className="py-10 sm:py-12 md:py-16 bg-white border-b border-[#e2e8f0]/60">
+      {/* Services Menu & Eligibility Criteria (Minimal Open Layout) */}
+      <section className="py-14 sm:py-20 bg-white border-b border-[#e2e8f0]/60">
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
             
             {/* Left Services Menu (7 cols) */}
-            <div className="lg:col-span-7 space-y-5">
+            <div className="lg:col-span-7 space-y-6">
               <span className="text-xs font-semibold uppercase tracking-wider text-[#0284c7] block">
                 Transaction Menu
               </span>
               <h2 className="font-heading text-2xl sm:text-3xl lg:text-4xl font-semibold text-[#0a1e3f] tracking-tight leading-[1.1]">
                 Services you will offer to your customers.
               </h2>
-              <p className="text-[#0a1e3f]/80 text-xs sm:text-sm leading-relaxed">
+              <p className="text-[#0a1e3f]/80 text-sm sm:text-base leading-relaxed">
                 As a certified agent, you will be equipped with a high-speed terminal configured for immediate settlement across all major payment types.
               </p>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+              {/* Open 2-Column Checklist (No Box Containers) */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
                 {[
                   "Cash deposits into any Nigerian bank account",
                   "Instant cash withdrawals via Debit Card PIN",
@@ -340,7 +341,7 @@ export default function AgentBanking() {
                   "Airtime, data, and Cable TV recharge",
                   "Customer balance inquiries & mini-statements"
                 ].map((service, idx) => (
-                  <div key={idx} className="flex items-start gap-2.5 p-3 rounded-xl bg-white border border-[#e2e8f0] shadow-xs">
+                  <div key={idx} className="flex items-start gap-2.5 p-2 rounded-lg hover:bg-[#f0f7ff]/70 transition-colors">
                     <CheckCircle2 className="h-4 w-4 text-[#16a34a] shrink-0 mt-0.5" />
                     <span className="text-xs font-medium text-[#0a1e3f] leading-snug">{service}</span>
                   </div>
@@ -348,11 +349,11 @@ export default function AgentBanking() {
               </div>
             </div>
 
-            {/* Right Eligibility 3D Card (5 cols) */}
+            {/* Right Eligibility Summary (5 cols) */}
             <div className="lg:col-span-5 perspective-1000">
-              <div className="rounded-3xl bg-[#f8fafc] border border-[#e2e8f0] p-6 sm:p-8 shadow-sm space-y-4">
+              <div className="rounded-2xl bg-gradient-to-br from-[#f0f7ff] to-white border border-[#e2e8f0] p-6 sm:p-8 shadow-sm space-y-4">
                 <div className="flex items-center gap-2.5 pb-3 border-b border-[#e2e8f0]">
-                  <div className="w-10 h-10 rounded-2xl bg-[#0284c7] text-white flex items-center justify-center font-bold">
+                  <div className="w-10 h-10 rounded-xl bg-[#0284c7] text-white flex items-center justify-center font-bold">
                     <ShieldCheck className="h-5 w-5" />
                   </div>
                   <div>
@@ -363,26 +364,26 @@ export default function AgentBanking() {
                   </div>
                 </div>
 
-                <ul className="space-y-3 text-xs text-[#0a1e3f]/85">
-                  <li className="flex items-start gap-2.5 p-2.5 rounded-xl bg-white border border-[#e2e8f0]">
-                    <span className="w-2 h-2 rounded-full bg-[#0284c7] shrink-0 mt-1" />
+                <ul className="space-y-2.5 text-xs text-[#0a1e3f]/85">
+                  <li className="flex items-start gap-2">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#0284c7] shrink-0 mt-1.5" />
                     <span>Existing physical commercial premise, shop, or retail outlet.</span>
                   </li>
-                  <li className="flex items-start gap-2.5 p-2.5 rounded-xl bg-white border border-[#e2e8f0]">
-                    <span className="w-2 h-2 rounded-full bg-[#0284c7] shrink-0 mt-1" />
+                  <li className="flex items-start gap-2">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#0284c7] shrink-0 mt-1.5" />
                     <span>Valid National Identification Number (NIN) or Voter's Card.</span>
                   </li>
-                  <li className="flex items-start gap-2.5 p-2.5 rounded-xl bg-white border border-[#e2e8f0]">
-                    <span className="w-2 h-2 rounded-full bg-[#0284c7] shrink-0 mt-1" />
+                  <li className="flex items-start gap-2">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#0284c7] shrink-0 mt-1.5" />
                     <span>Recent utility bill (Electricity or Water) of the business location.</span>
                   </li>
-                  <li className="flex items-start gap-2.5 p-2.5 rounded-xl bg-white border border-[#e2e8f0]">
-                    <span className="w-2 h-2 rounded-full bg-[#0284c7] shrink-0 mt-1" />
+                  <li className="flex items-start gap-2">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#0284c7] shrink-0 mt-1.5" />
                     <span>Minimum working float capital for daily cash operations.</span>
                   </li>
                 </ul>
 
-                <div className="pt-2 text-center">
+                <div className="pt-3 border-t border-[#e2e8f0] text-center">
                   <span className="text-[10px] font-semibold text-[#0284c7] uppercase tracking-wider">
                     Fast 48-Hour Onboarding Review
                   </span>

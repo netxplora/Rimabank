@@ -305,33 +305,39 @@ export default function BusinessBanking() {
         </div>
       </section>
 
+      {/* ── 3. Corporate Solutions (Minimal Open Editorial Layout) ── */}
       <section className="py-14 sm:py-20 bg-white border-b border-[#e2e8f0]">
         <div className="max-w-[1240px] mx-auto px-4 sm:px-6">
-          <div className="max-w-2xl mb-10">
-            <span className="text-xs font-semibold uppercase tracking-wider text-[#0284c7] block mb-1">
-              Corporate Solutions
-            </span>
-            <h2 className="font-heading text-2xl sm:text-3xl lg:text-4xl font-bold text-[#0a1e3f] tracking-tight leading-tight">
-              Commercial accounts tailored to your industry.
-            </h2>
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-12">
+            <div>
+              <span className="text-xs font-semibold uppercase tracking-wider text-[#0284c7] block mb-1">
+                Corporate Solutions
+              </span>
+              <h2 className="font-heading text-2xl sm:text-3xl lg:text-4xl font-bold text-[#0a1e3f] tracking-tight leading-tight">
+                Commercial accounts tailored to your industry.
+              </h2>
+            </div>
+            <p className="text-slate-500 text-xs sm:text-sm max-w-sm md:text-right leading-relaxed">
+              Structured checking accounts, corporate treasury placements, and dedicated credit facilities for regional enterprises.
+            </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-slate-200 border-t border-b border-slate-200">
             {businessServices.map((service) => (
               <div
                 key={service.id}
-                className="p-6 sm:p-7 rounded-2xl bg-white border border-[#e2e8f0] flex flex-col justify-between hover:border-slate-300 hover:shadow-lg transition-all duration-200"
+                className="py-8 md:p-6 lg:p-8 flex flex-col justify-between"
               >
                 <div>
                   <div className="flex items-center justify-between mb-4">
                     <div
-                      className="w-10 h-10 rounded-xl flex items-center justify-center shadow-xs"
+                      className="w-10 h-10 rounded-xl flex items-center justify-center"
                       style={{ backgroundColor: service.bg, color: service.accent }}
                     >
                       <service.icon className="h-5 w-5" />
                     </div>
                     <span
-                      className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full border border-black/5"
+                      className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full"
                       style={{ backgroundColor: service.bg, color: service.accent }}
                     >
                       {service.rate}
@@ -342,12 +348,12 @@ export default function BusinessBanking() {
                     {service.title}
                   </h3>
 
-                  <p className="text-xs text-slate-600 leading-relaxed mb-4">
+                  <p className="text-xs text-slate-600 leading-relaxed mb-5">
                     {service.description}
                   </p>
 
-                  <div className="space-y-2 mb-4 pt-3.5 border-t border-slate-100">
-                    {service.benefits.map((benefit, i) => (
+                  <div className="space-y-2 mb-6 pt-4 border-t border-slate-100">
+                    {service.benefits.slice(0, 4).map((benefit, i) => (
                       <div key={i} className="flex items-start gap-2 text-xs text-[#0a1e3f]">
                         <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600 shrink-0 mt-0.5" />
                         <span>{benefit}</span>
@@ -355,28 +361,14 @@ export default function BusinessBanking() {
                     ))}
                   </div>
 
-                  <Accordion type="single" collapsible className="w-full mb-6">
-                    <AccordionItem value="requirements" className="border-slate-200">
-                      <AccordionTrigger className="py-2 text-xs font-semibold text-[#0a1e3f] hover:no-underline">
-                        Documentation & CAC Requirements
-                      </AccordionTrigger>
-                      <AccordionContent>
-                        <ul className="list-disc pl-4 space-y-1 text-xs text-slate-600">
-                          {service.requirements.map((req, i) => (
-                            <li key={i}>{req}</li>
-                          ))}
-                        </ul>
-                      </AccordionContent>
-                    </AccordionItem>
-                    <AccordionItem value="fees" className="border-slate-200">
-                      <AccordionTrigger className="py-2 text-xs font-semibold text-[#0a1e3f] hover:no-underline">
-                        Tariff & Commercial Pricing
-                      </AccordionTrigger>
-                      <AccordionContent className="text-xs text-slate-600">
-                        {service.fees}
-                      </AccordionContent>
-                    </AccordionItem>
-                  </Accordion>
+                  <div className="space-y-2 text-xs text-slate-600 mb-6 pt-3 border-t border-slate-100">
+                    <div className="font-semibold text-[#0a1e3f] text-[11px] uppercase tracking-wider">CAC Documentation:</div>
+                    <ul className="list-disc pl-4 space-y-1 text-[11px] text-slate-500">
+                      {service.requirements.slice(0, 3).map((req, i) => (
+                        <li key={i}>{req}</li>
+                      ))}
+                    </ul>
+                  </div>
                 </div>
 
                 <div className="pt-4 border-t border-slate-100">
@@ -399,30 +391,30 @@ export default function BusinessBanking() {
       </section>
 
       {/* Corporate Advisory & Governance Section */}
-      <section className="py-10 sm:py-12 md:py-16 bg-[#f8fafc] border-b border-[#e2e8f0]/60">
+      <section className="py-14 sm:py-20 bg-white border-b border-[#e2e8f0]/60">
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
             {/* Left Capabilities (7 cols) */}
-            <div className="lg:col-span-7 space-y-5">
+            <div className="lg:col-span-7 space-y-6">
               <span className="text-xs font-semibold uppercase tracking-wider text-[#0284c7] block">
                 Commercial Infrastructure
               </span>
               <h2 className="font-heading text-2xl sm:text-3xl lg:text-4xl font-semibold text-[#0a1e3f] tracking-tight leading-[1.1]">
                 Enterprise cash flow & merchant settlement.
               </h2>
-              <p className="text-[#0a1e3f]/80 text-xs sm:text-sm leading-relaxed">
+              <p className="text-[#0a1e3f]/80 text-sm sm:text-base leading-relaxed">
                 Connect your business to instant settlement payment infrastructure with multi-signatory governance, automated bulk payroll, and dedicated credit lines.
               </p>
 
-              {/* 2-Column Capabilities Checklist Grid */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+              {/* Open 2-Column Capabilities Checklist (No Box Containers) */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
                 {[
                   "Automated bulk staff payroll distribution",
                   "Fast settlement merchant POS terminal infrastructure",
                   "Direct vendor transfers with instant digital receipts",
                   "Customized trade finance and working capital"
                 ].map((item, i) => (
-                  <div key={i} className="flex items-start gap-2.5 p-3 rounded-2xl bg-white border border-[#e2e8f0] shadow-xs">
+                  <div key={i} className="flex items-start gap-2.5 p-2 rounded-lg hover:bg-[#f0f7ff]/70 transition-colors">
                     <CheckCircle2 className="h-4 w-4 text-[#16a34a] shrink-0 mt-0.5" />
                     <span className="text-xs font-medium text-[#0a1e3f] leading-snug">{item}</span>
                   </div>
@@ -444,11 +436,11 @@ export default function BusinessBanking() {
               </div>
             </div>
 
-            {/* Right Desk Card (5 cols) */}
+            {/* Right Desk Summary (5 cols) */}
             <div className="lg:col-span-5 perspective-1000">
-              <div className="rounded-3xl bg-white border border-[#e2e8f0] p-6 sm:p-8 space-y-4 shadow-sm">
+              <div className="rounded-2xl bg-gradient-to-br from-[#f0f7ff] to-white border border-[#e2e8f0] p-6 sm:p-8 space-y-4 shadow-sm">
                 <div className="flex items-center gap-2.5 pb-3 border-b border-[#e2e8f0]">
-                  <div className="w-10 h-10 rounded-2xl bg-[#0284c7] text-white flex items-center justify-center font-bold">
+                  <div className="w-10 h-10 rounded-xl bg-[#0284c7] text-white flex items-center justify-center font-bold">
                     <ShieldCheck className="h-5 w-5" />
                   </div>
                   <div>
@@ -459,8 +451,8 @@ export default function BusinessBanking() {
 
                 <div className="space-y-3 text-xs text-[#0a1e3f]/85">
                   <p>Every commercial account is assigned an accredited relationship manager based in Port Harcourt to ensure prompt resolution of trade finance and operational requests.</p>
-                  <div className="p-4 rounded-2xl bg-[#f0f7ff] border border-[#e2e8f0]">
-                    <span className="font-semibold text-[#0a1e3f] block mb-2">Documentation Requirements:</span>
+                  <div className="pt-2 border-t border-[#e2e8f0]">
+                    <span className="font-semibold text-[#0a1e3f] block mb-1 text-[11px] uppercase tracking-wider">Required Corporate Records:</span>
                     <ul className="list-disc pl-4 space-y-1 text-[#64748b] text-[11px]">
                       <li>CAC Certificate of Incorporation</li>
                       <li>Status Report / Memorandum & Articles</li>
