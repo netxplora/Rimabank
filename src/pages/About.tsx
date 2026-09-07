@@ -283,7 +283,7 @@ export default function About() {
               </div>
               <h2 className="font-heading text-xl font-semibold text-[#0a1e3f]">Our Mission</h2>
               <p className="text-[#0a1e3f]/75 text-xs sm:text-sm leading-relaxed">
-                To deliver accessible, dependable, and sustainable financial services that enable individuals, small businesses, and commercial institutions to achieve financial stability and long-term economic growth.
+                {about?.mission || "To deliver accessible, dependable, and sustainable financial services that enable individuals, small businesses, and commercial institutions to achieve financial stability and long-term economic growth."}
               </p>
             </div>
             
@@ -293,7 +293,7 @@ export default function About() {
               </div>
               <h2 className="font-heading text-xl font-semibold text-[#0a1e3f]">Our Vision</h2>
               <p className="text-[#0a1e3f]/75 text-xs sm:text-sm leading-relaxed">
-                To be the benchmark microfinance bank in Rivers State, recognized for regulatory discipline, technological reliability, and lasting positive community impact.
+                {about?.vision || "To be the benchmark microfinance bank in Rivers State, recognized for regulatory discipline, technological reliability, and lasting positive community impact."}
               </p>
             </div>
           </div>

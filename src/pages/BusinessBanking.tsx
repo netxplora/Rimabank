@@ -230,7 +230,7 @@ export default function BusinessBanking() {
         </div>
       </section>
 
-      <section className="py-12 sm:py-16 bg-white border-b border-[#e2e8f0]">
+      <section className="py-8 sm:py-10 bg-white border-b border-[#e2e8f0]">
         <div className="max-w-[1240px] mx-auto px-4 sm:px-6">
           <div className="rounded-3xl bg-[#0a1e3f] text-white p-6 sm:p-10 lg:p-12 border border-blue-900 shadow-xl">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
@@ -391,7 +391,7 @@ export default function BusinessBanking() {
       </section>
 
       {/* Corporate Advisory & Governance Section */}
-      <section className="py-14 sm:py-20 bg-white border-b border-[#e2e8f0]/60">
+      <section className="py-8 sm:py-10 md:py-12 bg-white border-b border-[#e2e8f0]/60">
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
             {/* Left Capabilities (7 cols) */}

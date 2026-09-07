@@ -24,9 +24,9 @@ const quickLinks = [
   { name: "About Rima MFB", href: "/about" },
   { name: "Branch Network", href: "/branches" },
   { name: "Media & News", href: "/media" },
-  { name: "Customer Support", href: "/support" },
-  { name: "Forms & Downloads", href: "/contact" },
+  { name: "Contact & Support", href: "/contact" },
   { name: "Help & FAQ", href: "/faq" },
+  { name: "Whistleblowing", href: "/whistle-blowing" },
 ];
 
 const products = [
@@ -50,7 +50,9 @@ const legal = [
 export function Footer() {
   const [newsletterEmail, setNewsletterEmail] = useState("");
   const [isSubscribing, setIsSubscribing] = useState(false);
-  const { addEnquiry } = useCMS();
+  const { siteContent, addEnquiry } = useCMS();
+  const footer = siteContent?.footer;
+  const contactInfo = siteContent?.contactInfo;
 
   const handleSubscribe = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -188,26 +190,26 @@ export function Footer() {
             <div className="space-y-2.5 text-xs text-blue-100/85 pt-1">
               <div className="flex items-start gap-2">
                 <MapPin className="h-3.5 w-3.5 text-[#38bdf8] shrink-0 mt-0.5" />
-                <span className="text-[11px] leading-snug">No. 3 Evo Crescent, New GRA, Port Harcourt, Rivers State</span>
+                <span className="text-[11px] leading-snug">{contactInfo?.headquarters || "No. 3 Evo Crescent, New GRA, Port Harcourt, Rivers State"}</span>
               </div>
 
               {/* Responsive Horizontal Contact Row */}
               <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5 text-[11px]">
-                <a href="tel:+2348119477050" className="flex items-center gap-1.5 hover:text-[#38bdf8] transition-colors">
+                <a href={`tel:${(contactInfo?.phone || "+2348119477050").replace(/\s+/g, '')}`} className="flex items-center gap-1.5 hover:text-[#38bdf8] transition-colors">
                   <Phone className="h-3.5 w-3.5 text-[#38bdf8] shrink-0" />
-                  <span>+234 811 947 7050</span>
+                  <span>{contactInfo?.phone || "+234 811 947 7050"}</span>
                 </a>
                 <span className="text-white/20 hidden sm:inline">&bull;</span>
-                <a href="mailto:info@rimamfb.com" className="flex items-center gap-1.5 hover:text-[#38bdf8] transition-colors">
+                <a href={`mailto:${contactInfo?.email || "info@rimamfb.com"}`} className="flex items-center gap-1.5 hover:text-[#38bdf8] transition-colors">
                   <Mail className="h-3.5 w-3.5 text-[#38bdf8] shrink-0" />
-                  <span>info@rimamfb.com</span>
+                  <span>{contactInfo?.email || "info@rimamfb.com"}</span>
                 </a>
               </div>
 
               {/* Action & Regulatory Badges Row */}
               <div className="flex flex-wrap items-center gap-2 pt-1.5">
                 <a
-                  href="https://wa.me/2348119477050"
+                  href={`https://wa.me/${(contactInfo?.whatsapp || "2348119477050").replace(/[^0-9]/g, '')}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#10b981]/15 text-[#10b981] border border-[#10b981]/30 hover:bg-[#10b981]/25 transition-all text-[10px] font-semibold"
@@ -300,34 +302,23 @@ export function Footer() {
           </p>
 
           <div className="flex items-center gap-2.5">
-            <a
-              href="#"
-              aria-label="Facebook"
-              className="w-7 h-7 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-blue-200/70 hover:text-white hover:bg-[#0284c7] hover:border-[#0284c7] transition-colors"
-            >
-              <Facebook className="h-3.5 w-3.5" />
-            </a>
-            <a
-              href="#"
-              aria-label="Twitter"
-              className="w-7 h-7 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-blue-200/70 hover:text-white hover:bg-[#0284c7] hover:border-[#0284c7] transition-colors"
-            >
-              <Twitter className="h-3.5 w-3.5" />
-            </a>
-            <a
-              href="#"
-              aria-label="Instagram"
-              className="w-7 h-7 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-blue-200/70 hover:text-white hover:bg-[#0284c7] hover:border-[#0284c7] transition-colors"
-            >
-              <Instagram className="h-3.5 w-3.5" />
-            </a>
-            <a
-              href="#"
-              aria-label="LinkedIn"
-              className="w-7 h-7 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-blue-200/70 hover:text-white hover:bg-[#0284c7] hover:border-[#0284c7] transition-colors"
-            >
-              <Linkedin className="h-3.5 w-3.5" />
-            </a>
+            {[
+              { platform: "facebook", url: footer?.facebookUrl || "#", Icon: Facebook },
+              { platform: "twitter", url: footer?.twitterUrl || "#", Icon: Twitter },
+              { platform: "instagram", url: footer?.instagramUrl || "#", Icon: Instagram },
+              { platform: "linkedin", url: footer?.linkedinUrl || "#", Icon: Linkedin },
+            ].map(({ platform, url, Icon }) => (
+              <a
+                key={platform}
+                href={url}
+                target="_blank"
+                rel="noreferrer"
+                aria-label={platform}
+                className="w-7 h-7 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-blue-200/70 hover:text-white hover:bg-[#0284c7] hover:border-[#0284c7] transition-colors"
+              >
+                <Icon className="h-3.5 w-3.5" />
+              </a>
+            ))}
           </div>
         </div>
       </div>

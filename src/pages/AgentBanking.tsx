@@ -47,12 +47,12 @@ export default function AgentBanking() {
   return (
     <Layout>
       {/* Editorial Hero with 3D POS Device Showcase */}
-      <section className="relative bg-white pt-8 pb-12 sm:pt-12 sm:pb-16 lg:pt-14 lg:pb-20 border-b border-[#e2e8f0]/60 overflow-hidden">
+      <section className="relative bg-white pt-6 pb-8 sm:pt-8 sm:pb-10 lg:pt-10 lg:pb-12 border-b border-[#e2e8f0]/60 overflow-hidden">
         <div className="absolute top-0 right-0 w-[550px] h-[550px] bg-[#f0f7ff] rounded-full blur-3xl -z-10 opacity-70 pointer-events-none" />
         <div className="absolute -bottom-20 left-10 w-[400px] h-[400px] bg-[#bcffbb]/20 rounded-full blur-3xl -z-10 opacity-50 pointer-events-none" />
 
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
             
             {/* Left Content (7 cols) */}
             <div className="lg:col-span-7 space-y-5 animate-in fade-in slide-in-from-bottom-8 duration-700">
@@ -197,7 +197,7 @@ export default function AgentBanking() {
       </section>
 
       {/* Interactive Agent Commission Estimator */}
-      <section className="py-14 sm:py-20 bg-[#f8fafc] border-b border-[#e2e8f0]/60">
+      <section className="py-8 sm:py-10 md:py-12 bg-[#f8fafc] border-b border-[#e2e8f0]/60">
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
           <div className="max-w-2xl mb-8">
             <span className="text-xs font-semibold uppercase tracking-wider text-[#0284c7] block mb-1">
@@ -315,7 +315,7 @@ export default function AgentBanking() {
       </section>
 
       {/* Services Menu & Eligibility Criteria (Minimal Open Layout) */}
-      <section className="py-14 sm:py-20 bg-white border-b border-[#e2e8f0]/60">
+      <section className="py-8 sm:py-10 md:py-12 bg-white border-b border-[#e2e8f0]/60">
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
             

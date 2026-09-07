@@ -51,7 +51,7 @@ interface MegaMenuCategory {
 }
 
 const whatWeOfferMenu: MegaMenuCategory = {
-  name: "What We Offer",
+  name: "Banking Solutions",
   href: "/personal-banking",
   summary: "Comprehensive commercial accounts, high-yield deposits, working capital, and retail payments designed for businesses and individuals.",
   groups: [
@@ -104,7 +104,7 @@ const whatWeOfferMenu: MegaMenuCategory = {
 };
 
 const whoWeAreMenu: MegaMenuCategory = {
-  name: "Who We Are",
+  name: "About Rima",
   href: "/about",
   summary: "A Central Bank of Nigeria licensed microfinance institution providing secure banking and economic empowerment since 1999.",
   groups: [
@@ -234,10 +234,10 @@ export function Header() {
       {/* ── 2. Primary Navigation Bar ── */}
       <header
         className={cn(
-          "sticky top-0 z-50 w-full transition-all duration-200 bg-white border-b",
+          "sticky top-0 z-50 w-full transition-all duration-200 glass-nav border-b",
           isScrolled
-            ? "border-[#cbd5e1] shadow-[0_4px_20px_rgba(10,30,63,0.06)]"
-            : "border-[#e2e8f0]"
+            ? "border-blue-200/50 shadow-brand"
+            : "border-transparent"
         )}
       >
         <div className="max-w-[1240px] mx-auto px-4 sm:px-6">
@@ -267,8 +267,8 @@ export function Header() {
             </Link>
 
             {/* Desktop Navigation Links (Only 2 Primary Mega Menus) */}
-            <nav className="hidden lg:flex items-center gap-1.5 flex-1 justify-center">
-              {/* Category 1: What We Offer */}
+            <nav className="hidden lg:flex items-center gap-1 flex-1 justify-center">
+              {/* Category 1: Banking Solutions */}
               <div
                 className="relative"
                 onMouseEnter={() => handleMouseEnter("offer")}
@@ -280,14 +280,14 @@ export function Header() {
                     setActiveDesktopMenu(activeDesktopMenu === "offer" ? null : "offer")
                   }
                   className={cn(
-                    "flex items-center gap-1.5 px-4 py-2 rounded-xl text-sm font-semibold transition-all duration-150 outline-none",
+                    "flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold transition-all duration-150 outline-none",
                     activeDesktopMenu === "offer" || isCategoryActive(whatWeOfferMenu)
                       ? "text-[#0284c7] bg-[#f0f7ff]"
                       : "text-[#0a1e3f] hover:text-[#0284c7] hover:bg-[#f0f7ff]/70"
                   )}
                   aria-expanded={activeDesktopMenu === "offer"}
                 >
-                  <span>What We Offer</span>
+                  <span>Banking Solutions</span>
                   <ChevronDown
                     className={cn(
                       "h-3.5 w-3.5 transition-transform duration-200",
@@ -297,7 +297,20 @@ export function Header() {
                 </button>
               </div>
 
-              {/* Category 2: Who We Are */}
+              {/* Direct Link: Digital Banking */}
+              <Link
+                to="/digital-banking"
+                className={cn(
+                  "px-3.5 py-2 rounded-xl text-xs font-semibold transition-all duration-150",
+                  location.pathname === "/digital-banking"
+                    ? "text-[#0284c7] bg-[#f0f7ff]"
+                    : "text-[#0a1e3f] hover:text-[#0284c7] hover:bg-[#f0f7ff]/70"
+                )}
+              >
+                Digital Banking
+              </Link>
+
+              {/* Category 2: About Rima */}
               <div
                 className="relative"
                 onMouseEnter={() => handleMouseEnter("about")}
@@ -309,14 +322,14 @@ export function Header() {
                     setActiveDesktopMenu(activeDesktopMenu === "about" ? null : "about")
                   }
                   className={cn(
-                    "flex items-center gap-1.5 px-4 py-2 rounded-xl text-sm font-semibold transition-all duration-150 outline-none",
+                    "flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold transition-all duration-150 outline-none",
                     activeDesktopMenu === "about" || isCategoryActive(whoWeAreMenu)
                       ? "text-[#0284c7] bg-[#f0f7ff]"
                       : "text-[#0a1e3f] hover:text-[#0284c7] hover:bg-[#f0f7ff]/70"
                   )}
                   aria-expanded={activeDesktopMenu === "about"}
                 >
-                  <span>Who We Are</span>
+                  <span>About Rima</span>
                   <ChevronDown
                     className={cn(
                       "h-3.5 w-3.5 transition-transform duration-200",
@@ -325,6 +338,32 @@ export function Header() {
                   />
                 </button>
               </div>
+
+              {/* Direct Link: Branches */}
+              <Link
+                to="/branches"
+                className={cn(
+                  "px-3.5 py-2 rounded-xl text-xs font-semibold transition-all duration-150",
+                  location.pathname === "/branches"
+                    ? "text-[#0284c7] bg-[#f0f7ff]"
+                    : "text-[#0a1e3f] hover:text-[#0284c7] hover:bg-[#f0f7ff]/70"
+                )}
+              >
+                Branches
+              </Link>
+
+              {/* Direct Link: Contact & Support */}
+              <Link
+                to="/contact"
+                className={cn(
+                  "px-3.5 py-2 rounded-xl text-xs font-semibold transition-all duration-150",
+                  location.pathname === "/contact"
+                    ? "text-[#0284c7] bg-[#f0f7ff]"
+                    : "text-[#0a1e3f] hover:text-[#0284c7] hover:bg-[#f0f7ff]/70"
+                )}
+              >
+                Contact & Support
+              </Link>
             </nav>
 
             {/* Desktop Actions: Create Account */}
@@ -568,7 +607,7 @@ export function Header() {
 
           {/* Drawer Body (Scrollable) */}
           <div className="flex-1 overflow-y-auto px-4 py-5 space-y-4">
-            {/* Category 1: What We Offer Accordion */}
+            {/* Category 1: Banking Solutions Accordion */}
             <div className="border border-[#e2e8f0] rounded-2xl overflow-hidden shadow-xs">
               <button
                 type="button"
@@ -581,7 +620,7 @@ export function Header() {
               >
                 <div className="flex items-center gap-2.5">
                   <Briefcase className="h-4 w-4 text-[#0284c7]" />
-                  <span>What We Offer</span>
+                  <span>Banking Solutions</span>
                 </div>
                 <ChevronDown
                   className={cn(
@@ -618,7 +657,17 @@ export function Header() {
               )}
             </div>
 
-            {/* Category 2: Who We Are Accordion */}
+            {/* Direct Mobile Link: Digital Banking */}
+            <Link
+              to="/digital-banking"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="flex items-center justify-between p-3.5 rounded-2xl border border-[#e2e8f0] font-heading font-bold text-xs text-[#0a1e3f] bg-slate-50/70 hover:bg-slate-100 transition-colors"
+            >
+              <span>Digital Banking</span>
+              <ArrowRight className="h-3.5 w-3.5 text-[#0284c7]" />
+            </Link>
+
+            {/* Category 2: About Rima Accordion */}
             <div className="border border-[#e2e8f0] rounded-2xl overflow-hidden shadow-xs">
               <button
                 type="button"
@@ -631,7 +680,7 @@ export function Header() {
               >
                 <div className="flex items-center gap-2.5">
                   <Building2 className="h-4 w-4 text-[#0284c7]" />
-                  <span>Who We Are</span>
+                  <span>About Rima</span>
                 </div>
                 <ChevronDown
                   className={cn(
@@ -665,6 +714,24 @@ export function Header() {
                   ))}
                 </div>
               )}
+            </div>
+
+            {/* Direct Mobile Links: Branches & Contact */}
+            <div className="grid grid-cols-2 gap-2">
+              <Link
+                to="/branches"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="p-3 text-center rounded-2xl border border-[#e2e8f0] font-heading font-bold text-xs text-[#0a1e3f] bg-slate-50/70 hover:bg-slate-100 transition-colors"
+              >
+                Branches
+              </Link>
+              <Link
+                to="/contact"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="p-3 text-center rounded-2xl border border-[#e2e8f0] font-heading font-bold text-xs text-[#0a1e3f] bg-slate-50/70 hover:bg-slate-100 transition-colors"
+              >
+                Contact & Support
+              </Link>
             </div>
 
             {/* Mobile Direct Action Buttons */}

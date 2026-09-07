@@ -38,9 +38,9 @@ export const SupabaseSync = {
     }
   },
 
-  async savePageContent(slug: string, title: string, content: any, metaDescription?: string): Promise<boolean> {
+  async savePageContent(slug: string, title: string, content: any, metaDescription?: string): Promise<{success: boolean; error?: string}> {
     try {
-      if (!(await isSupabaseAvailable())) return false;
+      if (!(await isSupabaseAvailable())) return { success: false };
       const contentStr = JSON.stringify(content);
       const { error } = await supabase
         .from('cms_pages')
@@ -54,10 +54,10 @@ export const SupabaseSync = {
         }, { onConflict: 'slug' });
 
       if (error) throw error;
-      return true;
+      return { success: true };
     } catch (err) {
       console.warn(`[SupabaseSync] savePageContent (${slug}) error:`, err);
-      return false;
+      return { success: false, error: err?.message || 'Unknown error' };
     }
   },
 
@@ -111,9 +111,9 @@ export const SupabaseSync = {
     }
   },
 
-  async savePromotion(promo: Promotion): Promise<boolean> {
+  async savePromotion(promo: Promotion): Promise<{success: boolean; error?: string}> {
     try {
-      if (!(await isSupabaseAvailable())) return false;
+      if (!(await isSupabaseAvailable())) return { success: false };
       const isUUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(promo.id);
 
       const payload: any = {
@@ -145,23 +145,23 @@ export const SupabaseSync = {
       if (error) {
         // Fallback to cms_pages if table is missing
         if ((error as any).code === '42P01') {
-          return false;
+          return { success: false };
         }
         console.error('[SupabaseSync] savePromotion error:', error);
-        return false;
+        return { success: false };
       }
-      return true;
+      return { success: true };
     } catch (err) {
       console.warn('[SupabaseSync] savePromotion exception:', err);
-      return false;
+      return { success: false, error: err?.message || 'Unknown error' };
     }
   },
 
-  async deletePromotion(id: string): Promise<boolean> {
+  async deletePromotion(id: string): Promise<{success: boolean; error?: string}> {
     try {
-      if (!(await isSupabaseAvailable())) return false;
+      if (!(await isSupabaseAvailable())) return { success: false };
       const isUUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(id);
-      if (!isUUID) return true;
+      if (!isUUID) return { success: true };
 
       const { error } = await supabase
         .from('promotions' as any)
@@ -169,10 +169,10 @@ export const SupabaseSync = {
         .eq('id', id);
 
       if (error) throw error;
-      return true;
+      return { success: true };
     } catch (err) {
       console.warn('[SupabaseSync] deletePromotion exception:', err);
-      return false;
+      return { success: false, error: err?.message || 'Unknown error' };
     }
   },
 
@@ -221,9 +221,9 @@ export const SupabaseSync = {
     }
   },
 
-  async saveAnnouncement(ann: Announcement): Promise<boolean> {
+  async saveAnnouncement(ann: Announcement): Promise<{success: boolean; error?: string}> {
     try {
-      if (!(await isSupabaseAvailable())) return false;
+      if (!(await isSupabaseAvailable())) return { success: false };
       const isUUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(ann.id);
 
       const payload: any = {
@@ -249,22 +249,22 @@ export const SupabaseSync = {
         .upsert(payload);
 
       if (error) {
-        if ((error as any).code === '42P01') return false;
+        if ((error as any).code === '42P01') return { success: false };
         console.error('[SupabaseSync] saveAnnouncement error:', error);
-        return false;
+        return { success: false };
       }
-      return true;
+      return { success: true };
     } catch (err) {
       console.warn('[SupabaseSync] saveAnnouncement exception:', err);
-      return false;
+      return { success: false, error: err?.message || 'Unknown error' };
     }
   },
 
-  async deleteAnnouncement(id: string): Promise<boolean> {
+  async deleteAnnouncement(id: string): Promise<{success: boolean; error?: string}> {
     try {
-      if (!(await isSupabaseAvailable())) return false;
+      if (!(await isSupabaseAvailable())) return { success: false };
       const isUUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(id);
-      if (!isUUID) return true;
+      if (!isUUID) return { success: true };
 
       const { error } = await supabase
         .from('announcements' as any)
@@ -272,10 +272,10 @@ export const SupabaseSync = {
         .eq('id', id);
 
       if (error) throw error;
-      return true;
+      return { success: true };
     } catch (err) {
       console.warn('[SupabaseSync] deleteAnnouncement exception:', err);
-      return false;
+      return { success: false, error: err?.message || 'Unknown error' };
     }
   },
 
@@ -317,9 +317,9 @@ export const SupabaseSync = {
     }
   },
 
-  async saveStaffUser(staff: StaffUser): Promise<boolean> {
+  async saveStaffUser(staff: StaffUser): Promise<{success: boolean; error?: string}> {
     try {
-      if (!(await isSupabaseAvailable())) return false;
+      if (!(await isSupabaseAvailable())) return { success: false };
       const isUUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(staff.id);
 
       const payload: any = {
@@ -339,22 +339,22 @@ export const SupabaseSync = {
         .upsert(payload, { onConflict: 'email' });
 
       if (error) {
-        if ((error as any).code === '42P01') return false;
+        if ((error as any).code === '42P01') return { success: false };
         console.error('[SupabaseSync] saveStaffUser error:', error);
-        return false;
+        return { success: false };
       }
-      return true;
+      return { success: true };
     } catch (err) {
       console.warn('[SupabaseSync] saveStaffUser exception:', err);
-      return false;
+      return { success: false, error: err?.message || 'Unknown error' };
     }
   },
 
-  async deleteStaffUser(id: string): Promise<boolean> {
+  async deleteStaffUser(id: string): Promise<{success: boolean; error?: string}> {
     try {
-      if (!(await isSupabaseAvailable())) return false;
+      if (!(await isSupabaseAvailable())) return { success: false };
       const isUUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(id);
-      if (!isUUID) return true;
+      if (!isUUID) return { success: true };
 
       const { error } = await supabase
         .from('staff_users' as any)
@@ -362,10 +362,10 @@ export const SupabaseSync = {
         .eq('id', id);
 
       if (error) throw error;
-      return true;
+      return { success: true };
     } catch (err) {
       console.warn('[SupabaseSync] deleteStaffUser exception:', err);
-      return false;
+      return { success: false, error: err?.message || 'Unknown error' };
     }
   },
 
@@ -404,9 +404,9 @@ export const SupabaseSync = {
     }
   },
 
-  async saveNewsArticle(pub: Publication): Promise<boolean> {
+  async saveNewsArticle(pub: Publication): Promise<{success: boolean; error?: string}> {
     try {
-      if (!(await isSupabaseAvailable())) return false;
+      if (!(await isSupabaseAvailable())) return { success: false };
       const isUUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(pub.id);
       const { error } = await supabase
         .from('news_articles')
@@ -424,26 +424,26 @@ export const SupabaseSync = {
         });
 
       if (error) throw error;
-      return true;
+      return { success: true };
     } catch (err) {
       console.warn('[SupabaseSync] saveNewsArticle error:', err);
-      return false;
+      return { success: false, error: err?.message || 'Unknown error' };
     }
   },
 
-  async deleteNewsArticle(slugOrId: string): Promise<boolean> {
+  async deleteNewsArticle(slugOrId: string): Promise<{success: boolean; error?: string}> {
     try {
-      if (!(await isSupabaseAvailable())) return false;
+      if (!(await isSupabaseAvailable())) return { success: false };
       const isUUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(slugOrId);
       const { error } = isUUID
         ? await supabase.from('news_articles').delete().eq('id', slugOrId)
         : await supabase.from('news_articles').delete().eq('slug', slugOrId);
 
       if (error) throw error;
-      return true;
+      return { success: true };
     } catch (err) {
       console.warn('[SupabaseSync] deleteNewsArticle error:', err);
-      return false;
+      return { success: false, error: err?.message || 'Unknown error' };
     }
   },
 
@@ -593,18 +593,18 @@ export const SupabaseSync = {
     }
   },
 
-  async updateContactMessageStatus(id: string, status: string, adminReply?: string): Promise<boolean> {
+  async updateContactMessageStatus(id: string, status: string, adminReply?: string): Promise<{success: boolean; error?: string}> {
     return SupabaseSync.updateContactMessage(id, {
       status,
       adminReply
     });
   },
 
-  async deleteContactMessage(id: string): Promise<boolean> {
+  async deleteContactMessage(id: string): Promise<{success: boolean; error?: string}> {
     try {
-      if (!(await isSupabaseAvailable())) return false;
+      if (!(await isSupabaseAvailable())) return { success: false };
       const isUUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(id);
-      if (!isUUID) return true;
+      if (!isUUID) return { success: true };
 
       const { error } = await supabase
         .from('contact_messages')
@@ -612,10 +612,10 @@ export const SupabaseSync = {
         .eq('id', id);
 
       if (error) throw error;
-      return true;
+      return { success: true };
     } catch (err) {
       console.warn('[SupabaseSync] deleteContactMessage error:', err);
-      return false;
+      return { success: false, error: err?.message || 'Unknown error' };
     }
   },
 
@@ -654,9 +654,9 @@ export const SupabaseSync = {
     }
   },
 
-  async recordAuditLog(log: AuditLog): Promise<boolean> {
+  async recordAuditLog(log: AuditLog): Promise<{success: boolean; error?: string}> {
     try {
-      if (!(await isSupabaseAvailable())) return false;
+      if (!(await isSupabaseAvailable())) return { success: false };
       const { error } = await supabase
         .from('audit_logs')
         .insert({
@@ -682,12 +682,12 @@ export const SupabaseSync = {
 
       if (error) {
         console.warn('[SupabaseSync] recordAuditLog warning:', error.message);
-        return false;
+        return { success: false };
       }
-      return true;
+      return { success: true };
     } catch (err) {
       console.warn('[SupabaseSync] recordAuditLog error:', err);
-      return false;
+      return { success: false, error: err?.message || 'Unknown error' };
     }
   },
 
@@ -769,9 +769,9 @@ export const SupabaseSync = {
     }
   },
 
-  async saveMediaAsset(asset: MediaAsset): Promise<boolean> {
+  async saveMediaAsset(asset: MediaAsset): Promise<{success: boolean; error?: string}> {
     try {
-      if (!(await isSupabaseAvailable())) return false;
+      if (!(await isSupabaseAvailable())) return { success: false };
       const isUUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(asset.id);
 
       const payload: any = {
@@ -800,18 +800,18 @@ export const SupabaseSync = {
         .upsert(payload);
 
       if (error) throw error;
-      return true;
+      return { success: true };
     } catch (err) {
       console.warn('[SupabaseSync] saveMediaAsset error:', err);
-      return false;
+      return { success: false, error: err?.message || 'Unknown error' };
     }
   },
 
-  async archiveMediaAsset(id: string, isArchived: boolean): Promise<boolean> {
+  async archiveMediaAsset(id: string, isArchived: boolean): Promise<{success: boolean; error?: string}> {
     try {
-      if (!(await isSupabaseAvailable())) return false;
+      if (!(await isSupabaseAvailable())) return { success: false };
       const isUUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(id);
-      if (!isUUID) return false;
+      if (!isUUID) return { success: false };
 
       const { error } = await supabase
         .from('media_assets' as any)
@@ -822,16 +822,16 @@ export const SupabaseSync = {
         .eq('id', id);
 
       if (error) throw error;
-      return true;
+      return { success: true };
     } catch (err) {
       console.warn('[SupabaseSync] archiveMediaAsset error:', err);
-      return false;
+      return { success: false, error: err?.message || 'Unknown error' };
     }
   },
 
-  async deleteMediaAsset(id: string, storagePath?: string): Promise<boolean> {
+  async deleteMediaAsset(id: string, storagePath?: string): Promise<{success: boolean; error?: string}> {
     try {
-      if (!(await isSupabaseAvailable())) return false;
+      if (!(await isSupabaseAvailable())) return { success: false };
       const isUUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(id);
 
       if (isUUID) {
@@ -845,10 +845,10 @@ export const SupabaseSync = {
         await supabase.storage.from('media').remove([storagePath]);
       }
 
-      return true;
+      return { success: true };
     } catch (err) {
       console.warn('[SupabaseSync] deleteMediaAsset error:', err);
-      return false;
+      return { success: false, error: err?.message || 'Unknown error' };
     }
   },
 
@@ -1032,10 +1032,10 @@ export const SupabaseSync = {
     }
   },
 
-  async deletePopupConfig(id: string): Promise<boolean> {
+  async deletePopupConfig(id: string): Promise<{success: boolean; error?: string}> {
     try {
       const isUUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(id);
-      if (!isUUID) return true;
+      if (!isUUID) return { success: true };
 
       const { error } = await supabase
         .from('popup_configs' as any)
@@ -1044,12 +1044,12 @@ export const SupabaseSync = {
 
       if (error) {
         console.error('[SupabaseSync] deletePopupConfig DB error:', JSON.stringify(error));
-        return false;
+        return { success: false };
       }
-      return true;
+      return { success: true };
     } catch (err) {
       console.error('[SupabaseSync] deletePopupConfig exception:', err);
-      return false;
+      return { success: false, error: err?.message || 'Unknown error' };
     }
   },
 
@@ -1078,13 +1078,13 @@ export const SupabaseSync = {
     }
   },
 
-  async saveSystemSettings(settings: SystemSettings): Promise<boolean> {
+  async saveSystemSettings(settings: SystemSettings): Promise<{success: boolean; error?: string}> {
     try {
-      if (!(await isSupabaseAvailable())) return false;
+      if (!(await isSupabaseAvailable())) return { success: false };
       return await SupabaseSync.savePageContent('system_settings', 'System Configuration', settings);
     } catch (err) {
       console.warn('[SupabaseSync] saveSystemSettings error:', err);
-      return false;
+      return { success: false, error: err?.message || 'Unknown error' };
     }
   }
 };

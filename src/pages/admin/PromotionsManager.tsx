@@ -149,7 +149,7 @@ export default function PromotionsManager() {
     }
   };
 
-  const handleSave = (e: React.FormEvent) => {
+  const handleSave = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!user) return;
 
@@ -162,18 +162,23 @@ export default function PromotionsManager() {
     const promoId = editingPromo ? editingPromo.id : `promo-${Date.now()}`;
 
     if (editingPromo) {
-      updatePromotion(editingPromo.id, {
+      const res = await updatePromotion(editingPromo.id, {
         ...formData,
         slug,
         startDate: new Date(formData.startDate).toISOString(),
         endDate: formData.endDate ? new Date(formData.endDate).toISOString() : undefined
       }, { id: user.id, name: user.name, role: user.role });
 
+      if (!res.ok) {
+        toast.error(res.error || 'Failed to update promotion');
+        return;
+      }
+
       // Sync Popup Config if enabled
       if (formData.isPopupEnabled || formData.displayMode === 'popup' || formData.displayMode === 'both') {
         const existingPopup = popupConfigs.find(p => p.sourceId === editingPromo.id);
         if (existingPopup) {
-          updatePopupConfig(existingPopup.id, {
+          await updatePopupConfig(existingPopup.id, {
             title: formData.title,
             content: formData.description || formData.subtitle,
             featuredImage: formData.imageUrl,
@@ -185,7 +190,7 @@ export default function PromotionsManager() {
             status: formData.status === 'published' ? 'active' : 'draft'
           }, user);
         } else {
-          addPopupConfig({
+          await addPopupConfig({
             sourceType: 'promotion',
             sourceId: editingPromo.id,
             displayMode: formData.displayMode,
@@ -213,7 +218,7 @@ export default function PromotionsManager() {
 
       toast.success('Promotion updated successfully.');
     } else {
-      addPromotion({
+      const res = await addPromotion({
         ...formData,
         slug,
         startDate: new Date(formData.startDate).toISOString(),
@@ -221,9 +226,14 @@ export default function PromotionsManager() {
         createdBy: user.name
       }, { id: user.id, name: user.name, role: user.role });
 
+      if (!res.ok) {
+        toast.error(res.error || 'Failed to create promotion');
+        return;
+      }
+
       // If popup requested for new promo
       if (formData.isPopupEnabled || formData.displayMode === 'popup' || formData.displayMode === 'both') {
-        addPopupConfig({
+        await addPopupConfig({
           sourceType: 'promotion',
           sourceId: promoId,
           displayMode: formData.displayMode,
@@ -254,15 +264,19 @@ export default function PromotionsManager() {
     setIsModalOpen(false);
   };
 
-  const handleDelete = (id: string, title: string) => {
+  const handleDelete = async (id: string, title: string) => {
     if (!user) return;
     if (!can('delete', 'promotions')) {
       toast.error('Staff role cannot delete promotions permanently.');
       return;
     }
     if (window.confirm(`Are you sure you want to remove promotion "${title}"?`)) {
-      deletePromotion(id, { id: user.id, name: user.name, role: user.role });
-      toast.success('Promotion deleted.');
+      const res = await deletePromotion(id, { id: user.id, name: user.name, role: user.role });
+      if (res.ok) {
+        toast.success('Promotion deleted.');
+      } else {
+        toast.error(res.error || 'Failed to delete promotion');
+      }
     }
   };
 

@@ -211,7 +211,7 @@ export default function PopupManager() {
       email: 'admin@rimamfb.com'
     };
 
-    const success = await addPopupConfig({
+    const res = await addPopupConfig({
       sourceType:          popup.sourceType,
       sourceId:            popup.sourceId,
       displayMode:         popup.displayMode,
@@ -234,10 +234,10 @@ export default function PopupManager() {
       createdBy:           activeUser.name,
       createdById:         activeUser.id,
     }, activeUser);
-    if (success) {
+    if (res.ok) {
       toast.success(`Cloned "${popup.title}" as draft`);
     } else {
-      toast.error(`Failed to duplicate popup. Please try again.`);
+      toast.error(res.error || `Failed to duplicate popup. Please try again.`);
     }
   };
 
@@ -347,11 +347,11 @@ export default function PopupManager() {
     };
     setConfirmDeleteId(null);
     setSelectedIds(prev => prev.filter(i => i !== id));
-    const ok = await deletePopupConfig(id, activeUser);
-    if (ok) {
+    const res = await deletePopupConfig(id, activeUser);
+    if (res.ok) {
       toast.success('Popup deleted successfully');
     } else {
-      toast.error('Failed to delete popup. Please check your permissions.');
+      toast.error(res.error || 'Failed to delete popup.');
     }
   };
 
@@ -392,7 +392,7 @@ export default function PopupManager() {
     const ids = [...selectedIds];
     setSelectedIds([]);
     const results = await Promise.all(ids.map(id => deletePopupConfig(id, activeUser)));
-    const deleted = results.filter(Boolean).length;
+    const deleted = results.filter(r => r.ok).length;
     const failed  = ids.length - deleted;
     if (deleted > 0) toast.success(`Deleted ${deleted} popup${deleted > 1 ? 's' : ''}`);
     if (failed  > 0) toast.error(`${failed} popup${failed > 1 ? 's' : ''} could not be deleted`);
@@ -401,11 +401,11 @@ export default function PopupManager() {
   // ── Toggle active/paused
   const handleToggle = async (popup: PopupConfig) => {
     const activeUser = user || { id: 'a0000000-0000-0000-0000-000000000001', name: 'Executive Administrator', role: 'admin' as const };
-    const ok = await togglePopupStatus(popup.id, activeUser);
-    if (ok) {
+    const res = await togglePopupStatus(popup.id, activeUser);
+    if (res.ok) {
       toast.success(popup.status === 'active' ? 'Popup paused' : 'Popup activated');
     } else {
-      toast.error('Failed to update popup status.');
+      toast.error(res.error || 'Failed to update popup status.');
     }
   };
 

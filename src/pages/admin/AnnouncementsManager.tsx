@@ -99,24 +99,25 @@ export default function AnnouncementsManager() {
   };
 
   // Quick Popup Toggle / Creation
-  const handleQuickPopup = (ann: Announcement) => {
+  const handleQuickPopup = async (ann: Announcement) => {
     if (!user) return;
-    const existingPopup = popupConfigs.find(p => p.sourceId === ann.id || (p.sourceType === 'announcement' && p.title === ann.title));
-    if (existingPopup) {
-      const newStatus = existingPopup.status === 'active' ? 'paused' : 'active';
-      updatePopupConfig(existingPopup.id, { status: newStatus }, user);
-      toast.success(newStatus === 'active' ? 'Popup activated for this announcement' : 'Popup paused for this announcement');
-    } else {
-      addPopupConfig({
+    const existing = popupConfigs.find(p => p.sourceId === ann.id);
+    if (existing) {
+      toast.info('A popup already exists for this announcement.');
+      return;
+    }
+
+    if (window.confirm('Create a quick site-wide popup for this announcement?')) {
+      const res = await addPopupConfig({
         sourceType: 'announcement',
         sourceId: ann.id,
-        displayMode: 'both',
+        displayMode: 'popup',
         title: ann.title,
         content: ann.message,
-        ctaText: ann.actionText || 'Read Notice',
-        ctaUrl: ann.actionLink || '/media',
+        ctaText: ann.actionText || 'Read More',
+        ctaUrl: ann.actionLink,
         showCloseButton: true,
-        startDate: ann.startDate,
+        startDate: new Date().toISOString(),
         endDate: ann.endDate,
         triggerType: 'immediate',
         triggerDelaySeconds: 0,
@@ -129,11 +130,15 @@ export default function AnnouncementsManager() {
         createdBy: user.name,
         createdById: user.id
       }, user);
-      toast.success(`Created Site Popup for announcement "${ann.title}"`);
+      if (res.ok) {
+        toast.success(`Created Site Popup for announcement "${ann.title}"`);
+      } else {
+        toast.error(res.error || 'Failed to create popup');
+      }
     }
   };
 
-  const handleSave = (e: React.FormEvent) => {
+  const handleSave = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!user) return;
 
@@ -145,17 +150,22 @@ export default function AnnouncementsManager() {
     const annId = editingAnn ? editingAnn.id : `ann-${Date.now()}`;
 
     if (editingAnn) {
-      updateAnnouncement(editingAnn.id, {
+      const res = await updateAnnouncement(editingAnn.id, {
         ...formData,
         startDate: new Date(formData.startDate).toISOString(),
         endDate: formData.endDate ? new Date(formData.endDate).toISOString() : undefined
       }, { id: user.id, name: user.name, role: user.role });
 
+      if (!res.ok) {
+        toast.error(res.error || 'Failed to update announcement');
+        return;
+      }
+
       // Sync Popup Config if enabled
       if (formData.isPopupEnabled || formData.displayMode === 'popup' || formData.displayMode === 'both') {
         const existingPopup = popupConfigs.find(p => p.sourceId === editingAnn.id);
         if (existingPopup) {
-          updatePopupConfig(existingPopup.id, {
+          await updatePopupConfig(existingPopup.id, {
             title: formData.title,
             content: formData.message,
             ctaText: formData.actionText,
@@ -166,7 +176,7 @@ export default function AnnouncementsManager() {
             status: formData.status === 'published' ? 'active' : 'draft'
           }, user);
         } else {
-          addPopupConfig({
+          await addPopupConfig({
             sourceType: 'announcement',
             sourceId: editingAnn.id,
             displayMode: formData.displayMode,
@@ -193,16 +203,21 @@ export default function AnnouncementsManager() {
 
       toast.success('Announcement updated.');
     } else {
-      addAnnouncement({
+      const res = await addAnnouncement({
         ...formData,
         startDate: new Date(formData.startDate).toISOString(),
         endDate: formData.endDate ? new Date(formData.endDate).toISOString() : undefined,
         createdBy: user.name
       }, { id: user.id, name: user.name, role: user.role });
 
+      if (!res.ok) {
+        toast.error(res.error || 'Failed to create announcement');
+        return;
+      }
+
       // If popup requested for new announcement
       if (formData.isPopupEnabled || formData.displayMode === 'popup' || formData.displayMode === 'both') {
-        addPopupConfig({
+        await addPopupConfig({
           sourceType: 'announcement',
           sourceId: annId,
           displayMode: formData.displayMode,
@@ -232,15 +247,19 @@ export default function AnnouncementsManager() {
     setIsModalOpen(false);
   };
 
-  const handleDelete = (id: string, title: string) => {
+  const handleDelete = async (id: string, title: string) => {
     if (!user) return;
     if (!can('delete', 'announcements')) {
       toast.error('Staff role cannot delete announcements.');
       return;
     }
     if (window.confirm(`Are you sure you want to delete announcement "${title}"?`)) {
-      deleteAnnouncement(id, { id: user.id, name: user.name, role: user.role });
-      toast.success('Announcement removed.');
+      const res = await deleteAnnouncement(id, { id: user.id, name: user.name, role: user.role });
+      if (res.ok) {
+        toast.success('Announcement removed.');
+      } else {
+        toast.error(res.error || 'Failed to remove announcement');
+      }
     }
   };
 

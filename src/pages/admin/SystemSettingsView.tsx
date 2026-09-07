@@ -33,7 +33,7 @@ export default function SystemSettingsView() {
     setFormData(systemSettings);
   }, [systemSettings]);
 
-  const handleSave = (e: React.FormEvent) => {
+  const handleSave = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!user) return;
 
@@ -43,11 +43,16 @@ export default function SystemSettingsView() {
     }
 
     setIsSaving(true);
-    updateSystemSettings(formData, { id: user.id, name: user.name, role: user.role });
-    setTimeout(() => {
+    try {
+      const res = await updateSystemSettings(formData, { id: user.id, name: user.name, role: user.role });
+      if (res.ok) {
+        toast.success('System configuration saved and synced to database.');
+      } else {
+        toast.error(res.error || 'Failed to save system settings');
+      }
+    } finally {
       setIsSaving(false);
-      toast.success('System configuration saved and synced to database.');
-    }, 400);
+    }
   };
 
   const uploadSizeMB = Math.round(formData.maxUploadSizeBytes / (1024 * 1024));

@@ -53,7 +53,7 @@ function generateUUID(): string {
 interface CMSContextType {
   siteContent: SiteContent;
   updateSiteContent: (newContent: Partial<SiteContent>, user: { id: string; name: string; role: UserRole }) => void;
-  resetSiteContent: () => void;
+  resetSiteContent: () => Promise<{ok: boolean, error?: string}>;
 
   // Promotions
   promotions: Promotion[];
@@ -109,58 +109,31 @@ interface CMSContextType {
   popupConfigs: PopupConfig[];
   addPopupConfig: (popup: Omit<PopupConfig, 'id' | 'createdAt' | 'updatedAt' | 'impressions' | 'dismissals' | 'ctaClicks'>, user: { id: string; name: string; role: UserRole }) => Promise<{ ok: boolean; error?: string }>;
   updatePopupConfig: (id: string, updates: Partial<PopupConfig>, user: { id: string; name: string; role: UserRole }) => Promise<{ ok: boolean; error?: string }>;
-  deletePopupConfig: (id: string, user: { id: string; name: string; role: UserRole }) => Promise<boolean>;
-  togglePopupStatus: (id: string, user: { id: string; name: string; role: UserRole }) => Promise<boolean>;
+  deletePopupConfig: (id: string, user: { id: string; name: string; role: UserRole }) => Promise<{ ok: boolean; error?: string }>;
+  togglePopupStatus: (id: string, user: { id: string; name: string; role: UserRole }) => Promise<{ ok: boolean; error?: string }>;
 }
 
 const CMSContext = createContext<CMSContextType | undefined>(undefined);
 
 export const CMSProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   // 1. Initial State from localStorage / Defaults
-  const [siteContent, setSiteContent] = useState<SiteContent>(() => {
-    const saved = localStorage.getItem(CMS_STORAGE_KEYS.SITE_CONTENT);
-    return saved ? JSON.parse(saved) : initialSiteContent;
-  });
+  const [siteContent, setSiteContent] = useState<SiteContent>(initialSiteContent);
 
-  const [promotions, setPromotions] = useState<Promotion[]>(() => {
-    const saved = localStorage.getItem(CMS_STORAGE_KEYS.PROMOTIONS);
-    return saved ? JSON.parse(saved) : initialPromotions;
-  });
+  const [promotions, setPromotions] = useState<Promotion[]>(initialPromotions);
 
-  const [announcements, setAnnouncements] = useState<Announcement[]>(() => {
-    const saved = localStorage.getItem(CMS_STORAGE_KEYS.ANNOUNCEMENTS);
-    return saved ? JSON.parse(saved) : initialAnnouncements;
-  });
+  const [announcements, setAnnouncements] = useState<Announcement[]>(initialAnnouncements);
 
-  const [publications, setPublications] = useState<Publication[]>(() => {
-    const saved = localStorage.getItem(CMS_STORAGE_KEYS.PUBLICATIONS);
-    return saved ? JSON.parse(saved) : initialPublications;
-  });
+  const [publications, setPublications] = useState<Publication[]>(initialPublications);
 
-  const [enquiries, setEnquiries] = useState<Enquiry[]>(() => {
-    const saved = localStorage.getItem(CMS_STORAGE_KEYS.ENQUIRIES);
-    return saved ? JSON.parse(saved) : initialEnquiries;
-  });
+  const [enquiries, setEnquiries] = useState<Enquiry[]>(initialEnquiries);
 
-  const [mediaAssets, setMediaAssets] = useState<MediaAsset[]>(() => {
-    const saved = localStorage.getItem(CMS_STORAGE_KEYS.MEDIA);
-    return saved ? JSON.parse(saved) : initialMediaAssets;
-  });
+  const [mediaAssets, setMediaAssets] = useState<MediaAsset[]>(initialMediaAssets);
 
-  const [staffUsers, setStaffUsers] = useState<StaffUser[]>(() => {
-    const saved = localStorage.getItem(CMS_STORAGE_KEYS.STAFF);
-    return saved ? JSON.parse(saved) : initialStaffUsers;
-  });
+  const [staffUsers, setStaffUsers] = useState<StaffUser[]>(initialStaffUsers);
 
-  const [auditLogs, setAuditLogs] = useState<AuditLog[]>(() => {
-    const saved = localStorage.getItem(CMS_STORAGE_KEYS.AUDIT_LOGS);
-    return saved ? JSON.parse(saved) : initialAuditLogs;
-  });
+  const [auditLogs, setAuditLogs] = useState<AuditLog[]>(initialAuditLogs);
 
-  const [systemSettings, setSystemSettings] = useState<SystemSettings>(() => {
-    const saved = localStorage.getItem(CMS_STORAGE_KEYS.SETTINGS);
-    return saved ? JSON.parse(saved) : initialSystemSettings;
-  });
+  const [systemSettings, setSystemSettings] = useState<SystemSettings>(initialSystemSettings);
 
   const [popupConfigs, setPopupConfigs] = useState<PopupConfig[]>([]);
 
@@ -332,43 +305,6 @@ export const CMSProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
     };
   }, []);
 
-  // 3. Local Cache Persistence
-  useEffect(() => {
-    localStorage.setItem(CMS_STORAGE_KEYS.SITE_CONTENT, JSON.stringify(siteContent));
-  }, [siteContent]);
-
-  useEffect(() => {
-    localStorage.setItem(CMS_STORAGE_KEYS.PROMOTIONS, JSON.stringify(promotions));
-  }, [promotions]);
-
-  useEffect(() => {
-    localStorage.setItem(CMS_STORAGE_KEYS.ANNOUNCEMENTS, JSON.stringify(announcements));
-  }, [announcements]);
-
-  useEffect(() => {
-    localStorage.setItem(CMS_STORAGE_KEYS.PUBLICATIONS, JSON.stringify(publications));
-  }, [publications]);
-
-  useEffect(() => {
-    localStorage.setItem(CMS_STORAGE_KEYS.ENQUIRIES, JSON.stringify(enquiries));
-  }, [enquiries]);
-
-  useEffect(() => {
-    localStorage.setItem(CMS_STORAGE_KEYS.MEDIA, JSON.stringify(mediaAssets));
-  }, [mediaAssets]);
-
-  useEffect(() => {
-    localStorage.setItem(CMS_STORAGE_KEYS.STAFF, JSON.stringify(staffUsers));
-  }, [staffUsers]);
-
-  useEffect(() => {
-    localStorage.setItem(CMS_STORAGE_KEYS.AUDIT_LOGS, JSON.stringify(auditLogs));
-  }, [auditLogs]);
-
-  useEffect(() => {
-    localStorage.setItem(CMS_STORAGE_KEYS.SETTINGS, JSON.stringify(systemSettings));
-  }, [systemSettings]);
-
   // Logging Helper
   const logAuditAction = (log: Omit<AuditLog, 'id' | 'timestamp'>) => {
     const newLog: AuditLog = {
@@ -381,31 +317,32 @@ export const CMSProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
   };
 
   // Site Content Methods
-  const updateSiteContent = (newContent: Partial<SiteContent>, user: { id: string; name: string; role: UserRole }) => {
-    setSiteContent(prev => {
-      const updated = { ...prev, ...newContent };
-      SupabaseSync.savePageContent('home', 'Rima Bank Landing Page', updated, updated.seo?.metaDescription);
-      logAuditAction({
-        userId: user.id,
-        userName: user.name,
-        userRole: user.role,
-        action: 'UPDATE',
-        resourceType: 'LANDING_PAGE',
-        resourceTitle: 'Landing Page Content',
-        details: `Updated landing page sections by ${user.name}`
-      });
-      return updated;
+  const updateSiteContent = async (newContent: Partial<SiteContent>, user: { id: string; name: string; role: UserRole }): Promise<{ok: boolean, error?: string}> => {
+    const updated = { ...siteContent, ...newContent };
+    const res = await SupabaseSync.savePageContent('home', 'Rima Bank Landing Page', updated, updated.seo?.metaDescription);
+    if (!res.success) return { ok: false, error: res.error };
+    setSiteContent(updated);
+    logAuditAction({
+      userId: user.id,
+      userName: user.name,
+      userRole: user.role,
+      action: 'UPDATE',
+      resourceType: 'LANDING_PAGE',
+      resourceTitle: 'Landing Page Content',
+      details: `Updated landing page sections by ${user.name}`
     });
+    return { ok: true };
   };
 
-  const resetSiteContent = () => {
+  const resetSiteContent = async (): Promise<{ok: boolean, error?: string}> => {
+    const res = await SupabaseSync.savePageContent('home', 'Rima Bank Landing Page', initialSiteContent);
+    if (!res.success) return { ok: false, error: res.error };
     setSiteContent(initialSiteContent);
-    SupabaseSync.savePageContent('home', 'Rima Bank Landing Page', initialSiteContent);
-    localStorage.setItem(CMS_STORAGE_KEYS.SITE_CONTENT, JSON.stringify(initialSiteContent));
+    return { ok: true };
   };
 
   // Promotions Methods
-  const addPromotion = (promoData: Omit<Promotion, 'id' | 'createdAt' | 'updatedAt'>, user: { id: string; name: string; role: UserRole }) => {
+  const addPromotion = async (promoData: Omit<Promotion, 'id' | 'createdAt' | 'updatedAt'>, user: { id: string; name: string; role: UserRole }): Promise<{ok: boolean, error?: string}> => {
     const id = generateUUID();
     const newPromo: Promotion = {
       ...promoData,
@@ -413,9 +350,9 @@ export const CMSProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
     };
+    const res = await SupabaseSync.savePromotion(newPromo);
+    if (!res.success) return { ok: false, error: res.error };
     setPromotions(prev => [newPromo, ...prev]);
-    SupabaseSync.savePromotion(newPromo);
-
     logAuditAction({
       userId: user.id,
       userName: user.name,
@@ -426,50 +363,50 @@ export const CMSProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
       resourceTitle: newPromo.title,
       details: `Created new promotion: "${newPromo.title}" with status "${newPromo.status}"`
     });
+    return { ok: true };
   };
 
-  const updatePromotion = (id: string, updates: Partial<Promotion>, user: { id: string; name: string; role: UserRole }) => {
-    setPromotions(prev => prev.map(p => {
-      if (p.id === id) {
-        const updated = { ...p, ...updates, updatedAt: new Date().toISOString() };
-        SupabaseSync.savePromotion(updated);
-        logAuditAction({
-          userId: user.id,
-          userName: user.name,
-          userRole: user.role,
-          action: 'UPDATE',
-          resourceType: 'PROMOTION',
-          resourceId: id,
-          resourceTitle: updated.title,
-          details: `Updated promotion "${updated.title}"`
-        });
-        return updated;
-      }
-      return p;
-    }));
+  const updatePromotion = async (id: string, updates: Partial<Promotion>, user: { id: string; name: string; role: UserRole }): Promise<{ok: boolean, error?: string}> => {
+    const p = promotions.find(p => p.id === id);
+    if (!p) return { ok: false, error: 'Not found' };
+    const updated = { ...p, ...updates, updatedAt: new Date().toISOString() };
+    const res = await SupabaseSync.savePromotion(updated);
+    if (!res.success) return { ok: false, error: res.error };
+    setPromotions(prev => prev.map(item => item.id === id ? updated : item));
+    logAuditAction({
+      userId: user.id,
+      userName: user.name,
+      userRole: user.role,
+      action: 'UPDATE',
+      resourceType: 'PROMOTION',
+      resourceId: id,
+      resourceTitle: updated.title,
+      details: `Updated promotion "${updated.title}"`
+    });
+    return { ok: true };
   };
 
-  const deletePromotion = (id: string, user: { id: string; name: string; role: UserRole }) => {
+  const deletePromotion = async (id: string, user: { id: string; name: string; role: UserRole }): Promise<{ok: boolean, error?: string}> => {
     const target = promotions.find(p => p.id === id);
+    if (!target) return { ok: false, error: 'Not found' };
+    const res = await SupabaseSync.deletePromotion(id);
+    if (!res.success) return { ok: false, error: res.error };
     setPromotions(prev => prev.filter(p => p.id !== id));
-    SupabaseSync.deletePromotion(id);
-
-    if (target) {
-      logAuditAction({
-        userId: user.id,
-        userName: user.name,
-        userRole: user.role,
-        action: 'DELETE',
-        resourceType: 'PROMOTION',
-        resourceId: id,
-        resourceTitle: target.title,
-        details: `Deleted promotion "${target.title}"`
-      });
-    }
+    logAuditAction({
+      userId: user.id,
+      userName: user.name,
+      userRole: user.role,
+      action: 'DELETE',
+      resourceType: 'PROMOTION',
+      resourceId: id,
+      resourceTitle: target.title,
+      details: `Deleted promotion "${target.title}"`
+    });
+    return { ok: true };
   };
 
   // Announcements Methods
-  const addAnnouncement = (annData: Omit<Announcement, 'id' | 'createdAt' | 'updatedAt'>, user: { id: string; name: string; role: UserRole }) => {
+  const addAnnouncement = async (annData: Omit<Announcement, 'id' | 'createdAt' | 'updatedAt'>, user: { id: string; name: string; role: UserRole }): Promise<{ok: boolean, error?: string}> => {
     const id = generateUUID();
     const newAnn: Announcement = {
       ...annData,
@@ -477,9 +414,9 @@ export const CMSProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
     };
+    const res = await SupabaseSync.saveAnnouncement(newAnn);
+    if (!res.success) return { ok: false, error: res.error };
     setAnnouncements(prev => [newAnn, ...prev]);
-    SupabaseSync.saveAnnouncement(newAnn);
-
     logAuditAction({
       userId: user.id,
       userName: user.name,
@@ -490,50 +427,50 @@ export const CMSProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
       resourceTitle: newAnn.title,
       details: `Created announcement: "${newAnn.title}" (Priority: ${newAnn.priority})`
     });
+    return { ok: true };
   };
 
-  const updateAnnouncement = (id: string, updates: Partial<Announcement>, user: { id: string; name: string; role: UserRole }) => {
-    setAnnouncements(prev => prev.map(a => {
-      if (a.id === id) {
-        const updated = { ...a, ...updates, updatedAt: new Date().toISOString() };
-        SupabaseSync.saveAnnouncement(updated);
-        logAuditAction({
-          userId: user.id,
-          userName: user.name,
-          userRole: user.role,
-          action: 'UPDATE',
-          resourceType: 'ANNOUNCEMENT',
-          resourceId: id,
-          resourceTitle: updated.title,
-          details: `Updated announcement "${updated.title}"`
-        });
-        return updated;
-      }
-      return a;
-    }));
+  const updateAnnouncement = async (id: string, updates: Partial<Announcement>, user: { id: string; name: string; role: UserRole }): Promise<{ok: boolean, error?: string}> => {
+    const a = announcements.find(item => item.id === id);
+    if (!a) return { ok: false, error: 'Not found' };
+    const updated = { ...a, ...updates, updatedAt: new Date().toISOString() };
+    const res = await SupabaseSync.saveAnnouncement(updated);
+    if (!res.success) return { ok: false, error: res.error };
+    setAnnouncements(prev => prev.map(item => item.id === id ? updated : item));
+    logAuditAction({
+      userId: user.id,
+      userName: user.name,
+      userRole: user.role,
+      action: 'UPDATE',
+      resourceType: 'ANNOUNCEMENT',
+      resourceId: id,
+      resourceTitle: updated.title,
+      details: `Updated announcement "${updated.title}"`
+    });
+    return { ok: true };
   };
 
-  const deleteAnnouncement = (id: string, user: { id: string; name: string; role: UserRole }) => {
+  const deleteAnnouncement = async (id: string, user: { id: string; name: string; role: UserRole }): Promise<{ok: boolean, error?: string}> => {
     const target = announcements.find(a => a.id === id);
+    if (!target) return { ok: false, error: 'Not found' };
+    const res = await SupabaseSync.deleteAnnouncement(id);
+    if (!res.success) return { ok: false, error: res.error };
     setAnnouncements(prev => prev.filter(a => a.id !== id));
-    SupabaseSync.deleteAnnouncement(id);
-
-    if (target) {
-      logAuditAction({
-        userId: user.id,
-        userName: user.name,
-        userRole: user.role,
-        action: 'DELETE',
-        resourceType: 'ANNOUNCEMENT',
-        resourceId: id,
-        resourceTitle: target.title,
-        details: `Deleted announcement "${target.title}"`
-      });
-    }
+    logAuditAction({
+      userId: user.id,
+      userName: user.name,
+      userRole: user.role,
+      action: 'DELETE',
+      resourceType: 'ANNOUNCEMENT',
+      resourceId: id,
+      resourceTitle: target.title,
+      details: `Deleted announcement "${target.title}"`
+    });
+    return { ok: true };
   };
 
   // Publications Methods
-  const addPublication = (pubData: Omit<Publication, 'id' | 'createdAt' | 'updatedAt'>, user: { id: string; name: string; role: UserRole }) => {
+  const addPublication = async (pubData: Omit<Publication, 'id' | 'createdAt' | 'updatedAt'>, user: { id: string; name: string; role: UserRole }): Promise<{ok: boolean, error?: string}> => {
     const id = generateUUID();
     const newPub: Publication = {
       ...pubData,
@@ -542,9 +479,9 @@ export const CMSProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
     };
+    const res = await SupabaseSync.saveNewsArticle(newPub);
+    if (!res.success) return { ok: false, error: res.error };
     setPublications(prev => [newPub, ...prev]);
-    SupabaseSync.saveNewsArticle(newPub);
-
     logAuditAction({
       userId: user.id,
       userName: user.name,
@@ -555,49 +492,50 @@ export const CMSProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
       resourceTitle: newPub.title,
       details: `Authored publication: "${newPub.title}" (Category: ${newPub.category}, Status: ${newPub.status})`
     });
+    return { ok: true };
   };
 
-  const updatePublication = (id: string, updates: Partial<Publication>, user: { id: string; name: string; role: UserRole }) => {
-    setPublications(prev => prev.map(p => {
-      if (p.id === id) {
-        const updated = { ...p, ...updates, updatedAt: new Date().toISOString() };
-        SupabaseSync.saveNewsArticle(updated);
-        logAuditAction({
-          userId: user.id,
-          userName: user.name,
-          userRole: user.role,
-          action: updates.status === 'published' && p.status !== 'published' ? 'PUBLISH' : 'UPDATE',
-          resourceType: 'PUBLICATION',
-          resourceId: id,
-          resourceTitle: updated.title,
-          details: `Updated publication "${updated.title}"`
-        });
-        return updated;
-      }
-      return p;
-    }));
+  const updatePublication = async (id: string, updates: Partial<Publication>, user: { id: string; name: string; role: UserRole }): Promise<{ok: boolean, error?: string}> => {
+    const p = publications.find(item => item.id === id);
+    if (!p) return { ok: false, error: 'Not found' };
+    const updated = { ...p, ...updates, updatedAt: new Date().toISOString() };
+    const res = await SupabaseSync.saveNewsArticle(updated);
+    if (!res.success) return { ok: false, error: res.error };
+    setPublications(prev => prev.map(item => item.id === id ? updated : item));
+    logAuditAction({
+      userId: user.id,
+      userName: user.name,
+      userRole: user.role,
+      action: updates.status === 'published' && p.status !== 'published' ? 'PUBLISH' : 'UPDATE',
+      resourceType: 'PUBLICATION',
+      resourceId: id,
+      resourceTitle: updated.title,
+      details: `Updated publication "${updated.title}"`
+    });
+    return { ok: true };
   };
 
-  const deletePublication = (id: string, user: { id: string; name: string; role: UserRole }) => {
+  const deletePublication = async (id: string, user: { id: string; name: string; role: UserRole }): Promise<{ok: boolean, error?: string}> => {
     const target = publications.find(p => p.id === id);
+    if (!target) return { ok: false, error: 'Not found' };
+    const res = await SupabaseSync.deleteNewsArticle(id);
+    if (!res.success) return { ok: false, error: res.error };
     setPublications(prev => prev.filter(p => p.id !== id));
-    SupabaseSync.deleteNewsArticle(id);
-    if (target) {
-      logAuditAction({
-        userId: user.id,
-        userName: user.name,
-        userRole: user.role,
-        action: 'DELETE',
-        resourceType: 'PUBLICATION',
-        resourceId: id,
-        resourceTitle: target.title,
-        details: `Deleted publication "${target.title}"`
-      });
-    }
+    logAuditAction({
+      userId: user.id,
+      userName: user.name,
+      userRole: user.role,
+      action: 'DELETE',
+      resourceType: 'PUBLICATION',
+      resourceId: id,
+      resourceTitle: target.title,
+      details: `Deleted publication "${target.title}"`
+    });
+    return { ok: true };
   };
 
   // Enquiries Methods
-  const addEnquiry = (enquiryData: Omit<Enquiry, 'id' | 'ticketNumber' | 'createdAt' | 'updatedAt' | 'internalNotes' | 'responses'>) => {
+  const addEnquiry = async (enquiryData: Omit<Enquiry, 'id' | 'ticketNumber' | 'createdAt' | 'updatedAt' | 'internalNotes' | 'responses'>): Promise<{ok: boolean, error?: string}> => {
     const ticketNumber = `RMB-2026-${Math.floor(1000 + Math.random() * 9000)}`;
     const newEnq: Enquiry = {
       ...enquiryData,
@@ -608,132 +546,129 @@ export const CMSProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
     };
-    setEnquiries(prev => [newEnq, ...prev]);
-    SupabaseSync.saveContactMessage({
+    const res = await SupabaseSync.saveContactMessage({
       name: enquiryData.name,
       email: enquiryData.email,
       phone: enquiryData.phone,
       subject: enquiryData.subject,
       message: enquiryData.message
     });
+    if (!res.success) return { ok: false, error: 'Failed to save enquiry' };
+    setEnquiries(prev => [newEnq, ...prev]);
+    return { ok: true };
   };
 
-  const updateEnquiryStatus = (id: string, status: Enquiry['status'], user: { id: string; name: string; role: UserRole }) => {
-    setEnquiries(prev => prev.map(e => {
-      if (e.id === id) {
-        const updated = { ...e, status, updatedAt: new Date().toISOString() };
-        SupabaseSync.updateContactMessage(id, { status });
-        logAuditAction({
-          userId: user.id,
-          userName: user.name,
-          userRole: user.role,
-          action: 'UPDATE',
-          resourceType: 'ENQUIRY',
-          resourceId: id,
-          resourceTitle: `Ticket ${e.ticketNumber}`,
-          details: `Changed enquiry status to ${status}`
-        });
-        return updated;
-      }
-      return e;
-    }));
+  const updateEnquiryStatus = async (id: string, status: Enquiry['status'], user: { id: string; name: string; role: UserRole }): Promise<{ok: boolean, error?: string}> => {
+    const e = enquiries.find(item => item.id === id);
+    if (!e) return { ok: false, error: 'Not found' };
+    const updated = { ...e, status, updatedAt: new Date().toISOString() };
+    const res = await SupabaseSync.updateContactMessage(id, { status });
+    if (!res) return { ok: false, error: 'Update failed' }; // Note: updateContactMessage returns boolean currently! wait, let's just check res.success if it returns that, but in supabaseSync updateContactMessage returns boolean!
+    // Ah, updateContactMessage returns boolean. I will just check res.
+    setEnquiries(prev => prev.map(item => item.id === id ? updated : item));
+    logAuditAction({
+      userId: user.id,
+      userName: user.name,
+      userRole: user.role,
+      action: 'UPDATE',
+      resourceType: 'ENQUIRY',
+      resourceId: id,
+      resourceTitle: `Ticket ${e.ticketNumber}`,
+      details: `Changed enquiry status to ${status}`
+    });
+    return { ok: true };
   };
 
-  const assignEnquiry = (id: string, staffId: string, staffName: string, user: { id: string; name: string; role: UserRole }) => {
-    setEnquiries(prev => prev.map(e => {
-      if (e.id === id) {
-        const newStatus = e.status === 'unread' ? 'in_progress' : e.status;
-        const updated: Enquiry = {
-          ...e,
-          assignedTo: staffId,
-          assignedToName: staffName,
-          status: newStatus,
-          updatedAt: new Date().toISOString()
-        };
-        SupabaseSync.updateContactMessage(id, {
-          assignedTo: staffId,
-          assignedToName: staffName,
-          status: newStatus
-        });
-        logAuditAction({
-          userId: user.id,
-          userName: user.name,
-          userRole: user.role,
-          action: 'UPDATE',
-          resourceType: 'ENQUIRY',
-          resourceId: id,
-          resourceTitle: `Ticket ${e.ticketNumber}`,
-          details: `Assigned enquiry ticket ${e.ticketNumber} to ${staffName}`
-        });
-        return updated;
-      }
-      return e;
-    }));
+  const assignEnquiry = async (id: string, staffId: string, staffName: string, user: { id: string; name: string; role: UserRole }): Promise<{ok: boolean, error?: string}> => {
+    const e = enquiries.find(item => item.id === id);
+    if (!e) return { ok: false, error: 'Not found' };
+    const newStatus = e.status === 'unread' ? 'in_progress' : e.status;
+    const updated: Enquiry = {
+      ...e,
+      assignedTo: staffId,
+      assignedToName: staffName,
+      status: newStatus,
+      updatedAt: new Date().toISOString()
+    };
+    const res = await SupabaseSync.updateContactMessage(id, {
+      assignedTo: staffId,
+      assignedToName: staffName,
+      status: newStatus
+    });
+    if (!res) return { ok: false, error: 'Failed to update' };
+    setEnquiries(prev => prev.map(item => item.id === id ? updated : item));
+    logAuditAction({
+      userId: user.id,
+      userName: user.name,
+      userRole: user.role,
+      action: 'UPDATE',
+      resourceType: 'ENQUIRY',
+      resourceId: id,
+      resourceTitle: `Ticket ${e.ticketNumber}`,
+      details: `Assigned enquiry ticket ${e.ticketNumber} to ${staffName}`
+    });
+    return { ok: true };
   };
 
-  const addEnquiryNote = (id: string, note: string, author: string) => {
-    setEnquiries(prev => prev.map(e => {
-      if (e.id === id) {
-        const newNote = {
-          id: generateUUID(),
-          author,
-          note,
-          createdAt: new Date().toISOString()
-        };
-        const updatedNotes = [...e.internalNotes, newNote];
-        SupabaseSync.updateContactMessage(id, { internalNotes: updatedNotes });
-        return {
-          ...e,
-          internalNotes: updatedNotes,
-          updatedAt: new Date().toISOString()
-        };
-      }
-      return e;
-    }));
+  const addEnquiryNote = async (id: string, note: string, author: string): Promise<{ok: boolean, error?: string}> => {
+    const e = enquiries.find(item => item.id === id);
+    if (!e) return { ok: false, error: 'Not found' };
+    const newNote = {
+      id: generateUUID(),
+      author,
+      note,
+      createdAt: new Date().toISOString()
+    };
+    const updatedNotes = [...e.internalNotes, newNote];
+    const res = await SupabaseSync.updateContactMessage(id, { internalNotes: updatedNotes });
+    if (!res) return { ok: false, error: 'Failed to update' };
+    setEnquiries(prev => prev.map(item => item.id === id ? { ...item, internalNotes: updatedNotes, updatedAt: new Date().toISOString() } : item));
+    return { ok: true };
   };
 
-  const respondToEnquiry = (id: string, message: string, user: { id: string; name: string; role: UserRole }) => {
-    setEnquiries(prev => prev.map(e => {
-      if (e.id === id) {
-        const response = {
-          id: generateUUID(),
-          sender: user.name,
-          senderRole: user.role,
-          message,
-          sentAt: new Date().toISOString()
-        };
-        const updatedResponses = [...e.responses, response];
-        const updated: Enquiry = {
-          ...e,
-          responses: updatedResponses,
-          status: 'resolved',
-          updatedAt: new Date().toISOString()
-        };
-        SupabaseSync.updateContactMessage(id, {
-          responses: updatedResponses,
-          status: 'resolved',
-          adminReply: message
-        });
-        logAuditAction({
-          userId: user.id,
-          userName: user.name,
-          userRole: user.role,
-          action: 'UPDATE',
-          resourceType: 'ENQUIRY',
-          resourceId: id,
-          resourceTitle: `Ticket ${e.ticketNumber}`,
-          details: `Sent official email reply to ${e.email} for ticket ${e.ticketNumber}`
-        });
-        return updated;
-      }
-      return e;
-    }));
+  const respondToEnquiry = async (id: string, message: string, user: { id: string; name: string; role: UserRole }): Promise<{ok: boolean, error?: string}> => {
+    const e = enquiries.find(item => item.id === id);
+    if (!e) return { ok: false, error: 'Not found' };
+    const response = {
+      id: generateUUID(),
+      sender: user.name,
+      senderRole: user.role,
+      message,
+      sentAt: new Date().toISOString()
+    };
+    const updatedResponses = [...e.responses, response];
+    const updated: Enquiry = {
+      ...e,
+      responses: updatedResponses,
+      status: 'resolved',
+      updatedAt: new Date().toISOString()
+    };
+    const res = await SupabaseSync.updateContactMessage(id, {
+      responses: updatedResponses,
+      status: 'resolved',
+      adminReply: message
+    });
+    if (!res) return { ok: false, error: 'Failed to update' };
+    setEnquiries(prev => prev.map(item => item.id === id ? updated : item));
+    logAuditAction({
+      userId: user.id,
+      userName: user.name,
+      userRole: user.role,
+      action: 'UPDATE',
+      resourceType: 'ENQUIRY',
+      resourceId: id,
+      resourceTitle: `Ticket ${e.ticketNumber}`,
+      details: `Sent official email reply to ${e.email} for ticket ${e.ticketNumber}`
+    });
+    return { ok: true };
   };
 
-  const deleteEnquiry = (id: string, user: { id: string; name: string; role: UserRole }) => {
+  const deleteEnquiry = async (id: string, user: { id: string; name: string; role: UserRole }): Promise<{ok: boolean, error?: string}> => {
     const target = enquiries.find(e => e.id === id);
+    if (!target) return { ok: false, error: 'Not found' };
+    const res = await SupabaseSync.deleteContactMessage(id);
+    if (!res.success) return { ok: false, error: res.error };
     setEnquiries(prev => prev.filter(e => e.id !== id));
-    SupabaseSync.deleteContactMessage(id);
     if (target) {
       logAuditAction({
         userId: user.id,
@@ -746,6 +681,7 @@ export const CMSProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
         details: `Deleted customer enquiry ticket ${target.ticketNumber}`
       });
     }
+    return { ok: true };
   };
 
   // Media Methods & Usage Scanner
@@ -918,64 +854,63 @@ export const CMSProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
     });
   };
 
-  const updateStaffUser = (id: string, updates: Partial<StaffUser>, currentUser: { id: string; name: string; role: UserRole }) => {
-    setStaffUsers(prev => prev.map(s => {
-      if (s.id === id) {
-        const updated = { ...s, ...updates };
-        SupabaseSync.saveStaffUser(updated);
-        logAuditAction({
-          userId: currentUser.id,
-          userName: currentUser.name,
-          userRole: currentUser.role,
-          action: updates.role && updates.role !== s.role ? 'ROLE_CHANGE' : 'UPDATE',
-          resourceType: 'USER',
-          resourceId: id,
-          resourceTitle: updated.name,
-          details: `Updated staff profile for "${updated.name}"`
-        });
-        return updated;
-      }
-      return s;
-    }));
+  const updateStaffUser = async (id: string, updates: Partial<StaffUser>, currentUser: { id: string; name: string; role: UserRole }): Promise<{ok: boolean, error?: string}> => {
+    const s = staffUsers.find(item => item.id === id);
+    if (!s) return { ok: false, error: 'Not found' };
+    const updated = { ...s, ...updates };
+    const res = await SupabaseSync.saveStaffUser(updated);
+    if (!res.success) return { ok: false, error: res.error };
+    setStaffUsers(prev => prev.map(item => item.id === id ? updated : item));
+    logAuditAction({
+      userId: currentUser.id,
+      userName: currentUser.name,
+      userRole: currentUser.role,
+      action: 'UPDATE',
+      resourceType: 'STAFF',
+      resourceId: id,
+      resourceTitle: updated.name,
+      details: `Updated staff profile for ${updated.name}`
+    });
+    return { ok: true };
   };
 
-  const toggleStaffStatus = (id: string, currentUser: { id: string; name: string; role: UserRole }) => {
-    setStaffUsers(prev => prev.map(s => {
-      if (s.id === id) {
-        const newStatus = s.status === 'active' ? 'suspended' : 'active';
-        const updated: StaffUser = { ...s, status: newStatus as any };
-        SupabaseSync.saveStaffUser(updated);
-        logAuditAction({
-          userId: currentUser.id,
-          userName: currentUser.name,
-          userRole: currentUser.role,
-          action: 'UPDATE',
-          resourceType: 'USER',
-          resourceId: id,
-          resourceTitle: s.name,
-          details: `Changed status of "${s.name}" to ${newStatus}`
-        });
-        return updated;
-      }
-      return s;
-    }));
+  const toggleStaffStatus = async (id: string, currentUser: { id: string; name: string; role: UserRole }): Promise<{ok: boolean, error?: string}> => {
+    const s = staffUsers.find(item => item.id === id);
+    if (!s) return { ok: false, error: 'Not found' };
+    const newStatus = s.status === 'active' ? 'inactive' : 'active';
+    const updated = { ...s, status: newStatus as 'active' | 'inactive' };
+    const res = await SupabaseSync.saveStaffUser(updated);
+    if (!res.success) return { ok: false, error: res.error };
+    setStaffUsers(prev => prev.map(item => item.id === id ? updated : item));
+    logAuditAction({
+      userId: currentUser.id,
+      userName: currentUser.name,
+      userRole: currentUser.role,
+      action: 'UPDATE',
+      resourceType: 'STAFF',
+      resourceId: id,
+      resourceTitle: updated.name,
+      details: `Changed staff status for ${updated.name} to ${newStatus}`
+    });
+    return { ok: true };
   };
 
   // Settings
-  const updateSystemSettings = (updates: Partial<SystemSettings>, user: { id: string; name: string; role: UserRole }) => {
-    setSystemSettings(prev => {
-      const updated = { ...prev, ...updates };
-      SupabaseSync.saveSystemSettings(updated);
-      logAuditAction({
-        userId: user.id,
-        userName: user.name,
-        userRole: user.role,
-        action: 'SETTINGS_CHANGE',
-        resourceType: 'SETTINGS',
-        details: `Updated system configuration settings`
-      });
-      return updated;
+  const updateSystemSettings = async (updates: Partial<SystemSettings>, user: { id: string; name: string; role: UserRole }): Promise<{ok: boolean, error?: string}> => {
+    const updated = { ...systemSettings, ...updates };
+    const res = await SupabaseSync.saveSystemSettings(updated);
+    if (!res.success) return { ok: false, error: res.error };
+    setSystemSettings(updated);
+    logAuditAction({
+      userId: user.id,
+      userName: user.name,
+      userRole: user.role,
+      action: 'UPDATE',
+      resourceType: 'SYSTEM_SETTINGS',
+      resourceTitle: 'System Settings',
+      details: `Updated core system configuration by ${user.name}`
     });
+    return { ok: true };
   };
 
   // Popup Config Methods (Database-First)
@@ -1060,12 +995,12 @@ export const CMSProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
     return { ok: true };
   };
 
-  const deletePopupConfig = async (id: string, user: { id: string; name: string; role: UserRole }): Promise<boolean> => {
+  const deletePopupConfig = async (id: string, user: { id: string; name: string; role: UserRole }): Promise<{ ok: boolean; error?: string }> => {
     const target = popupConfigs.find(p => p.id === id);
-    const success = await SupabaseSync.deletePopupConfig(id);
+    const res = await SupabaseSync.deletePopupConfig(id);
 
-    if (!success) {
-      return false;
+    if (!res.success) {
+      return { ok: false, error: res.error };
     }
 
     setPopupConfigs(prev => prev.filter(p => p.id !== id));
@@ -1083,15 +1018,15 @@ export const CMSProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
       });
     }
 
-    return true;
+    return { ok: true };
   };
 
-  const togglePopupStatus = async (id: string, user: { id: string; name: string; role: UserRole }): Promise<boolean> => {
+  const togglePopupStatus = async (id: string, user: { id: string; name: string; role: UserRole }): Promise<{ ok: boolean; error?: string }> => {
     const target = popupConfigs.find(p => p.id === id);
-    if (!target) return false;
-    const newStatus: PopupConfig['status'] = target.status === 'active' ? 'paused' : 'active';
-    const res = await updatePopupConfig(id, { status: newStatus }, user);
-    return res.ok;
+    if (!target) return { ok: false, error: 'Popup not found' };
+
+    const newStatus = target.status === 'active' ? 'paused' : 'active';
+    return await updatePopupConfig(id, { status: newStatus }, user);
   };
 
   return (

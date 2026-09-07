@@ -91,11 +91,11 @@ export default function FAQ() {
   return (
     <Layout>
       {/* Editorial Hero with Interactive Search Bar */}
-      <section className="relative bg-white pt-8 pb-12 sm:pt-12 sm:pb-16 lg:pt-14 lg:pb-20 border-b border-[#e2e8f0]/60 overflow-hidden">
+      <section className="relative bg-white pt-6 pb-8 sm:pt-8 sm:pb-10 lg:pt-10 lg:pb-12 border-b border-[#e2e8f0]/60 overflow-hidden">
         <div className="absolute top-0 right-0 w-[550px] h-[550px] bg-[#f0f7ff] rounded-full blur-3xl -z-10 opacity-70 pointer-events-none" />
 
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
-          <div className="max-w-3xl space-y-5 animate-in fade-in slide-in-from-bottom-8 duration-700">
+          <div className="max-w-3xl space-y-4 animate-in fade-in slide-in-from-bottom-8 duration-700">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#f0f7ff] border border-[#e2e8f0] text-[#0a1e3f] text-xs font-semibold uppercase tracking-wider">
               <span>Knowledge Base & Support</span>
             </div>
@@ -105,18 +105,18 @@ export default function FAQ() {
             </h1>
 
             <p className="text-[#0a1e3f]/80 text-sm sm:text-base leading-relaxed">
-              Find instant answers regarding account documentation, loan facilities, debit card security, and regulatory deposit guarantees.
+              Find fast, factual answers to common questions about accounts, credit terms, and digital banking platforms.
             </p>
 
-            {/* Interactive Search Bar */}
-            <div className="relative max-w-xl pt-2">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-[#64748b]" />
+            {/* Live Search Input */}
+            <div className="relative pt-2 max-w-xl">
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 mt-1 h-4 w-4 text-[#64748b]" />
               <Input
                 type="text"
-                placeholder="Search questions (e.g., 'documentation', 'interest rate', 'transfers')..."
+                placeholder="Search topics (e.g. KYC requirements, loan interest, PIN reset)..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-11 pr-4 h-12 rounded-2xl bg-[#f8fafc] border-[#e2e8f0] text-xs sm:text-sm text-[#0a1e3f] shadow-xs focus:border-[#0284c7]"
+                className="pl-11 h-12 rounded-full border-[#e2e8f0] bg-[#f8fafc] text-xs sm:text-sm text-[#0a1e3f] focus:bg-white focus:border-[#0284c7] transition-all shadow-xs"
               />
               {searchQuery && (
                 <span className="absolute right-3.5 top-1/2 -translate-y-1/2 text-[11px] text-[#64748b]">
@@ -235,7 +235,7 @@ export default function FAQ() {
       </section>
 
       {/* Still Have Questions CTA */}
-      <section className="py-10 sm:py-12 md:py-16 bg-[#f8fafc]">
+      <section className="py-8 sm:py-10 bg-[#f8fafc]">
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6 text-center">
           <div className="max-w-2xl mx-auto space-y-4">
             <h3 className="font-heading text-2xl md:text-3xl font-semibold text-[#0a1e3f]">

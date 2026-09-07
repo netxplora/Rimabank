@@ -116,25 +116,26 @@ export default function PublicationsManager() {
   };
 
   // Quick Popup Toggle / Creation
-  const handleQuickPopup = (pub: Publication) => {
+  const handleQuickPopup = async (pub: Publication) => {
     if (!user) return;
-    const existingPopup = popupConfigs.find(p => p.sourceId === pub.id || (p.sourceType === 'publication' && p.title === pub.title));
-    if (existingPopup) {
-      const newStatus = existingPopup.status === 'active' ? 'paused' : 'active';
-      updatePopupConfig(existingPopup.id, { status: newStatus }, user);
-      toast.success(newStatus === 'active' ? 'Popup activated for this publication' : 'Popup paused for this publication');
-    } else {
-      addPopupConfig({
+    const existing = popupConfigs.find(p => p.sourceId === pub.id);
+    if (existing) {
+      toast.info('A popup already exists for this publication.');
+      return;
+    }
+
+    if (window.confirm('Create a quick site-wide popup for this publication?')) {
+      const res = await addPopupConfig({
         sourceType: 'publication',
         sourceId: pub.id,
-        displayMode: 'both',
+        displayMode: 'popup',
         title: pub.title,
         content: pub.excerpt || pub.title,
         featuredImage: pub.featuredImage,
         ctaText: 'Read Full Story',
         ctaUrl: `/media/${pub.slug}`,
         showCloseButton: true,
-        startDate: pub.publishDate,
+        startDate: new Date().toISOString(),
         triggerType: 'delay',
         triggerDelaySeconds: 4,
         displayFrequency: 'once_session',
@@ -146,11 +147,15 @@ export default function PublicationsManager() {
         createdBy: user.name,
         createdById: user.id
       }, user);
-      toast.success(`Created Site Popup for publication "${pub.title}"`);
+      if (res.ok) {
+        toast.success(`Created Site Popup for publication "${pub.title}"`);
+      } else {
+        toast.error(res.error || 'Failed to create popup');
+      }
     }
   };
 
-  const handleSave = (e: React.FormEvent) => {
+  const handleSave = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!user) return;
 
@@ -170,18 +175,23 @@ export default function PublicationsManager() {
     }
 
     if (editingPub) {
-      updatePublication(editingPub.id, {
+      const res = await updatePublication(editingPub.id, {
         ...formData,
         slug,
         status: targetStatus,
         publishDate: new Date(formData.publishDate).toISOString()
       }, { id: user.id, name: user.name, role: user.role });
 
+      if (!res.ok) {
+        toast.error(res.error || 'Failed to update publication');
+        return;
+      }
+
       // Sync Popup Config if enabled
       if (formData.isPopupEnabled || formData.displayMode === 'popup' || formData.displayMode === 'both') {
         const existingPopup = popupConfigs.find(p => p.sourceId === editingPub.id);
         if (existingPopup) {
-          updatePopupConfig(existingPopup.id, {
+          await updatePopupConfig(existingPopup.id, {
             title: formData.title,
             content: formData.excerpt || formData.title,
             featuredImage: formData.featuredImage,
@@ -192,7 +202,7 @@ export default function PublicationsManager() {
             status: targetStatus === 'published' ? 'active' : 'draft'
           }, user);
         } else {
-          addPopupConfig({
+          await addPopupConfig({
             sourceType: 'publication',
             sourceId: editingPub.id,
             displayMode: formData.displayMode,
@@ -219,7 +229,7 @@ export default function PublicationsManager() {
 
       toast.success('Publication updated.');
     } else {
-      addPublication({
+      const res = await addPublication({
         ...formData,
         slug,
         status: targetStatus,
@@ -227,9 +237,14 @@ export default function PublicationsManager() {
         createdBy: user.name
       }, { id: user.id, name: user.name, role: user.role });
 
+      if (!res.ok) {
+        toast.error(res.error || 'Failed to create publication');
+        return;
+      }
+
       // If popup requested for new publication
       if (formData.isPopupEnabled || formData.displayMode === 'popup' || formData.displayMode === 'both') {
-        addPopupConfig({
+        await addPopupConfig({
           sourceType: 'publication',
           sourceId: pubId,
           displayMode: formData.displayMode,
@@ -259,15 +274,19 @@ export default function PublicationsManager() {
     setIsModalOpen(false);
   };
 
-  const handleDelete = (id: string, title: string) => {
+  const handleDelete = async (id: string, title: string) => {
     if (!user) return;
     if (!can('delete', 'publications')) {
       toast.error('Staff role cannot permanently delete publications.');
       return;
     }
     if (window.confirm(`Are you sure you want to delete publication "${title}"?`)) {
-      deletePublication(id, { id: user.id, name: user.name, role: user.role });
-      toast.success('Publication deleted.');
+      const res = await deletePublication(id, { id: user.id, name: user.name, role: user.role });
+      if (res.ok) {
+        toast.success('Publication deleted.');
+      } else {
+        toast.error(res.error || 'Failed to delete publication');
+      }
     }
   };
 

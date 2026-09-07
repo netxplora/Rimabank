@@ -81,12 +81,12 @@ export default function DigitalBanking() {
   return (
     <Layout>
       {/* Editorial Hero with 3D Interactive Device Showcase */}
-      <section className="relative bg-white pt-8 pb-12 sm:pt-12 sm:pb-16 lg:pt-14 lg:pb-20 border-b border-[#e2e8f0]/60 overflow-hidden">
+      <section className="relative bg-white pt-6 pb-8 sm:pt-8 sm:pb-10 lg:pt-10 lg:pb-12 border-b border-[#e2e8f0]/60 overflow-hidden">
         <div className="absolute top-0 right-0 w-[550px] h-[550px] bg-[#f0f7ff] rounded-full blur-3xl -z-10 opacity-70 pointer-events-none" />
         <div className="absolute -bottom-20 left-10 w-[400px] h-[400px] bg-[#bcffbb]/20 rounded-full blur-3xl -z-10 opacity-50 pointer-events-none" />
 
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
             
             {/* Left Content (7 cols) */}
             <div className="lg:col-span-7 space-y-5 animate-in fade-in slide-in-from-bottom-8 duration-700">
@@ -227,9 +227,9 @@ export default function DigitalBanking() {
       </section>
 
       {/* 3-Column Core Capabilities Grid (Minimal Open Layout) */}
-      <section className="py-14 sm:py-20 bg-white border-b border-[#e2e8f0]/60">
+      <section className="py-8 sm:py-10 md:py-12 bg-white border-b border-[#e2e8f0]/60">
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
-          <div className="max-w-2xl mb-12">
+          <div className="max-w-2xl mb-6 sm:mb-8">
             <span className="text-xs font-semibold uppercase tracking-wider text-[#0284c7] block mb-1">
               Core Capabilities
             </span>
@@ -238,7 +238,7 @@ export default function DigitalBanking() {
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-10 border-t border-[#e2e8f0] pt-10">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-8 border-t border-[#e2e8f0] pt-6 sm:pt-8">
             {features.map((feature, index) => (
               <div 
                 key={index} 
@@ -246,12 +246,12 @@ export default function DigitalBanking() {
               >
                 <div>
                   <div 
-                    className="w-10 h-10 rounded-xl flex items-center justify-center mb-4"
+                    className="w-10 h-10 rounded-xl flex items-center justify-center mb-3"
                     style={{ backgroundColor: feature.bg, color: feature.color }}
                   >
                     <feature.icon className="h-5 w-5" />
                   </div>
-                  <h3 className="font-heading text-base font-semibold text-[#0a1e3f] mb-1.5">{feature.title}</h3>
+                  <h3 className="font-heading text-base font-semibold text-[#0a1e3f] mb-1">{feature.title}</h3>
                   <p className="text-xs text-[#64748b] leading-relaxed">{feature.description}</p>
                 </div>
               </div>
@@ -261,9 +261,9 @@ export default function DigitalBanking() {
       </section>
 
       {/* 3-Step Onboarding Progression (Minimal Open Layout) */}
-      <section className="py-14 sm:py-20 bg-white border-b border-[#e2e8f0]/60">
+      <section className="py-8 sm:py-10 md:py-12 bg-white border-b border-[#e2e8f0]/60">
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
-          <div className="max-w-2xl mb-12">
+          <div className="max-w-2xl mb-6 sm:mb-8">
             <span className="text-xs font-semibold uppercase tracking-wider text-[#0284c7] block mb-1">
               Simple Setup
             </span>
@@ -273,7 +273,7 @@ export default function DigitalBanking() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-slate-200 border-t border-b border-slate-200">
-            <div className="py-8 md:p-6 lg:p-8 space-y-3">
+            <div className="py-5 md:p-5 lg:p-6 space-y-2.5">
               <div className="text-xs font-bold text-[#0284c7] uppercase tracking-widest">Step 01</div>
               <h3 className="font-heading text-base font-semibold text-[#0a1e3f]">Download the Mobile App</h3>
               <p className="text-xs text-[#64748b] leading-relaxed">
@@ -281,7 +281,7 @@ export default function DigitalBanking() {
               </p>
             </div>
 
-            <div className="py-8 md:p-6 lg:p-8 space-y-3">
+            <div className="py-5 md:p-5 lg:p-6 space-y-2.5">
               <div className="text-xs font-bold text-[#0284c7] uppercase tracking-widest">Step 02</div>
               <h3 className="font-heading text-base font-semibold text-[#0a1e3f]">Verify Credentials</h3>
               <p className="text-xs text-[#64748b] leading-relaxed">
@@ -289,7 +289,7 @@ export default function DigitalBanking() {
               </p>
             </div>
 
-            <div className="py-8 md:p-6 lg:p-8 space-y-3">
+            <div className="py-5 md:p-5 lg:p-6 space-y-2.5">
               <div className="text-xs font-bold text-[#16a34a] uppercase tracking-widest">Step 03</div>
               <h3 className="font-heading text-base font-semibold text-[#0a1e3f]">Begin Banking</h3>
               <p className="text-xs text-[#64748b] leading-relaxed">
@@ -301,13 +301,13 @@ export default function DigitalBanking() {
       </section>
 
       {/* Dedicated USSD Banking Section (*723#) */}
-      <section id="ussd-section" className="py-10 sm:py-12 md:py-16 bg-white border-b border-[#e2e8f0]/60">
+      <section id="ussd-section" className="py-8 sm:py-10 bg-white border-b border-[#e2e8f0]/60">
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
-          <div className="rounded-3xl bg-gradient-to-br from-[#0a1e3f] via-[#0f2d59] to-[#0369a1] text-white p-6 sm:p-10 lg:p-12 shadow-xl border border-white/10 relative overflow-hidden">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
+          <div className="rounded-3xl bg-gradient-to-br from-[#0a1e3f] via-[#0f2d59] to-[#0369a1] text-white p-6 sm:p-8 lg:p-10 shadow-xl border border-white/10 relative overflow-hidden">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center relative z-10">
               
               {/* Left Details (7 cols) */}
-              <div className="lg:col-span-7 space-y-5">
+              <div className="lg:col-span-7 space-y-4">
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#38bdf8]/20 border border-[#38bdf8]/40 text-[#38bdf8] text-xs font-semibold uppercase tracking-wider">
                   <span>Offline USSD Banking</span>
                 </div>
@@ -320,20 +320,20 @@ export default function DigitalBanking() {
                   Enjoy reliable offline banking from any basic feature phone or smartphone on all Nigerian cellular networks (MTN, Airtel, Glo, 9mobile).
                 </p>
 
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2">
-                  <div className="p-3.5 rounded-2xl bg-white/5 border border-white/10 text-center">
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 pt-1">
+                  <div className="p-3 rounded-2xl bg-white/5 border border-white/10 text-center">
                     <span className="block text-[10px] text-blue-200 uppercase font-bold">Check Balance</span>
                     <span className="font-mono text-xs text-white font-bold">*723*0#</span>
                   </div>
-                  <div className="p-3.5 rounded-2xl bg-white/5 border border-white/10 text-center">
+                  <div className="p-3 rounded-2xl bg-white/5 border border-white/10 text-center">
                     <span className="block text-[10px] text-blue-200 uppercase font-bold">Transfer Money</span>
                     <span className="font-mono text-xs text-white font-bold">*723*1#</span>
                   </div>
-                  <div className="p-3.5 rounded-2xl bg-white/5 border border-white/10 text-center">
+                  <div className="p-3 rounded-2xl bg-white/5 border border-white/10 text-center">
                     <span className="block text-[10px] text-blue-200 uppercase font-bold">Airtime Top-Up</span>
                     <span className="font-mono text-xs text-white font-bold">*723*2#</span>
                   </div>
-                  <div className="p-3.5 rounded-2xl bg-white/5 border border-white/10 text-center">
+                  <div className="p-3 rounded-2xl bg-white/5 border border-white/10 text-center">
                     <span className="block text-[10px] text-blue-200 uppercase font-bold">Pay Bills</span>
                     <span className="font-mono text-xs text-white font-bold">*723*3#</span>
                   </div>
@@ -355,11 +355,11 @@ export default function DigitalBanking() {
               </div>
 
               {/* Right Steps (5 cols) */}
-              <div className="lg:col-span-5 bg-white/10 backdrop-blur-sm rounded-3xl p-6 border border-white/15 space-y-4">
+              <div className="lg:col-span-5 bg-white/10 backdrop-blur-sm rounded-3xl p-5 sm:p-6 border border-white/15 space-y-3.5">
                 <h3 className="font-heading text-base font-bold text-white border-b border-white/15 pb-2">
                   How to Register for USSD:
                 </h3>
-                <ul className="space-y-3 text-xs text-blue-100/90">
+                <ul className="space-y-2.5 text-xs text-blue-100/90">
                   <li className="flex items-start gap-2.5">
                     <span className="w-5 h-5 rounded-full bg-[#38bdf8] text-[#0a1e3f] font-bold text-[10px] flex items-center justify-center shrink-0 mt-0.5">1</span>
                     <span>Dial <strong>*723#</strong> from your mobile phone number registered with Rima MFB.</span>
@@ -381,10 +381,10 @@ export default function DigitalBanking() {
       </section>
 
       {/* App Download Banner */}
-      <section id="download" className="py-10 sm:py-12 md:py-16 bg-white">
+      <section id="download" className="py-8 sm:py-10 bg-white">
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
-          <div className="bg-[#0a1e3f] text-white rounded-3xl p-6 sm:p-10 lg:p-12 shadow-xl relative overflow-hidden border border-white/10">
-            <div className="max-w-2xl space-y-4 relative z-10">
+          <div className="bg-[#0a1e3f] text-white rounded-3xl p-6 sm:p-8 lg:p-10 shadow-xl relative overflow-hidden border border-white/10">
+            <div className="max-w-2xl space-y-3.5 relative z-10">
               <span className="text-xs font-semibold uppercase tracking-wider text-[#38bdf8] block">
                 Mobile Banking App
               </span>

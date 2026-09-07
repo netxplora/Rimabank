@@ -7,7 +7,6 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 // Public Pages
 import Index from "./pages/Index";
 import About from "./pages/About";
-import Products from "./pages/Products";
 import DigitalBanking from "./pages/DigitalBanking";
 import Media from "./pages/Media";
 import MediaPost from "./pages/MediaPost";
@@ -21,7 +20,6 @@ import BusinessBanking from "./pages/BusinessBanking";
 import LoanServices from "./pages/banking/LoanServices";
 import PersonalBanking from "./pages/PersonalBanking";
 import AgentBanking from "./pages/AgentBanking";
-import Support from "./pages/Support";
 
 // CMS Context & Auth
 import { CMSProvider } from "./context/CMSContext";
@@ -85,7 +83,8 @@ const App = () => (
               <Route path="/cookies" element={<Legal />} />
               <Route path="/complaints" element={<Legal />} />
               <Route path="/faq" element={<FAQ />} />
-              <Route path="/support" element={<Support />} />
+              <Route path="/support" element={<Navigate to="/contact" replace />} />
+              <Route path="/products" element={<Navigate to="/personal-banking" replace />} />
 
               {/* ============================================================ */}
               {/* 1. EXECUTIVE ADMIN PORTAL (Strictly Admin / Full Access)      */}

@@ -50,70 +50,94 @@ export default function EnquiriesManager() {
     return matchesSearch && matchesStatus && matchesCategory;
   });
 
-  const handleSelectEnquiry = (enq: Enquiry, openFullModal: boolean = false) => {
+  const handleSelectEnquiry = async (enq: Enquiry, openFullModal: boolean = false) => {
     setSelectedEnquiry(enq);
     if (openFullModal || window.innerWidth < 1024) {
       setIsFullMessageModalOpen(true);
     }
     if (enq.status === 'unread' && user) {
-      updateEnquiryStatus(enq.id, 'read', { id: user.id, name: user.name, role: user.role });
+      await updateEnquiryStatus(enq.id, 'read', { id: user.id, name: user.name, role: user.role });
     }
   };
 
-  const handleAssign = (staffId: string) => {
+  const handleAssign = async (staffId: string) => {
     if (!selectedEnquiry || !user) return;
     const staff = staffUsers.find(s => s.id === staffId);
     if (staff) {
-      assignEnquiry(selectedEnquiry.id, staff.id, staff.name, { id: user.id, name: user.name, role: user.role });
-      setSelectedEnquiry(prev => prev ? { ...prev, assignedTo: staff.id, assignedToName: staff.name } : null);
-      toast.success(`Ticket assigned to ${staff.name}`);
+      const res = await assignEnquiry(selectedEnquiry.id, staff.id, staff.name, { id: user.id, name: user.name, role: user.role });
+      if (res.ok) {
+        setSelectedEnquiry(prev => prev ? { ...prev, assignedTo: staff.id, assignedToName: staff.name } : null);
+        toast.success(`Ticket assigned to ${staff.name}`);
+      } else {
+        toast.error(res.error || 'Failed to assign ticket');
+      }
     } else {
-      assignEnquiry(selectedEnquiry.id, '', '', { id: user.id, name: user.name, role: user.role });
-      setSelectedEnquiry(prev => prev ? { ...prev, assignedTo: undefined, assignedToName: undefined } : null);
-      toast.success('Ticket unassigned');
+      const res = await assignEnquiry(selectedEnquiry.id, '', '', { id: user.id, name: user.name, role: user.role });
+      if (res.ok) {
+        setSelectedEnquiry(prev => prev ? { ...prev, assignedTo: undefined, assignedToName: undefined } : null);
+        toast.success('Ticket unassigned');
+      } else {
+        toast.error(res.error || 'Failed to unassign ticket');
+      }
     }
   };
 
-  const handleStatusChange = (status: Enquiry['status']) => {
+  const handleStatusChange = async (status: Enquiry['status']) => {
     if (!selectedEnquiry || !user) return;
-    updateEnquiryStatus(selectedEnquiry.id, status, { id: user.id, name: user.name, role: user.role });
-    setSelectedEnquiry(prev => prev ? { ...prev, status } : null);
-    toast.success(`Ticket marked as ${status.replace('_', ' ')}`);
+    const res = await updateEnquiryStatus(selectedEnquiry.id, status, { id: user.id, name: user.name, role: user.role });
+    if (res.ok) {
+      setSelectedEnquiry(prev => prev ? { ...prev, status } : null);
+      toast.success(`Ticket marked as ${status.replace('_', ' ')}`);
+    } else {
+      toast.error(res.error || 'Failed to update status');
+    }
   };
 
-  const handleAddNote = (e: React.FormEvent) => {
+  const handleAddNote = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!selectedEnquiry || !user || !newNote.trim()) return;
-    addEnquiryNote(selectedEnquiry.id, newNote, user.name);
-    setNewNote('');
-    toast.success('Internal note added.');
-    const updated = enquiries.find(e => e.id === selectedEnquiry.id);
-    if (updated) setSelectedEnquiry(updated);
+    const res = await addEnquiryNote(selectedEnquiry.id, newNote, user.name);
+    if (res.ok) {
+      setNewNote('');
+      toast.success('Internal note added.');
+      const updated = enquiries.find(e => e.id === selectedEnquiry.id);
+      if (updated) setSelectedEnquiry(updated);
+    } else {
+      toast.error(res.error || 'Failed to add note');
+    }
   };
 
-  const handleSendReply = (e: React.FormEvent) => {
+  const handleSendReply = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!selectedEnquiry || !user || !replyMessage.trim()) return;
-    respondToEnquiry(selectedEnquiry.id, replyMessage, { id: user.id, name: user.name, role: user.role });
-    setReplyMessage('');
-    toast.success(`Official reply dispatched to ${selectedEnquiry.email}`);
-    const updated = enquiries.find(e => e.id === selectedEnquiry.id);
-    if (updated) setSelectedEnquiry(updated);
+    const res = await respondToEnquiry(selectedEnquiry.id, replyMessage, { id: user.id, name: user.name, role: user.role });
+    if (res.ok) {
+      setReplyMessage('');
+      toast.success(`Official reply dispatched to ${selectedEnquiry.email}`);
+      const updated = enquiries.find(e => e.id === selectedEnquiry.id);
+      if (updated) setSelectedEnquiry(updated);
+    } else {
+      toast.error(res.error || 'Failed to send reply');
+    }
   };
 
-  const handleDelete = (id: string, ticket: string) => {
+  const handleDelete = async (id: string, ticket: string) => {
     if (!user) return;
     if (!can('delete', 'enquiries')) {
       toast.error('Staff officers cannot delete enquiry tickets.');
       return;
     }
     if (window.confirm(`Delete enquiry ticket ${ticket}?`)) {
-      deleteEnquiry(id, { id: user.id, name: user.name, role: user.role });
-      if (selectedEnquiry?.id === id) {
-        setSelectedEnquiry(null);
-        setIsFullMessageModalOpen(false);
+      const res = await deleteEnquiry(id, { id: user.id, name: user.name, role: user.role });
+      if (res.ok) {
+        if (selectedEnquiry?.id === id) {
+          setSelectedEnquiry(null);
+          setIsFullMessageModalOpen(false);
+        }
+        toast.success('Enquiry ticket removed.');
+      } else {
+        toast.error(res.error || 'Failed to delete ticket');
       }
-      toast.success('Enquiry ticket removed.');
     }
   };
 

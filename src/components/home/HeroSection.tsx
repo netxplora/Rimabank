@@ -1,15 +1,21 @@
 import { Link } from "react-router-dom";
 import { ArrowRight, ShieldCheck, Landmark, Users, ChevronRight, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useCMS } from "@/context/CMSContext";
 
 export function HeroSection() {
+  const { siteContent } = useCMS();
+  const hero = siteContent?.hero;
+
+  if (!hero) return null;
+
   return (
     <section className="relative min-h-[580px] lg:min-h-[660px] flex items-center bg-[#f8fafc] text-[#0a1e3f] overflow-hidden border-b border-[#e2e8f0]">
       {/* Background Editorial Canvas with Soft Atmospheric Gradient */}
       <div className="absolute inset-0 z-0">
         <img
-          src="/images/hero-home.png"
-          alt="RIMA Microfinance Bank - The bank for all business"
+          src={hero.heroImage || "/images/hero-home.png"}
+          alt={hero.headingPart1}
           className="w-full h-full object-cover object-center"
         />
         {/* Editorial Overlay Gradients */}
@@ -21,20 +27,20 @@ export function HeroSection() {
         <div className="max-w-3xl space-y-6 sm:space-y-8 animate-fade-in-up">
 
           {/* Institutional Trust Badge */}
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#f0f7ff] border border-[#cbd5e1] text-[#0a1e3f] text-xs font-semibold uppercase tracking-wider shadow-xs">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#f0f7ff] border border-[#cbd5e1] text-[#0a1e3f] text-xs font-semibold uppercase tracking-wider shadow-xs backdrop-blur-md bg-white/70">
             <span className="w-2 h-2 rounded-full bg-[#0284c7] animate-pulse" />
-            <span>Commercial & SME Banking Partner</span>
+            <span>{hero.eyebrow}</span>
           </div>
 
           {/* Primary Hero Headline */}
           <div className="space-y-3">
             <h1 className="font-heading text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.06] text-[#0a1e3f] text-balance">
-              The bank for all <span className="text-[#0284c7]">business</span>.
+              {hero.headingPart1} <span className="text-[#0284c7]">{hero.headingHighlight}</span> {hero.headingPart2}
             </h1>
 
             {/* Editorial Sub-copy */}
             <p className="text-slate-700 text-base sm:text-lg lg:text-xl font-normal leading-relaxed max-w-2xl">
-              From emerging retail shops to established commercial distributors, RIMA Microfinance Bank provides structured working capital, seamless collections, and dedicated relationship managers to scale your operations.
+              {hero.description}
             </p>
           </div>
 
@@ -46,8 +52,8 @@ export function HeroSection() {
               asChild
               className="bg-[#0284c7] hover:bg-[#0369a1] text-white text-sm font-semibold shadow-brand h-12 sm:h-13 px-7 justify-center transition-all duration-150"
             >
-              <Link to="/contact">
-                <span>Create Account</span>
+              <Link to={hero.primaryCtaLink}>
+                <span>{hero.primaryCtaText}</span>
                 <ArrowRight className="h-4 w-4 ml-2" />
               </Link>
             </Button>
@@ -56,10 +62,10 @@ export function HeroSection() {
               variant="outlineNeutral"
               size="xl"
               asChild
-              className="rounded-full bg-white/90 hover:bg-white text-[#0a1e3f] border-[#cbd5e1] hover:border-[#0a1e3f] text-sm font-semibold h-12 sm:h-13 px-6 justify-center shadow-xs transition-all duration-150"
+              className="rounded-full bg-white/70 backdrop-blur-sm hover:bg-white text-[#0a1e3f] border-[#cbd5e1] hover:border-[#0a1e3f] text-sm font-semibold h-12 sm:h-13 px-6 justify-center shadow-xs transition-all duration-150"
             >
-              <Link to="/business-banking">
-                <span>Explore Business Solutions</span>
+              <Link to={hero.secondaryCtaLink}>
+                <span>{hero.secondaryCtaText}</span>
                 <ChevronRight className="h-4 w-4 ml-1" />
               </Link>
             </Button>
@@ -67,7 +73,7 @@ export function HeroSection() {
 
           {/* Institutional Highlights Grid */}
           <div className="pt-6 border-t border-slate-200 grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 text-xs font-semibold text-[#0a1e3f]">
-            <div className="flex items-center gap-2.5 bg-white/90 border border-slate-200 rounded-xl p-3 shadow-xs">
+            <div className="flex items-center gap-2.5 bg-white/70 backdrop-blur-md border border-white/50 rounded-xl p-3 shadow-sm card-3d">
               <ShieldCheck className="h-4 w-4 text-emerald-600 shrink-0" />
               <div className="flex flex-col">
                 <span className="leading-tight">CBN Licensed</span>
@@ -75,19 +81,19 @@ export function HeroSection() {
               </div>
             </div>
 
-            <div className="flex items-center gap-2.5 bg-white/90 border border-slate-200 rounded-xl p-3 shadow-xs">
+            <div className="flex items-center gap-2.5 bg-white/70 backdrop-blur-md border border-white/50 rounded-xl p-3 shadow-sm card-3d">
               <Landmark className="h-4 w-4 text-[#0284c7] shrink-0" />
               <div className="flex flex-col">
-                <span className="leading-tight">NDIC Insured</span>
-                <span className="text-[10px] text-slate-500 font-normal">100% Eligible Protection</span>
+                <span className="leading-tight">{hero.ratingScore}</span>
+                <span className="text-[10px] text-slate-500 font-normal">{hero.ratingLabel}</span>
               </div>
             </div>
 
-            <div className="flex items-center gap-2.5 bg-white/90 border border-slate-200 rounded-xl p-3 shadow-xs">
+            <div className="flex items-center gap-2.5 bg-white/70 backdrop-blur-md border border-white/50 rounded-xl p-3 shadow-sm card-3d">
               <Users className="h-4 w-4 text-[#0284c7] shrink-0" />
               <div className="flex flex-col">
-                <span className="leading-tight">50,000+ Customers</span>
-                <span className="text-[10px] text-slate-500 font-normal">Rivers State & Nationwide</span>
+                <span className="leading-tight">{hero.activeUsersCount}</span>
+                <span className="text-[10px] text-slate-500 font-normal">{hero.activeUsersLabel}</span>
               </div>
             </div>
           </div>

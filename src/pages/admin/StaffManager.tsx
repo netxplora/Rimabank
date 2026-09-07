@@ -92,7 +92,7 @@ export default function StaffManager() {
     setIsModalOpen(true);
   };
 
-  const handleSave = (e: React.FormEvent) => {
+  const handleSave = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!user) return;
 
@@ -107,16 +107,20 @@ export default function StaffManager() {
     }
 
     if (editingStaff) {
-      updateStaffUser(editingStaff.id, {
+      const res = await updateStaffUser(editingStaff.id, {
         name: formData.name,
         email: formData.email,
         role: formData.role,
         department: formData.department,
         status: formData.status
       }, { id: user.id, name: user.name, role: user.role });
-      toast.success(`Staff profile for ${formData.name} updated.`);
+      if (res.ok) {
+        toast.success(`Staff profile for ${formData.name} updated.`);
+      } else {
+        toast.error(res.error || 'Failed to update staff profile');
+      }
     } else {
-      addStaffUser({
+      const res = await addStaffUser({
         name: formData.name,
         email: formData.email,
         role: formData.role,
@@ -124,27 +128,35 @@ export default function StaffManager() {
         status: formData.status
       }, { id: user.id, name: user.name, role: user.role });
 
-      setCreatedCredentials({
-        name: formData.name,
-        email: formData.email,
-        tempPassword: formData.temporaryPassword,
-        role: formData.role
-      });
+      if (res.ok) {
+        setCreatedCredentials({
+          name: formData.name,
+          email: formData.email,
+          tempPassword: formData.temporaryPassword,
+          role: formData.role
+        });
 
-      toast.success(`New staff member ${formData.name} onboarded.`);
+        toast.success(`New staff member ${formData.name} onboarded.`);
+      } else {
+        toast.error(res.error || 'Failed to create staff account');
+      }
     }
 
     setIsModalOpen(false);
   };
 
-  const handleToggleStatus = (staff: StaffUser) => {
+  const handleToggleStatus = async (staff: StaffUser) => {
     if (!user) return;
     if (!can('manage_staff', 'staff_users')) {
       toast.error('Unauthorized action.');
       return;
     }
-    toggleStaffStatus(staff.id, { id: user.id, name: user.name, role: user.role });
-    toast.success(`Status for ${staff.name} updated to ${staff.status === 'active' ? 'suspended' : 'active'}.`);
+    const res = await toggleStaffStatus(staff.id, { id: user.id, name: user.name, role: user.role });
+    if (res.ok) {
+      toast.success(`Status for ${staff.name} updated to ${staff.status === 'active' ? 'suspended' : 'active'}.`);
+    } else {
+      toast.error(res.error || 'Failed to update status');
+    }
   };
 
   const handleResetPassword = (staff: StaffUser) => {

@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { CheckCircle2, ArrowRight, ShieldCheck, Building2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useCMS } from "@/context/CMSContext";
 
 const highlights = [
   "Licensed and regulated by Central Bank of Nigeria",
@@ -12,6 +13,11 @@ const highlights = [
 ];
 
 export function AboutSnapshot() {
+  const { siteContent } = useCMS();
+  const about = siteContent?.aboutSnapshot;
+
+  if (!about) return null;
+
   return (
     <section className="py-16 md:py-20 bg-white border-b border-[#e2e8f0]/60">
       <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
@@ -21,13 +27,13 @@ export function AboutSnapshot() {
           <div className="lg:col-span-6 relative order-2 lg:order-1 perspective-1000">
             <div className="relative rounded-2xl overflow-hidden shadow-md border border-[#e2e8f0] group">
               <img
-                src="/images/hero-about.png"
-                alt="Rima MFB team and customers"
+                src={about.featuredImage || "/images/hero-about.png"}
+                alt={about.heading}
                 className="w-full h-full object-cover object-center transform group-hover:scale-105 transition-transform duration-700"
               />
               
               {/* Bottom Glass Overlay Badge */}
-              <div className="absolute bottom-4 left-4 right-4 bg-white/95 backdrop-blur-md border border-[#e2e8f0] rounded-xl p-3.5 flex items-center justify-between shadow-lg">
+              <div className="absolute bottom-4 left-4 right-4 bg-white/70 backdrop-blur-md border border-[#e2e8f0]/50 rounded-xl p-3.5 flex items-center justify-between shadow-lg">
                 <div className="flex items-center gap-2">
                   <Building2 className="h-4 w-4 text-[#0284c7]" />
                   <span className="text-xs font-semibold text-[#0a1e3f]">Port Harcourt HQ</span>
@@ -39,25 +45,26 @@ export function AboutSnapshot() {
             </div>
 
             {/* Floating 3D Stat Card */}
-            <div className="absolute -top-4 -right-2 sm:-right-4 bg-[#0284c7] text-white p-4 rounded-2xl shadow-md shadow-sky-500/20 text-center animate-float-slow hidden sm:block">
-              <div className="text-2xl font-bold font-heading leading-none">25+</div>
-              <div className="text-[11px] font-medium mt-1 opacity-95">Years of Service</div>
-            </div>
+            {about.stats && about.stats.length > 0 && (
+              <div className="absolute -top-4 -right-2 sm:-right-4 bg-[#0284c7] text-white p-4 rounded-2xl shadow-md shadow-sky-500/20 text-center animate-float-slow hidden sm:block glass-3d-dark border-none">
+                <div className="text-2xl font-bold font-heading leading-none">{about.stats[0].value}</div>
+                <div className="text-[11px] font-medium mt-1 opacity-95">{about.stats[0].label}</div>
+              </div>
+            )}
           </div>
 
           {/* Text Column (6 cols) */}
           <div className="lg:col-span-6 order-1 lg:order-2 space-y-6">
             <span className="text-xs font-semibold uppercase tracking-wider text-[#0284c7] block">
-              Institutional Heritage
+              {about.eyebrow}
             </span>
             <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-semibold text-[#0a1e3f] tracking-tight leading-[1.08]">
-              Built on community trust and regulatory excellence.
+              {about.heading}
             </h2>
-            <p className="text-[#0a1e3f]/80 text-base leading-relaxed">
-              Rima Microfinance Bank is an established financial institution committed to advancing
-              financial inclusion across Rivers State. We serve individuals, civil servants, market
-              traders, students, and small enterprises with reliable, transparent banking.
-            </p>
+            <div className="text-[#0a1e3f]/80 text-base leading-relaxed space-y-3">
+              <p>{about.description1}</p>
+              {about.description2 && <p>{about.description2}</p>}
+            </div>
 
             {/* 2-Column Responsive Highlights Grid */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 py-2">

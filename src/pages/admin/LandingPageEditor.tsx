@@ -50,19 +50,26 @@ export default function LandingPageEditor() {
     });
   };
 
-  const handleSave = () => {
+  const handleSave = async () => {
     if (!user) return;
     setIsSaving(true);
-    updateSiteContent(formData, { id: user.id, name: user.name, role: user.role });
-    setTimeout(() => {
+    try {
+      const res = await updateSiteContent(formData, { id: user.id, name: user.name, role: user.role });
+      if (res && res.ok) {
+        toast.success('Landing page content successfully published & updated on public website!');
+      } else {
+        toast.error(res?.error || 'Failed to update landing page content');
+      }
+    } catch (e: any) {
+      toast.error(e.message || 'An unexpected error occurred');
+    } finally {
       setIsSaving(false);
-      toast.success('Landing page content successfully published & updated on public website!');
-    }, 400);
+    }
   };
 
-  const handleReset = () => {
+  const handleReset = async () => {
     if (window.confirm('Reset all landing page content to institutional defaults?')) {
-      resetSiteContent();
+      await resetSiteContent();
       setFormData(siteContent);
       toast.info('Content reset to standard defaults.');
     }

@@ -38,7 +38,7 @@ export function BankingServiceLayout({
   return (
     <Layout>
       {/* Editorial Service Hero */}
-      <section className="relative bg-white pt-8 pb-10 sm:pt-10 sm:pb-12 lg:pt-12 lg:pb-14 border-b border-[#e2e8f0]/60 overflow-hidden">
+      <section className="relative bg-white pt-6 pb-8 sm:pt-8 sm:pb-10 lg:pt-10 lg:pb-12 border-b border-[#e2e8f0]/60 overflow-hidden">
         <div className="absolute top-0 right-0 w-[450px] h-[450px] bg-[#f0f7ff] rounded-full blur-3xl -z-10 opacity-60 pointer-events-none" />
 
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
