@@ -387,18 +387,18 @@ export function Header() {
                 variant="pill"
                 size="sm"
                 asChild
-                className="bg-[#0284c7] hover:bg-[#0369a1] text-white text-[11px] font-semibold px-3 h-8 shadow-xs"
+                className="hidden sm:inline-flex bg-[#0284c7] hover:bg-[#0369a1] text-white text-[11px] font-semibold px-3.5 h-8 shadow-xs"
               >
                 <Link to="/contact">Create Account</Link>
               </Button>
 
               <button
                 type="button"
-                className="p-2 rounded-xl border border-[#e2e8f0] text-[#0a1e3f] hover:bg-[#f0f7ff] transition-colors"
+                className="p-2 rounded-xl border border-[#e2e8f0] text-[#0a1e3f] bg-white hover:bg-[#f0f7ff] active:scale-95 transition-all shadow-xs"
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                 aria-label="Toggle Navigation Menu"
               >
-                {isMobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+                {isMobileMenuOpen ? <X className="h-5 w-5 text-[#0284c7]" /> : <Menu className="h-5 w-5" />}
               </button>
             </div>
           </div>
@@ -563,7 +563,7 @@ export function Header() {
         {/* Backdrop Overlay */}
         {isMobileMenuOpen && (
           <div
-            className="fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-50 lg:hidden animate-in fade-in duration-300"
+            className="fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-[100] lg:hidden animate-in fade-in duration-300"
             onClick={() => setIsMobileMenuOpen(false)}
             aria-hidden="true"
           />
@@ -572,7 +572,7 @@ export function Header() {
         {/* Right-Side Slide Drawer */}
         <div
           className={cn(
-            "fixed top-0 right-0 h-full w-[85%] max-w-[340px] bg-white z-50 shadow-2xl flex flex-col transition-transform duration-300 ease-in-out lg:hidden border-l border-slate-200",
+            "fixed top-0 right-0 h-full w-[85%] max-w-[340px] bg-white z-[101] shadow-2xl flex flex-col transition-transform duration-300 ease-in-out lg:hidden border-l border-slate-200",
             isMobileMenuOpen ? "translate-x-0" : "translate-x-full pointer-events-none"
           )}
         >

@@ -24,12 +24,12 @@ export function Layout({ children }: LayoutProps) {
   }
 
   return (
-    <div className="min-h-screen flex flex-col overflow-x-hidden bg-white">
+    <div className="min-h-screen flex flex-col overflow-x-hidden bg-[#0a1e3f]">
       <ScrollToTop />
       <PageLoadingBar />
       <AnnouncementBanner />
       <Header />
-      <main className="flex-1 w-full flex flex-col">
+      <main className="flex-1 w-full flex flex-col bg-white">
         <PageTransition>{children}</PageTransition>
       </main>
       <Footer />
