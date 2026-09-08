@@ -24,7 +24,7 @@ export function Layout({ children }: LayoutProps) {
   }
 
   return (
-    <div className="min-h-screen flex flex-col overflow-x-hidden bg-[#0a1e3f]">
+    <div className="min-h-screen flex flex-col overflow-x-hidden bg-[#f8fafc]">
       <ScrollToTop />
       <PageLoadingBar />
       <AnnouncementBanner />

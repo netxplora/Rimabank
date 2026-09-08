@@ -257,21 +257,21 @@ export default function PersonalBanking() {
         </div>
       </section>
 
-      {/* ── 2. Interactive 3D Deposit & Yield Calculator ── */}
+      {/* ── 2. Interactive Deposit & Yield Calculator ── */}
       <section className="py-12 sm:py-16 bg-white border-b border-[#e2e8f0]">
         <div className="max-w-[1240px] mx-auto px-4 sm:px-6">
-          <div className="rounded-3xl bg-[#0a1e3f] text-white p-6 sm:p-10 lg:p-12 border border-blue-900 shadow-xl">
+          <div className="rounded-3xl bg-gradient-to-br from-[#f0f9ff] via-[#e0f2fe]/50 to-[#f0f9ff] text-[#0a1e3f] p-6 sm:p-10 lg:p-12 border border-[#bae6fd] shadow-sm">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
               
               <div className="lg:col-span-7 space-y-4">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-[#38bdf8] text-xs font-semibold uppercase tracking-wider">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-[#bae6fd] text-[#0284c7] text-xs font-semibold uppercase tracking-wider">
                   <Calculator className="h-3.5 w-3.5" />
                   <span>Interactive Yield Estimator</span>
                 </div>
-                <h2 className="font-heading text-2xl sm:text-3xl lg:text-4xl font-bold text-white leading-tight">
+                <h2 className="font-heading text-2xl sm:text-3xl lg:text-4xl font-bold text-[#0a1e3f] leading-tight">
                   Calculate your quarterly savings returns.
                 </h2>
-                <p className="text-xs sm:text-sm text-blue-100/75 leading-relaxed max-w-xl">
+                <p className="text-xs sm:text-sm text-slate-600 leading-relaxed max-w-xl">
                   Adjust the deposit amount and tenure to estimate your interest earnings on RIMA Bank Target Yield savings accounts.
                 </p>
 
@@ -279,8 +279,8 @@ export default function PersonalBanking() {
                 <div className="space-y-4 pt-2">
                   <div className="space-y-2">
                     <div className="flex justify-between text-xs">
-                      <span className="text-blue-100/70">Deposit Principal</span>
-                      <span className="font-heading font-bold text-white text-sm">{formatNaira(depositAmount)}</span>
+                      <span className="text-slate-600">Deposit Principal</span>
+                      <span className="font-heading font-bold text-[#0a1e3f] text-sm">{formatNaira(depositAmount)}</span>
                     </div>
                     <input
                       type="range"
@@ -289,14 +289,14 @@ export default function PersonalBanking() {
                       step={50000}
                       value={depositAmount}
                       onChange={(e) => setDepositAmount(Number(e.target.value))}
-                      className="w-full h-2 bg-white/20 rounded-lg appearance-none cursor-pointer accent-[#38bdf8]"
+                      className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-[#0284c7]"
                     />
                   </div>
 
                   <div className="space-y-2">
                     <div className="flex justify-between text-xs">
-                      <span className="text-blue-100/70">Tenure</span>
-                      <span className="font-heading font-bold text-white text-sm">{tenure} Months</span>
+                      <span className="text-slate-600">Tenure</span>
+                      <span className="font-heading font-bold text-[#0a1e3f] text-sm">{tenure} Months</span>
                     </div>
                     <div className="grid grid-cols-4 gap-2">
                       {[3, 6, 12, 24].map((m) => (
@@ -306,8 +306,8 @@ export default function PersonalBanking() {
                           onClick={() => setTenure(m)}
                           className={`py-2 text-xs font-semibold rounded-xl border transition-all ${
                             tenure === m
-                              ? "bg-[#0284c7] text-white border-[#38bdf8]"
-                              : "bg-white/5 text-blue-100/70 border-white/10 hover:bg-white/10"
+                              ? "bg-[#0284c7] text-white border-[#0284c7] shadow-xs"
+                              : "bg-white text-slate-700 border-slate-200 hover:bg-slate-50"
                           }`}
                         >
                           {m} Months
@@ -319,20 +319,20 @@ export default function PersonalBanking() {
               </div>
 
               {/* Calculated Results Card */}
-              <div className="lg:col-span-5 bg-[#0c2445] p-6 sm:p-8 rounded-2xl border border-white/10 space-y-5">
-                <div className="flex items-center justify-between pb-3 border-b border-white/10 text-xs">
-                  <span className="text-blue-200/60 font-semibold uppercase">Estimated Output</span>
-                  <span className="text-emerald-400 font-bold">12.5% Indicative</span>
+              <div className="lg:col-span-5 bg-white/80 p-6 sm:p-8 rounded-2xl border border-[#bae6fd] space-y-5">
+                <div className="flex items-center justify-between pb-3 border-b border-[#e2e8f0] text-xs">
+                  <span className="text-slate-500 font-semibold uppercase">Estimated Output</span>
+                  <span className="text-emerald-600 font-bold">12.5% Indicative</span>
                 </div>
 
                 <div className="space-y-3 text-xs">
-                  <div className="flex justify-between items-center text-blue-100/70">
+                  <div className="flex justify-between items-center text-slate-600">
                     <span>Estimated Total Interest:</span>
-                    <span className="font-heading font-bold text-emerald-400 text-sm">+{formatNaira(estimatedReturn)}</span>
+                    <span className="font-heading font-bold text-emerald-600 text-sm">+{formatNaira(estimatedReturn)}</span>
                   </div>
-                  <div className="pt-2 border-t border-white/10 flex justify-between items-center text-sm font-semibold">
-                    <span className="text-white">Estimated Maturity:</span>
-                    <span className="font-heading font-bold text-[#38bdf8] text-base sm:text-lg">{formatNaira(totalMaturity)}</span>
+                  <div className="pt-2 border-t border-[#e2e8f0] flex justify-between items-center text-sm font-semibold">
+                    <span className="text-[#0a1e3f]">Estimated Maturity:</span>
+                    <span className="font-heading font-bold text-[#0284c7] text-base sm:text-lg">{formatNaira(totalMaturity)}</span>
                   </div>
                 </div>
 

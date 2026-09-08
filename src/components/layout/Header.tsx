@@ -234,10 +234,10 @@ export function Header() {
       {/* ── 2. Primary Navigation Bar ── */}
       <header
         className={cn(
-          "sticky top-0 z-50 w-full transition-all duration-200 glass-nav border-b",
+          "sticky top-0 z-50 w-full transition-all duration-200 bg-white border-b border-[#e2e8f0]",
           isScrolled
-            ? "border-blue-200/50 shadow-brand"
-            : "border-transparent"
+            ? "shadow-sm border-[#cbd5e1]"
+            : "border-[#e2e8f0]"
         )}
       >
         <div className="max-w-[1240px] mx-auto px-4 sm:px-6">
@@ -453,23 +453,23 @@ export function Header() {
 
                 {/* Featured Side Panel (3 cols) */}
                 {whatWeOfferMenu.featured && (
-                  <div className="col-span-3 bg-[#0a1e3f] text-white rounded-2xl p-5 flex flex-col justify-between h-full border border-blue-900 shadow-sm">
+                  <div className="col-span-3 bg-gradient-to-br from-[#f0f9ff] to-[#e0f2fe] text-[#0a1e3f] rounded-2xl p-5 flex flex-col justify-between h-full border border-[#bae6fd] shadow-xs">
                     <div className="space-y-2">
-                      <span className="inline-block text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md bg-white/10 text-[#38bdf8] border border-white/10">
+                      <span className="inline-block text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md bg-white text-[#0284c7] border border-[#bae6fd]">
                         {whatWeOfferMenu.featured.tag}
                       </span>
-                      <h4 className="font-heading font-bold text-sm text-white leading-snug">
+                      <h4 className="font-heading font-bold text-sm text-[#0a1e3f] leading-snug">
                         {whatWeOfferMenu.featured.title}
                       </h4>
-                      <p className="text-xs text-blue-100/70 leading-relaxed">
+                      <p className="text-xs text-slate-600 leading-relaxed">
                         {whatWeOfferMenu.featured.description}
                       </p>
                     </div>
 
-                    <div className="pt-4 mt-4 border-t border-white/10">
+                    <div className="pt-4 mt-4 border-t border-[#bae6fd]/80">
                       <Link
                         to={whatWeOfferMenu.featured.ctaHref}
-                        className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#38bdf8] hover:text-white transition-colors"
+                        className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#0284c7] hover:text-[#0369a1] transition-colors"
                       >
                         <span>{whatWeOfferMenu.featured.ctaText}</span>
                         <ChevronRight className="h-3.5 w-3.5" />
@@ -482,7 +482,7 @@ export function Header() {
           </div>
         )}
 
-        {/* Panel 2: Who We Are */}
+        {/* Panel 2: About Rima */}
         {activeDesktopMenu === "about" && (
           <div
             className="hidden lg:block absolute top-full left-0 w-full bg-white border-b border-[#e2e8f0] shadow-[0_24px_48px_rgba(10,30,63,0.12)] z-50 animate-in fade-in slide-in-from-top-1 duration-150"
@@ -491,8 +491,8 @@ export function Header() {
           >
             <div className="max-w-[1240px] mx-auto px-4 sm:px-6 py-8">
               <div className="grid grid-cols-12 gap-8 items-start">
-                {/* 3 Group Columns (9 cols) */}
-                <div className="col-span-9 grid grid-cols-3 gap-6">
+                {/* 3 Group Columns (8 cols) */}
+                <div className="col-span-8 grid grid-cols-2 gap-x-8 gap-y-6">
                   {whoWeAreMenu.groups.map((group) => {
                     const GroupIcon = group.icon || Building2;
                     return (
@@ -528,14 +528,16 @@ export function Header() {
                   })}
                 </div>
 
-                {/* Featured Side Panel (3 cols) */}
+                {/* Featured Promo Box (4 cols) */}
                 {whoWeAreMenu.featured && (
-                  <div className="col-span-3 bg-[#f8fafc] border border-[#e2e8f0] rounded-2xl p-5 flex flex-col justify-between h-full">
-                    <div className="space-y-2">
-                      <span className="inline-block text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md bg-emerald-50 text-emerald-700 border border-emerald-200">
-                        {whoWeAreMenu.featured.tag}
-                      </span>
-                      <h4 className="font-heading font-bold text-sm text-[#0a1e3f] leading-snug">
+                  <div className="col-span-4 bg-gradient-to-br from-[#f0f9ff] to-[#e0f2fe] rounded-2xl p-6 text-[#0a1e3f] flex flex-col justify-between relative overflow-hidden border border-[#bae6fd] shadow-xs">
+                    <div className="space-y-2 relative z-10">
+                      {whoWeAreMenu.featured.tag && (
+                        <span className="inline-block px-2.5 py-0.5 rounded-full bg-white text-[#0284c7] text-[10px] font-bold uppercase tracking-wider border border-[#bae6fd]">
+                          {whoWeAreMenu.featured.tag}
+                        </span>
+                      )}
+                      <h4 className="font-heading font-bold text-base text-[#0a1e3f]">
                         {whoWeAreMenu.featured.title}
                       </h4>
                       <p className="text-xs text-slate-600 leading-relaxed">
@@ -543,7 +545,7 @@ export function Header() {
                       </p>
                     </div>
 
-                    <div className="pt-4 mt-4 border-t border-slate-200">
+                    <div className="pt-6 relative z-10">
                       <Link
                         to={whoWeAreMenu.featured.ctaHref}
                         className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#0284c7] hover:text-[#0369a1] transition-colors"
@@ -558,24 +560,25 @@ export function Header() {
             </div>
           </div>
         )}
+      </header>
 
-        {/* ── 4. Mobile Right-Side Navigation Drawer ── */}
-        {/* Backdrop Overlay */}
-        {isMobileMenuOpen && (
-          <div
-            className="fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-[100] lg:hidden animate-in fade-in duration-300"
-            onClick={() => setIsMobileMenuOpen(false)}
-            aria-hidden="true"
-          />
-        )}
-
-        {/* Right-Side Slide Drawer */}
+      {/* ── 4. Mobile Right-Side Navigation Drawer (Root Level for flawless layering) ── */}
+      {/* Backdrop Overlay */}
+      {isMobileMenuOpen && (
         <div
-          className={cn(
-            "fixed top-0 right-0 h-full w-[85%] max-w-[340px] bg-white z-[101] shadow-2xl flex flex-col transition-transform duration-300 ease-in-out lg:hidden border-l border-slate-200",
-            isMobileMenuOpen ? "translate-x-0" : "translate-x-full pointer-events-none"
-          )}
-        >
+          className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[999] lg:hidden animate-in fade-in duration-200"
+          onClick={() => setIsMobileMenuOpen(false)}
+          aria-hidden="true"
+        />
+      )}
+
+      {/* Right-Side Slide Drawer */}
+      <div
+        className={cn(
+          "fixed top-0 right-0 h-full w-[85%] max-w-[340px] bg-white z-[1000] shadow-2xl flex flex-col transition-transform duration-300 ease-in-out lg:hidden border-l border-slate-200",
+          isMobileMenuOpen ? "translate-x-0" : "translate-x-full pointer-events-none"
+        )}
+      >
           {/* Drawer Header */}
           <div className="p-4 border-b border-slate-100 flex items-center justify-between bg-white shrink-0">
             <div className="flex items-center gap-2.5">
@@ -769,8 +772,6 @@ export function Header() {
             </div>
           </div>
         </div>
-      </header>
     </>
   );
 }
-

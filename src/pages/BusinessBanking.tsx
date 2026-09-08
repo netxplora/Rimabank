@@ -175,40 +175,40 @@ export default function BusinessBanking() {
             </div>
 
             <div className="lg:col-span-5 perspective-1000 relative">
-              <div className="rounded-3xl bg-[#0a1e3f] text-white p-7 border border-blue-900 shadow-2xl space-y-6 transform-3d-card">
-                <div className="flex items-center justify-between pb-4 border-b border-white/10">
+              <div className="rounded-3xl bg-gradient-to-br from-[#f0f9ff] via-white to-[#f0f9ff] text-[#0a1e3f] p-7 border border-[#bae6fd] shadow-sm space-y-6 transform-3d-card">
+                <div className="flex items-center justify-between pb-4 border-b border-[#e2e8f0]">
                   <div>
-                    <span className="text-[10px] text-[#38bdf8] font-bold uppercase tracking-widest block">
+                    <span className="text-[10px] text-[#0284c7] font-bold uppercase tracking-widest block">
                       Commercial Facility
                     </span>
-                    <div className="text-xl font-heading font-bold text-white mt-0.5">
+                    <div className="text-xl font-heading font-bold text-[#0a1e3f] mt-0.5">
                       SME Working Capital
                     </div>
                   </div>
-                  <div className="w-10 h-10 rounded-xl bg-[#0284c7] text-white flex items-center justify-center font-bold text-xs shadow-md">
+                  <div className="w-10 h-10 rounded-xl bg-[#0284c7] text-white flex items-center justify-center font-bold text-xs shadow-xs">
                     ₦50M
                   </div>
                 </div>
 
                 <div className="grid grid-cols-2 gap-3 text-xs">
-                  <div className="p-3.5 rounded-xl bg-white/5 border border-white/10">
-                    <span className="text-[10px] text-blue-200/60 uppercase font-semibold block">Turnaround</span>
-                    <span className="font-heading font-bold text-white text-sm mt-0.5 block">24 – 48 Hours</span>
+                  <div className="p-3.5 rounded-xl bg-white border border-[#e2e8f0]">
+                    <span className="text-[10px] text-slate-500 uppercase font-semibold block">Turnaround</span>
+                    <span className="font-heading font-bold text-[#0a1e3f] text-sm mt-0.5 block">24 – 48 Hours</span>
                   </div>
-                  <div className="p-3.5 rounded-xl bg-white/5 border border-white/10">
-                    <span className="text-[10px] text-blue-200/60 uppercase font-semibold block">Interest Rate</span>
-                    <span className="font-heading font-bold text-emerald-400 text-sm mt-0.5 block">From 2.5% Monthly</span>
+                  <div className="p-3.5 rounded-xl bg-white border border-[#e2e8f0]">
+                    <span className="text-[10px] text-slate-500 uppercase font-semibold block">Interest Rate</span>
+                    <span className="font-heading font-bold text-emerald-600 text-sm mt-0.5 block">From 2.5% Monthly</span>
                   </div>
                 </div>
 
-                <div className="pt-2 flex items-center justify-between text-xs text-blue-100/75 border-t border-white/10">
+                <div className="pt-2 flex items-center justify-between text-xs text-slate-600 border-t border-[#e2e8f0]">
                   <span className="flex items-center gap-1.5">
-                    <ShieldCheck className="h-4 w-4 text-emerald-400" />
+                    <ShieldCheck className="h-4 w-4 text-emerald-600" />
                     NDIC Insured Bank
                   </span>
                   <Link
                     to="/loans"
-                    className="text-[#38bdf8] font-semibold hover:text-white flex items-center gap-1 transition-colors"
+                    className="text-[#0284c7] font-semibold hover:text-[#0369a1] flex items-center gap-1 transition-colors"
                   >
                     View Terms <ChevronRight className="h-3.5 w-3.5" />
                   </Link>
@@ -232,26 +232,26 @@ export default function BusinessBanking() {
 
       <section className="py-8 sm:py-10 bg-white border-b border-[#e2e8f0]">
         <div className="max-w-[1240px] mx-auto px-4 sm:px-6">
-          <div className="rounded-3xl bg-[#0a1e3f] text-white p-6 sm:p-10 lg:p-12 border border-blue-900 shadow-xl">
+          <div className="rounded-3xl bg-gradient-to-br from-[#f0f9ff] via-[#e0f2fe]/50 to-[#f0f9ff] text-[#0a1e3f] p-6 sm:p-10 lg:p-12 border border-[#bae6fd] shadow-sm">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
               
               <div className="lg:col-span-7 space-y-4">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-[#38bdf8] text-xs font-semibold uppercase tracking-wider">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-[#bae6fd] text-[#0284c7] text-xs font-semibold uppercase tracking-wider">
                   <Calculator className="h-3.5 w-3.5" />
                   <span>Commercial Credit Estimator</span>
                 </div>
-                <h2 className="font-heading text-2xl sm:text-3xl lg:text-4xl font-bold text-white leading-tight">
+                <h2 className="font-heading text-2xl sm:text-3xl lg:text-4xl font-bold text-[#0a1e3f] leading-tight">
                   Estimate your enterprise borrowing capacity.
                 </h2>
-                <p className="text-xs sm:text-sm text-blue-100/75 leading-relaxed max-w-xl">
+                <p className="text-xs sm:text-sm text-slate-600 leading-relaxed max-w-xl">
                   Slide your verified average monthly business turnover to estimate eligible working capital credit limits.
                 </p>
 
                 <div className="space-y-4 pt-2">
                   <div className="space-y-2">
                     <div className="flex justify-between text-xs">
-                      <span className="text-blue-100/70">Average Monthly Business Turnover</span>
-                      <span className="font-heading font-bold text-white text-sm">{formatNaira(turnover)}</span>
+                      <span className="text-slate-600">Average Monthly Business Turnover</span>
+                      <span className="font-heading font-bold text-[#0a1e3f] text-sm">{formatNaira(turnover)}</span>
                     </div>
                     <input
                       type="range"
@@ -260,9 +260,9 @@ export default function BusinessBanking() {
                       step={500000}
                       value={turnover}
                       onChange={(e) => setTurnover(Number(e.target.value))}
-                      className="w-full h-2 bg-white/20 rounded-lg appearance-none cursor-pointer accent-[#38bdf8]"
+                      className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-[#0284c7]"
                     />
-                    <div className="flex justify-between text-[10px] text-blue-200/50">
+                    <div className="flex justify-between text-[10px] text-slate-400">
                       <span>₦500,000</span>
                       <span>₦50,000,000+</span>
                     </div>
@@ -270,20 +270,20 @@ export default function BusinessBanking() {
                 </div>
               </div>
 
-              <div className="lg:col-span-5 bg-[#0c2445] p-6 sm:p-8 rounded-2xl border border-white/10 space-y-5">
-                <div className="flex items-center justify-between pb-3 border-b border-white/10 text-xs">
-                  <span className="text-blue-200/60 font-semibold uppercase">Indicative Credit Limit</span>
-                  <span className="text-emerald-400 font-bold">Fast Approval</span>
+              <div className="lg:col-span-5 bg-white/80 p-6 sm:p-8 rounded-2xl border border-[#bae6fd] space-y-5">
+                <div className="flex items-center justify-between pb-3 border-b border-[#e2e8f0] text-xs">
+                  <span className="text-slate-500 font-semibold uppercase">Indicative Credit Limit</span>
+                  <span className="text-emerald-600 font-bold">Fast Approval</span>
                 </div>
 
                 <div className="space-y-3 text-xs">
-                  <div className="flex justify-between items-center text-blue-100/70">
+                  <div className="flex justify-between items-center text-slate-600">
                     <span>Working Capital Line:</span>
-                    <span className="font-heading font-bold text-[#38bdf8] text-base sm:text-xl">{formatNaira(eligibleCredit)}</span>
+                    <span className="font-heading font-bold text-[#0284c7] text-base sm:text-xl">{formatNaira(eligibleCredit)}</span>
                   </div>
-                  <div className="pt-2 border-t border-white/10 flex justify-between items-center text-xs text-blue-100/70">
+                  <div className="pt-2 border-t border-[#e2e8f0] flex justify-between items-center text-xs text-slate-600">
                     <span>Repayment Horizon:</span>
-                    <span className="font-semibold text-white">Up to 24 Months</span>
+                    <span className="font-semibold text-[#0a1e3f]">Up to 24 Months</span>
                   </div>
                 </div>
 

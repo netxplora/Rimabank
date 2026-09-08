@@ -118,12 +118,12 @@ export function BankingServiceLayout({
               {children}
 
               {/* Action Banner */}
-              <div className="p-6 sm:p-8 rounded-2xl bg-[#0a1e3f] text-white flex flex-col md:flex-row items-start md:items-center justify-between gap-5 border border-white/10">
+              <div className="p-6 sm:p-8 rounded-2xl bg-gradient-to-br from-[#f0f9ff] to-[#e0f2fe] text-[#0a1e3f] flex flex-col md:flex-row items-start md:items-center justify-between gap-5 border border-[#bae6fd]">
                 <div className="max-w-md">
-                  <h3 className="font-heading text-lg font-semibold text-white mb-1">
+                  <h3 className="font-heading text-lg font-semibold text-[#0a1e3f] mb-1">
                     Ready to open your account?
                   </h3>
-                  <p className="text-xs text-white/70 leading-relaxed">
+                  <p className="text-xs text-slate-600 leading-relaxed">
                     Visit any of our regional branches with your identification documents or submit an inquiry online.
                   </p>
                 </div>
@@ -131,7 +131,7 @@ export function BankingServiceLayout({
                   variant="pill"
                   size="default"
                   asChild
-                  className="bg-[#0284c7] hover:bg-[#0369a1] text-white shadow-md shadow-sky-500/20 transform hover:-translate-y-0.5 transition-all shrink-0"
+                  className="bg-[#0284c7] hover:bg-[#0369a1] text-white shadow-brand transform hover:-translate-y-0.5 transition-all shrink-0"
                 >
                   <Link to="/contact">
                     {ctaText}

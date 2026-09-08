@@ -91,31 +91,31 @@ export function Footer() {
   };
 
   return (
-    <footer className="w-full mt-auto bg-[#0a1e3f] text-white pt-10 sm:pt-14 pb-4 sm:pb-6 border-t border-blue-950 selection:bg-[#0284c7] selection:text-white">
+    <footer className="w-full mt-auto bg-[#f8fafc] text-[#0a1e3f] pt-10 sm:pt-14 pb-6 sm:pb-8 border-t border-[#e2e8f0] selection:bg-[#0284c7] selection:text-white">
       
-      {/* Stay Informed Newsletter Banner */}
+      {/* Stay Informed Newsletter Banner (Lightweight Soft Ice-Blue Wash) */}
       <div className="max-w-[1200px] mx-auto px-4 sm:px-6 mb-8 sm:mb-12">
-        <div className="glass-3d-dark rounded-2xl p-5 sm:p-8 lg:p-10 border border-blue-400/20 shadow-glass-3d">
+        <div className="rounded-3xl bg-gradient-to-br from-[#f0f9ff] via-[#e0f2fe]/50 to-[#f0f9ff] p-6 sm:p-8 lg:p-10 border border-[#bae6fd] shadow-sm">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-center">
             
             {/* Left Content */}
             <div className="lg:col-span-7 space-y-2 sm:space-y-2.5">
-              <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-blue-500/20 text-[#38bdf8] text-[10px] sm:text-xs font-semibold uppercase tracking-wider">
+              <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-white text-[#0284c7] border border-[#bae6fd] text-[10px] sm:text-xs font-semibold uppercase tracking-wider">
                 <Shield className="h-3 w-3" />
                 Stay Informed
               </div>
-              <h3 className="font-heading text-xl sm:text-2xl lg:text-3xl font-semibold text-white tracking-tight leading-tight">
+              <h3 className="font-heading text-xl sm:text-2xl lg:text-3xl font-bold text-[#0a1e3f] tracking-tight leading-tight">
                 Official banking notices and updates.
               </h3>
-              <p className="text-blue-100/75 text-xs sm:text-sm leading-relaxed max-w-xl">
+              <p className="text-slate-600 text-xs sm:text-sm leading-relaxed max-w-xl">
                 Subscribe to periodic announcements, interest rate notices, and community financial reports.
               </p>
-              <div className="flex flex-wrap items-center gap-3 sm:gap-4 pt-0.5 text-[11px] text-blue-200/60">
+              <div className="flex flex-wrap items-center gap-3 sm:gap-4 pt-0.5 text-[11px] text-slate-500">
                 <span className="flex items-center gap-1">
-                  <CheckCircle2 className="h-3 w-3 text-[#10b981]" /> Zero spam
+                  <CheckCircle2 className="h-3 w-3 text-emerald-600" /> Zero spam
                 </span>
                 <span className="flex items-center gap-1">
-                  <CheckCircle2 className="h-3 w-3 text-[#10b981]" /> Unsubscribe anytime
+                  <CheckCircle2 className="h-3 w-3 text-emerald-600" /> Unsubscribe anytime
                 </span>
               </div>
             </div>
@@ -130,7 +130,7 @@ export function Footer() {
                     onChange={(e) => setNewsletterEmail(e.target.value)}
                     placeholder="Enter your email address"
                     required
-                    className="w-full h-10 sm:h-11 bg-white/10 border border-blue-300/20 rounded-xl px-3.5 text-xs sm:text-sm text-white placeholder:text-blue-200/50 focus:outline-none focus:border-[#38bdf8] focus:ring-2 focus:ring-[#38bdf8]/40 transition-all"
+                    className="w-full h-10 sm:h-11 bg-white border border-[#cbd5e1] rounded-xl px-3.5 text-xs sm:text-sm text-[#0a1e3f] placeholder:text-slate-400 focus:outline-none focus:border-[#0284c7] focus:ring-2 focus:ring-[#0284c7]/20 transition-all shadow-xs"
                   />
                   <Button
                     variant="pill"
@@ -149,9 +149,9 @@ export function Footer() {
                     )}
                   </Button>
                 </div>
-                <p className="text-[10px] sm:text-[11px] text-blue-200/50 leading-relaxed">
+                <p className="text-[10px] sm:text-[11px] text-slate-500 leading-relaxed">
                   By submitting, you agree to receive official communications in accordance with our{" "}
-                  <Link to="/privacy" className="text-white/80 underline hover:text-[#38bdf8]">
+                  <Link to="/privacy" className="text-[#0284c7] underline hover:text-[#0369a1]">
                     Privacy Policy
                   </Link>.
                 </p>
@@ -165,43 +165,43 @@ export function Footer() {
 
       {/* Main Footer Content */}
       <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 pb-10 border-b border-white/10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 pb-10 border-b border-[#e2e8f0]">
           
           {/* Brand & Contact Column (Desktop: 4 cols, Mobile: full width) */}
           <div className="lg:col-span-4 space-y-4">
             <Link to="/" className="flex items-center gap-2.5">
-              <div className="h-9 w-9 rounded-xl bg-white/10 flex items-center justify-center border border-white/20 p-1.5">
-                <img src="/rima-logo.png" alt="Rima MFB" className="h-full w-auto object-contain brightness-0 invert" />
+              <div className="h-9 w-9 rounded-xl bg-white flex items-center justify-center border border-[#e2e8f0] p-1.5 shadow-xs">
+                <img src="/rima-logo.png" alt="Rima MFB" className="h-full w-auto object-contain" />
               </div>
               <div className="flex flex-col leading-none">
-                <span className="font-heading text-lg font-bold text-white tracking-tight flex items-center gap-1">
+                <span className="font-heading text-lg font-bold text-[#0a1e3f] tracking-tight flex items-center gap-1">
                   Rima MFB
-                  <span className="inline-block w-1.5 h-1.5 rounded-full bg-[#38bdf8]"></span>
+                  <span className="inline-block w-1.5 h-1.5 rounded-full bg-[#0284c7]"></span>
                 </span>
-                <span className="text-[9px] text-blue-200/60 uppercase tracking-widest mt-0.5">Microfinance Bank</span>
+                <span className="text-[9px] text-slate-500 uppercase tracking-widest mt-0.5">Microfinance Bank</span>
               </div>
             </Link>
 
-            <p className="text-blue-100/70 text-xs leading-relaxed max-w-sm">
+            <p className="text-slate-600 text-xs leading-relaxed max-w-sm">
               Rima Microfinance Bank is licensed by the Central Bank of Nigeria (CBN). Eligible deposits are insured by the Nigeria Deposit Insurance Corporation (NDIC).
             </p>
 
             {/* Contact Details & Quick Links (Horizontal on mobile/tablet) */}
-            <div className="space-y-2.5 text-xs text-blue-100/85 pt-1">
+            <div className="space-y-2.5 text-xs text-slate-700 pt-1">
               <div className="flex items-start gap-2">
-                <MapPin className="h-3.5 w-3.5 text-[#38bdf8] shrink-0 mt-0.5" />
+                <MapPin className="h-3.5 w-3.5 text-[#0284c7] shrink-0 mt-0.5" />
                 <span className="text-[11px] leading-snug">{contactInfo?.headquarters || "No. 3 Evo Crescent, New GRA, Port Harcourt, Rivers State"}</span>
               </div>
 
               {/* Responsive Horizontal Contact Row */}
               <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5 text-[11px]">
-                <a href={`tel:${(contactInfo?.phone || "+2348119477050").replace(/\s+/g, '')}`} className="flex items-center gap-1.5 hover:text-[#38bdf8] transition-colors">
-                  <Phone className="h-3.5 w-3.5 text-[#38bdf8] shrink-0" />
+                <a href={`tel:${(contactInfo?.phone || "+2348119477050").replace(/\s+/g, '')}`} className="flex items-center gap-1.5 hover:text-[#0284c7] transition-colors">
+                  <Phone className="h-3.5 w-3.5 text-[#0284c7] shrink-0" />
                   <span>{contactInfo?.phone || "+234 811 947 7050"}</span>
                 </a>
-                <span className="text-white/20 hidden sm:inline">&bull;</span>
-                <a href={`mailto:${contactInfo?.email || "info@rimamfb.com"}`} className="flex items-center gap-1.5 hover:text-[#38bdf8] transition-colors">
-                  <Mail className="h-3.5 w-3.5 text-[#38bdf8] shrink-0" />
+                <span className="text-slate-300 hidden sm:inline">&bull;</span>
+                <a href={`mailto:${contactInfo?.email || "info@rimamfb.com"}`} className="flex items-center gap-1.5 hover:text-[#0284c7] transition-colors">
+                  <Mail className="h-3.5 w-3.5 text-[#0284c7] shrink-0" />
                   <span>{contactInfo?.email || "info@rimamfb.com"}</span>
                 </a>
               </div>
@@ -212,19 +212,19 @@ export function Footer() {
                   href={`https://wa.me/${(contactInfo?.whatsapp || "2348119477050").replace(/[^0-9]/g, '')}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#10b981]/15 text-[#10b981] border border-[#10b981]/30 hover:bg-[#10b981]/25 transition-all text-[10px] font-semibold"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#dcfce7] text-[#16a34a] border border-[#bbf7d0] hover:bg-[#bbf7d0] transition-all text-[10px] font-semibold shadow-2xs"
                 >
                   <MessageCircle className="h-3.5 w-3.5" />
                   <span>WhatsApp Support</span>
                 </a>
 
-                <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-white/5 border border-white/10 text-[10px] font-medium text-white/80">
-                  <Shield className="h-3 w-3 text-[#38bdf8]" />
+                <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-white border border-[#e2e8f0] text-[10px] font-medium text-slate-700 shadow-2xs">
+                  <Shield className="h-3 w-3 text-[#0284c7]" />
                   <span>CBN Regulated</span>
                 </span>
 
-                <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-white/5 border border-white/10 text-[10px] font-medium text-white/80">
-                  <Lock className="h-3 w-3 text-[#10b981]" />
+                <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-white border border-[#e2e8f0] text-[10px] font-medium text-slate-700 shadow-2xs">
+                  <Lock className="h-3 w-3 text-emerald-600" />
                   <span>NDIC Insured</span>
                 </span>
               </div>
@@ -236,7 +236,7 @@ export function Footer() {
             
             {/* Column 1: Company */}
             <div className="space-y-3">
-              <h4 className="font-heading text-[11px] font-bold uppercase tracking-widest text-[#38bdf8]">
+              <h4 className="font-heading text-[11px] font-bold uppercase tracking-widest text-[#0284c7]">
                 Company
               </h4>
               <ul className="space-y-1.5">
@@ -244,7 +244,7 @@ export function Footer() {
                   <li key={link.name}>
                     <Link
                       to={link.href}
-                      className="text-blue-100/70 hover:text-[#38bdf8] text-xs transition-colors block py-0.5"
+                      className="text-slate-600 hover:text-[#0284c7] text-xs transition-colors block py-0.5"
                     >
                       {link.name}
                     </Link>
@@ -255,7 +255,7 @@ export function Footer() {
 
             {/* Column 2: Banking Solutions */}
             <div className="space-y-3">
-              <h4 className="font-heading text-[11px] font-bold uppercase tracking-widest text-[#38bdf8]">
+              <h4 className="font-heading text-[11px] font-bold uppercase tracking-widest text-[#0284c7]">
                 Banking Solutions
               </h4>
               <ul className="space-y-1.5">
@@ -263,7 +263,7 @@ export function Footer() {
                   <li key={link.name}>
                     <Link
                       to={link.href}
-                      className="text-blue-100/70 hover:text-[#38bdf8] text-xs transition-colors block py-0.5"
+                      className="text-slate-600 hover:text-[#0284c7] text-xs transition-colors block py-0.5"
                     >
                       {link.name}
                     </Link>
@@ -273,8 +273,8 @@ export function Footer() {
             </div>
 
             {/* Column 3: Compliance & Legal */}
-            <div className="col-span-2 sm:col-span-1 space-y-3 pt-2 sm:pt-0 border-t sm:border-t-0 border-white/5">
-              <h4 className="font-heading text-[11px] font-bold uppercase tracking-widest text-[#38bdf8]">
+            <div className="col-span-2 sm:col-span-1 space-y-3 pt-2 sm:pt-0 border-t sm:border-t-0 border-[#e2e8f0]">
+              <h4 className="font-heading text-[11px] font-bold uppercase tracking-widest text-[#0284c7]">
                 Compliance & Legal
               </h4>
               <ul className="space-y-1.5 grid grid-cols-2 sm:grid-cols-1 gap-x-4 gap-y-1.5">
@@ -282,7 +282,7 @@ export function Footer() {
                   <li key={link.name}>
                     <Link
                       to={link.href}
-                      className="text-blue-100/70 hover:text-[#38bdf8] text-xs transition-colors block py-0.5"
+                      className="text-slate-600 hover:text-[#0284c7] text-xs transition-colors block py-0.5"
                     >
                       {link.name}
                     </Link>
@@ -296,7 +296,7 @@ export function Footer() {
         </div>
 
         {/* Bottom Copyright & Social Icons */}
-        <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px] text-blue-200/50 text-center sm:text-left">
+        <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px] text-slate-500 text-center sm:text-left">
           <p>
             &copy; {new Date().getFullYear()} Rima Microfinance Bank. All rights reserved. Regulated by the Central Bank of Nigeria.
           </p>
@@ -314,7 +314,7 @@ export function Footer() {
                 target="_blank"
                 rel="noreferrer"
                 aria-label={platform}
-                className="w-7 h-7 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-blue-200/70 hover:text-white hover:bg-[#0284c7] hover:border-[#0284c7] transition-colors"
+                className="w-7 h-7 rounded-full bg-white border border-[#e2e8f0] flex items-center justify-center text-slate-500 hover:text-white hover:bg-[#0284c7] hover:border-[#0284c7] transition-colors shadow-2xs"
               >
                 <Icon className="h-3.5 w-3.5" />
               </a>

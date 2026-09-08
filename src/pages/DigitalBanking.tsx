@@ -303,39 +303,39 @@ export default function DigitalBanking() {
       {/* Dedicated USSD Banking Section (*723#) */}
       <section id="ussd-section" className="py-8 sm:py-10 bg-white border-b border-[#e2e8f0]/60">
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
-          <div className="rounded-3xl bg-gradient-to-br from-[#0a1e3f] via-[#0f2d59] to-[#0369a1] text-white p-6 sm:p-8 lg:p-10 shadow-xl border border-white/10 relative overflow-hidden">
+          <div className="rounded-3xl bg-gradient-to-br from-[#f0f9ff] via-[#e0f2fe]/60 to-[#f0f9ff] text-[#0a1e3f] p-6 sm:p-8 lg:p-10 shadow-sm border border-[#bae6fd] relative overflow-hidden">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center relative z-10">
               
               {/* Left Details (7 cols) */}
               <div className="lg:col-span-7 space-y-4">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#38bdf8]/20 border border-[#38bdf8]/40 text-[#38bdf8] text-xs font-semibold uppercase tracking-wider">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-[#bae6fd] text-[#0284c7] text-xs font-semibold uppercase tracking-wider">
                   <span>Offline USSD Banking</span>
                 </div>
 
-                <h2 className="font-heading text-2xl sm:text-3xl lg:text-4xl font-semibold text-white tracking-tight leading-[1.1]">
-                  Bank anywhere without internet. Dial <span className="text-[#38bdf8] font-mono">*723#</span>.
+                <h2 className="font-heading text-2xl sm:text-3xl lg:text-4xl font-semibold text-[#0a1e3f] tracking-tight leading-[1.1]">
+                  Bank anywhere without internet. Dial <span className="text-[#0284c7] font-mono">*723#</span>.
                 </h2>
 
-                <p className="text-white/80 text-xs sm:text-sm leading-relaxed max-w-xl">
+                <p className="text-slate-600 text-xs sm:text-sm leading-relaxed max-w-xl">
                   Enjoy reliable offline banking from any basic feature phone or smartphone on all Nigerian cellular networks (MTN, Airtel, Glo, 9mobile).
                 </p>
 
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 pt-1">
-                  <div className="p-3 rounded-2xl bg-white/5 border border-white/10 text-center">
-                    <span className="block text-[10px] text-blue-200 uppercase font-bold">Check Balance</span>
-                    <span className="font-mono text-xs text-white font-bold">*723*0#</span>
+                  <div className="p-3 rounded-2xl bg-white border border-[#bae6fd] text-center">
+                    <span className="block text-[10px] text-slate-500 uppercase font-bold">Check Balance</span>
+                    <span className="font-mono text-xs text-[#0284c7] font-bold">*723*0#</span>
                   </div>
-                  <div className="p-3 rounded-2xl bg-white/5 border border-white/10 text-center">
-                    <span className="block text-[10px] text-blue-200 uppercase font-bold">Transfer Money</span>
-                    <span className="font-mono text-xs text-white font-bold">*723*1#</span>
+                  <div className="p-3 rounded-2xl bg-white border border-[#bae6fd] text-center">
+                    <span className="block text-[10px] text-slate-500 uppercase font-bold">Transfer Money</span>
+                    <span className="font-mono text-xs text-[#0284c7] font-bold">*723*1#</span>
                   </div>
-                  <div className="p-3 rounded-2xl bg-white/5 border border-white/10 text-center">
-                    <span className="block text-[10px] text-blue-200 uppercase font-bold">Airtime Top-Up</span>
-                    <span className="font-mono text-xs text-white font-bold">*723*2#</span>
+                  <div className="p-3 rounded-2xl bg-white border border-[#bae6fd] text-center">
+                    <span className="block text-[10px] text-slate-500 uppercase font-bold">Airtime Top-Up</span>
+                    <span className="font-mono text-xs text-[#0284c7] font-bold">*723*2#</span>
                   </div>
-                  <div className="p-3 rounded-2xl bg-white/5 border border-white/10 text-center">
-                    <span className="block text-[10px] text-blue-200 uppercase font-bold">Pay Bills</span>
-                    <span className="font-mono text-xs text-white font-bold">*723*3#</span>
+                  <div className="p-3 rounded-2xl bg-white border border-[#bae6fd] text-center">
+                    <span className="block text-[10px] text-slate-500 uppercase font-bold">Pay Bills</span>
+                    <span className="font-mono text-xs text-[#0284c7] font-bold">*723*3#</span>
                   </div>
                 </div>
 
@@ -344,7 +344,7 @@ export default function DigitalBanking() {
                     variant="pill"
                     size="default"
                     asChild
-                    className="bg-[#38bdf8] hover:bg-[#0284c7] text-[#0a1e3f] hover:text-white font-heading text-xs font-bold transition-all shadow-md"
+                    className="bg-[#0284c7] hover:bg-[#0369a1] text-white font-heading text-xs font-bold transition-all shadow-brand"
                   >
                     <a href="tel:*723%23">
                       Dial *723# on Mobile
@@ -355,22 +355,22 @@ export default function DigitalBanking() {
               </div>
 
               {/* Right Steps (5 cols) */}
-              <div className="lg:col-span-5 bg-white/10 backdrop-blur-sm rounded-3xl p-5 sm:p-6 border border-white/15 space-y-3.5">
-                <h3 className="font-heading text-base font-bold text-white border-b border-white/15 pb-2">
+              <div className="lg:col-span-5 bg-white/90 rounded-3xl p-5 sm:p-6 border border-[#bae6fd] space-y-3.5">
+                <h3 className="font-heading text-base font-bold text-[#0a1e3f] border-b border-[#e2e8f0] pb-2">
                   How to Register for USSD:
                 </h3>
-                <ul className="space-y-2.5 text-xs text-blue-100/90">
+                <ul className="space-y-2.5 text-xs text-slate-700">
                   <li className="flex items-start gap-2.5">
-                    <span className="w-5 h-5 rounded-full bg-[#38bdf8] text-[#0a1e3f] font-bold text-[10px] flex items-center justify-center shrink-0 mt-0.5">1</span>
+                    <span className="w-5 h-5 rounded-full bg-[#0284c7] text-white font-bold text-[10px] flex items-center justify-center shrink-0 mt-0.5">1</span>
                     <span>Dial <strong>*723#</strong> from your mobile phone number registered with Rima MFB.</span>
                   </li>
                   <li className="flex items-start gap-2.5">
-                    <span className="w-5 h-5 rounded-full bg-[#38bdf8] text-[#0a1e3f] font-bold text-[10px] flex items-center justify-center shrink-0 mt-0.5">2</span>
-                    <span>Enter your 10-digit Rima MFB Account Number or BVN.</span>
+                    <span className="w-5 h-5 rounded-full bg-[#0284c7] text-white font-bold text-[10px] flex items-center justify-center shrink-0 mt-0.5">2</span>
+                    <span>Enter your 10-digit Rima MFB Account Number and your Bank Verification Number (BVN).</span>
                   </li>
                   <li className="flex items-start gap-2.5">
-                    <span className="w-5 h-5 rounded-full bg-[#38bdf8] text-[#0a1e3f] font-bold text-[10px] flex items-center justify-center shrink-0 mt-0.5">3</span>
-                    <span>Create your 4-digit secret Transaction PIN to authorize future operations.</span>
+                    <span className="w-5 h-5 rounded-full bg-[#0284c7] text-white font-bold text-[10px] flex items-center justify-center shrink-0 mt-0.5">3</span>
+                    <span>Create your confidential 4-digit transaction PIN to authorize instant transfers.</span>
                   </li>
                 </ul>
               </div>
