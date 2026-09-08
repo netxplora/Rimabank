@@ -98,25 +98,25 @@ export function ServicesOverview() {
           {services.map((service) => (
             <div
               key={service.title}
-              className="flex flex-col justify-between group"
+              className="flex flex-col justify-between group p-4 -m-4 rounded-2xl hover:bg-slate-50/70 transition-all duration-300 hover:-translate-y-1"
             >
               <div>
                 <div className="flex items-center justify-between mb-4">
                   <div
-                    className="w-10 h-10 rounded-xl flex items-center justify-center transition-transform group-hover:scale-105 duration-200"
+                    className="w-10 h-10 rounded-xl flex items-center justify-center transition-transform group-hover:scale-110 duration-300 shadow-xs"
                     style={{ backgroundColor: service.washBg, color: service.accentColor }}
                   >
                     <service.icon className="h-5 w-5" />
                   </div>
                   <span
-                    className="text-[10px] font-semibold uppercase tracking-wider px-2.5 py-0.5 rounded-full"
+                    className="text-[10px] font-semibold uppercase tracking-wider px-2.5 py-0.5 rounded-full transition-transform group-hover:scale-105 duration-300"
                     style={{ backgroundColor: service.washBg, color: service.accentColor }}
                   >
                     {service.category}
                   </span>
                 </div>
 
-                <h3 className="font-heading text-lg font-semibold text-[#0a1e3f] mb-2 group-hover:text-[#0284c7] transition-colors">
+                <h3 className="font-heading text-lg font-semibold text-[#0a1e3f] mb-2 group-hover:text-[#0284c7] transition-colors duration-200">
                   {service.title}
                 </h3>
 
@@ -139,10 +139,10 @@ export function ServicesOverview() {
 
               <Link
                 to={service.href}
-                className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#0284c7] hover:text-[#0369a1] pt-2 border-t border-[#e2e8f0] transition-colors"
+                className="inline-flex items-center text-xs font-semibold text-[#0284c7] hover:text-[#0369a1] transition-colors gap-1.5 pt-2 group/link"
               >
                 <span>Learn more</span>
-                <ArrowRight className="h-3.5 w-3.5 transform group-hover:translate-x-1 transition-transform" />
+                <ArrowRight className="h-3.5 w-3.5 transition-transform duration-200 group-hover/link:translate-x-1" />
               </Link>
             </div>
           ))}

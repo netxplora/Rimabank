@@ -10,10 +10,10 @@ export function MobileAppCTA() {
           {/* Ambient light wash */}
           <div className="absolute top-0 right-0 w-80 h-80 bg-[#0284c7]/10 rounded-full blur-3xl pointer-events-none" />
 
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center relative z-10">
             
-            {/* Left Content (7 cols) */}
-            <div className="lg:col-span-7 space-y-6">
+            {/* Left Content (6 cols) */}
+            <div className="lg:col-span-6 space-y-6">
               <span className="text-xs font-semibold uppercase tracking-wider text-[#0284c7] block">
                 Digital Mobile Banking
               </span>
@@ -32,7 +32,7 @@ export function MobileAppCTA() {
                   "Airtime, data, and utility bill payments",
                   "Download PDF bank statements directly",
                 ].map((item, idx) => (
-                  <div key={idx} className="flex items-center gap-2 text-xs font-medium text-[#0a1e3f]">
+                  <div key={idx} className="flex items-center gap-2 text-xs font-medium text-[#0a1e3f] transition-transform duration-200 hover:translate-x-1">
                     <CheckCircle2 className="h-4 w-4 text-[#34c771] shrink-0" />
                     <span>{item}</span>
                   </div>
@@ -40,7 +40,7 @@ export function MobileAppCTA() {
               </div>
 
               {/* Rating Pill */}
-              <div className="inline-flex items-center gap-3 bg-white px-3.5 py-2 rounded-xl border border-[#e2e8f0] shadow-xs text-xs font-semibold text-[#0a1e3f]">
+              <div className="inline-flex items-center gap-3 bg-white px-3.5 py-2 rounded-xl border border-[#e2e8f0] shadow-xs text-xs font-semibold text-[#0a1e3f] transition-transform duration-300 hover:scale-105">
                 <div className="flex text-[#0284c7] gap-0.5">
                   {[...Array(5)].map((_, i) => (
                     <Star key={i} className="h-3.5 w-3.5 fill-current" />
@@ -55,7 +55,7 @@ export function MobileAppCTA() {
                   variant="pill"
                   size="lg"
                   asChild
-                  className="bg-[#0284c7] hover:bg-[#0369a1] text-white shadow-md shadow-sky-500/20 transform hover:-translate-y-0.5 transition-all"
+                  className="bg-[#0284c7] hover:bg-[#0369a1] text-white shadow-md shadow-sky-500/20 transform hover:-translate-y-0.5 transition-all duration-300"
                 >
                   <a href="#download-ios">
                     <Download className="h-4 w-4 mr-2" />
@@ -66,7 +66,7 @@ export function MobileAppCTA() {
                   variant="outlineNeutral"
                   size="lg"
                   asChild
-                  className="rounded-full bg-white hover:bg-[#f0f7ff]"
+                  className="rounded-full bg-white hover:bg-[#f0f7ff] transition-all duration-300 hover:-translate-y-0.5"
                 >
                   <a href="#download-android">
                     <Download className="h-4 w-4 mr-2" />
@@ -80,21 +80,30 @@ export function MobileAppCTA() {
               </p>
             </div>
 
-            {/* Right 3D Mobile Showcase (5 cols) */}
-            <div className="lg:col-span-5 flex justify-center perspective-1000">
-              <div className="relative group">
-                <div className="relative w-full max-w-[280px] rounded-3xl overflow-hidden shadow-2xl border-4 border-white transform-3d-card">
+            {/* Right Mobile Showcase (6 cols) - Large, Visible & Clear */}
+            <div className="lg:col-span-6 flex justify-center items-center py-4">
+              <div className="relative group w-full max-w-[360px] sm:max-w-[420px] lg:max-w-[460px] flex justify-center">
+                {/* Backdrop Soft Brand Glow */}
+                <div className="absolute inset-0 bg-[#0284c7]/15 rounded-3xl blur-2xl transform scale-95 transition-transform duration-500 group-hover:scale-105" />
+                
+                {/* Main App Showcase Card */}
+                <div className="relative w-full rounded-3xl overflow-hidden shadow-xl border-2 border-white/90 bg-white transition-all duration-500 hover:shadow-2xl hover:-translate-y-1">
                   <img
                     src="/images/Mobile-App.png"
                     alt="Rima MFB Mobile Banking App"
-                    className="w-full h-auto object-cover"
+                    className="w-full h-auto object-contain block transform transition-transform duration-500 group-hover:scale-[1.02]"
                   />
                 </div>
 
-                {/* Floating 3D Badge */}
-                <div className="absolute -bottom-4 -left-4 bg-white/95 border border-[#e2e8f0] px-3.5 py-2 rounded-xl shadow-md flex items-center gap-2 animate-float-slow hidden sm:flex">
+                {/* Floating Institutional Badges with Motion */}
+                <div className="absolute -bottom-3 -left-3 bg-white/95 backdrop-blur-md border border-[#e2e8f0] px-3.5 py-2 rounded-xl shadow-md flex items-center gap-2 animate-float-slow hidden sm:flex">
                   <ShieldCheck className="h-4 w-4 text-[#34c771]" />
                   <span className="text-[11px] font-bold text-[#0a1e3f]">256-Bit TLS Secured</span>
+                </div>
+
+                <div className="absolute -top-3 -right-3 bg-white/95 backdrop-blur-md border border-[#e2e8f0] px-3 py-1.5 rounded-xl shadow-md flex items-center gap-2 animate-float-reverse hidden sm:flex">
+                  <span className="w-2 h-2 rounded-full bg-[#0284c7] animate-pulse" />
+                  <span className="text-[11px] font-semibold text-[#0a1e3f]">Instant NIBSS Active</span>
                 </div>
               </div>
             </div>

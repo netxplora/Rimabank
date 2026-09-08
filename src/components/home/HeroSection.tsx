@@ -23,18 +23,18 @@ export function HeroSection() {
         <div className="absolute inset-0 bg-gradient-to-t from-[#e0f2fe]/90 via-transparent to-transparent lg:hidden" />
       </div>
 
-      <div className="relative z-10 w-full max-w-[1240px] mx-auto px-4 sm:px-6 py-14 sm:py-20 lg:py-24">
-        <div className="max-w-3xl space-y-6 sm:space-y-8 animate-fade-in-up">
+      <div className="relative z-10 w-full max-w-[1240px] mx-auto px-4 sm:px-6 py-16 sm:py-24 lg:py-28">
+        <div className="max-w-3xl space-y-7 sm:space-y-9 animate-fade-in-up">
 
           {/* Institutional Trust Badge */}
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#f0f7ff] border border-[#cbd5e1] text-[#0a1e3f] text-xs font-semibold uppercase tracking-wider shadow-xs backdrop-blur-md bg-white/70">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#f0f7ff] border border-[#cbd5e1] text-[#0a1e3f] text-xs font-semibold uppercase tracking-wider shadow-xs backdrop-blur-md bg-white/80 transition-transform duration-300 hover:scale-105">
             <span className="w-2 h-2 rounded-full bg-[#0284c7] animate-pulse" />
             <span>{hero.eyebrow}</span>
           </div>
 
           {/* Primary Hero Headline */}
-          <div className="space-y-3">
-            <h1 className="font-heading text-2xl sm:text-4xl lg:text-[42px] font-bold tracking-tight leading-snug sm:leading-[1.15] text-[#0a1e3f] text-balance">
+          <div className="space-y-4 sm:space-y-5">
+            <h1 className="font-heading text-3xl sm:text-5xl lg:text-[54px] font-bold tracking-tight leading-tight sm:leading-[1.12] text-[#0a1e3f] text-balance">
               {hero.headingPart1} <span className="text-[#0284c7]">{hero.headingHighlight}</span> {hero.headingPart2}
             </h1>
 
@@ -45,16 +45,16 @@ export function HeroSection() {
           </div>
 
           {/* Interactive CTAs */}
-          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-1">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 pt-2 sm:pt-3">
             <Button
               variant="pill"
               size="lg"
               asChild
-              className="bg-[#0284c7] hover:bg-[#0369a1] text-white text-xs sm:text-sm font-semibold shadow-brand h-11 sm:h-12 px-6 justify-center transition-all duration-150"
+              className="bg-[#0284c7] hover:bg-[#0369a1] text-white text-xs sm:text-sm font-semibold shadow-brand h-11 sm:h-12 px-6 justify-center transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg"
             >
               <Link to={hero.primaryCtaLink}>
                 <span>{hero.primaryCtaText}</span>
-                <ArrowRight className="h-4 w-4 ml-2" />
+                <ArrowRight className="h-4 w-4 ml-2 transition-transform duration-300 group-hover:translate-x-1" />
               </Link>
             </Button>
 
@@ -62,7 +62,7 @@ export function HeroSection() {
               variant="outlineNeutral"
               size="lg"
               asChild
-              className="rounded-full bg-white/70 backdrop-blur-sm hover:bg-white text-[#0a1e3f] border-[#cbd5e1] hover:border-[#0a1e3f] text-xs sm:text-sm font-semibold h-11 sm:h-12 px-6 justify-center shadow-xs transition-all duration-150"
+              className="rounded-full bg-white/80 backdrop-blur-sm hover:bg-white text-[#0a1e3f] border-[#cbd5e1] hover:border-[#0a1e3f] text-xs sm:text-sm font-semibold h-11 sm:h-12 px-6 justify-center shadow-xs transition-all duration-300 hover:-translate-y-0.5"
             >
               <Link to={hero.secondaryCtaLink}>
                 <span>{hero.secondaryCtaText}</span>
@@ -72,8 +72,8 @@ export function HeroSection() {
           </div>
 
           {/* Institutional Highlights (Text Only, Horizontal Form, No Container, No Border) */}
-          <div className="pt-4 flex flex-row flex-wrap items-center gap-6 sm:gap-10 text-[#0a1e3f]">
-            <div className="flex items-center gap-2">
+          <div className="pt-6 sm:pt-8 flex flex-row flex-wrap items-center gap-8 sm:gap-12 text-[#0a1e3f]">
+            <div className="flex items-center gap-2.5 transition-transform duration-300 hover:translate-x-1">
               <ShieldCheck className="h-4 w-4 text-emerald-600 shrink-0" />
               <div className="flex flex-col leading-tight">
                 <span className="text-xs sm:text-sm font-semibold text-[#0a1e3f]">CBN Licensed</span>
@@ -81,7 +81,7 @@ export function HeroSection() {
               </div>
             </div>
 
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2.5 transition-transform duration-300 hover:translate-x-1">
               <Landmark className="h-4 w-4 text-[#0284c7] shrink-0" />
               <div className="flex flex-col leading-tight">
                 <span className="text-xs sm:text-sm font-semibold text-[#0a1e3f]">{hero.ratingScore || "99.8%"}</span>
@@ -89,7 +89,7 @@ export function HeroSection() {
               </div>
             </div>
 
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2.5 transition-transform duration-300 hover:translate-x-1">
               <Users className="h-4 w-4 text-[#0284c7] shrink-0" />
               <div className="flex flex-col leading-tight">
                 <span className="text-xs sm:text-sm font-semibold text-[#0a1e3f]">{hero.activeUsersCount || "50,000+"}</span>
