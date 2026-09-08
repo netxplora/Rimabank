@@ -15,6 +15,7 @@ import {
   ChevronRight,
   ShieldAlert,
   Layers,
+  Mail,
   X
 } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
@@ -42,13 +43,14 @@ interface AdminSidebarProps {
 export const AdminSidebar: React.FC<AdminSidebarProps> = ({ isOpen, onClose }) => {
   const location = useLocation();
   const { user } = useAuth();
-  const { enquiries, announcements, publications, popupConfigs } = useCMS();
+  const { enquiries, announcements, publications, popupConfigs, subscribers } = useCMS();
 
   const unreadEnquiriesCount = enquiries.filter(e => e.status === 'unread').length;
   const draftPubsCount = publications.filter(p => p.status === 'draft' || p.status === 'review').length;
   const activeAlertsCount = announcements.filter(a => a.status === 'published' && a.displayAsBanner).length;
   const activePopupsCount = popupConfigs.filter(p => p.status === 'active').length;
   const pendingPopupsCount = popupConfigs.filter(p => p.status === 'scheduled').length;
+  const activeSubscribersCount = subscribers.filter(s => s.status === 'subscribed').length;
 
   const navigationGroups: NavGroup[] = [
     {
@@ -109,6 +111,13 @@ export const AdminSidebar: React.FC<AdminSidebarProps> = ({ isOpen, onClose }) =
           icon: MessageSquare,
           badge: unreadEnquiriesCount > 0 ? `${unreadEnquiriesCount} New` : null,
           badgeColor: 'bg-emerald-500'
+        },
+        {
+          name: "Newsletter Subscribers",
+          href: "/admin/newsletter",
+          icon: Mail,
+          badge: activeSubscribersCount > 0 ? `${activeSubscribersCount}` : null,
+          badgeColor: 'bg-sky-500'
         },
         {
           name: "Media Assets",

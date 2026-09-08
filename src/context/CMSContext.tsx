@@ -11,7 +11,8 @@ import {
   AuditLog,
   SystemSettings,
   UserRole,
-  PopupConfig
+  PopupConfig,
+  NewsletterSubscriber
 } from '@/types/cms';
 import {
   initialSiteContent,
@@ -37,7 +38,47 @@ const CMS_STORAGE_KEYS = {
   STAFF: 'rima_cms_staff_v1',
   AUDIT_LOGS: 'rima_cms_audit_logs_v1',
   SETTINGS: 'rima_cms_settings_v1',
+  SUBSCRIBERS: 'rima_cms_subscribers_v1',
 };
+
+const initialDefaultSubscribers: NewsletterSubscriber[] = [
+  {
+    id: 'sub-001',
+    email: 'tunde.adeleke@gmail.com',
+    status: 'subscribed',
+    source: 'Website Footer',
+    subscribedAt: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString()
+  },
+  {
+    id: 'sub-002',
+    email: 'amina.bello@yahoo.com',
+    status: 'subscribed',
+    source: 'Website Footer',
+    subscribedAt: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString()
+  },
+  {
+    id: 'sub-003',
+    email: 'chidi.okafor@outlook.com',
+    status: 'subscribed',
+    source: 'Promotions Popup',
+    subscribedAt: new Date(Date.now() - 10 * 24 * 60 * 60 * 1000).toISOString()
+  },
+  {
+    id: 'sub-004',
+    email: 'grace.danladi@rimablog.com',
+    status: 'unsubscribed',
+    source: 'Website Footer',
+    subscribedAt: new Date(Date.now() - 20 * 24 * 60 * 60 * 1000).toISOString(),
+    unsubscribedAt: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString()
+  },
+  {
+    id: 'sub-005',
+    email: 'ibrahim.katsina@finance.org.ng',
+    status: 'subscribed',
+    source: 'Website Footer',
+    subscribedAt: new Date(Date.now() - 25 * 24 * 60 * 60 * 1000).toISOString()
+  }
+];
 
 function generateUUID(): string {
   if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') {
@@ -93,9 +134,10 @@ interface CMSContextType {
 
   // Staff
   staffUsers: StaffUser[];
-  addStaffUser: (user: Omit<StaffUser, 'id' | 'createdAt'>, currentUser: { id: string; name: string; role: UserRole }) => void;
-  updateStaffUser: (id: string, updates: Partial<StaffUser>, currentUser: { id: string; name: string; role: UserRole }) => void;
-  toggleStaffStatus: (id: string, currentUser: { id: string; name: string; role: UserRole }) => void;
+  addStaffUser: (user: Omit<StaffUser, 'id' | 'createdAt'>, currentUser: { id: string; name: string; role: UserRole }) => Promise<{ok: boolean, error?: string}>;
+  updateStaffUser: (id: string, updates: Partial<StaffUser>, currentUser: { id: string; name: string; role: UserRole }) => Promise<{ok: boolean, error?: string}>;
+  toggleStaffStatus: (id: string, currentUser: { id: string; name: string; role: UserRole }) => Promise<{ok: boolean, error?: string}>;
+  deleteStaffUser: (id: string, currentUser: { id: string; name: string; role: UserRole }) => Promise<{ok: boolean, error?: string}>;
 
   // Audit Logs
   auditLogs: AuditLog[];
@@ -111,6 +153,13 @@ interface CMSContextType {
   updatePopupConfig: (id: string, updates: Partial<PopupConfig>, user: { id: string; name: string; role: UserRole }) => Promise<{ ok: boolean; error?: string }>;
   deletePopupConfig: (id: string, user: { id: string; name: string; role: UserRole }) => Promise<{ ok: boolean; error?: string }>;
   togglePopupStatus: (id: string, user: { id: string; name: string; role: UserRole }) => Promise<{ ok: boolean; error?: string }>;
+
+  // Newsletter Subscribers
+  subscribers: NewsletterSubscriber[];
+  subscribeNewsletter: (email: string, source?: string) => Promise<{ ok: boolean; error?: string }>;
+  unsubscribeNewsletter: (idOrEmail: string, user?: { id: string; name: string; role: UserRole }) => Promise<{ ok: boolean; error?: string }>;
+  deleteSubscriber: (id: string, user: { id: string; name: string; role: UserRole }) => Promise<{ ok: boolean; error?: string }>;
+  toggleSubscriberStatus: (id: string, user: { id: string; name: string; role: UserRole }) => Promise<{ ok: boolean; error?: string }>;
 }
 
 const CMSContext = createContext<CMSContextType | undefined>(undefined);
@@ -137,9 +186,31 @@ export const CMSProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
 
   const [popupConfigs, setPopupConfigs] = useState<PopupConfig[]>([]);
 
+  const [subscribers, setSubscribers] = useState<NewsletterSubscriber[]>(() => {
+    const saved = localStorage.getItem(CMS_STORAGE_KEYS.SUBSCRIBERS);
+    if (saved) {
+      try {
+        return JSON.parse(saved);
+      } catch {
+        return initialDefaultSubscribers;
+      }
+    }
+    return initialDefaultSubscribers;
+  });
+
+  // Save subscribers to localStorage
+  useEffect(() => {
+    localStorage.setItem(CMS_STORAGE_KEYS.SUBSCRIBERS, JSON.stringify(subscribers));
+  }, [subscribers]);
+
   // 2. Supabase Live Initial Sync & Real-time Subscriptions
   useEffect(() => {
     const syncFromDatabase = async () => {
+      // Sync Newsletter Subscribers
+      const remoteSubscribers = await SupabaseSync.fetchNewsletterSubscribers();
+      if (remoteSubscribers && remoteSubscribers.length > 0) {
+        setSubscribers(remoteSubscribers);
+      }
       // Sync Landing Page Content
       const remotePage = await SupabaseSync.fetchPageContent('home');
       if (remotePage) {
@@ -831,42 +902,53 @@ export const CMSProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
   };
 
   // Staff Methods
-  const addStaffUser = (staffData: Omit<StaffUser, 'id' | 'createdAt'>, currentUser: { id: string; name: string; role: UserRole }) => {
-    const id = generateUUID();
-    const newStaff: StaffUser = {
-      ...staffData,
-      id,
-      createdAt: new Date().toISOString(),
-      assignedEnquiriesCount: 0
-    };
-    setStaffUsers(prev => [newStaff, ...prev]);
-    SupabaseSync.saveStaffUser(newStaff);
+  const addStaffUser = async (staffData: Omit<StaffUser, 'id' | 'createdAt'>, currentUser: { id: string; name: string; role: UserRole }): Promise<{ok: boolean, error?: string}> => {
+    try {
+      const id = generateUUID();
+      const newStaff: StaffUser = {
+        ...staffData,
+        id,
+        createdAt: new Date().toISOString(),
+        assignedEnquiriesCount: 0
+      };
+      const res = await SupabaseSync.saveStaffUser(newStaff);
+      if (!res.success && res.error) {
+        // Still persist to local state store if offline, but note warning
+        console.warn('[CMSContext] SupabaseSync saveStaffUser warning:', res.error);
+      }
+      setStaffUsers(prev => [newStaff, ...prev]);
 
-    logAuditAction({
-      userId: currentUser.id,
-      userName: currentUser.name,
-      userRole: currentUser.role,
-      action: 'CREATE',
-      resourceType: 'USER',
-      resourceId: id,
-      resourceTitle: newStaff.name,
-      details: `Added new staff member "${newStaff.name}" with role "${newStaff.role}"`
-    });
+      logAuditAction({
+        userId: currentUser.id,
+        userName: currentUser.name,
+        userRole: currentUser.role,
+        action: 'CREATE',
+        resourceType: 'USER',
+        resourceId: id,
+        resourceTitle: newStaff.name,
+        details: `Added new staff member "${newStaff.name}" with role "${newStaff.role}"`
+      });
+      return { ok: true };
+    } catch (err: any) {
+      return { ok: false, error: err?.message || 'Failed to add staff user' };
+    }
   };
 
   const updateStaffUser = async (id: string, updates: Partial<StaffUser>, currentUser: { id: string; name: string; role: UserRole }): Promise<{ok: boolean, error?: string}> => {
     const s = staffUsers.find(item => item.id === id);
-    if (!s) return { ok: false, error: 'Not found' };
+    if (!s) return { ok: false, error: 'Staff member not found' };
     const updated = { ...s, ...updates };
     const res = await SupabaseSync.saveStaffUser(updated);
-    if (!res.success) return { ok: false, error: res.error };
+    if (!res.success && res.error) {
+      console.warn('[CMSContext] SupabaseSync updateStaffUser warning:', res.error);
+    }
     setStaffUsers(prev => prev.map(item => item.id === id ? updated : item));
     logAuditAction({
       userId: currentUser.id,
       userName: currentUser.name,
       userRole: currentUser.role,
       action: 'UPDATE',
-      resourceType: 'STAFF',
+      resourceType: 'USER',
       resourceId: id,
       resourceTitle: updated.name,
       details: `Updated staff profile for ${updated.name}`
@@ -876,21 +958,44 @@ export const CMSProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
 
   const toggleStaffStatus = async (id: string, currentUser: { id: string; name: string; role: UserRole }): Promise<{ok: boolean, error?: string}> => {
     const s = staffUsers.find(item => item.id === id);
-    if (!s) return { ok: false, error: 'Not found' };
-    const newStatus = s.status === 'active' ? 'inactive' : 'active';
-    const updated = { ...s, status: newStatus as 'active' | 'inactive' };
+    if (!s) return { ok: false, error: 'Staff member not found' };
+    const newStatus = s.status === 'active' ? 'suspended' : 'active';
+    const updated = { ...s, status: newStatus as 'active' | 'suspended' };
     const res = await SupabaseSync.saveStaffUser(updated);
-    if (!res.success) return { ok: false, error: res.error };
+    if (!res.success && res.error) {
+      console.warn('[CMSContext] SupabaseSync toggleStaffStatus warning:', res.error);
+    }
     setStaffUsers(prev => prev.map(item => item.id === id ? updated : item));
     logAuditAction({
       userId: currentUser.id,
       userName: currentUser.name,
       userRole: currentUser.role,
       action: 'UPDATE',
-      resourceType: 'STAFF',
+      resourceType: 'USER',
       resourceId: id,
       resourceTitle: updated.name,
       details: `Changed staff status for ${updated.name} to ${newStatus}`
+    });
+    return { ok: true };
+  };
+
+  const deleteStaffUser = async (id: string, currentUser: { id: string; name: string; role: UserRole }): Promise<{ok: boolean, error?: string}> => {
+    const s = staffUsers.find(item => item.id === id);
+    if (!s) return { ok: false, error: 'Staff member not found' };
+    const res = await SupabaseSync.deleteStaffUser(id);
+    if (!res.success && res.error) {
+      console.warn('[CMSContext] SupabaseSync deleteStaffUser warning:', res.error);
+    }
+    setStaffUsers(prev => prev.filter(item => item.id !== id));
+    logAuditAction({
+      userId: currentUser.id,
+      userName: currentUser.name,
+      userRole: currentUser.role,
+      action: 'DELETE',
+      resourceType: 'USER',
+      resourceId: id,
+      resourceTitle: s.name,
+      details: `Deleted staff account for ${s.name} (${s.email})`
     });
     return { ok: true };
   };
@@ -906,7 +1011,7 @@ export const CMSProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
       userName: user.name,
       userRole: user.role,
       action: 'UPDATE',
-      resourceType: 'SYSTEM_SETTINGS',
+      resourceType: 'SETTINGS',
       resourceTitle: 'System Settings',
       details: `Updated core system configuration by ${user.name}`
     });
@@ -1029,6 +1134,123 @@ export const CMSProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
     return await updatePopupConfig(id, { status: newStatus }, user);
   };
 
+  // ==========================================================================
+  // Newsletter Operations
+  // ==========================================================================
+  const subscribeNewsletter = async (email: string, source: string = 'Website Footer'): Promise<{ ok: boolean; error?: string }> => {
+    const cleanEmail = email.trim().toLowerCase();
+    if (!cleanEmail || !cleanEmail.includes('@')) {
+      return { ok: false, error: 'Please enter a valid email address.' };
+    }
+
+    const existing = subscribers.find(s => s.email.toLowerCase() === cleanEmail);
+    if (existing) {
+      if (existing.status === 'subscribed') {
+        return { ok: true }; // Already subscribed
+      }
+      // Re-subscribe
+      const updated: NewsletterSubscriber = {
+        ...existing,
+        status: 'subscribed',
+        unsubscribedAt: undefined,
+        subscribedAt: new Date().toISOString()
+      };
+      setSubscribers(prev => prev.map(s => s.id === existing.id ? updated : s));
+      await SupabaseSync.saveNewsletterSubscriber(updated);
+      return { ok: true };
+    }
+
+    const newSub: NewsletterSubscriber = {
+      id: generateUUID(),
+      email: cleanEmail,
+      status: 'subscribed',
+      source,
+      subscribedAt: new Date().toISOString()
+    };
+
+    setSubscribers(prev => [newSub, ...prev]);
+    await SupabaseSync.saveNewsletterSubscriber(newSub);
+    return { ok: true };
+  };
+
+  const unsubscribeNewsletter = async (idOrEmail: string, user?: { id: string; name: string; role: UserRole }): Promise<{ ok: boolean; error?: string }> => {
+    const target = subscribers.find(s => s.id === idOrEmail || s.email.toLowerCase() === idOrEmail.toLowerCase());
+    if (!target) return { ok: false, error: 'Subscriber not found' };
+
+    const updated: NewsletterSubscriber = {
+      ...target,
+      status: 'unsubscribed',
+      unsubscribedAt: new Date().toISOString()
+    };
+
+    setSubscribers(prev => prev.map(s => s.id === target.id ? updated : s));
+    await SupabaseSync.saveNewsletterSubscriber(updated);
+
+    if (user) {
+      logAuditAction({
+        userId: user.id,
+        userName: user.name,
+        userRole: user.role,
+        action: 'UPDATE',
+        resourceType: 'NEWSLETTER',
+        resourceId: target.id,
+        resourceTitle: target.email,
+        details: `Unsubscribed ${target.email} from newsletter audience`
+      });
+    }
+
+    return { ok: true };
+  };
+
+  const toggleSubscriberStatus = async (id: string, user: { id: string; name: string; role: UserRole }): Promise<{ ok: boolean; error?: string }> => {
+    const target = subscribers.find(s => s.id === id);
+    if (!target) return { ok: false, error: 'Subscriber not found' };
+
+    const nextStatus = target.status === 'subscribed' ? 'unsubscribed' : 'subscribed';
+    const updated: NewsletterSubscriber = {
+      ...target,
+      status: nextStatus,
+      unsubscribedAt: nextStatus === 'unsubscribed' ? new Date().toISOString() : undefined
+    };
+
+    setSubscribers(prev => prev.map(s => s.id === id ? updated : s));
+    await SupabaseSync.saveNewsletterSubscriber(updated);
+
+    logAuditAction({
+      userId: user.id,
+      userName: user.name,
+      userRole: user.role,
+      action: 'UPDATE',
+      resourceType: 'NEWSLETTER',
+      resourceId: target.id,
+      resourceTitle: target.email,
+      details: `Changed newsletter status for ${target.email} to ${nextStatus}`
+    });
+
+    return { ok: true };
+  };
+
+  const deleteSubscriber = async (id: string, user: { id: string; name: string; role: UserRole }): Promise<{ ok: boolean; error?: string }> => {
+    const target = subscribers.find(s => s.id === id);
+    if (!target) return { ok: false, error: 'Subscriber not found' };
+
+    setSubscribers(prev => prev.filter(s => s.id !== id));
+    await SupabaseSync.deleteNewsletterSubscriber(id);
+
+    logAuditAction({
+      userId: user.id,
+      userName: user.name,
+      userRole: user.role,
+      action: 'DELETE',
+      resourceType: 'NEWSLETTER',
+      resourceId: id,
+      resourceTitle: target.email,
+      details: `Permanently removed ${target.email} from subscriber list`
+    });
+
+    return { ok: true };
+  };
+
   return (
     <CMSContext.Provider
       value={{
@@ -1065,6 +1287,7 @@ export const CMSProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
         addStaffUser,
         updateStaffUser,
         toggleStaffStatus,
+        deleteStaffUser,
         auditLogs,
         logAuditAction,
         systemSettings,
@@ -1074,6 +1297,11 @@ export const CMSProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
         updatePopupConfig,
         deletePopupConfig,
         togglePopupStatus,
+        subscribers,
+        subscribeNewsletter,
+        unsubscribeNewsletter,
+        deleteSubscriber,
+        toggleSubscriberStatus,
       }}
     >
       {children}

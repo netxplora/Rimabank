@@ -9,7 +9,8 @@ import {
   StaffUser,
   AuditLog,
   SystemSettings,
-  PopupConfig
+  PopupConfig,
+  NewsletterSubscriber
 } from '@/types/cms';
 
 // Connectivity guard — checks if client is initialized
@@ -1084,6 +1085,113 @@ export const SupabaseSync = {
       return await SupabaseSync.savePageContent('system_settings', 'System Configuration', settings);
     } catch (err) {
       console.warn('[SupabaseSync] saveSystemSettings error:', err);
+      return { success: false, error: err?.message || 'Unknown error' };
+    }
+  },
+
+  // ==========================================================================
+  // 11. Newsletter Subscribers (newsletter_subscribers table or cms_pages fallback)
+  // ==========================================================================
+  async fetchNewsletterSubscribers(): Promise<NewsletterSubscriber[] | null> {
+    try {
+      if (!(await isSupabaseAvailable())) return null;
+
+      // First try dedicated table if exists
+      const { data, error } = await supabase
+        .from('newsletter_subscribers' as any)
+        .select('*')
+        .order('subscribed_at', { ascending: false });
+
+      if (!error && data && Array.isArray(data)) {
+        return data.map((item: any) => ({
+          id: item.id,
+          email: item.email,
+          status: item.status || 'subscribed',
+          source: item.source || 'Website Footer',
+          subscribedAt: item.subscribed_at || item.created_at || new Date().toISOString(),
+          unsubscribedAt: item.unsubscribed_at,
+          ipAddress: item.ip_address
+        }));
+      }
+
+      // Fallback to cms_pages record
+      const pageFallback = await SupabaseSync.fetchPageContent('newsletter_subscribers');
+      if (pageFallback && Array.isArray(pageFallback)) {
+        return pageFallback;
+      }
+
+      return null;
+    } catch (err) {
+      console.warn('[SupabaseSync] fetchNewsletterSubscribers error:', err);
+      return null;
+    }
+  },
+
+  async saveNewsletterSubscriber(subscriber: NewsletterSubscriber): Promise<{success: boolean; error?: string}> {
+    try {
+      if (!(await isSupabaseAvailable())) return { success: false };
+
+      // 1. Attempt dedicated table upsert
+      try {
+        const isUUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(subscriber.id);
+        const { error: dbError } = await supabase
+          .from('newsletter_subscribers' as any)
+          .upsert({
+            ...(isUUID ? { id: subscriber.id } : {}),
+            email: subscriber.email.trim().toLowerCase(),
+            status: subscriber.status,
+            source: subscriber.source || 'Website Footer',
+            subscribed_at: subscriber.subscribedAt,
+            unsubscribed_at: subscriber.unsubscribedAt || null,
+            updated_at: new Date().toISOString()
+          }, { onConflict: 'email' });
+
+        if (!dbError) return { success: true };
+      } catch {
+        // Continue to cms_pages backup
+      }
+
+      // 2. Backup to cms_pages list
+      const existing = (await SupabaseSync.fetchPageContent('newsletter_subscribers')) || [];
+      const updatedList = Array.isArray(existing) ? [...existing] : [];
+      const idx = updatedList.findIndex((s: any) => s.id === subscriber.id || s.email?.toLowerCase() === subscriber.email?.toLowerCase());
+      if (idx >= 0) {
+        updatedList[idx] = subscriber;
+      } else {
+        updatedList.unshift(subscriber);
+      }
+      await SupabaseSync.savePageContent('newsletter_subscribers', 'Newsletter Audience', updatedList);
+
+      return { success: true };
+    } catch (err) {
+      console.warn('[SupabaseSync] saveNewsletterSubscriber error:', err);
+      return { success: false, error: err?.message || 'Unknown error' };
+    }
+  },
+
+  async deleteNewsletterSubscriber(id: string): Promise<{success: boolean; error?: string}> {
+    try {
+      if (!(await isSupabaseAvailable())) return { success: false };
+
+      try {
+        const isUUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(id);
+        if (isUUID) {
+          await supabase.from('newsletter_subscribers' as any).delete().eq('id', id);
+        }
+      } catch {
+        // ignore
+      }
+
+      // Update cms_pages list
+      const existing = (await SupabaseSync.fetchPageContent('newsletter_subscribers')) || [];
+      if (Array.isArray(existing)) {
+        const updatedList = existing.filter((s: any) => s.id !== id);
+        await SupabaseSync.savePageContent('newsletter_subscribers', 'Newsletter Audience', updatedList);
+      }
+
+      return { success: true };
+    } catch (err) {
+      console.warn('[SupabaseSync] deleteNewsletterSubscriber error:', err);
       return { success: false, error: err?.message || 'Unknown error' };
     }
   }

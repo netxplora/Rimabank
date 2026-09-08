@@ -50,7 +50,7 @@ const legal = [
 export function Footer() {
   const [newsletterEmail, setNewsletterEmail] = useState("");
   const [isSubscribing, setIsSubscribing] = useState(false);
-  const { siteContent, addEnquiry } = useCMS();
+  const { siteContent, addEnquiry, subscribeNewsletter } = useCMS();
   const footer = siteContent?.footer;
   const contactInfo = siteContent?.contactInfo;
 
@@ -63,6 +63,8 @@ export function Footer() {
 
     setIsSubscribing(true);
     try {
+      await subscribeNewsletter(newsletterEmail.trim(), 'Website Footer');
+
       addEnquiry({
         name: "Newsletter Subscriber",
         email: newsletterEmail.trim(),

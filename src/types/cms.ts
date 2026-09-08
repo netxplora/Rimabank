@@ -44,13 +44,23 @@ export interface AuditLog {
   userName: string;
   userRole: UserRole;
   action: 'CREATE' | 'UPDATE' | 'DELETE' | 'PUBLISH' | 'UNPUBLISH' | 'APPROVE' | 'LOGIN' | 'ROLE_CHANGE' | 'SETTINGS_CHANGE';
-  resourceType: 'LANDING_PAGE' | 'PROMOTION' | 'ANNOUNCEMENT' | 'PUBLICATION' | 'ENQUIRY' | 'MEDIA' | 'USER' | 'SETTINGS' | 'POPUP';
+  resourceType: 'LANDING_PAGE' | 'PROMOTION' | 'ANNOUNCEMENT' | 'PUBLICATION' | 'ENQUIRY' | 'MEDIA' | 'USER' | 'SETTINGS' | 'POPUP' | 'NEWSLETTER';
   resourceId?: string;
   resourceTitle?: string;
   details: string;
   oldValues?: Record<string, any>;
   newValues?: Record<string, any>;
   timestamp: string;
+  ipAddress?: string;
+}
+
+export interface NewsletterSubscriber {
+  id: string;
+  email: string;
+  status: 'subscribed' | 'unsubscribed';
+  source?: string;
+  subscribedAt: string;
+  unsubscribedAt?: string;
   ipAddress?: string;
 }
 

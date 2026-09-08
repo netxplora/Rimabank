@@ -44,6 +44,7 @@ import StaffManager from "./pages/admin/StaffManager";
 import AuditLogsView from "./pages/admin/AuditLogsView";
 import SystemSettingsView from "./pages/admin/SystemSettingsView";
 import PopupManager from "./pages/admin/PopupManager";
+import NewsletterSubscribers from "./pages/admin/NewsletterSubscribers";
 
 // Staff Operations Pages
 import StaffLogin from "./pages/staff/StaffLogin";
@@ -107,6 +108,7 @@ const App = () => (
                 <Route path="announcements" element={<AnnouncementsManager />} />
                 <Route path="publications" element={<PublicationsManager />} />
                 <Route path="enquiries" element={<EnquiriesManager />} />
+                <Route path="newsletter" element={<NewsletterSubscribers />} />
                 <Route path="media" element={<MediaLibrary />} />
                 <Route path="popups" element={<PopupManager />} />
 
