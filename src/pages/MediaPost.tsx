@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Calendar, ArrowLeft, Loader2, Facebook, Twitter, Link as LinkIcon, Newspaper } from "lucide-react";
 import { toast } from "sonner";
 import DOMPurify from "dompurify";
+import { useCMS } from "@/context/CMSContext";
 
 const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
 const SUPABASE_KEY = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY;
@@ -28,7 +29,59 @@ const formatDate = (dateString: string) => {
   });
 };
 
-import { useCMS } from "@/context/CMSContext";
+const fallbackDefaultArticles: Record<string, BlogPost> = {
+  "sme-credit-growth-rivers-state": {
+    id: "1",
+    slug: "sme-credit-growth-rivers-state",
+    title: "Expanding Commercial Credit for Regional SMEs in Rivers State",
+    excerpt: "Rima Microfinance Bank announces a dedicated capital facility targeting registered retail distributors and small-scale manufacturers.",
+    content: `
+      <p>Rima Microfinance Bank Limited has unveiled a dedicated credit facility tailored to support small and medium-scale enterprises across Rivers State. This initiative provides working capital for inventory restocking, equipment acquisition, and business expansion.</p>
+      <h3>Structured Credit for Emerging Enterprises</h3>
+      <p>Under the new facility, eligible business owners can access loans up to ₦50 Million with flexible repayment terms and structured collateral arrangements. The goal is to provide timely liquidity that matches commercial cash flow cycles.</p>
+      <p>Our dedicated credit advisory desk assists merchants through every step of the application process, ensuring transparent interest calculation and rapid 48-hour disbursement upon documentation verification.</p>
+      <h3>Eligibility & Documentation</h3>
+      <ul>
+        <li>Registered business entity with verifiable operations in Nigeria</li>
+        <li>Active bank account statements for the preceding 6 to 12 months</li>
+        <li>Valid government-issued identification and business registration documents</li>
+      </ul>
+    `,
+    category: "Commercial Credit",
+    featured_image: "/images/media-sme.png",
+    created_at: new Date().toISOString()
+  },
+  "youth-student-financial-inclusion": {
+    id: "2",
+    slug: "youth-student-financial-inclusion",
+    title: "Financial Discipline and Zero-Fee Accounts for University Students",
+    excerpt: "New campus banking initiative brings digital financial tools and educational savings structures to undergraduate communities.",
+    content: `
+      <p>In continuation of our mandate to foster financial literacy and inclusion, Rima Microfinance Bank has rolled out specialized student banking packages designed for undergraduates and young professionals.</p>
+      <h3>Zero-Maintenance Campus Banking</h3>
+      <p>The student account features zero monthly maintenance charges, instant debit card issuance, and full access to our mobile banking application for seamless transfers, airtime purchases, and bill payments.</p>
+      <p>Through campus workshops and digital budgeting tools, students gain practical experience in managing allowances, saving consistently, and building disciplined financial habits early.</p>
+    `,
+    category: "Financial Inclusion",
+    featured_image: "/images/media-students.png",
+    created_at: new Date(Date.now() - 86400000 * 5).toISOString()
+  },
+  "agency-banking-network-expansion": {
+    id: "3",
+    slug: "agency-banking-network-expansion",
+    title: "Agency Banking Network Reaches 200 Certified Merchant Locations",
+    excerpt: "Strategic partnership with market trade associations brings instant deposit, withdrawal, and utility payment terminals to local clusters.",
+    content: `
+      <p>Rima Microfinance Bank is proud to announce that its agency banking footprint has expanded to over 200 accredited locations across key commercial hubs and local communities.</p>
+      <h3>Bringing Banking to the Grassroots</h3>
+      <p>Each accredited agent is equipped with high-speed POS terminals that process instant cash deposits, inter-bank transfers, utility payments, and account balance inquiries with immediate NIBSS settlement.</p>
+      <p>By empowering neighborhood retail store owners as certified agents, Rima MFB ensures that reliable banking services remain within walking distance of local traders and residents.</p>
+    `,
+    category: "Agency Banking",
+    featured_image: "/images/rivers-agent-hero.png",
+    created_at: new Date(Date.now() - 86400000 * 12).toISOString()
+  }
+};
 
 export default function MediaPost() {
   const { slug } = useParams<{ slug: string }>();
@@ -55,7 +108,14 @@ export default function MediaPost() {
         return;
       }
 
-      // 2. Otherwise query Supabase
+      // 2. Check in fallback default articles
+      if (slug && fallbackDefaultArticles[slug]) {
+        setPost(fallbackDefaultArticles[slug]);
+        setLoading(false);
+        return;
+      }
+
+      // 3. Otherwise query Supabase
       try {
         if (!SUPABASE_URL || !SUPABASE_KEY) {
           setLoading(false);

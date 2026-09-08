@@ -315,7 +315,7 @@ export default function AgentBanking() {
       </section>
 
       {/* Services Menu & Eligibility Criteria (Minimal Open Layout) */}
-      <section className="py-8 sm:py-10 md:py-12 bg-white border-b border-[#e2e8f0]/60">
+      <section id="join" className="scroll-mt-24 py-8 sm:py-10 md:py-12 bg-white border-b border-[#e2e8f0]/60">
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
             

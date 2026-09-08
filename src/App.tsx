@@ -20,6 +20,8 @@ import BusinessBanking from "./pages/BusinessBanking";
 import LoanServices from "./pages/banking/LoanServices";
 import PersonalBanking from "./pages/PersonalBanking";
 import AgentBanking from "./pages/AgentBanking";
+import Products from "./pages/Products";
+import Support from "./pages/Support";
 
 // CMS Context & Auth
 import { CMSProvider } from "./context/CMSContext";
@@ -83,8 +85,8 @@ const App = () => (
               <Route path="/cookies" element={<Legal />} />
               <Route path="/complaints" element={<Legal />} />
               <Route path="/faq" element={<FAQ />} />
-              <Route path="/support" element={<Navigate to="/contact" replace />} />
-              <Route path="/products" element={<Navigate to="/personal-banking" replace />} />
+              <Route path="/support" element={<Support />} />
+              <Route path="/products" element={<Products />} />
 
               {/* ============================================================ */}
               {/* 1. EXECUTIVE ADMIN PORTAL (Strictly Admin / Full Access)      */}

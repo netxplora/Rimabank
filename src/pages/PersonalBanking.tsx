@@ -375,7 +375,8 @@ export default function PersonalBanking() {
             {personalServices.map((service) => (
               <div
                 key={service.id}
-                className="py-8 md:p-6 lg:p-8 flex flex-col justify-between"
+                id={service.id}
+                className="py-8 md:p-6 lg:p-8 flex flex-col justify-between scroll-mt-24"
               >
                 <div>
                   <div className="flex items-center justify-between mb-4">

@@ -15,7 +15,10 @@ import {
   Lock,
   ArrowUpRight,
   ArrowDownLeft,
-  RefreshCw
+  RefreshCw,
+  CreditCard,
+  Shield,
+  Wifi
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -300,8 +303,125 @@ export default function DigitalBanking() {
         </div>
       </section>
 
+      {/* Dedicated Debit & Verve Cards Section */}
+      <section id="cards" className="scroll-mt-24 py-12 sm:py-16 bg-slate-50/70 border-b border-[#e2e8f0]/60">
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+            
+            {/* Visual Card Display (5 cols) */}
+            <div className="lg:col-span-5 order-2 lg:order-1 perspective-1000">
+              <div className="w-full max-w-sm mx-auto rounded-2xl bg-gradient-to-tr from-[#0a1e3f] via-[#112d5e] to-[#061329] p-6 text-white text-left shadow-2xl relative overflow-hidden border border-blue-400/20 transform hover:-translate-y-1 transition-all duration-300">
+                <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/10 to-transparent opacity-60 pointer-events-none" />
+                
+                <div className="flex justify-between items-start mb-6 relative z-10">
+                  <div>
+                    <span className="text-[10px] text-blue-200/70 uppercase tracking-widest block font-medium">
+                      Rima Microfinance Bank
+                    </span>
+                    <span className="font-heading text-sm font-semibold tracking-wide text-white">
+                      Debit Card
+                    </span>
+                  </div>
+                  <div className="w-8 h-8 rounded-lg bg-[#0284c7] flex items-center justify-center font-bold text-xs shadow-md">
+                    R
+                  </div>
+                </div>
+
+                {/* EMV Chip & Contactless */}
+                <div className="flex items-center gap-3 mb-6 relative z-10">
+                  <div className="w-10 h-7 rounded-md bg-gradient-to-r from-amber-300 via-amber-400 to-amber-200 border border-amber-600/40 shadow-inner flex items-center justify-center">
+                    <div className="w-7 h-5 border border-amber-700/30 rounded-xs grid grid-cols-2 gap-0.5" />
+                  </div>
+                  <Wifi className="h-4 w-4 text-white/70 rotate-90" />
+                </div>
+
+                <div className="font-mono text-base tracking-widest text-slate-200 mb-4 relative z-10 drop-shadow-sm">
+                  •••• &nbsp; •••• &nbsp; •••• &nbsp; 4829
+                </div>
+
+                <div className="flex justify-between items-end relative z-10 pt-2 border-t border-white/10">
+                  <div>
+                    <span className="text-[8px] text-blue-200/60 uppercase block">Cardholder</span>
+                    <span className="text-xs font-semibold tracking-wide text-white uppercase">Valued Accountholder</span>
+                  </div>
+                  <div className="text-right">
+                    <span className="text-[8px] text-blue-200/60 uppercase block">Valid Thru</span>
+                    <span className="text-xs font-mono text-white">12/29</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Right Card Information (7 cols) */}
+            <div className="lg:col-span-7 order-1 lg:order-2 space-y-5">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#f0f7ff] text-[#0284c7] text-xs font-semibold uppercase tracking-wider">
+                <CreditCard className="h-3.5 w-3.5" />
+                <span>Nationwide Payment Rails</span>
+              </div>
+
+              <h2 className="font-heading text-2xl sm:text-3xl lg:text-4xl font-bold text-[#0a1e3f] tracking-tight leading-tight">
+                Verve & Mastercards issued instantly at any branch.
+              </h2>
+
+              <p className="text-slate-600 text-xs sm:text-sm leading-relaxed max-w-xl">
+                Make ATM cash withdrawals, pay for groceries at retail POS terminals, and execute domestic transactions with bank-grade EMV chip & PIN security.
+              </p>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 pt-1 text-xs">
+                <div className="flex items-start gap-2.5">
+                  <CheckCircle2 className="h-4 w-4 text-[#34c771] shrink-0 mt-0.5" />
+                  <div>
+                    <strong className="text-[#0a1e3f] block font-semibold">Zero Wait Time</strong>
+                    <span className="text-slate-500 text-[11px]">Instant card personalization at opening.</span>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-2.5">
+                  <CheckCircle2 className="h-4 w-4 text-[#34c771] shrink-0 mt-0.5" />
+                  <div>
+                    <strong className="text-[#0a1e3f] block font-semibold">In-App Controls</strong>
+                    <span className="text-slate-500 text-[11px]">Lock or reset your PIN directly on mobile.</span>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-2.5">
+                  <CheckCircle2 className="h-4 w-4 text-[#34c771] shrink-0 mt-0.5" />
+                  <div>
+                    <strong className="text-[#0a1e3f] block font-semibold">Nationwide ATM Access</strong>
+                    <span className="text-slate-500 text-[11px]">Accepted on all Nigerian bank ATMs.</span>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-2.5">
+                  <CheckCircle2 className="h-4 w-4 text-[#34c771] shrink-0 mt-0.5" />
+                  <div>
+                    <strong className="text-[#0a1e3f] block font-semibold">EMV Chip Protected</strong>
+                    <span className="text-slate-500 text-[11px]">Cryptographic clone resistance.</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="pt-2 flex flex-wrap items-center gap-3">
+                <Button
+                  variant="pill"
+                  size="default"
+                  asChild
+                  className="bg-[#0284c7] hover:bg-[#0369a1] text-white font-semibold text-xs px-5 h-10 shadow-brand"
+                >
+                  <Link to="/branches">
+                    <span>Find Card Issuing Branch</span>
+                    <ArrowRight className="h-3.5 w-3.5 ml-1.5" />
+                  </Link>
+                </Button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
       {/* Dedicated USSD Banking Section (*723#) */}
-      <section id="ussd-section" className="py-8 sm:py-10 bg-white border-b border-[#e2e8f0]/60">
+      <section id="ussd-section" className="scroll-mt-24 py-8 sm:py-10 bg-white border-b border-[#e2e8f0]/60">
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
           <div className="rounded-3xl bg-gradient-to-br from-[#f0f9ff] via-[#e0f2fe]/60 to-[#f0f9ff] text-[#0a1e3f] p-6 sm:p-8 lg:p-10 shadow-sm border border-[#bae6fd] relative overflow-hidden">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center relative z-10">

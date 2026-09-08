@@ -274,7 +274,7 @@ export default function About() {
       </section>
 
       {/* ── 3. Mission & Vision (Clean Divided Layout) ── */}
-      <section className="py-8 sm:py-12 bg-white border-b border-[#e2e8f0]/60">
+      <section id="vision" className="scroll-mt-24 py-8 sm:py-12 bg-white border-b border-[#e2e8f0]/60">
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
           <div className="grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-slate-200 border-t border-b border-slate-200">
             <div className="py-6 md:p-6 lg:p-8 space-y-3">
@@ -301,7 +301,7 @@ export default function About() {
       </section>
 
       {/* ── 4. Strategic Operational Pillars (Interactive Blueprint) ── */}
-      <section className="py-8 sm:py-12 bg-slate-50/70 border-b border-[#e2e8f0]/60">
+      <section id="governance" className="scroll-mt-24 py-8 sm:py-12 bg-slate-50/70 border-b border-[#e2e8f0]/60">
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
           <div className="max-w-2xl mb-6 sm:mb-8">
             <span className="text-xs font-semibold uppercase tracking-wider text-[#0284c7] block mb-1">
