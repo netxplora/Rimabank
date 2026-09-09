@@ -275,27 +275,27 @@ export default function DigitalBanking() {
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-slate-200 border-t border-b border-slate-200">
-            <div className="py-5 md:p-5 lg:p-6 space-y-2.5">
-              <div className="text-xs font-bold text-[#0284c7] uppercase tracking-widest">Step 01</div>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
+            <div className="bg-[#f0f9ff]/70 hover:bg-[#f0f9ff] border border-[#bae6fd]/60 hover:border-[#bae6fd] rounded-2xl p-5 sm:p-6 transition-all shadow-2xs hover:shadow-sm space-y-2.5">
+              <div className="text-xs font-bold text-[#0284c7] uppercase tracking-widest bg-white inline-block px-2.5 py-1 rounded-full border border-[#bae6fd]/60 shadow-2xs">Step 01</div>
               <h3 className="font-heading text-base font-semibold text-[#0a1e3f]">Download the Mobile App</h3>
-              <p className="text-xs text-[#64748b] leading-relaxed">
+              <p className="text-xs text-slate-600 leading-relaxed">
                 Download the Rima MFB Mobile Banking application from Google Play or Apple App Store.
               </p>
             </div>
 
-            <div className="py-5 md:p-5 lg:p-6 space-y-2.5">
-              <div className="text-xs font-bold text-[#0284c7] uppercase tracking-widest">Step 02</div>
+            <div className="bg-[#f0f9ff]/70 hover:bg-[#f0f9ff] border border-[#bae6fd]/60 hover:border-[#bae6fd] rounded-2xl p-5 sm:p-6 transition-all shadow-2xs hover:shadow-sm space-y-2.5">
+              <div className="text-xs font-bold text-[#0284c7] uppercase tracking-widest bg-white inline-block px-2.5 py-1 rounded-full border border-[#bae6fd]/60 shadow-2xs">Step 02</div>
               <h3 className="font-heading text-base font-semibold text-[#0a1e3f]">Verify Credentials</h3>
-              <p className="text-xs text-[#64748b] leading-relaxed">
+              <p className="text-xs text-slate-600 leading-relaxed">
                 Enter your registered BVN and National Identification Number (NIN) to verify your account in minutes.
               </p>
             </div>
 
-            <div className="py-5 md:p-5 lg:p-6 space-y-2.5">
-              <div className="text-xs font-bold text-[#16a34a] uppercase tracking-widest">Step 03</div>
+            <div className="bg-[#f0f9ff]/70 hover:bg-[#f0f9ff] border border-[#bae6fd]/60 hover:border-[#bae6fd] rounded-2xl p-5 sm:p-6 transition-all shadow-2xs hover:shadow-sm space-y-2.5">
+              <div className="text-xs font-bold text-[#0284c7] uppercase tracking-widest bg-white inline-block px-2.5 py-1 rounded-full border border-[#bae6fd]/60 shadow-2xs">Step 03</div>
               <h3 className="font-heading text-base font-semibold text-[#0a1e3f]">Begin Banking</h3>
-              <p className="text-xs text-[#64748b] leading-relaxed">
+              <p className="text-xs text-slate-600 leading-relaxed">
                 Set your secure transaction PIN, fund your balance, and begin executing instant transfers immediately.
               </p>
             </div>
@@ -413,6 +413,11 @@ export default function DigitalBanking() {
                     <ArrowRight className="h-3.5 w-3.5 ml-1.5" />
                   </Link>
                 </Button>
+                <Button variant="outlineNeutral" size="default" asChild className="rounded-full">
+                  <a href="#ussd-section">
+                    Explore USSD (*966*808#)
+                  </a>
+                </Button>
               </div>
             </div>
 
@@ -420,7 +425,7 @@ export default function DigitalBanking() {
         </div>
       </section>
 
-      {/* Dedicated USSD Banking Section (*723#) */}
+      {/* Dedicated USSD Banking Section (*966*808#) */}
       <section id="ussd-section" className="scroll-mt-24 py-8 sm:py-10 bg-white border-b border-[#e2e8f0]/60">
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
           <div className="rounded-3xl bg-gradient-to-br from-[#f0f9ff] via-[#e0f2fe]/60 to-[#f0f9ff] text-[#0a1e3f] p-6 sm:p-8 lg:p-10 shadow-sm border border-[#bae6fd] relative overflow-hidden">
@@ -433,7 +438,7 @@ export default function DigitalBanking() {
                 </div>
 
                 <h2 className="font-heading text-2xl sm:text-3xl lg:text-4xl font-semibold text-[#0a1e3f] tracking-tight leading-[1.1]">
-                  Bank anywhere without internet. Dial <span className="text-[#0284c7] font-mono">*723#</span>.
+                  Bank anywhere without internet. Dial <span className="text-[#0284c7] font-mono">*966*808#</span>.
                 </h2>
 
                 <p className="text-slate-600 text-xs sm:text-sm leading-relaxed max-w-xl">
@@ -443,19 +448,19 @@ export default function DigitalBanking() {
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 pt-1">
                   <div className="p-3 rounded-2xl bg-white border border-[#bae6fd] text-center">
                     <span className="block text-[10px] text-slate-500 uppercase font-bold">Check Balance</span>
-                    <span className="font-mono text-xs text-[#0284c7] font-bold">*723*0#</span>
+                    <span className="font-mono text-xs text-[#0284c7] font-bold">*966*808*0#</span>
                   </div>
                   <div className="p-3 rounded-2xl bg-white border border-[#bae6fd] text-center">
                     <span className="block text-[10px] text-slate-500 uppercase font-bold">Transfer Money</span>
-                    <span className="font-mono text-xs text-[#0284c7] font-bold">*723*1#</span>
+                    <span className="font-mono text-xs text-[#0284c7] font-bold">*966*808*1#</span>
                   </div>
                   <div className="p-3 rounded-2xl bg-white border border-[#bae6fd] text-center">
                     <span className="block text-[10px] text-slate-500 uppercase font-bold">Airtime Top-Up</span>
-                    <span className="font-mono text-xs text-[#0284c7] font-bold">*723*2#</span>
+                    <span className="font-mono text-xs text-[#0284c7] font-bold">*966*808*2#</span>
                   </div>
                   <div className="p-3 rounded-2xl bg-white border border-[#bae6fd] text-center">
                     <span className="block text-[10px] text-slate-500 uppercase font-bold">Pay Bills</span>
-                    <span className="font-mono text-xs text-[#0284c7] font-bold">*723*3#</span>
+                    <span className="font-mono text-xs text-[#0284c7] font-bold">*966*808*3#</span>
                   </div>
                 </div>
 
@@ -466,8 +471,8 @@ export default function DigitalBanking() {
                     asChild
                     className="bg-[#0284c7] hover:bg-[#0369a1] text-white font-heading text-xs font-bold transition-all shadow-brand"
                   >
-                    <a href="tel:*723%23">
-                      Dial *723# on Mobile
+                    <a href="tel:*966*808%23">
+                      Dial *966*808# on Mobile
                       <ArrowRight className="h-4 w-4 ml-1.5" />
                     </a>
                   </Button>
@@ -482,7 +487,7 @@ export default function DigitalBanking() {
                 <ul className="space-y-2.5 text-xs text-slate-700">
                   <li className="flex items-start gap-2.5">
                     <span className="w-5 h-5 rounded-full bg-[#0284c7] text-white font-bold text-[10px] flex items-center justify-center shrink-0 mt-0.5">1</span>
-                    <span>Dial <strong>*723#</strong> from your mobile phone number registered with Rima MFB.</span>
+                    <span>Dial <strong>*966*808#</strong> from your mobile phone number registered with Rima MFB.</span>
                   </li>
                   <li className="flex items-start gap-2.5">
                     <span className="w-5 h-5 rounded-full bg-[#0284c7] text-white font-bold text-[10px] flex items-center justify-center shrink-0 mt-0.5">2</span>

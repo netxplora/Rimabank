@@ -18,7 +18,14 @@ import {
   TrendingUp,
   Wallet,
   Store,
-  Layers
+  Layers,
+  PhoneCall,
+  Users,
+  FileText,
+  BadgePercent,
+  Smartphone,
+  Sparkles,
+  LogIn
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -51,95 +58,112 @@ interface MegaMenuCategory {
 }
 
 const whatWeOfferMenu: MegaMenuCategory = {
-  name: "Banking Solutions",
+  name: "What We Offer",
   href: "/personal-banking",
-  summary: "Comprehensive commercial accounts, high-yield deposits, working capital, and retail payments designed for businesses and individuals.",
+  summary: "Comprehensive savings, credit facilities, business banking, and payment solutions designed around everyday customer needs.",
   groups: [
-    {
-      title: "Business Banking",
-      icon: Briefcase,
-      items: [
-        { name: "Business Accounts", href: "/business-banking#corporate", desc: "Corporate checking with multi-signatory governance" },
-        { name: "Commercial & SME Loans", href: "/loans", desc: "Structured credit facilities for inventory and expansion" },
-        { name: "Working Capital Facilities", href: "/business-banking#sme", desc: "Flexible liquidity to support operational cash flow" },
-        { name: "SME Starter Package", href: "/business-banking", desc: "Tailored banking for registered emerging enterprises" },
-      ],
-    },
     {
       title: "Personal Banking",
       icon: User,
       items: [
-        { name: "Savings Accounts", href: "/personal-banking#savings", desc: "Guaranteed interest yields with zero ledger fees" },
-        { name: "Current Accounts", href: "/personal-banking#current", desc: "Convenient daily banking with personalized chequebooks" },
-        { name: "Target Yield Savings", href: "/personal-banking#savings", desc: "Structured recurring savings up to 12.5% p.a." },
-        { name: "Student Banking", href: "/personal-banking#student", desc: "Zero-maintenance accounts for undergraduates" },
+        { name: "Savings Accounts", href: "/personal-banking#savings", desc: "Guaranteed interest yields with zero ledger maintenance fees" },
+        { name: "Personal Accounts", href: "/personal-banking#personal", desc: "Day-to-day transaction accounts with debit card access" },
+        { name: "Current Accounts", href: "/personal-banking#current", desc: "Flexible checking with personalized chequebook facilities" },
+        { name: "Target Yield Savings", href: "/personal-banking#target", desc: "Disciplined goal savings with high annual returns" },
+        { name: "Debit & Verve Cards", href: "/digital-banking#cards", desc: "Secure chip & PIN cards for nationwide ATM and POS transactions" },
+        { name: "Digital Banking", href: "/digital-banking", desc: "24/7 balance checks, transfers, and transaction monitoring" },
       ],
     },
     {
-      title: "Payments & Merchant Services",
-      icon: CreditCard,
+      title: "Business Banking",
+      icon: Briefcase,
       items: [
-        { name: "Digital Banking & App", href: "/digital-banking", desc: "Instant transfers and 24/7 account monitoring" },
-        { name: "Debit & Verve Cards", href: "/digital-banking#cards", desc: "Chip & PIN cards for nationwide ATM and POS access" },
-        { name: "Merchant Collections & POS", href: "/business-banking", desc: "Reliable POS terminals for physical store settlements" },
+        { name: "Business Accounts", href: "/business-banking#corporate", desc: "Dedicated commercial checking with multi-signatory governance" },
+        { name: "SME Banking Packages", href: "/business-banking#sme", desc: "Tailored operational support for growing enterprises" },
+        { name: "Business Loans", href: "/loans#business", desc: "Structured credit facilities for inventory and business expansion" },
+        { name: "Working Capital Facilities", href: "/loans#working-capital", desc: "Flexible liquidity to maintain steady operational cash flow" },
+        { name: "Payments & Collections", href: "/business-banking#payments", desc: "Streamlined multi-channel client payment collection" },
+        { name: "Merchant POS Terminals", href: "/business-banking#merchant", desc: "Reliable POS terminals for physical store settlements" },
       ],
     },
     {
-      title: "Agent Banking Network",
-      icon: Store,
+      title: "Access & Payments",
+      icon: Smartphone,
       items: [
-        { name: "Agency Banking Overview", href: "/agent-banking", desc: "Grassroots financial access across 200+ partner locations" },
-        { name: "Become a Certified Agent", href: "/agent-banking#join", desc: "Monetize your commercial retail outlet with RIMA Bank" },
-        { name: "Agent Portal & Support", href: "/contact", desc: "Dedicated merchant resolution and float management" },
+        { name: "USSD Banking (*966*808#)", href: "/digital-banking#ussd", desc: "Bank instantly from any mobile phone without internet connection" },
+        { name: "Instant Transfers", href: "/digital-banking#transfers", desc: "Fast interbank and intra-bank electronic settlements" },
+        { name: "Agent Banking Network", href: "/agent-banking", desc: "Cash deposits, withdrawals, and account opening across Rivers State" },
+        { name: "Become an Agent", href: "/agent-banking#join", desc: "Earn recurring commissions as a certified banking agent" },
+        { name: "Cards & Electronic Channels", href: "/digital-banking#cards", desc: "Verve cards and ATM network access nationwide" },
+      ],
+    },
+    {
+      title: "Financing & Credit",
+      icon: TrendingUp,
+      items: [
+        { name: "Business Expansion Loans", href: "/loans#business", desc: "Medium-term capital for scaling commercial operations" },
+        { name: "SME Working Capital", href: "/loans#working-capital", desc: "Quick-turnaround credit for stock purchases and payroll" },
+        { name: "Microcredit Facilities", href: "/loans#microcredit", desc: "Accessible group and individual credit for market traders" },
+        { name: "Asset Financing", href: "/loans#asset", desc: "Financing for machinery, commercial vehicles, and equipment" },
+        { name: "Salary Advance", href: "/loans#salary", desc: "Short-term liquidity for verified salary earners" },
       ],
     },
   ],
   featured: {
-    tag: "Commercial Focus",
-    title: "SME Working Capital Facility",
-    description: "Access competitive interest credit lines with flexible collateral options to scale your trading inventory.",
-    ctaText: "Apply for Business Credit",
-    ctaHref: "/loans",
+    tag: "Goal Savings",
+    title: "Target Yield Savings",
+    description: "Save consistently toward business expansion, school fees, or emergencies with guaranteed annual interest.",
+    ctaText: "Explore Target Savings",
+    ctaHref: "/personal-banking#savings",
   },
 };
 
 const whoWeAreMenu: MegaMenuCategory = {
-  name: "About Rima",
+  name: "Who We Are",
   href: "/about",
-  summary: "A Central Bank of Nigeria licensed microfinance institution providing secure banking and economic empowerment since 1999.",
+  summary: "A Central Bank of Nigeria licensed microfinance institution providing practical banking and economic empowerment since 1999.",
   groups: [
     {
-      title: "Institutional Heritage",
+      title: "About RIMA Bank",
       icon: Building2,
       items: [
-        { name: "About RIMA Bank", href: "/about", desc: "Our 25-year history, capital strength, and institutional mission" },
-        { name: "Mission, Vision & Values", href: "/about#vision", desc: "Core principles guiding our financial stewardship" },
-        { name: "Corporate Governance", href: "/about#governance", desc: "Regulatory oversight, compliance standards, and leadership" },
+        { name: "About Us", href: "/about", desc: "Our 25-year heritage, financial strength, and community mission" },
+        { name: "Our Mission & Vision", href: "/about#vision", desc: "Core principles guiding our microfinance stewardship" },
+        { name: "Institutional Values", href: "/about#values", desc: "Integrity, transparency, accessibility, and client growth" },
       ],
     },
     {
-      title: "News & Publications",
+      title: "Leadership & Stewardship",
+      icon: Users,
+      items: [
+        { name: "Board of Directors", href: "/about#board", desc: "Experienced fiduciaries ensuring regulatory compliance" },
+        { name: "Executive Management", href: "/about#management", desc: "Seasoned banking professionals driving operational excellence" },
+      ],
+    },
+    {
+      title: "Corporate Information",
       icon: Newspaper,
       items: [
-        { name: "Media & Press Releases", href: "/media", desc: "Official press statements and community outreach updates" },
-        { name: "Bank Operational Bulletins", href: "/media", desc: "System maintenance schedules and regulatory announcements" },
-        { name: "Financial Literacy & Guides", href: "/media", desc: "Practical guidance for managing personal and enterprise cash" },
+        { name: "Corporate Governance", href: "/about#governance", desc: "Statutory risk frameworks, compliance, and auditing" },
+        { name: "News & Bulletins", href: "/media", desc: "Official public notices, press statements, and updates" },
+        { name: "Financial Guides & Tips", href: "/media", desc: "Practical guidance on cash flow, savings, and debt management" },
+        { name: "Careers at RIMA Bank", href: "/about#careers", desc: "Join our dynamic team dedicated to financial inclusion" },
       ],
     },
     {
-      title: "Branch Network & Support",
+      title: "Contact & Locations",
       icon: MapPin,
       items: [
-        { name: "Find Branches & ATMs", href: "/branches", desc: "Locate regional banking centers and ATM terminals" },
-        { name: "Customer Help & FAQ Desk", href: "/faq", desc: "Answers to common account and transaction inquiries" },
-        { name: "Contact Relationship Officer", href: "/contact", desc: "Direct telephone and email support from our banking team" },
-        { name: "Whistleblowing & Compliance", href: "/whistle-blowing", desc: "Confidential channel for reporting ethical concerns" },
+        { name: "Contact Us", href: "/contact", desc: "Reach our customer service desk via telephone, email, or visit" },
+        { name: "Branches & Locations", href: "/branches", desc: "Locate our Head Office and regional banking centers in Rivers State" },
+        { name: "Customer Support & FAQs", href: "/faq", desc: "Answers to common account and transaction questions" },
+        { name: "Whistleblowing Channel", href: "/whistle-blowing", desc: "Confidential ethics and compliance reporting desk" },
       ],
     },
   ],
   featured: {
-    tag: "Governance & Safety",
-    title: "Licensed & Insured",
+    tag: "Licensed & Protected",
+    title: "Institutional Safety",
     description: "Fully licensed by the Central Bank of Nigeria (CBN). All eligible deposits are insured by the NDIC.",
     ctaText: "Read Institutional Profile",
     ctaHref: "/about",
@@ -209,19 +233,19 @@ export function Header() {
       {/* ── 1. Slim Institutional Top Bar ── */}
       <div className="bg-[#0a1e3f] text-white py-1.5 text-[11px] font-medium tracking-wide hidden md:block border-b border-blue-950/80">
         <div className="max-w-[1240px] mx-auto px-4 sm:px-6 flex justify-between items-center">
-          <div className="flex items-center gap-6 text-blue-100/75">
+          <div className="flex items-center gap-6 text-blue-100/80">
             <span className="flex items-center gap-1.5 text-white font-semibold">
               <Shield className="h-3.5 w-3.5 text-[#38bdf8]" />
-              Central Bank of Nigeria Licensed &bull; NDIC Insured
+              Central Bank of Nigeria Licensed &bull; NDIC Insured &bull; Rivers State, Nigeria
             </span>
           </div>
           <div className="flex items-center gap-5 text-blue-100/75">
             <Link to="/branches" className="hover:text-[#38bdf8] transition-colors">
-              Branch & ATM Network
+              Branches & Locations
             </Link>
             <span className="text-white/20">|</span>
             <Link to="/faq" className="hover:text-[#38bdf8] transition-colors">
-              Help Center
+              Help & FAQs
             </Link>
             <span className="text-white/20">|</span>
             <Link to="/whistle-blowing" className="hover:text-[#38bdf8] transition-colors">
@@ -235,9 +259,7 @@ export function Header() {
       <header
         className={cn(
           "sticky top-0 z-50 w-full transition-all duration-200 bg-white border-b border-[#e2e8f0]",
-          isScrolled
-            ? "shadow-sm border-[#cbd5e1]"
-            : "border-[#e2e8f0]"
+          isScrolled ? "shadow-sm border-[#cbd5e1]" : "border-[#e2e8f0]"
         )}
       >
         <div className="max-w-[1240px] mx-auto px-4 sm:px-6">
@@ -266,9 +288,9 @@ export function Header() {
               </div>
             </Link>
 
-            {/* Desktop Navigation Links (Only 2 Primary Mega Menus) */}
-            <nav className="hidden lg:flex items-center gap-1 flex-1 justify-center">
-              {/* Category 1: Banking Solutions */}
+            {/* Desktop Navigation Links */}
+            <nav className="hidden lg:flex items-center gap-1.5 flex-1 justify-center">
+              {/* Category 1: What We Offer */}
               <div
                 className="relative"
                 onMouseEnter={() => handleMouseEnter("offer")}
@@ -280,14 +302,14 @@ export function Header() {
                     setActiveDesktopMenu(activeDesktopMenu === "offer" ? null : "offer")
                   }
                   className={cn(
-                    "flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold transition-all duration-150 outline-none",
+                    "flex items-center gap-1 px-3.5 py-2 rounded-xl text-xs font-semibold transition-all duration-150 outline-none",
                     activeDesktopMenu === "offer" || isCategoryActive(whatWeOfferMenu)
                       ? "text-[#0284c7] bg-[#f0f7ff]"
                       : "text-[#0a1e3f] hover:text-[#0284c7] hover:bg-[#f0f7ff]/70"
                   )}
                   aria-expanded={activeDesktopMenu === "offer"}
                 >
-                  <span>Banking Solutions</span>
+                  <span>What We Offer</span>
                   <ChevronDown
                     className={cn(
                       "h-3.5 w-3.5 transition-transform duration-200",
@@ -297,20 +319,7 @@ export function Header() {
                 </button>
               </div>
 
-              {/* Direct Link: Digital Banking */}
-              <Link
-                to="/digital-banking"
-                className={cn(
-                  "px-3.5 py-2 rounded-xl text-xs font-semibold transition-all duration-150",
-                  location.pathname === "/digital-banking"
-                    ? "text-[#0284c7] bg-[#f0f7ff]"
-                    : "text-[#0a1e3f] hover:text-[#0284c7] hover:bg-[#f0f7ff]/70"
-                )}
-              >
-                Digital Banking
-              </Link>
-
-              {/* Category 2: About Rima */}
+              {/* Category 2: Who We Are */}
               <div
                 className="relative"
                 onMouseEnter={() => handleMouseEnter("about")}
@@ -322,14 +331,14 @@ export function Header() {
                     setActiveDesktopMenu(activeDesktopMenu === "about" ? null : "about")
                   }
                   className={cn(
-                    "flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold transition-all duration-150 outline-none",
+                    "flex items-center gap-1 px-3.5 py-2 rounded-xl text-xs font-semibold transition-all duration-150 outline-none",
                     activeDesktopMenu === "about" || isCategoryActive(whoWeAreMenu)
                       ? "text-[#0284c7] bg-[#f0f7ff]"
                       : "text-[#0a1e3f] hover:text-[#0284c7] hover:bg-[#f0f7ff]/70"
                   )}
                   aria-expanded={activeDesktopMenu === "about"}
                 >
-                  <span>About Rima</span>
+                  <span>Who We Are</span>
                   <ChevronDown
                     className={cn(
                       "h-3.5 w-3.5 transition-transform duration-200",
@@ -339,20 +348,33 @@ export function Header() {
                 </button>
               </div>
 
-              {/* Direct Link: Branches */}
+              {/* Direct Link 3: Agency Banking */}
               <Link
-                to="/branches"
+                to="/agent-banking"
                 className={cn(
                   "px-3.5 py-2 rounded-xl text-xs font-semibold transition-all duration-150",
-                  location.pathname === "/branches"
+                  location.pathname === "/agent-banking"
                     ? "text-[#0284c7] bg-[#f0f7ff]"
                     : "text-[#0a1e3f] hover:text-[#0284c7] hover:bg-[#f0f7ff]/70"
                 )}
               >
-                Branches
+                Agency Banking
               </Link>
 
-              {/* Direct Link: Contact & Support */}
+              {/* Direct Link 4: Media & News */}
+              <Link
+                to="/media"
+                className={cn(
+                  "px-3.5 py-2 rounded-xl text-xs font-semibold transition-all duration-150",
+                  location.pathname.startsWith("/media")
+                    ? "text-[#0284c7] bg-[#f0f7ff]"
+                    : "text-[#0a1e3f] hover:text-[#0284c7] hover:bg-[#f0f7ff]/70"
+                )}
+              >
+                Media & News
+              </Link>
+
+              {/* Direct Link 5: Contact */}
               <Link
                 to="/contact"
                 className={cn(
@@ -362,17 +384,17 @@ export function Header() {
                     : "text-[#0a1e3f] hover:text-[#0284c7] hover:bg-[#f0f7ff]/70"
                 )}
               >
-                Contact & Support
+                Contact
               </Link>
             </nav>
 
-            {/* Desktop Actions: Create Account */}
+            {/* Desktop Action: Create Account CTA */}
             <div className="hidden lg:flex items-center gap-3 shrink-0">
               <Button
                 variant="pill"
                 size="default"
                 asChild
-                className="bg-[#0284c7] hover:bg-[#0369a1] text-white shadow-brand text-xs font-semibold px-5 h-10"
+                className="bg-[#0284c7] hover:bg-[#0369a1] text-white shadow-brand text-xs font-semibold px-5 h-9"
               >
                 <Link to="/contact">
                   <span>Create Account</span>
@@ -381,13 +403,13 @@ export function Header() {
               </Button>
             </div>
 
-            {/* Mobile Header Right: Create Account Shortcut + Menu Trigger */}
+            {/* Mobile Header Right: Create Account CTA + Menu Trigger */}
             <div className="flex items-center gap-2 lg:hidden">
               <Button
                 variant="pill"
                 size="sm"
                 asChild
-                className="hidden sm:inline-flex bg-[#0284c7] hover:bg-[#0369a1] text-white text-[11px] font-semibold px-3.5 h-8 shadow-xs"
+                className="bg-[#0284c7] hover:bg-[#0369a1] text-white text-[11px] font-semibold px-3 h-8 shadow-xs"
               >
                 <Link to="/contact">Create Account</Link>
               </Button>
@@ -451,29 +473,35 @@ export function Header() {
                   })}
                 </div>
 
-                {/* Featured Side Panel (3 cols) */}
+                {/* Featured Product Promo Card (3 cols) */}
                 {whatWeOfferMenu.featured && (
-                  <div className="col-span-3 bg-gradient-to-br from-[#f0f9ff] to-[#e0f2fe] text-[#0a1e3f] rounded-2xl p-5 flex flex-col justify-between h-full border border-[#bae6fd] shadow-xs">
-                    <div className="space-y-2">
-                      <span className="inline-block text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md bg-white text-[#0284c7] border border-[#bae6fd]">
-                        {whatWeOfferMenu.featured.tag}
-                      </span>
-                      <h4 className="font-heading font-bold text-sm text-[#0a1e3f] leading-snug">
+                  <div className="col-span-3 bg-gradient-to-br from-[#0a1e3f] to-[#1e3a8a] text-white p-5 rounded-2xl shadow-md flex flex-col justify-between h-full min-h-[320px] relative overflow-hidden">
+                    <div className="space-y-3 relative z-10">
+                      {whatWeOfferMenu.featured.tag && (
+                        <span className="inline-block px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-[#38bdf8]/20 text-[#38bdf8] border border-[#38bdf8]/30">
+                          {whatWeOfferMenu.featured.tag}
+                        </span>
+                      )}
+                      <h4 className="font-heading font-bold text-sm tracking-tight text-white">
                         {whatWeOfferMenu.featured.title}
                       </h4>
-                      <p className="text-xs text-slate-600 leading-relaxed">
+                      <p className="text-xs text-blue-100/80 leading-relaxed">
                         {whatWeOfferMenu.featured.description}
                       </p>
                     </div>
 
-                    <div className="pt-4 mt-4 border-t border-[#bae6fd]/80">
-                      <Link
-                        to={whatWeOfferMenu.featured.ctaHref}
-                        className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#0284c7] hover:text-[#0369a1] transition-colors"
+                    <div className="pt-4 relative z-10">
+                      <Button
+                        variant="pill"
+                        size="sm"
+                        asChild
+                        className="w-full bg-[#0284c7] hover:bg-[#0369a1] text-white text-xs font-semibold shadow-brand"
                       >
-                        <span>{whatWeOfferMenu.featured.ctaText}</span>
-                        <ChevronRight className="h-3.5 w-3.5" />
-                      </Link>
+                        <Link to={whatWeOfferMenu.featured.ctaHref}>
+                          <span>{whatWeOfferMenu.featured.ctaText}</span>
+                          <ArrowRight className="h-3.5 w-3.5 ml-1.5" />
+                        </Link>
+                      </Button>
                     </div>
                   </div>
                 )}
@@ -482,7 +510,7 @@ export function Header() {
           </div>
         )}
 
-        {/* Panel 2: About Rima */}
+        {/* Panel 2: Who We Are */}
         {activeDesktopMenu === "about" && (
           <div
             className="hidden lg:block absolute top-full left-0 w-full bg-white border-b border-[#e2e8f0] shadow-[0_24px_48px_rgba(10,30,63,0.12)] z-50 animate-in fade-in slide-in-from-top-1 duration-150"
@@ -491,10 +519,10 @@ export function Header() {
           >
             <div className="max-w-[1240px] mx-auto px-4 sm:px-6 py-8">
               <div className="grid grid-cols-12 gap-8 items-start">
-                {/* 3 Group Columns (8 cols) */}
-                <div className="col-span-8 grid grid-cols-2 gap-x-8 gap-y-6">
+                {/* 4 Group Columns (9 cols) */}
+                <div className="col-span-9 grid grid-cols-2 gap-x-8 gap-y-6">
                   {whoWeAreMenu.groups.map((group) => {
-                    const GroupIcon = group.icon || Building2;
+                    const GroupIcon = group.icon || Layers;
                     return (
                       <div key={group.title} className="space-y-3">
                         <div className="flex items-center gap-2 pb-1 border-b border-slate-100">
@@ -528,31 +556,35 @@ export function Header() {
                   })}
                 </div>
 
-                {/* Featured Promo Box (4 cols) */}
+                {/* Institutional Featured Card (3 cols) */}
                 {whoWeAreMenu.featured && (
-                  <div className="col-span-4 bg-gradient-to-br from-[#f0f9ff] to-[#e0f2fe] rounded-2xl p-6 text-[#0a1e3f] flex flex-col justify-between relative overflow-hidden border border-[#bae6fd] shadow-xs">
-                    <div className="space-y-2 relative z-10">
+                  <div className="col-span-3 bg-gradient-to-br from-[#0a1e3f] to-[#1e3a8a] text-white p-5 rounded-2xl shadow-md flex flex-col justify-between h-full min-h-[320px] relative overflow-hidden">
+                    <div className="space-y-3 relative z-10">
                       {whoWeAreMenu.featured.tag && (
-                        <span className="inline-block px-2.5 py-0.5 rounded-full bg-white text-[#0284c7] text-[10px] font-bold uppercase tracking-wider border border-[#bae6fd]">
+                        <span className="inline-block px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-emerald-400/20 text-emerald-300 border border-emerald-400/30">
                           {whoWeAreMenu.featured.tag}
                         </span>
                       )}
-                      <h4 className="font-heading font-bold text-base text-[#0a1e3f]">
+                      <h4 className="font-heading font-bold text-sm tracking-tight text-white">
                         {whoWeAreMenu.featured.title}
                       </h4>
-                      <p className="text-xs text-slate-600 leading-relaxed">
+                      <p className="text-xs text-blue-100/80 leading-relaxed">
                         {whoWeAreMenu.featured.description}
                       </p>
                     </div>
 
-                    <div className="pt-6 relative z-10">
-                      <Link
-                        to={whoWeAreMenu.featured.ctaHref}
-                        className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#0284c7] hover:text-[#0369a1] transition-colors"
+                    <div className="pt-4 relative z-10">
+                      <Button
+                        variant="pill"
+                        size="sm"
+                        asChild
+                        className="w-full bg-white text-[#0a1e3f] hover:bg-blue-50 text-xs font-semibold shadow-xs"
                       >
-                        <span>{whoWeAreMenu.featured.ctaText}</span>
-                        <ChevronRight className="h-3.5 w-3.5" />
-                      </Link>
+                        <Link to={whoWeAreMenu.featured.ctaHref}>
+                          <span>{whoWeAreMenu.featured.ctaText}</span>
+                          <ArrowRight className="h-3.5 w-3.5 ml-1.5" />
+                        </Link>
+                      </Button>
                     </div>
                   </div>
                 )}
@@ -562,216 +594,155 @@ export function Header() {
         )}
       </header>
 
-      {/* ── 4. Mobile Right-Side Navigation Drawer (Root Level for flawless layering) ── */}
-      {/* Backdrop Overlay */}
+      {/* ── 4. Mobile Menu Drawer ── */}
       {isMobileMenuOpen && (
-        <div
-          className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[999] lg:hidden animate-in fade-in duration-200"
-          onClick={() => setIsMobileMenuOpen(false)}
-          aria-hidden="true"
-        />
-      )}
-
-      {/* Right-Side Slide Drawer */}
-      <div
-        className={cn(
-          "fixed top-0 right-0 h-full w-[85%] max-w-[340px] bg-white z-[1000] shadow-2xl flex flex-col transition-transform duration-300 ease-in-out lg:hidden border-l border-slate-200",
-          isMobileMenuOpen ? "translate-x-0" : "translate-x-full pointer-events-none"
-        )}
-      >
-          {/* Drawer Header */}
-          <div className="p-4 border-b border-slate-100 flex items-center justify-between bg-white shrink-0">
-            <div className="flex items-center gap-2.5">
-              <div className="h-8 w-8 rounded-lg bg-[#f0f7ff] flex items-center justify-center border border-slate-200 p-1">
-                <img
-                  src="/rima-logo.png"
-                  alt="RIMA Microfinance Bank Logo"
-                  className="h-full w-auto object-contain"
-                />
-              </div>
-              <div className="flex flex-col leading-tight">
-                <span className="font-heading text-sm font-bold text-[#0a1e3f]">
-                  RIMA Bank
-                </span>
-                <span className="text-[9px] text-slate-500 font-semibold uppercase tracking-wider">
-                  Microfinance Bank
-                </span>
-              </div>
-            </div>
-            <button
-              type="button"
-              onClick={() => setIsMobileMenuOpen(false)}
-              className="p-1.5 rounded-lg text-slate-500 hover:text-slate-800 hover:bg-slate-100 transition-colors"
-              aria-label="Close menu"
-            >
-              <X className="h-5 w-5" />
-            </button>
-          </div>
-
-          {/* Drawer Body (Scrollable) */}
-          <div className="flex-1 overflow-y-auto px-4 py-5 space-y-4">
-            {/* Category 1: Banking Solutions Accordion */}
-            <div className="border border-[#e2e8f0] rounded-2xl overflow-hidden shadow-xs">
+        <div className="fixed inset-0 top-[62px] sm:top-[68px] z-40 bg-white lg:hidden flex flex-col overflow-y-auto animate-in slide-in-from-bottom-2 duration-200">
+          <div className="p-4 space-y-4 pb-24">
+            {/* Category 1: What We Offer */}
+            <div className="border border-[#e2e8f0] rounded-2xl overflow-hidden bg-[#f8fafc]">
               <button
                 type="button"
+                className="w-full p-4 flex items-center justify-between text-left font-heading font-bold text-sm text-[#0a1e3f] bg-white border-b border-[#e2e8f0]"
                 onClick={() =>
                   setExpandedMobileCategory(
                     expandedMobileCategory === "offer" ? null : "offer"
                   )
                 }
-                className="w-full flex items-center justify-between p-3.5 text-left font-heading font-bold text-xs text-[#0a1e3f] bg-slate-50/70 hover:bg-slate-100 transition-colors"
               >
-                <div className="flex items-center gap-2.5">
-                  <Briefcase className="h-4 w-4 text-[#0284c7]" />
-                  <span>Banking Solutions</span>
-                </div>
+                <span>What We Offer</span>
                 <ChevronDown
                   className={cn(
-                    "h-4 w-4 text-slate-500 transition-transform",
+                    "h-4 w-4 text-slate-500 transition-transform duration-200",
                     expandedMobileCategory === "offer" && "rotate-180 text-[#0284c7]"
                   )}
                 />
               </button>
 
               {expandedMobileCategory === "offer" && (
-                <div className="p-3 space-y-3 bg-white divide-y divide-slate-100">
-                  {whatWeOfferMenu.groups.map((group) => (
-                    <div key={group.title} className="pt-2 first:pt-0">
-                      <div className="py-1 text-[11px] font-bold uppercase tracking-wider text-[#0a1e3f]">
-                        {group.title}
-                      </div>
+                <div className="p-3 space-y-4 bg-white">
+                  {whatWeOfferMenu.groups.map((group) => {
+                    const GroupIcon = group.icon || Layers;
+                    const isGroupExpanded = expandedMobileGroup === group.title;
+                    return (
+                      <div key={group.title} className="border border-slate-100 rounded-xl p-3 bg-slate-50/50">
+                        <button
+                          type="button"
+                          className="w-full flex items-center justify-between text-left font-semibold text-xs text-[#0a1e3f]"
+                          onClick={() => setExpandedMobileGroup(isGroupExpanded ? null : group.title)}
+                        >
+                          <span className="flex items-center gap-2">
+                            <GroupIcon className="h-3.5 w-3.5 text-[#0284c7]" />
+                            {group.title}
+                          </span>
+                          <ChevronDown
+                            className={cn(
+                              "h-3 w-3 text-slate-400 transition-transform duration-200",
+                              isGroupExpanded && "rotate-180"
+                            )}
+                          />
+                        </button>
 
-                      <ul className="space-y-1 pt-1 pl-1">
-                        {group.items.map((item) => (
-                          <li key={item.name}>
-                            <Link
-                              to={item.href}
-                              onClick={() => setIsMobileMenuOpen(false)}
-                              className="block py-1.5 px-2.5 rounded-lg text-xs font-medium text-slate-700 hover:text-[#0284c7] hover:bg-[#f0f7ff] transition-colors"
-                            >
-                              {item.name}
-                            </Link>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  ))}
+                        {isGroupExpanded && (
+                          <div className="mt-2.5 pt-2 border-t border-slate-200 space-y-1">
+                            {group.items.map((item) => (
+                              <Link
+                                key={item.name}
+                                to={item.href}
+                                className="block py-1.5 px-2 rounded-lg text-xs text-slate-700 hover:text-[#0284c7] hover:bg-sky-50 font-medium"
+                              >
+                                {item.name}
+                              </Link>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
                 </div>
               )}
             </div>
 
-            {/* Direct Mobile Link: Digital Banking */}
-            <Link
-              to="/digital-banking"
-              onClick={() => setIsMobileMenuOpen(false)}
-              className="flex items-center justify-between p-3.5 rounded-2xl border border-[#e2e8f0] font-heading font-bold text-xs text-[#0a1e3f] bg-slate-50/70 hover:bg-slate-100 transition-colors"
-            >
-              <span>Digital Banking</span>
-              <ArrowRight className="h-3.5 w-3.5 text-[#0284c7]" />
-            </Link>
-
-            {/* Category 2: About Rima Accordion */}
-            <div className="border border-[#e2e8f0] rounded-2xl overflow-hidden shadow-xs">
+            {/* Category 2: Who We Are */}
+            <div className="border border-[#e2e8f0] rounded-2xl overflow-hidden bg-[#f8fafc]">
               <button
                 type="button"
+                className="w-full p-4 flex items-center justify-between text-left font-heading font-bold text-sm text-[#0a1e3f] bg-white border-b border-[#e2e8f0]"
                 onClick={() =>
                   setExpandedMobileCategory(
                     expandedMobileCategory === "about" ? null : "about"
                   )
                 }
-                className="w-full flex items-center justify-between p-3.5 text-left font-heading font-bold text-xs text-[#0a1e3f] bg-slate-50/70 hover:bg-slate-100 transition-colors"
               >
-                <div className="flex items-center gap-2.5">
-                  <Building2 className="h-4 w-4 text-[#0284c7]" />
-                  <span>About Rima</span>
-                </div>
+                <span>Who We Are</span>
                 <ChevronDown
                   className={cn(
-                    "h-4 w-4 text-slate-500 transition-transform",
+                    "h-4 w-4 text-slate-500 transition-transform duration-200",
                     expandedMobileCategory === "about" && "rotate-180 text-[#0284c7]"
                   )}
                 />
               </button>
 
               {expandedMobileCategory === "about" && (
-                <div className="p-3 space-y-3 bg-white divide-y divide-slate-100">
-                  {whoWeAreMenu.groups.map((group) => (
-                    <div key={group.title} className="pt-2 first:pt-0">
-                      <span className="block py-1 text-[11px] font-bold uppercase tracking-wider text-[#0a1e3f]">
-                        {group.title}
-                      </span>
-                      <ul className="space-y-1 pt-1 pl-1">
-                        {group.items.map((item) => (
-                          <li key={item.name}>
-                            <Link
-                              to={item.href}
-                              onClick={() => setIsMobileMenuOpen(false)}
-                              className="block py-1.5 px-2.5 rounded-lg text-xs font-medium text-slate-700 hover:text-[#0284c7] hover:bg-[#f0f7ff] transition-colors"
-                            >
-                              {item.name}
-                            </Link>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  ))}
+                <div className="p-3 space-y-4 bg-white">
+                  {whoWeAreMenu.groups.map((group) => {
+                    const GroupIcon = group.icon || Layers;
+                    const isGroupExpanded = expandedMobileGroup === group.title;
+                    return (
+                      <div key={group.title} className="border border-slate-100 rounded-xl p-3 bg-slate-50/50">
+                        <button
+                          type="button"
+                          className="w-full flex items-center justify-between text-left font-semibold text-xs text-[#0a1e3f]"
+                          onClick={() => setExpandedMobileGroup(isGroupExpanded ? null : group.title)}
+                        >
+                          <span className="flex items-center gap-2">
+                            <GroupIcon className="h-3.5 w-3.5 text-[#0284c7]" />
+                            {group.title}
+                          </span>
+                          <ChevronDown
+                            className={cn(
+                              "h-3 w-3 text-slate-400 transition-transform duration-200",
+                              isGroupExpanded && "rotate-180"
+                            )}
+                          />
+                        </button>
+
+                        {isGroupExpanded && (
+                          <div className="mt-2.5 pt-2 border-t border-slate-200 space-y-1">
+                            {group.items.map((item) => (
+                              <Link
+                                key={item.name}
+                                to={item.href}
+                                className="block py-1.5 px-2 rounded-lg text-xs text-slate-700 hover:text-[#0284c7] hover:bg-sky-50 font-medium"
+                              >
+                                {item.name}
+                              </Link>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
                 </div>
               )}
             </div>
 
-            {/* Direct Mobile Links: Branches & Contact */}
-            <div className="grid grid-cols-2 gap-2">
-              <Link
-                to="/branches"
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="p-3 text-center rounded-2xl border border-[#e2e8f0] font-heading font-bold text-xs text-[#0a1e3f] bg-slate-50/70 hover:bg-slate-100 transition-colors"
-              >
-                Branches
-              </Link>
-              <Link
-                to="/contact"
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="p-3 text-center rounded-2xl border border-[#e2e8f0] font-heading font-bold text-xs text-[#0a1e3f] bg-slate-50/70 hover:bg-slate-100 transition-colors"
-              >
-                Contact & Support
-              </Link>
-            </div>
-
-            {/* Mobile Direct Action Buttons */}
+            {/* Mobile Direct Action Button */}
             <div className="pt-2">
               <Button
                 variant="pill"
-                size="default"
-                className="w-full bg-[#0284c7] hover:bg-[#0369a1] text-white text-xs font-semibold h-11 shadow-sm"
+                size="lg"
                 asChild
+                className="w-full bg-[#0284c7] hover:bg-[#0369a1] text-white text-xs font-semibold h-11 justify-center shadow-brand"
               >
-                <Link to="/contact" onClick={() => setIsMobileMenuOpen(false)}>
+                <Link to="/contact">
                   <span>Create Account</span>
-                  <ArrowRight className="h-4 w-4 ml-1.5" />
+                  <ArrowRight className="h-4 w-4 ml-2" />
                 </Link>
               </Button>
             </div>
-
-            {/* Quick Links & Regulatory Footer */}
-            <div className="pt-4 border-t border-[#e2e8f0] text-center space-y-1.5 text-[11px] text-slate-500">
-              <p className="font-semibold text-[#0a1e3f]">RIMA Microfinance Bank</p>
-              <p className="text-[10px] text-slate-400">Central Bank of Nigeria Licensed &bull; NDIC Insured</p>
-              <div className="pt-2 flex items-center justify-center gap-3 text-xs font-semibold text-[#0284c7]">
-                <Link to="/branches" onClick={() => setIsMobileMenuOpen(false)} className="hover:underline">
-                  Branches
-                </Link>
-                <span className="text-slate-300">&bull;</span>
-                <Link to="/faq" onClick={() => setIsMobileMenuOpen(false)} className="hover:underline">
-                  Help Center
-                </Link>
-                <span className="text-slate-300">&bull;</span>
-                <Link to="/whistle-blowing" onClick={() => setIsMobileMenuOpen(false)} className="hover:underline">
-                  Whistleblowing
-                </Link>
-              </div>
-            </div>
           </div>
         </div>
+      )}
     </>
   );
 }

@@ -108,7 +108,7 @@ const operationalPillars = [
     points: [
       "Extensive network of over 200 accredited agency banking POS terminals for immediate cash deposits and withdrawals.",
       "Tier-1 instant account opening requiring simple verification, eliminating bureaucratic delays.",
-      "Offline USSD (*723#) banking capabilities ensuring reliable access on any basic mobile device."
+      "Offline USSD (*966*808#) banking capabilities ensuring reliable access on any basic mobile device."
     ]
   },
   {
@@ -273,26 +273,26 @@ export default function About() {
         </div>
       </section>
 
-      {/* ── 3. Mission & Vision (Clean Divided Layout) ── */}
-      <section id="vision" className="scroll-mt-24 py-8 sm:py-12 bg-white border-b border-[#e2e8f0]/60">
+      {/* ── 3. Mission & Vision (Responsive Grid Design) ── */}
+      <section id="vision" className="scroll-mt-24 py-10 sm:py-14 bg-white border-b border-[#e2e8f0]/60">
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-slate-200 border-t border-b border-slate-200">
-            <div className="py-6 md:p-6 lg:p-8 space-y-3">
-              <div className="w-9 h-9 rounded-xl bg-[#bcffbb] text-[#16a34a] flex items-center justify-center">
-                <Target className="h-4.5 w-4.5" />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+            <div className="bg-[#f0f9ff]/70 hover:bg-[#f0f9ff] border border-[#bae6fd]/60 hover:border-[#bae6fd] rounded-2xl p-6 sm:p-8 space-y-3 transition-all shadow-2xs hover:shadow-sm">
+              <div className="w-10 h-10 rounded-xl bg-white text-[#16a34a] border border-[#bae6fd]/60 shadow-2xs flex items-center justify-center">
+                <Target className="h-5 w-5" />
               </div>
-              <h2 className="font-heading text-xl font-semibold text-[#0a1e3f]">Our Mission</h2>
-              <p className="text-[#0a1e3f]/75 text-xs sm:text-sm leading-relaxed">
+              <h2 className="font-heading text-xl font-bold text-[#0a1e3f]">Our Mission</h2>
+              <p className="text-slate-600 text-xs sm:text-sm leading-relaxed">
                 {about?.mission || "To deliver accessible, dependable, and sustainable financial services that enable individuals, small businesses, and commercial institutions to achieve financial stability and long-term economic growth."}
               </p>
             </div>
             
-            <div className="py-6 md:p-6 lg:p-8 space-y-3">
-              <div className="w-9 h-9 rounded-xl bg-[#f0f7ff] text-[#0284c7] flex items-center justify-center">
-                <Eye className="h-4.5 w-4.5" />
+            <div className="bg-[#f0f9ff]/70 hover:bg-[#f0f9ff] border border-[#bae6fd]/60 hover:border-[#bae6fd] rounded-2xl p-6 sm:p-8 space-y-3 transition-all shadow-2xs hover:shadow-sm">
+              <div className="w-10 h-10 rounded-xl bg-white text-[#0284c7] border border-[#bae6fd]/60 shadow-2xs flex items-center justify-center">
+                <Eye className="h-5 w-5" />
               </div>
-              <h2 className="font-heading text-xl font-semibold text-[#0a1e3f]">Our Vision</h2>
-              <p className="text-[#0a1e3f]/75 text-xs sm:text-sm leading-relaxed">
+              <h2 className="font-heading text-xl font-bold text-[#0a1e3f]">Our Vision</h2>
+              <p className="text-slate-600 text-xs sm:text-sm leading-relaxed">
                 {about?.vision || "To be the benchmark microfinance bank in Rivers State, recognized for regulatory discipline, technological reliability, and lasting positive community impact."}
               </p>
             </div>
@@ -324,11 +324,11 @@ export default function About() {
                 className={cn(
                   "px-3.5 py-2 rounded-xl text-xs font-semibold transition-all text-left flex items-center gap-2",
                   activePillar === pillar.id
-                    ? "bg-[#0a1e3f] text-white shadow-xs"
+                    ? "bg-[#0284c7] text-white shadow-xs"
                     : "bg-white text-slate-700 border border-slate-200 hover:bg-slate-100"
                 )}
               >
-                <pillar.icon className={cn("h-3.5 w-3.5", activePillar === pillar.id ? "text-[#38bdf8]" : "text-[#0284c7]")} />
+                <pillar.icon className={cn("h-3.5 w-3.5", activePillar === pillar.id ? "text-white" : "text-[#0284c7]")} />
                 <span>{pillar.title}</span>
               </button>
             ))}
@@ -371,7 +371,7 @@ export default function About() {
       </section>
 
       {/* ── 5. Institutional Values ── */}
-      <section className="py-8 sm:py-12 bg-white border-b border-[#e2e8f0]/60">
+      <section className="py-10 sm:py-14 bg-white border-b border-[#e2e8f0]/60">
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
           <div className="max-w-2xl mb-6 sm:mb-8">
             <span className="text-xs font-semibold uppercase tracking-wider text-[#0284c7] block mb-1">
@@ -382,21 +382,18 @@ export default function About() {
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-6 border-t border-[#e2e8f0] pt-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 pt-4">
             {coreValues.map((value) => (
               <div 
                 key={value.title} 
-                className="flex flex-col justify-between"
+                className="bg-[#f0f9ff]/70 hover:bg-[#f0f9ff] border border-[#bae6fd]/60 hover:border-[#bae6fd] rounded-2xl p-5 sm:p-6 transition-all duration-300 shadow-2xs hover:shadow-sm flex flex-col justify-between group"
               >
                 <div>
-                  <div
-                    className="w-9 h-9 rounded-xl flex items-center justify-center mb-3"
-                    style={{ backgroundColor: value.bg, color: value.color }}
-                  >
-                    <value.icon className="h-4.5 w-4.5" />
+                  <div className="h-10 w-10 rounded-xl bg-white text-[#0284c7] border border-[#bae6fd]/60 shadow-2xs flex items-center justify-center mb-3.5 group-hover:bg-[#0284c7] group-hover:text-white transition-all">
+                    <value.icon className="h-5 w-5" />
                   </div>
-                  <h3 className="font-heading text-sm sm:text-base font-semibold text-[#0a1e3f] mb-1">{value.title}</h3>
-                  <p className="text-xs text-[#64748b] leading-relaxed">{value.description}</p>
+                  <h3 className="font-heading text-sm sm:text-base font-bold text-[#0a1e3f] group-hover:text-[#0284c7] transition-colors mb-1">{value.title}</h3>
+                  <p className="text-xs text-slate-600 leading-relaxed">{value.description}</p>
                 </div>
               </div>
             ))}
@@ -424,29 +421,29 @@ export default function About() {
       </section>
 
       {/* ── 7. Historical Milestones & Chronology of Growth ── */}
-      <section className="py-8 sm:py-12 bg-[#0a1e3f] text-white">
+      <section className="py-10 sm:py-14 bg-[#f0f9ff] text-[#0a1e3f] border-b border-[#bae6fd]/70">
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
           <div className="max-w-2xl mb-6 sm:mb-8">
-            <span className="text-xs font-semibold uppercase tracking-wider text-[#38bdf8] block mb-1">
+            <span className="text-xs font-semibold uppercase tracking-wider text-[#0284c7] bg-white px-3 py-1 rounded-full border border-[#bae6fd]/60 shadow-2xs inline-block mb-2">
               Chronology of Growth
             </span>
-            <h2 className="font-heading text-xl sm:text-2xl lg:text-3xl font-semibold text-white tracking-tight leading-tight">
+            <h2 className="font-heading text-xl sm:text-2xl lg:text-3xl font-bold text-[#0a1e3f] tracking-tight leading-tight">
               Decades of banking milestones in Rivers State.
             </h2>
-            <p className="text-blue-100/70 text-xs sm:text-sm mt-1">
+            <p className="text-slate-600 text-xs sm:text-sm mt-1">
               From our licensing by the Central Bank of Nigeria in 2009 to a diversified financial institution serving over 50,000 customers.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 border-t border-white/10 pt-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 pt-4">
             {milestones.map((m) => (
               <div 
                 key={m.year} 
-                className="space-y-1.5 border-l-2 border-[#38bdf8]/40 pl-3.5"
+                className="bg-white hover:bg-sky-50/40 border border-[#bae6fd]/60 hover:border-[#bae6fd] rounded-2xl p-5 sm:p-6 transition-all duration-300 shadow-2xs hover:shadow-sm space-y-2"
               >
-                <span className="font-heading text-xl sm:text-2xl font-bold text-[#38bdf8] block">{m.year}</span>
-                <h4 className="font-heading text-xs sm:text-sm font-bold text-white">{m.title}</h4>
-                <p className="text-xs text-blue-100/80 leading-relaxed">{m.event}</p>
+                <span className="font-heading text-xl sm:text-2xl font-bold text-[#0284c7] block">{m.year}</span>
+                <h4 className="font-heading text-sm font-bold text-[#0a1e3f]">{m.title}</h4>
+                <p className="text-xs text-slate-600 leading-relaxed">{m.event}</p>
               </div>
             ))}
           </div>

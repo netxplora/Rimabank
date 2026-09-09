@@ -51,18 +51,15 @@ export function CommunityImpact() {
               As a licensed microfinance institution rooted in Rivers State, our mission focuses on deploying practical banking tools and credit directly into the grassroots commercial economy.
             </p>
 
-            <div className="grid sm:grid-cols-2 gap-6 pt-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4">
               {impacts.map((item, idx) => (
-                <div key={idx} className="p-5 rounded-cards bg-white border border-[#e2e8f0] shadow-lift flex gap-4 items-start">
-                  <div 
-                    className="w-10 h-10 shrink-0 rounded-xl flex items-center justify-center"
-                    style={{ backgroundColor: item.bg, color: item.color }}
-                  >
+                <div key={idx} className="p-5 rounded-2xl bg-[#f0f9ff]/70 hover:bg-[#f0f9ff] border border-[#bae6fd]/60 hover:border-[#bae6fd] shadow-2xs hover:shadow-sm flex gap-4 items-start transition-all">
+                  <div className="w-10 h-10 shrink-0 rounded-xl bg-white text-[#0284c7] border border-[#bae6fd]/60 shadow-2xs flex items-center justify-center">
                     <item.icon className="h-5 w-5" />
                   </div>
                   <div className="space-y-1">
-                    <h4 className="font-heading text-sm font-semibold text-[#0a1e3f]">{item.title}</h4>
-                    <p className="text-[11px] text-[#64748b] leading-relaxed">{item.description}</p>
+                    <h4 className="font-heading text-sm font-bold text-[#0a1e3f]">{item.title}</h4>
+                    <p className="text-xs text-slate-600 leading-relaxed">{item.description}</p>
                   </div>
                 </div>
               ))}

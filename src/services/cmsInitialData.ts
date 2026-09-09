@@ -12,22 +12,22 @@ import {
 
 export const initialSiteContent: SiteContent = {
   hero: {
-    eyebrow: "CBN Licensed Microfinance Bank • NDIC Insured",
-    headingPart1: "Empowering Your",
-    headingHighlight: "Financial Future",
-    headingPart2: "With Modern Banking",
-    description: "Experience secure, accessible, and personalized banking services designed to grow your wealth, fund your business, and simplify everyday payments.",
-    primaryCtaText: "Open an Account",
+    eyebrow: "Central Bank of Nigeria Licensed • NDIC Insured",
+    headingPart1: "The bank for all",
+    headingHighlight: "business",
+    headingPart2: "",
+    description: "Simple banking, practical financial services and access to the funds you need to manage, grow and move your money.",
+    primaryCtaText: "Create Account",
     primaryCtaLink: "/contact",
-    secondaryCtaText: "Explore Loan Services",
-    secondaryCtaLink: "/loans",
+    secondaryCtaText: "Explore Our Services",
+    secondaryCtaLink: "/personal-banking",
     supportPhone: "+234 (0) 803 123 4567",
     supportEmail: "support@rimamfb.com",
     heroImage: "/images/hero-home.png",
     activeUsersCount: "50,000+",
     activeUsersLabel: "Active Accountholders",
-    ratingScore: "99.8%",
-    ratingLabel: "Uptime & Reliability"
+    ratingScore: "25+ Years",
+    ratingLabel: "Serving Rivers State"
   },
   trustStats: [
     { id: '1', value: '₦15B+', label: 'Deposits Protected', description: 'Safeguarded with top-tier regulatory security' },

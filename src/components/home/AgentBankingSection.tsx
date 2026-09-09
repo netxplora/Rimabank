@@ -1,112 +1,128 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, ShieldCheck, CheckCircle2 } from "lucide-react";
+import { Store, MapPin, CheckCircle2, ArrowRight, Wallet, Users, PhoneCall } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-const agencyServices = [
-  "Cash deposits and fast withdrawals",
-  "Inter-bank electronic transfers across Nigeria",
-  "Utility payments (PHED Electricity, Water)",
-  "Airtime and internet data top-ups",
-  "New customer basic account onboarding",
-  "Account balance verification and receipts",
+const customerAgentServices = [
+  "Cash deposits directly into any bank account in Nigeria",
+  "Instant cash withdrawals with your Verve or Mastercard debit card",
+  "Fast account opening with instant account number generation",
+  "Utility bill payments, cable TV subscriptions, and airtime top-ups",
+  "Daily contribution (Esusu) collections with instant SMS receipt"
+];
+
+const agentBenefits = [
+  "Earn attractive transaction commissions on every deposit and withdrawal",
+  "Increase foot traffic and sales volume to your existing retail business",
+  "Receive a dedicated high-speed POS terminal and promotional banner",
+  "Dedicated relationship officer and real-time float management support"
 ];
 
 export function AgentBankingSection() {
   return (
-    <section className="py-16 md:py-20 bg-white border-b border-[#e2e8f0]">
-      <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
-        <div className="bg-gradient-to-br from-[#f0f9ff] via-white to-[#f0f9ff] rounded-3xl p-6 sm:p-10 lg:p-14 text-[#0a1e3f] relative overflow-hidden shadow-sm border border-[#bae6fd]">
-          
-          {/* Ambient Glow Orbs */}
-          <div className="absolute top-0 right-0 w-96 h-96 bg-[#0284c7]/5 rounded-full blur-3xl pointer-events-none" />
-          <div className="absolute bottom-0 left-0 w-72 h-72 bg-[#10b981]/5 rounded-full blur-3xl pointer-events-none" />
-
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center relative z-10">
-            
-            {/* Left Content (7 cols) */}
-            <div className="lg:col-span-7 space-y-6">
-              <span className="text-xs font-semibold uppercase tracking-wider text-[#0284c7] block">
-                Agency Banking Network
-              </span>
-              <h2 className="font-heading text-2xl sm:text-3xl lg:text-4xl font-semibold text-[#0a1e3f] tracking-tight leading-[1.1]">
-                Banking brought directly to local communities.
-              </h2>
-              <p className="text-slate-600 text-sm sm:text-base leading-relaxed max-w-xl">
-                Access cash deposits, instant fund transfers, and bill settlements through certified Rima MFB agents located in market clusters and residential neighborhoods.
-              </p>
-
-              {/* 3-Column Stats Grid */}
-              <div className="grid grid-cols-3 gap-3 sm:gap-4 pt-4 pb-2 border-y border-[#e2e8f0]">
-                <div className="bg-white p-3 rounded-xl border border-[#e2e8f0] shadow-2xs">
-                  <div className="text-2xl sm:text-3xl font-heading font-bold text-[#0a1e3f]">200+</div>
-                  <div className="text-[10px] sm:text-[11px] text-slate-500 uppercase tracking-wider mt-0.5">Agent Outlets</div>
-                </div>
-                <div className="bg-white p-3 rounded-xl border border-[#e2e8f0] shadow-2xs">
-                  <div className="text-2xl sm:text-3xl font-heading font-bold text-[#0a1e3f]">500+</div>
-                  <div className="text-[10px] sm:text-[11px] text-slate-500 uppercase tracking-wider mt-0.5">POS Terminals</div>
-                </div>
-                <div className="bg-white p-3 rounded-xl border border-[#e2e8f0] shadow-2xs">
-                  <div className="text-2xl sm:text-3xl font-heading font-bold text-[#10b981]">100%</div>
-                  <div className="text-[10px] sm:text-[11px] text-slate-500 uppercase tracking-wider mt-0.5">CBN Certified</div>
-                </div>
-              </div>
-
-              <div className="pt-2 flex flex-wrap items-center gap-4">
-                <Button
-                  variant="pill"
-                  size="default"
-                  asChild
-                  className="bg-[#0284c7] hover:bg-[#0369a1] text-white shadow-brand transform hover:-translate-y-0.5 transition-all text-xs font-semibold px-6 h-11"
-                >
-                  <Link to="/branches">
-                    Locate an Agent
-                    <ArrowRight className="h-4 w-4 ml-1.5" />
-                  </Link>
-                </Button>
-                <Button
-                  variant="outlineNeutral"
-                  size="default"
-                  asChild
-                  className="rounded-full bg-white border border-[#cbd5e1] hover:bg-slate-50 text-xs font-semibold px-5 h-11"
-                >
-                  <Link to="/agent-banking">
-                    Become an Authorized Agent
-                  </Link>
-                </Button>
-              </div>
-            </div>
-
-            {/* Right Card (5 cols) */}
-            <div className="lg:col-span-5 perspective-1000">
-              <div className="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-[#bae6fd] space-y-5">
-                <div className="flex items-center justify-between pb-4 border-b border-[#e2e8f0]">
-                  <h3 className="font-heading text-base font-semibold text-[#0a1e3f]">
-                    Authorized Agency Services
-                  </h3>
-                  <span className="text-[10px] text-[#10b981] bg-[#dcfce7] px-2.5 py-0.5 rounded-full font-bold uppercase tracking-wider">
-                    Instant
-                  </span>
-                </div>
-
-                {/* 2-Column Responsive Service Checklist Grid */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  {agencyServices.map((service, idx) => (
-                    <div key={idx} className="flex items-start gap-2 bg-[#f8fafc] p-2.5 rounded-lg border border-[#e2e8f0]">
-                      <CheckCircle2 className="h-4 w-4 text-[#10b981] shrink-0 mt-0.5" />
-                      <span className="text-xs text-slate-700 leading-tight">{service}</span>
-                    </div>
-                  ))}
-                </div>
-
-                <div className="pt-3 border-t border-[#e2e8f0] flex items-center gap-2 text-xs text-slate-500">
-                  <ShieldCheck className="h-4 w-4 text-[#10b981] shrink-0" />
-                  <span>Secured via encrypted terminal protocols</span>
-                </div>
-              </div>
-            </div>
-
-          </div>
+    <section className="py-14 sm:py-20 bg-[#f8fafc]/50 border-b border-slate-100">
+      <div className="max-w-[1240px] mx-auto px-4 sm:px-6">
+        
+        {/* Section Header */}
+        <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
+          <span className="text-xs font-semibold uppercase tracking-wider text-[#0284c7] bg-sky-50 px-3 py-1 rounded-full border border-sky-100 inline-block mb-3">
+            Grassroots Agency Network
+          </span>
+          <h2 className="font-heading text-2xl sm:text-4xl font-bold text-[#0a1e3f] tracking-tight">
+            Banking, closer to you
+          </h2>
+          <p className="text-xs sm:text-sm text-slate-600 mt-2.5 max-w-2xl mx-auto leading-relaxed">
+            Access essential banking services right in your neighborhood without spending time or money travelling to distant bank branches.
+          </p>
         </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
+          
+          {/* Left: Customer Pathway - Clean, Light Container */}
+          <div className="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200/60 shadow-xs flex flex-col justify-between">
+            <div className="space-y-4">
+              <div className="flex items-center gap-3 pb-3 border-b border-slate-100">
+                <div className="h-10 w-10 rounded-xl bg-sky-50 text-[#0284c7] flex items-center justify-center shrink-0">
+                  <MapPin className="h-5 w-5" />
+                </div>
+                <div>
+                  <h3 className="font-heading font-bold text-base sm:text-lg text-[#0a1e3f]">
+                    What you can do at a RIMA Agent
+                  </h3>
+                  <p className="text-xs text-slate-500">Available across 200+ partner neighborhood outlets</p>
+                </div>
+              </div>
+
+              <ul className="space-y-2.5 text-xs sm:text-sm text-slate-700">
+                {customerAgentServices.map((item, idx) => (
+                  <li key={idx} className="flex items-start gap-2.5">
+                    <CheckCircle2 className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="pt-6 mt-6 border-t border-slate-100 flex items-center justify-between">
+              <span className="text-xs text-slate-500">Need banking right now?</span>
+              <Button
+                variant="outline"
+                size="sm"
+                asChild
+                className="rounded-full border-slate-300 text-[#0a1e3f] hover:bg-slate-50 text-xs font-semibold"
+              >
+                <Link to="/branches">
+                  <span>Find Nearest Agent</span>
+                  <ArrowRight className="h-3.5 w-3.5 ml-1" />
+                </Link>
+              </Button>
+            </div>
+          </div>
+
+          {/* Right: Partner Pathway (Become an Agent) - Lightweight Skyblue Container */}
+          <div className="bg-[#f0f9ff] text-[#0a1e3f] p-6 sm:p-8 rounded-3xl border border-[#bae6fd]/70 shadow-xs flex flex-col justify-between relative overflow-hidden">
+            <div className="space-y-4 relative z-10">
+              <div className="flex items-center gap-3 pb-3 border-b border-sky-200/60">
+                <div className="h-10 w-10 rounded-xl bg-white text-[#0284c7] flex items-center justify-center shrink-0 border border-sky-200 shadow-2xs">
+                  <Store className="h-5 w-5" />
+                </div>
+                <div>
+                  <h3 className="font-heading font-bold text-base sm:text-lg text-[#0a1e3f]">
+                    Become a Certified RIMA Agent
+                  </h3>
+                  <p className="text-xs text-slate-500">Turn your retail shop into a neighborhood banking center</p>
+                </div>
+              </div>
+
+              <ul className="space-y-2.5 text-xs sm:text-sm text-slate-700">
+                {agentBenefits.map((benefit, idx) => (
+                  <li key={idx} className="flex items-start gap-2.5">
+                    <CheckCircle2 className="h-4 w-4 text-[#0284c7] shrink-0 mt-0.5" />
+                    <span>{benefit}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="pt-6 mt-6 border-t border-sky-200/60 flex flex-col sm:flex-row items-center justify-between gap-3 relative z-10">
+              <span className="text-[11px] text-slate-500 text-center sm:text-left">
+                Requires physical store &bull; Valid ID &bull; Working capital
+              </span>
+              <Button
+                variant="pill"
+                size="default"
+                asChild
+                className="w-full sm:w-auto bg-[#0284c7] hover:bg-[#0369a1] text-white text-xs font-semibold h-10 px-5 shadow-brand"
+              >
+                <Link to="/agent-banking#join">
+                  <span>Apply to Become an Agent</span>
+                  <ArrowRight className="h-3.5 w-3.5 ml-1.5" />
+                </Link>
+              </Button>
+            </div>
+          </div>
+
+        </div>
+
       </div>
     </section>
   );

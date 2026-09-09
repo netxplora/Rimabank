@@ -174,21 +174,18 @@ export default function AgentBanking() {
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 border-t border-[#e2e8f0] pt-10">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
             {agentBenefits.map((benefit, idx) => (
               <div
                 key={idx}
-                className="flex flex-col justify-between"
+                className="bg-[#f0f9ff]/70 hover:bg-[#f0f9ff] border border-[#bae6fd]/60 hover:border-[#bae6fd] rounded-2xl p-5 sm:p-6 transition-all duration-300 shadow-2xs hover:shadow-sm flex flex-col justify-between h-full group"
               >
                 <div>
-                  <div
-                    className="w-10 h-10 rounded-xl flex items-center justify-center mb-4"
-                    style={{ backgroundColor: benefit.bg, color: benefit.color }}
-                  >
+                  <div className="h-11 w-11 rounded-xl bg-white text-[#0284c7] border border-[#bae6fd]/60 shadow-2xs flex items-center justify-center mb-4 group-hover:bg-[#0284c7] group-hover:text-white transition-all duration-300">
                     <benefit.icon className="h-5 w-5" />
                   </div>
-                  <h3 className="font-heading text-base font-semibold text-[#0a1e3f] mb-1.5">{benefit.title}</h3>
-                  <p className="text-xs text-[#64748b] leading-relaxed">{benefit.description}</p>
+                  <h3 className="font-heading text-base font-semibold text-[#0a1e3f] group-hover:text-[#0284c7] transition-colors mb-1.5">{benefit.title}</h3>
+                  <p className="text-xs text-slate-600 leading-relaxed">{benefit.description}</p>
                 </div>
               </div>
             ))}

@@ -59,6 +59,21 @@ const digitalFaqs = [
   }
 ];
 
+const agencyFaqs = [
+  {
+    q: "What is the official RIMA Bank USSD code and how does it work?",
+    a: "Our official offline USSD banking code is *966*808#. Simply dial *966*808# from your registered mobile phone number to check balances (*966*808*0#), transfer funds (*966*808*1#), buy airtime (*966*808*2#), or pay bills without an internet connection."
+  },
+  {
+    q: "What services can I perform at a RIMA Agent Banking outlet?",
+    a: "At any of our 200+ certified neighborhood agent locations across Rivers State, you can deposit cash into any Nigerian bank account, withdraw cash with your debit card, open a new bank account, pay utility bills, and make daily Esusu savings contributions."
+  },
+  {
+    q: "How can my retail shop apply to become a certified banking agent?",
+    a: "To become an agent, you need a verifiable commercial retail shop/business premises, a valid Government ID, BVN, proof of address, and minimum operational float capital. You can submit an application via our Agent Banking page or visit any RIMA branch."
+  }
+];
+
 export default function FAQ() {
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -86,7 +101,15 @@ export default function FAQ() {
     );
   }, [searchQuery]);
 
-  const totalResults = filteredAccountFaqs.length + filteredLoanFaqs.length + filteredDigitalFaqs.length;
+  const filteredAgencyFaqs = useMemo(() => {
+    if (!searchQuery) return agencyFaqs;
+    return agencyFaqs.filter(f => 
+      f.q.toLowerCase().includes(searchQuery.toLowerCase()) || 
+      f.a.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+  }, [searchQuery]);
+
+  const totalResults = filteredAccountFaqs.length + filteredLoanFaqs.length + filteredDigitalFaqs.length + filteredAgencyFaqs.length;
 
   return (
     <Layout>

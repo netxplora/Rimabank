@@ -1,122 +1,106 @@
 import { Link } from "react-router-dom";
-import { Briefcase, TrendingUp, Building, BarChart3, ArrowRight, CheckCircle2 } from "lucide-react";
+import { Briefcase, CreditCard, ArrowRight, CheckCircle2, TrendingUp, Building2, Store } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-const smeServices = [
+const businessServices = [
   {
-    icon: Building,
-    title: "Commercial Checking",
-    description: "Structured corporate checking accounts designed for daily turnover and vendor payments.",
-    bg: "#f0f7ff",
-    color: "#0284c7"
+    title: "Business Checking Accounts",
+    desc: "Commercial checking with multi-signatory governance, custom mandates, and dedicated relationship manager support.",
+    icon: Building2
   },
   {
-    icon: TrendingUp,
-    title: "Working Capital Credit",
-    description: "Short and medium-term loan facilities up to ₦50M to restock inventory and handle operations.",
-    bg: "#dcfce7",
-    color: "#10b981"
+    title: "Business Financing & Credit Lines",
+    desc: "Short and medium-term credit facilities designed around your sales cycle to fund inventory and contracts.",
+    icon: TrendingUp
   },
   {
-    icon: BarChart3,
-    title: "Merchant POS Terminals",
-    description: "Reliable electronic POS terminals with same-day settlement and low transaction commissions.",
-    bg: "#e0f2fe",
-    color: "#0284c7"
+    title: "Payments & Collections",
+    desc: "Collect client payments effortlessly via bank transfer, USSD, and automated invoice payment confirmations.",
+    icon: CreditCard
   },
+  {
+    title: "Merchant POS Settlement",
+    desc: "Reliable, high-uptime POS payment terminals for physical store settlements with next-morning account reconciliation.",
+    icon: Store
+  }
 ];
 
 export function SMEBankingSection() {
   return (
-    <section className="py-16 md:py-20 bg-white border-b border-[#e2e8f0]">
-      <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
-          
-          {/* Visual Showcase (5 cols) */}
-          <div className="lg:col-span-5 order-2 lg:order-1 perspective-1000">
-            <div className="rounded-2xl bg-gradient-to-br from-[#f0f7ff] to-white border border-[#e2e8f0] p-6 sm:p-8 space-y-6">
-              <div className="flex items-center justify-between pb-5 border-b border-[#e2e8f0]">
-                <div>
-                  <span className="text-[11px] text-[#64748b] font-semibold uppercase tracking-wider">Total Disbursed</span>
-                  <div className="text-2xl sm:text-3xl font-heading font-bold text-[#0a1e3f] mt-0.5">₦ 5.2 Billion+</div>
-                </div>
-                <div className="w-12 h-12 rounded-xl bg-white border border-[#e2e8f0] shadow-sm flex items-center justify-center text-[#0284c7]">
-                  <Briefcase className="h-6 w-6" />
-                </div>
-              </div>
-
-              {/* SME Products List (No nested boxed cards) */}
-              <div className="space-y-4">
-                {smeServices.map((service) => (
-                  <div key={service.title} className="flex items-start gap-3.5">
-                    <div 
-                      className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0 mt-0.5"
-                      style={{ backgroundColor: service.bg, color: service.color }}
-                    >
-                      <service.icon className="h-4 w-4" />
-                    </div>
-                    <div>
-                      <div className="text-xs font-bold text-[#0a1e3f]">{service.title}</div>
-                      <p className="text-[11px] text-[#64748b] leading-snug mt-0.5">{service.description}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              <div className="pt-3 border-t border-[#e2e8f0] text-center text-xs text-[#0a1e3f] font-semibold">
-                Over 2,400 registered enterprises supported in Rivers State
-              </div>
-            </div>
-          </div>
-
-          {/* Content (7 cols) */}
-          <div className="lg:col-span-7 order-1 lg:order-2 space-y-6">
-            <span className="text-xs font-semibold uppercase tracking-wider text-[#0284c7] block">
-              Commercial & SME Support
-            </span>
-            <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-semibold text-[#0a1e3f] tracking-tight leading-[1.08]">
-              Commercial banking built around business reality.
-            </h2>
-            <p className="text-[#0a1e3f]/80 text-base leading-relaxed">
-              We provide practical commercial credit and structured liquidity solutions for manufacturers, contractors, logistics operators, and retail merchants.
-            </p>
-
-            {/* 2-Column Responsive Benefits Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
-              {[
-                "Working capital lines tailored to inventory cycles",
-                "Dedicated relationship officers assigned to every enterprise",
-                "Transparent loan evaluation with clear repayment schedules",
-                "Automated payroll distribution for staff salaries",
-              ].map((item, idx) => (
-                <div key={idx} className="flex items-start gap-2.5 p-2 rounded-lg hover:bg-[#f0f7ff]/70 transition-colors">
-                  <CheckCircle2 className="h-4 w-4 text-[#10b981] shrink-0 mt-0.5" />
-                  <span className="text-xs font-medium text-[#0a1e3f] leading-tight">{item}</span>
-                </div>
-              ))}
-            </div>
-
-            <div className="pt-2 flex flex-wrap items-center gap-4">
-              <Button
-                variant="pill"
-                size="lg"
-                asChild
-                className="bg-[#0284c7] hover:bg-[#0369a1] text-white shadow-brand transform hover:-translate-y-0.5 transition-all"
-              >
-                <Link to="/business-banking/sme">
-                  Explore SME Credit
-                  <ArrowRight className="h-4 w-4 ml-1.5" />
-                </Link>
-              </Button>
-              <Button variant="outlineNeutral" size="lg" asChild className="rounded-full">
-                <Link to="/contact">
-                  Schedule an Appointment
-                </Link>
-              </Button>
-            </div>
-          </div>
-
+    <section className="py-14 sm:py-20 bg-white border-b border-slate-100">
+      <div className="max-w-[1240px] mx-auto px-4 sm:px-6">
+        
+        {/* Section Header */}
+        <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
+          <span className="text-xs font-semibold uppercase tracking-wider text-[#0284c7] bg-sky-50 px-3 py-1 rounded-full border border-sky-100 inline-block mb-3">
+            Commercial & Enterprise Services
+          </span>
+          <h2 className="font-heading text-2xl sm:text-4xl font-bold text-[#0a1e3f] tracking-tight">
+            Built around your business
+          </h2>
+          <p className="text-xs sm:text-sm text-slate-600 mt-2.5 max-w-2xl mx-auto leading-relaxed">
+            Your business needs more than an account. You need reliable ways to manage money, receive payments, access financing and keep your business moving.
+          </p>
         </div>
+
+        {/* Commercial Services Grid Design */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+          {businessServices.map((service) => {
+            const Icon = service.icon;
+            return (
+              <div
+                key={service.title}
+                className="bg-[#f0f9ff]/70 hover:bg-[#f0f9ff] border border-[#bae6fd]/60 hover:border-[#bae6fd] rounded-2xl p-5 sm:p-6 transition-all duration-300 shadow-2xs hover:shadow-sm flex flex-col justify-between h-full group"
+              >
+                <div>
+                  <div className="h-11 w-11 rounded-xl bg-white text-[#0284c7] border border-[#bae6fd]/60 shadow-2xs flex items-center justify-center mb-4 group-hover:bg-[#0284c7] group-hover:text-white transition-all duration-300">
+                    <Icon className="h-5 w-5" />
+                  </div>
+                  <h3 className="font-heading font-bold text-base sm:text-lg text-[#0a1e3f] group-hover:text-[#0284c7] transition-colors">
+                    {service.title}
+                  </h3>
+                  <p className="text-xs text-slate-600 mt-2 leading-relaxed">
+                    {service.desc}
+                  </p>
+                </div>
+
+                <div className="pt-3 mt-4 border-t border-[#bae6fd]/50 flex items-center text-xs font-semibold text-[#0284c7]">
+                  <Link to="/business-banking" className="inline-flex items-center gap-1.5 hover:gap-2 transition-all">
+                    <span>Explore service</span>
+                    <ArrowRight className="h-3.5 w-3.5" />
+                  </Link>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Bottom Banner - Lightweight Skyblue Container */}
+        <div className="mt-12 bg-[#f0f9ff] text-[#0a1e3f] p-6 sm:p-8 rounded-3xl border border-[#bae6fd]/70 flex flex-col sm:flex-row items-center justify-between gap-6 shadow-2xs">
+          <div className="space-y-1 text-center sm:text-left">
+            <h4 className="font-heading font-bold text-base sm:text-lg text-[#0a1e3f]">
+              Ready to open a dedicated Business Account?
+            </h4>
+            <p className="text-xs text-slate-600 max-w-xl">
+              Equip your enterprise with a full corporate checking account, POS terminal, and relationship officer support.
+            </p>
+          </div>
+
+          <div className="flex flex-wrap items-center gap-3 shrink-0">
+            <Button
+              variant="pill"
+              size="default"
+              asChild
+              className="bg-[#0284c7] hover:bg-[#0369a1] text-white text-xs font-semibold h-10 px-5 shadow-brand"
+            >
+              <Link to="/contact">
+                <span>Open Business Account</span>
+                <ArrowRight className="h-3.5 w-3.5 ml-1.5" />
+              </Link>
+            </Button>
+          </div>
+        </div>
+
       </div>
     </section>
   );

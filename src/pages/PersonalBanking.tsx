@@ -371,24 +371,24 @@ export default function PersonalBanking() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-slate-200 border-t border-b border-slate-200">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {personalServices.map((service) => (
               <div
                 key={service.id}
                 id={service.id}
-                className="py-8 md:p-6 lg:p-8 flex flex-col justify-between scroll-mt-24"
+                className="bg-[#f0f9ff]/70 hover:bg-[#f0f9ff] border border-[#bae6fd]/60 hover:border-[#bae6fd] rounded-3xl p-6 sm:p-8 flex flex-col justify-between shadow-2xs hover:shadow-sm transition-all duration-300 scroll-mt-24"
               >
                 <div>
                   <div className="flex items-center justify-between mb-4">
                     <div
-                      className="w-10 h-10 rounded-xl flex items-center justify-center"
-                      style={{ backgroundColor: service.bg, color: service.accent }}
+                      className="w-10 h-10 rounded-xl flex items-center justify-center bg-white border border-[#bae6fd]/60 shadow-2xs"
+                      style={{ color: service.accent }}
                     >
                       <service.icon className="h-5 w-5" />
                     </div>
                     <span
-                      className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full"
-                      style={{ backgroundColor: service.bg, color: service.accent }}
+                      className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-white border border-[#bae6fd]/60 shadow-2xs"
+                      style={{ color: service.accent }}
                     >
                       {service.rate}
                     </span>
@@ -402,7 +402,7 @@ export default function PersonalBanking() {
                     {service.description}
                   </p>
 
-                  <div className="space-y-2 mb-6 pt-4 border-t border-slate-100">
+                  <div className="space-y-2 mb-6 pt-4 border-t border-[#bae6fd]/50">
                     {service.benefits.slice(0, 4).map((benefit, i) => (
                       <div key={i} className="flex items-start gap-2 text-xs text-[#0a1e3f]">
                         <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600 shrink-0 mt-0.5" />
@@ -411,9 +411,9 @@ export default function PersonalBanking() {
                     ))}
                   </div>
 
-                  <div className="space-y-2 text-xs text-slate-600 mb-6 pt-3 border-t border-slate-100">
+                  <div className="space-y-2 text-xs text-slate-600 mb-6 pt-3 border-t border-[#bae6fd]/50">
                     <div className="font-semibold text-[#0a1e3f] text-[11px] uppercase tracking-wider">Requirements:</div>
-                    <ul className="list-disc pl-4 space-y-1 text-[11px] text-slate-500">
+                    <ul className="list-disc pl-4 space-y-1 text-[11px] text-slate-600">
                       {service.requirements.slice(0, 3).map((req, i) => (
                         <li key={i}>{req}</li>
                       ))}
@@ -421,7 +421,7 @@ export default function PersonalBanking() {
                   </div>
                 </div>
 
-                <div className="pt-4 border-t border-slate-100">
+                <div className="pt-4 border-t border-[#bae6fd]/50">
                   <Button
                     variant="pill"
                     size="default"

@@ -76,34 +76,31 @@ export function QuickActions() {
           </p>
         </div>
 
-        {/* Open Minimal Grid without heavy card containers */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 divide-y sm:divide-y-0 lg:divide-x divide-[#e2e8f0] border-t border-b border-[#e2e8f0]">
-          {actions.map((action, index) => (
+        {/* Responsive Grid Design for Quick Actions */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+          {actions.map((action) => (
             <Link
               key={action.title}
               to={action.href}
-              className="py-5 sm:p-5 flex flex-col justify-between group hover:bg-[#f0f7ff]/70 transition-colors"
+              className="bg-[#f0f9ff]/70 hover:bg-[#f0f9ff] border border-[#bae6fd]/60 hover:border-[#bae6fd] rounded-2xl p-5 transition-all duration-300 shadow-2xs hover:shadow-sm flex flex-col justify-between group"
             >
               <div>
                 <div className="flex items-center justify-between mb-4">
-                  <div
-                    className="w-10 h-10 rounded-xl flex items-center justify-center transition-transform group-hover:scale-105 duration-200"
-                    style={{ backgroundColor: action.bg, color: action.color }}
-                  >
+                  <div className="w-10 h-10 rounded-xl bg-white text-[#0284c7] border border-[#bae6fd]/60 shadow-2xs flex items-center justify-center transition-transform group-hover:scale-105 duration-200">
                     <action.icon className="h-5 w-5" />
                   </div>
-                  <span className="text-[10px] font-semibold uppercase tracking-wider text-[#64748b]">
+                  <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-white text-[#0284c7] border border-[#bae6fd]/60 shadow-2xs">
                     {action.badge}
                   </span>
                 </div>
-                <h3 className="font-heading text-sm sm:text-base font-semibold text-[#0a1e3f] mb-1 group-hover:text-[#0284c7] transition-colors">
+                <h3 className="font-heading text-sm sm:text-base font-bold text-[#0a1e3f] mb-1 group-hover:text-[#0284c7] transition-colors">
                   {action.title}
                 </h3>
-                <p className="text-xs text-[#64748b] leading-relaxed">
+                <p className="text-xs text-slate-600 leading-relaxed">
                   {action.description}
                 </p>
               </div>
-              <div className="mt-4 flex items-center gap-1 text-xs font-semibold text-[#0284c7]">
+              <div className="mt-4 pt-3 border-t border-[#bae6fd]/50 flex items-center justify-between text-xs font-semibold text-[#0284c7]">
                 <span>Access</span>
                 <ArrowRight className="h-3.5 w-3.5 transform group-hover:translate-x-1 transition-transform" />
               </div>

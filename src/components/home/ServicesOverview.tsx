@@ -93,57 +93,50 @@ export function ServicesOverview() {
           </p>
         </div>
 
-        {/* Open Minimal Grid without heavy card containers */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-10 border-t border-[#e2e8f0] pt-10">
+        {/* Responsive Grid Design for Services */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 pt-2">
           {services.map((service) => (
             <div
               key={service.title}
-              className="flex flex-col justify-between group p-4 -m-4 rounded-2xl hover:bg-slate-50/70 transition-all duration-300 hover:-translate-y-1"
+              className="bg-[#f0f9ff]/70 hover:bg-[#f0f9ff] border border-[#bae6fd]/60 hover:border-[#bae6fd] rounded-2xl p-5 sm:p-6 transition-all duration-300 shadow-2xs hover:shadow-sm flex flex-col justify-between group"
             >
               <div>
                 <div className="flex items-center justify-between mb-4">
-                  <div
-                    className="w-10 h-10 rounded-xl flex items-center justify-center transition-transform group-hover:scale-110 duration-300 shadow-xs"
-                    style={{ backgroundColor: service.washBg, color: service.accentColor }}
-                  >
+                  <div className="w-10 h-10 rounded-xl bg-white text-[#0284c7] border border-[#bae6fd]/60 shadow-2xs flex items-center justify-center transition-transform group-hover:scale-110 duration-300">
                     <service.icon className="h-5 w-5" />
                   </div>
-                  <span
-                    className="text-[10px] font-semibold uppercase tracking-wider px-2.5 py-0.5 rounded-full transition-transform group-hover:scale-105 duration-300"
-                    style={{ backgroundColor: service.washBg, color: service.accentColor }}
-                  >
+                  <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-white text-[#0284c7] border border-[#bae6fd]/60 shadow-2xs">
                     {service.category}
                   </span>
                 </div>
 
-                <h3 className="font-heading text-lg font-semibold text-[#0a1e3f] mb-2 group-hover:text-[#0284c7] transition-colors duration-200">
+                <h3 className="font-heading text-lg font-bold text-[#0a1e3f] mb-2 group-hover:text-[#0284c7] transition-colors duration-200">
                   {service.title}
                 </h3>
 
-                <p className="text-[#0a1e3f]/75 text-xs sm:text-sm leading-relaxed mb-4">
+                <p className="text-slate-600 text-xs leading-relaxed mb-4">
                   {service.description}
                 </p>
 
-                <ul className="space-y-1.5 mb-5">
+                <ul className="space-y-1.5 mb-5 pt-3 border-t border-[#bae6fd]/50">
                   {service.features.map((feature) => (
                     <li key={feature} className="flex items-center gap-2 text-xs font-medium text-[#0a1e3f]">
-                      <span
-                        className="w-1.5 h-1.5 rounded-full shrink-0"
-                        style={{ backgroundColor: service.accentColor }}
-                      />
+                      <span className="w-1.5 h-1.5 rounded-full shrink-0 bg-[#0284c7]" />
                       {feature}
                     </li>
                   ))}
                 </ul>
               </div>
 
-              <Link
-                to={service.href}
-                className="inline-flex items-center text-xs font-semibold text-[#0284c7] hover:text-[#0369a1] transition-colors gap-1.5 pt-2 group/link"
-              >
-                <span>Learn more</span>
-                <ArrowRight className="h-3.5 w-3.5 transition-transform duration-200 group-hover/link:translate-x-1" />
-              </Link>
+              <div className="pt-3 border-t border-[#bae6fd]/50">
+                <Link
+                  to={service.href}
+                  className="inline-flex items-center text-xs font-semibold text-[#0284c7] hover:text-[#0369a1] transition-colors gap-1.5 group/link"
+                >
+                  <span>Learn more</span>
+                  <ArrowRight className="h-3.5 w-3.5 transition-transform duration-200 group-hover/link:translate-x-1" />
+                </Link>
+              </div>
             </div>
           ))}
         </div>
