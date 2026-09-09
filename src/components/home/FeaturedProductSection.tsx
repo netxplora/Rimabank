@@ -78,16 +78,16 @@ export function FeaturedProductSection() {
             </div>
 
             {/* CTAs */}
-            <div className="flex flex-row items-center gap-3 pt-3">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-2 w-full sm:w-auto">
               <Button
                 variant="pill"
                 size="default"
                 asChild
-                className="bg-[#0284c7] hover:bg-[#0369a1] text-white text-xs sm:text-sm font-semibold h-11 px-6 shadow-brand"
+                className="bg-[#0284c7] hover:bg-[#0369a1] text-white text-xs sm:text-sm font-semibold h-11 px-6 shadow-brand w-full sm:w-auto text-center"
               >
-                <Link to="/contact">
+                <Link to="/contact" className="inline-flex items-center justify-center gap-1.5">
                   <span>Open Account</span>
-                  <ArrowRight className="h-4 w-4 ml-1.5" />
+                  <ArrowRight className="h-4 w-4" />
                 </Link>
               </Button>
 
@@ -95,9 +95,9 @@ export function FeaturedProductSection() {
                 variant="outlineNeutral"
                 size="default"
                 asChild
-                className="rounded-full border-slate-300 text-[#0a1e3f] hover:bg-white text-xs sm:text-sm font-semibold h-11 px-5"
+                className="rounded-full border-slate-300 text-[#0a1e3f] hover:bg-white text-xs sm:text-sm font-semibold h-11 px-5 w-full sm:w-auto text-center"
               >
-                <Link to="/personal-banking#savings">
+                <Link to="/personal-banking#savings" className="inline-flex items-center justify-center">
                   <span>View All Plans</span>
                 </Link>
               </Button>

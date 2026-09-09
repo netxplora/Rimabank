@@ -174,18 +174,18 @@ export default function AgentBanking() {
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-4 lg:gap-6">
             {agentBenefits.map((benefit, idx) => (
               <div
                 key={idx}
-                className="bg-[#f0f9ff]/70 hover:bg-[#f0f9ff] border border-[#bae6fd]/60 hover:border-[#bae6fd] rounded-2xl p-5 sm:p-6 transition-all duration-300 shadow-2xs hover:shadow-sm flex flex-col justify-between h-full group"
+                className="bg-[#f0f9ff]/70 hover:bg-[#f0f9ff] border border-[#bae6fd]/60 hover:border-[#bae6fd] rounded-2xl p-3.5 sm:p-5 transition-all duration-300 shadow-2xs hover:shadow-sm flex flex-col justify-between h-full group"
               >
                 <div>
-                  <div className="h-11 w-11 rounded-xl bg-white text-[#0284c7] border border-[#bae6fd]/60 shadow-2xs flex items-center justify-center mb-4 group-hover:bg-[#0284c7] group-hover:text-white transition-all duration-300">
-                    <benefit.icon className="h-5 w-5" />
+                  <div className="h-9 w-9 sm:h-11 sm:w-11 rounded-xl bg-white text-[#0284c7] border border-[#bae6fd]/60 shadow-2xs flex items-center justify-center mb-3 sm:mb-4 group-hover:bg-[#0284c7] group-hover:text-white transition-all duration-300">
+                    <benefit.icon className="h-4 w-4 sm:h-5 sm:w-5" />
                   </div>
-                  <h3 className="font-heading text-base font-semibold text-[#0a1e3f] group-hover:text-[#0284c7] transition-colors mb-1.5">{benefit.title}</h3>
-                  <p className="text-xs text-slate-600 leading-relaxed">{benefit.description}</p>
+                  <h3 className="font-heading text-xs sm:text-sm lg:text-base font-semibold text-[#0a1e3f] group-hover:text-[#0284c7] transition-colors mb-1 leading-snug">{benefit.title}</h3>
+                  <p className="text-[11px] sm:text-xs text-slate-600 leading-relaxed">{benefit.description}</p>
                 </div>
               </div>
             ))}

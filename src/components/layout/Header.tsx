@@ -25,7 +25,9 @@ import {
   BadgePercent,
   Smartphone,
   Sparkles,
-  LogIn
+  LogIn,
+  PiggyBank,
+  GraduationCap
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -60,52 +62,51 @@ interface MegaMenuCategory {
 const whatWeOfferMenu: MegaMenuCategory = {
   name: "What We Offer",
   href: "/personal-banking",
-  summary: "Comprehensive savings, credit facilities, business banking, and payment solutions designed around everyday customer needs.",
+  summary: "Comprehensive savings accounts, loans and financing, business banking, and flexible payment channels designed for real life.",
   groups: [
     {
       title: "Personal Banking",
       icon: User,
       items: [
-        { name: "Savings Accounts", href: "/personal-banking#savings", desc: "Guaranteed interest yields with zero ledger maintenance fees" },
-        { name: "Personal Accounts", href: "/personal-banking#personal", desc: "Day-to-day transaction accounts with debit card access" },
-        { name: "Current Accounts", href: "/personal-banking#current", desc: "Flexible checking with personalized chequebook facilities" },
-        { name: "Target Yield Savings", href: "/personal-banking#target", desc: "Disciplined goal savings with high annual returns" },
+        { name: "Savings Accounts", href: "/personal-banking#savings", desc: "Guaranteed interest yields with zero ledger maintenance charges" },
+        { name: "Personal Current Accounts", href: "/personal-banking#current", desc: "Day-to-day liquidity with personalized chequebook access" },
+        { name: "Target Goal Savings", href: "/personal-banking#target", desc: "Disciplined goal accumulation with competitive interest" },
+        { name: "Fixed Term Deposits", href: "/personal-banking#fixed", desc: "Guaranteed capital returns with flexible tenures" },
+        { name: "Student & Youth Banking", href: "/personal-banking#student", desc: "Zero-fee foundational accounts for secondary and tertiary students" },
         { name: "Debit & Verve Cards", href: "/digital-banking#cards", desc: "Secure chip & PIN cards for nationwide ATM and POS transactions" },
-        { name: "Digital Banking", href: "/digital-banking", desc: "24/7 balance checks, transfers, and transaction monitoring" },
       ],
     },
     {
       title: "Business Banking",
       icon: Briefcase,
       items: [
-        { name: "Business Accounts", href: "/business-banking#corporate", desc: "Dedicated commercial checking with multi-signatory governance" },
-        { name: "SME Banking Packages", href: "/business-banking#sme", desc: "Tailored operational support for growing enterprises" },
-        { name: "Business Loans", href: "/loans#business", desc: "Structured credit facilities for inventory and business expansion" },
-        { name: "Working Capital Facilities", href: "/loans#working-capital", desc: "Flexible liquidity to maintain steady operational cash flow" },
+        { name: "Commercial Checking Accounts", href: "/business-banking#corporate", desc: "Dedicated commercial checking with multi-signatory governance" },
+        { name: "SME Banking Packages", href: "/business-banking#sme", desc: "Tailored operational support for growing local enterprises" },
         { name: "Payments & Collections", href: "/business-banking#payments", desc: "Streamlined multi-channel client payment collection" },
         { name: "Merchant POS Terminals", href: "/business-banking#merchant", desc: "Reliable POS terminals for physical store settlements" },
+        { name: "Trade & Inventory Credit", href: "/loans#inventory", desc: "Structured credit lines for bulk stock purchases" },
       ],
     },
     {
-      title: "Access & Payments",
+      title: "Ways to Bank",
       icon: Smartphone,
       items: [
         { name: "USSD Banking (*966*808#)", href: "/digital-banking#ussd", desc: "Bank instantly from any mobile phone without internet connection" },
-        { name: "Instant Transfers", href: "/digital-banking#transfers", desc: "Fast interbank and intra-bank electronic settlements" },
+        { name: "Mobile Banking App", href: "/digital-banking#mobile", desc: "24/7 transfers, statement downloads, and card security" },
+        { name: "Instant Interbank Transfers", href: "/digital-banking#transfers", desc: "Fast NIBSS electronic settlements and utility bill payments" },
         { name: "Agent Banking Network", href: "/agent-banking", desc: "Cash deposits, withdrawals, and account opening across Rivers State" },
-        { name: "Become an Agent", href: "/agent-banking#join", desc: "Earn recurring commissions as a certified banking agent" },
-        { name: "Cards & Electronic Channels", href: "/digital-banking#cards", desc: "Verve cards and ATM network access nationwide" },
+        { name: "Become a Banking Agent", href: "/agent-banking#join", desc: "Earn recurring commissions as a certified banking agent" },
       ],
     },
     {
-      title: "Financing & Credit",
+      title: "Loans & Financing",
       icon: TrendingUp,
       items: [
+        { name: "SME Working Capital", href: "/loans#working-capital", desc: "Quick-turnaround credit for stock purchases and operational cash flow" },
         { name: "Business Expansion Loans", href: "/loans#business", desc: "Medium-term capital for scaling commercial operations" },
-        { name: "SME Working Capital", href: "/loans#working-capital", desc: "Quick-turnaround credit for stock purchases and payroll" },
-        { name: "Microcredit Facilities", href: "/loans#microcredit", desc: "Accessible group and individual credit for market traders" },
-        { name: "Asset Financing", href: "/loans#asset", desc: "Financing for machinery, commercial vehicles, and equipment" },
-        { name: "Salary Advance", href: "/loans#salary", desc: "Short-term liquidity for verified salary earners" },
+        { name: "Microcredit for Traders", href: "/loans#microcredit", desc: "Accessible group and individual credit for market stallholders" },
+        { name: "Equipment & Asset Finance", href: "/loans#asset", desc: "Financing for machinery, commercial vehicles, and tools" },
+        { name: "Salary Advance Facility", href: "/loans#salary", desc: "Short-term emergency liquidity for verified salary earners" },
       ],
     },
   ],
@@ -127,9 +128,10 @@ const whoWeAreMenu: MegaMenuCategory = {
       title: "About RIMA Bank",
       icon: Building2,
       items: [
-        { name: "About Us", href: "/about", desc: "Our 25-year heritage, financial strength, and community mission" },
+        { name: "About Us & Heritage", href: "/about", desc: "Our 25-year heritage, financial strength, and community mission" },
         { name: "Our Mission & Vision", href: "/about#vision", desc: "Core principles guiding our microfinance stewardship" },
         { name: "Institutional Values", href: "/about#values", desc: "Integrity, transparency, accessibility, and client growth" },
+        { name: "Corporate Governance", href: "/about#governance", desc: "Statutory risk frameworks, compliance, and auditing" },
       ],
     },
     {
@@ -138,64 +140,54 @@ const whoWeAreMenu: MegaMenuCategory = {
       items: [
         { name: "Board of Directors", href: "/about#board", desc: "Experienced fiduciaries ensuring regulatory compliance" },
         { name: "Executive Management", href: "/about#management", desc: "Seasoned banking professionals driving operational excellence" },
+        { name: "Careers at RIMA Bank", href: "/about#careers", desc: "Join our team dedicated to grassroots financial inclusion" },
       ],
     },
     {
-      title: "Corporate Information",
+      title: "News & Publications",
       icon: Newspaper,
       items: [
-        { name: "Corporate Governance", href: "/about#governance", desc: "Statutory risk frameworks, compliance, and auditing" },
-        { name: "News & Bulletins", href: "/media", desc: "Official public notices, press statements, and updates" },
-        { name: "Financial Guides & Tips", href: "/media", desc: "Practical guidance on cash flow, savings, and debt management" },
-        { name: "Careers at RIMA Bank", href: "/about#careers", desc: "Join our dynamic team dedicated to financial inclusion" },
+        { name: "News & Official Bulletins", href: "/media", desc: "Public notices, press statements, and regulatory updates" },
+        { name: "Financial Literacy Guides", href: "/media", desc: "Practical guidance on cash flow, savings, and budgeting" },
+        { name: "Annual Statements & Reports", href: "/media#reports", desc: "Audited institutional financial statements and disclosures" },
       ],
     },
     {
-      title: "Contact & Locations",
+      title: "Contact & Branches",
       icon: MapPin,
       items: [
-        { name: "Contact Us", href: "/contact", desc: "Reach our customer service desk via telephone, email, or visit" },
-        { name: "Branches & Locations", href: "/branches", desc: "Locate our Head Office and regional banking centers in Rivers State" },
-        { name: "Customer Support & FAQs", href: "/faq", desc: "Answers to common account and transaction questions" },
+        { name: "Contact Customer Desk", href: "/contact", desc: "Reach our support desk via phone (+234 811 947 7050) or email" },
+        { name: "Branch Locations & Hours", href: "/branches", desc: "Locate our Head Office and regional banking centers in Rivers State" },
+        { name: "Customer Support & FAQs", href: "/faq", desc: "Answers to common account opening and transaction questions" },
         { name: "Whistleblowing Channel", href: "/whistle-blowing", desc: "Confidential ethics and compliance reporting desk" },
       ],
     },
   ],
   featured: {
-    tag: "Licensed & Protected",
-    title: "Institutional Safety",
-    description: "Fully licensed by the Central Bank of Nigeria (CBN). All eligible deposits are insured by the NDIC.",
-    ctaText: "Read Institutional Profile",
+    tag: "Institutional Trust",
+    title: "Licensed & Insured",
+    description: "Fully licensed by the Central Bank of Nigeria and insured by the Nigeria Deposit Insurance Corporation (NDIC).",
+    ctaText: "Learn About RIMA Bank",
     ctaHref: "/about",
   },
 };
 
 export function Header() {
+  const location = useLocation();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [expandedMobileCategory, setExpandedMobileCategory] = useState<string | null>("offer");
+  const [expandedMobileGroup, setExpandedMobileGroup] = useState<string | null>("Personal Banking");
   const [activeDesktopMenu, setActiveDesktopMenu] = useState<string | null>(null);
-  const [expandedMobileCategory, setExpandedMobileCategory] = useState<string | null>(null);
-  const [expandedMobileGroup, setExpandedMobileGroup] = useState<string | null>(null);
-  const location = useLocation();
-  const menuTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   // Close menus on route change
   useEffect(() => {
     setIsMobileMenuOpen(false);
     setActiveDesktopMenu(null);
-    setExpandedMobileCategory(null);
-    setExpandedMobileGroup(null);
   }, [location.pathname]);
 
-  // Lock body scroll when mobile menu is active
+  // Lock body scroll when mobile menu is open
   useEffect(() => {
     if (isMobileMenuOpen) {
       document.body.style.overflow = "hidden";
@@ -207,71 +199,95 @@ export function Header() {
     };
   }, [isMobileMenuOpen]);
 
-  const handleMouseEnter = (name: string) => {
-    if (menuTimeout.current) clearTimeout(menuTimeout.current);
-    setActiveDesktopMenu(name);
+  // Efficient scroll detection with requestAnimationFrame for smooth sticky transition
+  useEffect(() => {
+    let ticking = false;
+    const updateScroll = () => {
+      const scrollY = window.scrollY;
+      setIsScrolled(scrollY > 24);
+      ticking = false;
+    };
+
+    const onScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(updateScroll);
+        ticking = true;
+      }
+    };
+
+    // Initial check on mount
+    updateScroll();
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  const handleMouseEnter = (menuName: string) => {
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    setActiveDesktopMenu(menuName);
   };
 
   const handleMouseLeave = () => {
-    menuTimeout.current = setTimeout(() => {
+    timeoutRef.current = setTimeout(() => {
       setActiveDesktopMenu(null);
-    }, 180);
+    }, 150);
   };
 
   const isCategoryActive = (category: MegaMenuCategory) => {
     return category.groups.some((group) =>
-      group.items.some((item) => {
-        if (item.href === "/" && location.pathname === "/") return true;
-        const cleanHref = item.href.split("#")[0];
-        return cleanHref !== "/" && location.pathname.startsWith(cleanHref);
-      })
+      group.items.some((item) => location.pathname === item.href.split("#")[0])
     );
   };
 
   return (
     <>
-      {/* ── 1. Slim Institutional Top Bar ── */}
-      <div className="bg-[#0a1e3f] text-white py-1.5 text-[11px] font-medium tracking-wide hidden md:block border-b border-blue-950/80">
-        <div className="max-w-[1240px] mx-auto px-4 sm:px-6 flex justify-between items-center">
-          <div className="flex items-center gap-6 text-blue-100/80">
-            <span className="flex items-center gap-1.5 text-white font-semibold">
-              <Shield className="h-3.5 w-3.5 text-[#38bdf8]" />
-              Central Bank of Nigeria Licensed &bull; NDIC Insured &bull; Rivers State, Nigeria
+      {/* ── 1. Top Utility Regulatory Bar ── */}
+      <div className="bg-[#0a1e3f] text-white text-[11px] py-1.5 px-4 sm:px-6 border-b border-white/10 hidden md:block">
+        <div className="max-w-[1240px] mx-auto flex items-center justify-between">
+          <div className="flex items-center gap-4">
+            <span className="flex items-center gap-1.5 text-slate-300">
+              <Shield className="h-3 w-3 text-[#38bdf8]" />
+              <span>CBN Licensed Microfinance Bank • NDIC Insured</span>
+            </span>
+            <span className="text-white/20">|</span>
+            <span className="text-slate-300">
+              USSD Banking: <strong className="text-white font-mono">*966*808#</strong>
             </span>
           </div>
-          <div className="flex items-center gap-5 text-blue-100/75">
-            <Link to="/branches" className="hover:text-[#38bdf8] transition-colors">
-              Branches & Locations
-            </Link>
-            <span className="text-white/20">|</span>
-            <Link to="/faq" className="hover:text-[#38bdf8] transition-colors">
-              Help & FAQs
-            </Link>
+          <div className="flex items-center gap-4 text-slate-300 text-[11px]">
+            <span className="text-slate-400">Head Office: No. 3 Evo Crescent, GRA Phase 2, Port Harcourt</span>
             <span className="text-white/20">|</span>
             <Link to="/whistle-blowing" className="hover:text-[#38bdf8] transition-colors">
-              Whistleblowing
+              Whistleblowing Desk
             </Link>
           </div>
         </div>
       </div>
 
-      {/* ── 2. Primary Navigation Bar ── */}
+      {/* ── 2. Primary Sticky / Fixed Navigation Bar ── */}
       <header
         className={cn(
-          "sticky top-0 z-50 w-full transition-all duration-200 bg-white border-b border-[#e2e8f0]",
-          isScrolled ? "shadow-sm border-[#cbd5e1]" : "border-[#e2e8f0]"
+          "sticky top-0 z-50 w-full transition-all duration-300 motion-reduce:transition-none",
+          isScrolled
+            ? "bg-white/95 backdrop-blur-md shadow-sm border-b border-[#bae6fd]/80 supports-[backdrop-filter]:bg-white/90"
+            : "bg-white border-b border-[#bae6fd]/60"
         )}
       >
         <div className="max-w-[1240px] mx-auto px-4 sm:px-6">
           <div
             className={cn(
-              "flex items-center justify-between gap-4 transition-all duration-200",
-              isScrolled ? "h-[62px]" : "h-[68px]"
+              "flex items-center justify-between gap-4 transition-all duration-300 motion-reduce:transition-none",
+              isScrolled ? "h-[58px] sm:h-[60px]" : "h-[66px] sm:h-[70px]"
             )}
           >
-            {/* Brand Logo */}
-            <Link to="/" className="flex items-center gap-3 shrink-0 group">
-              <div className="h-10 w-10 rounded-xl bg-[#f0f7ff] flex items-center justify-center border border-[#e2e8f0] group-hover:border-[#0284c7]/40 transition-colors p-1.5 shadow-xs">
+            {/* Brand Logo - Aligned Left */}
+            <Link to="/" className="flex items-center gap-2.5 sm:gap-3 shrink-0 group">
+              <div
+                className={cn(
+                  "rounded-xl bg-[#f0f9ff] flex items-center justify-center border border-[#bae6fd]/70 group-hover:border-[#0284c7]/40 transition-all duration-300 p-1.5 shadow-2xs shrink-0",
+                  isScrolled ? "h-9 w-9" : "h-10 w-10"
+                )}
+              >
                 <img
                   src="/rima-logo.png"
                   alt="RIMA Microfinance Bank Logo"
@@ -279,16 +295,16 @@ export function Header() {
                 />
               </div>
               <div className="flex flex-col leading-tight">
-                <span className="font-heading text-lg font-bold text-[#0a1e3f] tracking-tight">
+                <span className="font-heading text-base sm:text-lg font-bold text-[#0a1e3f] tracking-tight">
                   RIMA Bank
                 </span>
-                <span className="text-[9px] text-[#64748b] font-semibold uppercase tracking-widest">
+                <span className="text-[8px] sm:text-[9px] text-slate-500 font-semibold uppercase tracking-widest">
                   Microfinance Bank
                 </span>
               </div>
             </Link>
 
-            {/* Desktop Navigation Links */}
+            {/* Desktop Navigation Links (Center) */}
             <nav className="hidden lg:flex items-center gap-1.5 flex-1 justify-center">
               {/* Category 1: What We Offer */}
               <div
@@ -304,8 +320,8 @@ export function Header() {
                   className={cn(
                     "flex items-center gap-1 px-3.5 py-2 rounded-xl text-xs font-semibold transition-all duration-150 outline-none",
                     activeDesktopMenu === "offer" || isCategoryActive(whatWeOfferMenu)
-                      ? "text-[#0284c7] bg-[#f0f7ff]"
-                      : "text-[#0a1e3f] hover:text-[#0284c7] hover:bg-[#f0f7ff]/70"
+                      ? "text-[#0284c7] bg-[#f0f9ff]"
+                      : "text-[#0a1e3f] hover:text-[#0284c7] hover:bg-[#f0f9ff]/70"
                   )}
                   aria-expanded={activeDesktopMenu === "offer"}
                 >
@@ -313,7 +329,7 @@ export function Header() {
                   <ChevronDown
                     className={cn(
                       "h-3.5 w-3.5 transition-transform duration-200",
-                      activeDesktopMenu === "offer" ? "rotate-180 text-[#0284c7]" : "text-[#64748b]"
+                      activeDesktopMenu === "offer" ? "rotate-180 text-[#0284c7]" : "text-slate-400"
                     )}
                   />
                 </button>
@@ -333,8 +349,8 @@ export function Header() {
                   className={cn(
                     "flex items-center gap-1 px-3.5 py-2 rounded-xl text-xs font-semibold transition-all duration-150 outline-none",
                     activeDesktopMenu === "about" || isCategoryActive(whoWeAreMenu)
-                      ? "text-[#0284c7] bg-[#f0f7ff]"
-                      : "text-[#0a1e3f] hover:text-[#0284c7] hover:bg-[#f0f7ff]/70"
+                      ? "text-[#0284c7] bg-[#f0f9ff]"
+                      : "text-[#0a1e3f] hover:text-[#0284c7] hover:bg-[#f0f9ff]/70"
                   )}
                   aria-expanded={activeDesktopMenu === "about"}
                 >
@@ -342,7 +358,7 @@ export function Header() {
                   <ChevronDown
                     className={cn(
                       "h-3.5 w-3.5 transition-transform duration-200",
-                      activeDesktopMenu === "about" ? "rotate-180 text-[#0284c7]" : "text-[#64748b]"
+                      activeDesktopMenu === "about" ? "rotate-180 text-[#0284c7]" : "text-slate-400"
                     )}
                   />
                 </button>
@@ -354,8 +370,8 @@ export function Header() {
                 className={cn(
                   "px-3.5 py-2 rounded-xl text-xs font-semibold transition-all duration-150",
                   location.pathname === "/agent-banking"
-                    ? "text-[#0284c7] bg-[#f0f7ff]"
-                    : "text-[#0a1e3f] hover:text-[#0284c7] hover:bg-[#f0f7ff]/70"
+                    ? "text-[#0284c7] bg-[#f0f9ff]"
+                    : "text-[#0a1e3f] hover:text-[#0284c7] hover:bg-[#f0f9ff]/70"
                 )}
               >
                 Agency Banking
@@ -367,11 +383,11 @@ export function Header() {
                 className={cn(
                   "px-3.5 py-2 rounded-xl text-xs font-semibold transition-all duration-150",
                   location.pathname.startsWith("/media")
-                    ? "text-[#0284c7] bg-[#f0f7ff]"
-                    : "text-[#0a1e3f] hover:text-[#0284c7] hover:bg-[#f0f7ff]/70"
+                    ? "text-[#0284c7] bg-[#f0f9ff]"
+                    : "text-[#0a1e3f] hover:text-[#0284c7] hover:bg-[#f0f9ff]/70"
                 )}
               >
-                Media & News
+                News & Guides
               </Link>
 
               {/* Direct Link 5: Contact */}
@@ -380,8 +396,8 @@ export function Header() {
                 className={cn(
                   "px-3.5 py-2 rounded-xl text-xs font-semibold transition-all duration-150",
                   location.pathname === "/contact"
-                    ? "text-[#0284c7] bg-[#f0f7ff]"
-                    : "text-[#0a1e3f] hover:text-[#0284c7] hover:bg-[#f0f7ff]/70"
+                    ? "text-[#0284c7] bg-[#f0f9ff]"
+                    : "text-[#0a1e3f] hover:text-[#0284c7] hover:bg-[#f0f9ff]/70"
                 )}
               >
                 Contact
@@ -403,24 +419,15 @@ export function Header() {
               </Button>
             </div>
 
-            {/* Mobile Header Right: Create Account CTA + Menu Trigger */}
-            <div className="flex items-center gap-2 lg:hidden">
-              <Button
-                variant="pill"
-                size="sm"
-                asChild
-                className="bg-[#0284c7] hover:bg-[#0369a1] text-white text-[11px] font-semibold px-3 h-8 shadow-xs"
-              >
-                <Link to="/contact">Create Account</Link>
-              </Button>
-
+            {/* Mobile Header Right: Hamburger Menu Trigger Strictly Positioned on Far Right */}
+            <div className="flex items-center lg:hidden">
               <button
                 type="button"
-                className="p-2 rounded-xl border border-[#e2e8f0] text-[#0a1e3f] bg-white hover:bg-[#f0f7ff] active:scale-95 transition-all shadow-xs"
-                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                aria-label="Toggle Navigation Menu"
+                className="p-2 rounded-xl border border-[#bae6fd]/80 text-[#0a1e3f] bg-white hover:bg-[#f0f9ff] active:scale-95 transition-all shadow-2xs"
+                onClick={() => setIsMobileMenuOpen(true)}
+                aria-label="Open Navigation Menu"
               >
-                {isMobileMenuOpen ? <X className="h-5 w-5 text-[#0284c7]" /> : <Menu className="h-5 w-5" />}
+                <Menu className="h-5 w-5 text-[#0a1e3f]" />
               </button>
             </div>
           </div>
@@ -453,14 +460,14 @@ export function Header() {
                             <li key={item.name}>
                               <Link
                                 to={item.href}
-                                className="block p-2 rounded-xl hover:bg-[#f0f7ff] transition-all group"
+                                className="block p-2 rounded-xl hover:bg-[#f0f9ff] transition-all group"
                               >
                                 <div className="text-xs font-semibold text-[#0a1e3f] group-hover:text-[#0284c7] flex items-center justify-between">
                                   <span>{item.name}</span>
                                   <ArrowRight className="h-3 w-3 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-[#0284c7]" />
                                 </div>
                                 {item.desc && (
-                                  <p className="text-[11px] text-[#64748b] mt-0.5 leading-snug">
+                                  <p className="text-[11px] text-slate-500 mt-0.5 leading-snug">
                                     {item.desc}
                                   </p>
                                 )}
@@ -543,7 +550,7 @@ export function Header() {
                                   <ArrowRight className="h-3 w-3 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-[#0284c7]" />
                                 </div>
                                 {item.desc && (
-                                  <p className="text-[11px] text-[#64748b] mt-0.5 leading-snug">
+                                  <p className="text-[11px] text-slate-500 mt-0.5 leading-snug">
                                     {item.desc}
                                   </p>
                                 )}
@@ -594,37 +601,98 @@ export function Header() {
         )}
       </header>
 
-      {/* ── 4. Mobile Menu Drawer ── */}
+      {/* ── 4. Polished Mobile Navigation Drawer with Dedicated Header & Accordions ── */}
       {isMobileMenuOpen && (
-        <div className="fixed inset-0 top-[62px] sm:top-[68px] z-40 bg-white lg:hidden flex flex-col overflow-y-auto animate-in slide-in-from-bottom-2 duration-200">
-          <div className="p-4 space-y-4 pb-24">
-            {/* Category 1: What We Offer */}
-            <div className="border border-[#e2e8f0] rounded-2xl overflow-hidden bg-[#f8fafc]">
+        <div className="fixed inset-0 z-50 bg-white lg:hidden flex flex-col h-full overflow-hidden animate-in fade-in duration-200">
+          
+          {/* Mobile Navigation Header */}
+          <div className="h-[68px] px-4 flex items-center justify-between border-b border-[#bae6fd]/60 bg-white shrink-0">
+            <Link to="/" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center gap-2.5">
+              <div className="h-9 w-9 rounded-xl bg-[#f0f9ff] flex items-center justify-center border border-[#bae6fd]/70 p-1 shadow-2xs">
+                <img
+                  src="/rima-logo.png"
+                  alt="RIMA Microfinance Bank"
+                  className="h-full w-auto object-contain"
+                />
+              </div>
+              <div className="flex flex-col leading-tight">
+                <span className="font-heading text-base font-bold text-[#0a1e3f] tracking-tight">
+                  RIMA Bank
+                </span>
+                <span className="text-[8px] text-slate-500 font-semibold uppercase tracking-widest">
+                  Microfinance Bank
+                </span>
+              </div>
+            </Link>
+
+            <button
+              type="button"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="p-2 rounded-xl border border-slate-200 text-slate-700 bg-slate-50 hover:bg-slate-100 active:scale-95 transition-all"
+              aria-label="Close Navigation Menu"
+            >
+              <X className="h-5 w-5 text-[#0a1e3f]" />
+            </button>
+          </div>
+
+          {/* Scrollable Navigation Body */}
+          <div className="flex-1 overflow-y-auto p-4 space-y-4 pb-28">
+            
+            {/* Prominent Action CTAs at top */}
+            <div className="grid grid-cols-2 gap-2.5 p-3 rounded-2xl bg-[#f0f9ff] border border-[#bae6fd]/60">
+              <Button
+                variant="pill"
+                size="default"
+                asChild
+                className="bg-[#0284c7] hover:bg-[#0369a1] text-white text-xs font-semibold h-10 justify-center shadow-xs"
+              >
+                <Link to="/contact" onClick={() => setIsMobileMenuOpen(false)}>
+                  <span>Create Account</span>
+                </Link>
+              </Button>
+
+              <Button
+                variant="outline"
+                size="default"
+                asChild
+                className="rounded-full bg-white hover:bg-slate-50 text-[#0a1e3f] border-slate-200 text-xs font-semibold h-10 justify-center"
+              >
+                <Link to="/contact" onClick={() => setIsMobileMenuOpen(false)}>
+                  <span>Sign In</span>
+                </Link>
+              </Button>
+            </div>
+
+            {/* Accordion Category 1: What We Offer */}
+            <div className="border border-[#bae6fd]/60 rounded-2xl overflow-hidden bg-white shadow-2xs">
               <button
                 type="button"
-                className="w-full p-4 flex items-center justify-between text-left font-heading font-bold text-sm text-[#0a1e3f] bg-white border-b border-[#e2e8f0]"
+                className="w-full p-3.5 flex items-center justify-between text-left font-heading font-bold text-sm text-[#0a1e3f] bg-white border-b border-slate-100"
                 onClick={() =>
                   setExpandedMobileCategory(
                     expandedMobileCategory === "offer" ? null : "offer"
                   )
                 }
               >
-                <span>What We Offer</span>
+                <span className="flex items-center gap-2">
+                  <Wallet className="h-4 w-4 text-[#0284c7]" />
+                  What We Offer
+                </span>
                 <ChevronDown
                   className={cn(
-                    "h-4 w-4 text-slate-500 transition-transform duration-200",
+                    "h-4 w-4 text-slate-400 transition-transform duration-200",
                     expandedMobileCategory === "offer" && "rotate-180 text-[#0284c7]"
                   )}
                 />
               </button>
 
               {expandedMobileCategory === "offer" && (
-                <div className="p-3 space-y-4 bg-white">
+                <div className="p-2.5 space-y-2.5 bg-[#f8fafc]/50">
                   {whatWeOfferMenu.groups.map((group) => {
                     const GroupIcon = group.icon || Layers;
                     const isGroupExpanded = expandedMobileGroup === group.title;
                     return (
-                      <div key={group.title} className="border border-slate-100 rounded-xl p-3 bg-slate-50/50">
+                      <div key={group.title} className="border border-slate-200/80 rounded-xl p-2.5 bg-white shadow-2xs">
                         <button
                           type="button"
                           className="w-full flex items-center justify-between text-left font-semibold text-xs text-[#0a1e3f]"
@@ -637,18 +705,19 @@ export function Header() {
                           <ChevronDown
                             className={cn(
                               "h-3 w-3 text-slate-400 transition-transform duration-200",
-                              isGroupExpanded && "rotate-180"
+                              isGroupExpanded && "rotate-180 text-[#0284c7]"
                             )}
                           />
                         </button>
 
                         {isGroupExpanded && (
-                          <div className="mt-2.5 pt-2 border-t border-slate-200 space-y-1">
+                          <div className="mt-2 pt-2 border-t border-slate-100 space-y-1">
                             {group.items.map((item) => (
                               <Link
                                 key={item.name}
                                 to={item.href}
-                                className="block py-1.5 px-2 rounded-lg text-xs text-slate-700 hover:text-[#0284c7] hover:bg-sky-50 font-medium"
+                                onClick={() => setIsMobileMenuOpen(false)}
+                                className="block py-1.5 px-2 rounded-lg text-xs text-slate-700 hover:text-[#0284c7] hover:bg-[#f0f9ff] font-medium"
                               >
                                 {item.name}
                               </Link>
@@ -662,33 +731,36 @@ export function Header() {
               )}
             </div>
 
-            {/* Category 2: Who We Are */}
-            <div className="border border-[#e2e8f0] rounded-2xl overflow-hidden bg-[#f8fafc]">
+            {/* Accordion Category 2: Who We Are */}
+            <div className="border border-[#bae6fd]/60 rounded-2xl overflow-hidden bg-white shadow-2xs">
               <button
                 type="button"
-                className="w-full p-4 flex items-center justify-between text-left font-heading font-bold text-sm text-[#0a1e3f] bg-white border-b border-[#e2e8f0]"
+                className="w-full p-3.5 flex items-center justify-between text-left font-heading font-bold text-sm text-[#0a1e3f] bg-white border-b border-slate-100"
                 onClick={() =>
                   setExpandedMobileCategory(
                     expandedMobileCategory === "about" ? null : "about"
                   )
                 }
               >
-                <span>Who We Are</span>
+                <span className="flex items-center gap-2">
+                  <Building2 className="h-4 w-4 text-[#0284c7]" />
+                  Who We Are
+                </span>
                 <ChevronDown
                   className={cn(
-                    "h-4 w-4 text-slate-500 transition-transform duration-200",
+                    "h-4 w-4 text-slate-400 transition-transform duration-200",
                     expandedMobileCategory === "about" && "rotate-180 text-[#0284c7]"
                   )}
                 />
               </button>
 
               {expandedMobileCategory === "about" && (
-                <div className="p-3 space-y-4 bg-white">
+                <div className="p-2.5 space-y-2.5 bg-[#f8fafc]/50">
                   {whoWeAreMenu.groups.map((group) => {
                     const GroupIcon = group.icon || Layers;
                     const isGroupExpanded = expandedMobileGroup === group.title;
                     return (
-                      <div key={group.title} className="border border-slate-100 rounded-xl p-3 bg-slate-50/50">
+                      <div key={group.title} className="border border-slate-200/80 rounded-xl p-2.5 bg-white shadow-2xs">
                         <button
                           type="button"
                           className="w-full flex items-center justify-between text-left font-semibold text-xs text-[#0a1e3f]"
@@ -701,18 +773,19 @@ export function Header() {
                           <ChevronDown
                             className={cn(
                               "h-3 w-3 text-slate-400 transition-transform duration-200",
-                              isGroupExpanded && "rotate-180"
+                              isGroupExpanded && "rotate-180 text-[#0284c7]"
                             )}
                           />
                         </button>
 
                         {isGroupExpanded && (
-                          <div className="mt-2.5 pt-2 border-t border-slate-200 space-y-1">
+                          <div className="mt-2 pt-2 border-t border-slate-100 space-y-1">
                             {group.items.map((item) => (
                               <Link
                                 key={item.name}
                                 to={item.href}
-                                className="block py-1.5 px-2 rounded-lg text-xs text-slate-700 hover:text-[#0284c7] hover:bg-sky-50 font-medium"
+                                onClick={() => setIsMobileMenuOpen(false)}
+                                className="block py-1.5 px-2 rounded-lg text-xs text-slate-700 hover:text-[#0284c7] hover:bg-[#f0f9ff] font-medium"
                               >
                                 {item.name}
                               </Link>
@@ -726,20 +799,49 @@ export function Header() {
               )}
             </div>
 
-            {/* Mobile Direct Action Button */}
-            <div className="pt-2">
-              <Button
-                variant="pill"
-                size="lg"
-                asChild
-                className="w-full bg-[#0284c7] hover:bg-[#0369a1] text-white text-xs font-semibold h-11 justify-center shadow-brand"
+            {/* Direct Quick Nav Links */}
+            <div className="p-2 rounded-2xl border border-slate-200/80 bg-white space-y-1 shadow-2xs">
+              <Link
+                to="/agent-banking"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="flex items-center justify-between py-2 px-3 rounded-xl text-xs font-semibold text-[#0a1e3f] hover:bg-[#f0f9ff] hover:text-[#0284c7]"
               >
-                <Link to="/contact">
-                  <span>Create Account</span>
-                  <ArrowRight className="h-4 w-4 ml-2" />
-                </Link>
-              </Button>
+                <span>Agency Banking</span>
+                <ChevronRight className="h-3.5 w-3.5 text-slate-400" />
+              </Link>
+              <Link
+                to="/media"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="flex items-center justify-between py-2 px-3 rounded-xl text-xs font-semibold text-[#0a1e3f] hover:bg-[#f0f9ff] hover:text-[#0284c7]"
+              >
+                <span>News & Publications</span>
+                <ChevronRight className="h-3.5 w-3.5 text-slate-400" />
+              </Link>
+              <Link
+                to="/branches"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="flex items-center justify-between py-2 px-3 rounded-xl text-xs font-semibold text-[#0a1e3f] hover:bg-[#f0f9ff] hover:text-[#0284c7]"
+              >
+                <span>Branches & Locations</span>
+                <ChevronRight className="h-3.5 w-3.5 text-slate-400" />
+              </Link>
+              <Link
+                to="/contact"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="flex items-center justify-between py-2 px-3 rounded-xl text-xs font-semibold text-[#0a1e3f] hover:bg-[#f0f9ff] hover:text-[#0284c7]"
+              >
+                <span>Customer Support Desk</span>
+                <ChevronRight className="h-3.5 w-3.5 text-slate-400" />
+              </Link>
             </div>
+
+            {/* Regulatory Footer Pill inside Menu */}
+            <div className="p-3 rounded-2xl bg-slate-50 border border-slate-200 text-center text-[10px] text-slate-500 space-y-1">
+              <p className="font-semibold text-[#0a1e3f]">Central Bank of Nigeria (CBN) Licensed MFB</p>
+              <p>Deposits insured by Nigeria Deposit Insurance Corporation (NDIC)</p>
+              <p className="font-mono text-[#0284c7] font-semibold pt-1">USSD: *966*808#</p>
+            </div>
+
           </div>
         </div>
       )}

@@ -128,31 +128,37 @@ const operationalPillars = [
 const milestones = [
   {
     year: "2009",
+    tag: "CBN License",
     title: "Banking License Granted",
     event: "Rima Microfinance Bank licensed by the Central Bank of Nigeria to commence specialized retail banking in Port Harcourt."
   },
   {
     year: "2013",
+    tag: "Expansion",
     title: "Commercial Branch Network",
     event: "Expanded physical branch footprint across major high-density commercial corridors and market districts in Rivers State."
   },
   {
     year: "2016",
+    tag: "Enterprise",
     title: "Commercial SME Division",
     event: "Structured a dedicated Commercial Credit desk to support trade finance, logistics, and oilfield service contractors."
   },
   {
     year: "2019",
+    tag: "Payments",
     title: "NIBSS Integration",
     event: "Deployed core electronic payment infrastructure connected directly to Nigeria Inter-Bank Settlement System (NIBSS)."
   },
   {
     year: "2022",
+    tag: "Scale",
     title: "50,000+ Account Milestone",
     event: "Surpassed 50,000 active individual and commercial account holders across regional branches and digital channels."
   },
   {
     year: "2025",
+    tag: "Agency Network",
     title: "Agency Banking Scale",
     event: "Expanded neighborhood agency banking network to 200+ certified merchant POS locations across Rivers State communities."
   }
@@ -382,18 +388,18 @@ export default function About() {
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 pt-4">
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-2.5 sm:gap-4 lg:gap-6 pt-2 sm:pt-4">
             {coreValues.map((value) => (
               <div 
                 key={value.title} 
-                className="bg-[#f0f9ff]/70 hover:bg-[#f0f9ff] border border-[#bae6fd]/60 hover:border-[#bae6fd] rounded-2xl p-5 sm:p-6 transition-all duration-300 shadow-2xs hover:shadow-sm flex flex-col justify-between group"
+                className="bg-[#f0f9ff]/70 hover:bg-[#f0f9ff] border border-[#bae6fd]/60 hover:border-[#bae6fd] rounded-xl sm:rounded-2xl p-3.5 sm:p-5 transition-all duration-200 shadow-2xs hover:shadow-xs flex flex-col justify-between group"
               >
                 <div>
-                  <div className="h-10 w-10 rounded-xl bg-white text-[#0284c7] border border-[#bae6fd]/60 shadow-2xs flex items-center justify-center mb-3.5 group-hover:bg-[#0284c7] group-hover:text-white transition-all">
-                    <value.icon className="h-5 w-5" />
+                  <div className="h-8 w-8 sm:h-10 sm:w-10 rounded-lg sm:rounded-xl bg-white text-[#0284c7] border border-[#bae6fd]/60 shadow-2xs flex items-center justify-center mb-2.5 sm:mb-3.5 group-hover:bg-[#0284c7] group-hover:text-white transition-all">
+                    <value.icon className="h-4 w-4 sm:h-5 sm:w-5" />
                   </div>
-                  <h3 className="font-heading text-sm sm:text-base font-bold text-[#0a1e3f] group-hover:text-[#0284c7] transition-colors mb-1">{value.title}</h3>
-                  <p className="text-xs text-slate-600 leading-relaxed">{value.description}</p>
+                  <h3 className="font-heading text-xs sm:text-base font-bold text-[#0a1e3f] group-hover:text-[#0284c7] transition-colors mb-1 leading-snug">{value.title}</h3>
+                  <p className="text-[11px] sm:text-xs text-slate-600 leading-relaxed line-clamp-4">{value.description}</p>
                 </div>
               </div>
             ))}
@@ -435,15 +441,18 @@ export default function About() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 pt-4">
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-2.5 sm:gap-4 lg:gap-6 pt-2 sm:pt-4">
             {milestones.map((m) => (
               <div 
                 key={m.year} 
-                className="bg-white hover:bg-sky-50/40 border border-[#bae6fd]/60 hover:border-[#bae6fd] rounded-2xl p-5 sm:p-6 transition-all duration-300 shadow-2xs hover:shadow-sm space-y-2"
+                className="bg-white p-3.5 sm:p-5 rounded-xl sm:rounded-2xl border border-[#bae6fd]/70 space-y-2 shadow-2xs"
               >
-                <span className="font-heading text-xl sm:text-2xl font-bold text-[#0284c7] block">{m.year}</span>
-                <h4 className="font-heading text-sm font-bold text-[#0a1e3f]">{m.title}</h4>
-                <p className="text-xs text-slate-600 leading-relaxed">{m.event}</p>
+                <div className="flex items-center justify-between">
+                  <span className="font-heading font-bold text-base sm:text-xl text-[#0284c7]">{m.year}</span>
+                  <span className="text-[10px] text-slate-500 font-medium px-2 py-0.5 rounded bg-sky-50">{m.tag}</span>
+                </div>
+                <h3 className="font-heading font-bold text-xs sm:text-sm text-[#0a1e3f] leading-snug">{m.title}</h3>
+                <p className="text-[11px] sm:text-xs text-slate-600 leading-relaxed line-clamp-4">{m.event}</p>
               </div>
             ))}
           </div>

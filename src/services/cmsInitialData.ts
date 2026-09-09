@@ -95,17 +95,316 @@ export const initialSiteContent: SiteContent = {
     statLabel: "Accredited Banking Agents"
   },
   smeBanking: {
-    badge: "Commercial & Business Capital",
-    heading: "Structured Credit to Scale Your Enterprise",
-    description: "From seasonal inventory financing to long-term equipment acquisition, our commercial facilities are tailored to your business cash flow cycles.",
+    badge: "Commercial & Enterprise Services",
+    heading: "Built around your business",
+    description: "Your business needs more than an account. You need reliable ways to manage money, receive payments, access financing and keep your business moving.",
     benefits: [
       "Fast 48-hour credit approval upon full documentation",
       "Flexible tenors extending up to 24 months",
       "Competitive, transparent monthly interest calculation",
       "Dedicated SME relationship manager"
     ],
-    ctaText: "Explore Business Banking",
-    ctaLink: "/business-banking"
+    services: [
+      {
+        title: "Business Checking Accounts",
+        desc: "Commercial checking with multi-signatory governance, custom mandates, and dedicated relationship manager support."
+      },
+      {
+        title: "Business Financing & Credit Lines",
+        desc: "Short and medium-term credit facilities designed around your sales cycle to fund inventory and contracts."
+      },
+      {
+        title: "Payments & Collections",
+        desc: "Collect client payments effortlessly via bank transfer, USSD, and automated invoice payment confirmations."
+      },
+      {
+        title: "Merchant POS Settlement",
+        desc: "Reliable, high-uptime POS payment terminals for physical store settlements with next-morning account reconciliation."
+      }
+    ],
+    bannerHeading: "Ready to open a dedicated Business Account?",
+    bannerDescription: "Equip your enterprise with a full corporate checking account, POS terminal, and relationship officer support.",
+    ctaText: "Open Business Account",
+    ctaLink: "/contact"
+  },
+  customerJourney: {
+    badge: "Simple & Transparent Process",
+    heading: "How banking works with RIMA",
+    description: "From your very first deposit to accessing business financing, we keep every step clear, accessible, and supportive of your personal and business milestones.",
+    steps: [
+      {
+        step: "01",
+        title: "Open an Account",
+        desc: "Register online in minutes or visit any RIMA branch with your valid ID and proof of address."
+      },
+      {
+        step: "02",
+        title: "Fund Your Account",
+        desc: "Deposit funds via interbank transfer, neighborhood agent cash deposit, or mobile banking."
+      },
+      {
+        step: "03",
+        title: "Manage Your Money",
+        desc: "Transact seamlessly with your Verve debit card, mobile app, or offline USSD (*966*808#)."
+      },
+      {
+        step: "04",
+        title: "Access Financing",
+        desc: "Qualify for flexible business working capital or microcredit facilities based on your savings history."
+      },
+      {
+        step: "05",
+        title: "Grow Your Goals",
+        desc: "Expand your enterprise, build emergency reserves, and achieve long-term financial security."
+      }
+    ],
+    ctaText: "Start Your Journey Today",
+    ctaLink: "/contact"
+  },
+  financingSection: {
+    badge: "Commercial & Personal Financing",
+    heading: "Practical capital solutions to fund your growth",
+    description: "Whether you need short-term working capital to fulfill customer contracts or funds to purchase inventory, RIMA provides fast, transparent financing.",
+    backgroundImage: "/images/media-sme.png",
+    workflowSteps: [
+      { step: "01", name: "Application", desc: "Submit simple documentation online or at any branch." },
+      { step: "02", name: "Assessment", desc: "Transparent review based on cash flow and sales turnover." },
+      { step: "03", name: "Approval", desc: "Clear terms and structured repayment schedule provided." },
+      { step: "04", name: "Disbursement", desc: "Direct credit into your RIMA checking or savings account." },
+      { step: "05", name: "Growth", desc: "Deploy capital to expand inventory, operations, and revenue." }
+    ],
+    facilities: [
+      {
+        id: "sme-working-capital",
+        name: "SME Working Capital",
+        tagline: "Short to medium term liquidity for retail shops, distributors, and contractors.",
+        tenure: "3 to 12 Months",
+        minAmount: "₦100,000",
+        maxAmount: "₦50,000,000",
+        interestRate: "Competitive monthly rate",
+        features: [
+          "Disbursement within 48 to 72 hours upon verification",
+          "Repayment structured to match weekly or monthly turnover",
+          "Flexible collateral and guarantor arrangements",
+          "Dedicated relationship officer support throughout tenure"
+        ],
+        requirements: [
+          "Active RIMA Bank commercial account for minimum 2 months",
+          "Valid Business Registration (CAC Documents or proof of trade)",
+          "6 months bank statements showing verifiable revenue",
+          "Two credible guarantors or acceptable asset pledge"
+        ],
+        ctaText: "Apply for SME Capital",
+        ctaLink: "/contact"
+      },
+      {
+        id: "trade-inventory-loan",
+        name: "Trade & Inventory Finance",
+        tagline: "Structured credit for bulk stock purchases, container clearance, and supply cycles.",
+        tenure: "1 to 6 Months",
+        minAmount: "₦500,000",
+        maxAmount: "₦30,000,000",
+        interestRate: "Transparent fee structure",
+        features: [
+          "Direct invoice payment to verified product suppliers",
+          "Staggered repayment tied to stock liquidation speed",
+          "Allows bulk discount advantages from wholesale distributors",
+          "Repeat credit lines for fast-moving consumer goods dealers"
+        ],
+        requirements: [
+          "Proforma invoice or verified supplier purchase order",
+          "Physical inspection of warehouse or retail premises",
+          "Proof of active trading history and cash turnover records",
+          "Standard KYC verification and utility bill"
+        ],
+        ctaText: "Apply for Trade Finance",
+        ctaLink: "/contact"
+      },
+      {
+        id: "micro-business-loan",
+        name: "Micro Trader Facility",
+        tagline: "Collateral-friendly micro-loans for market stallholders, artisans, and retailers.",
+        tenure: "1 to 4 Months",
+        minAmount: "₦50,000",
+        maxAmount: "₦2,000,000",
+        interestRate: "Low daily/weekly fee",
+        features: [
+          "Zero complex collateral — group cross-guarantee accepted",
+          "Daily or weekly flexible collection via neighborhood field officers",
+          "Same-week approval and disbursement for verified traders",
+          "Credit limit escalation upon timely full repayment"
+        ],
+        requirements: [
+          "Verifiable market stall, shop location, or artisan trade workshop",
+          "Valid government ID (NIN, Voter's Card, or Driver's License)",
+          "One passport photograph and active phone number",
+          "Co-trader or market association executive reference"
+        ],
+        ctaText: "Apply for Micro Loan",
+        ctaLink: "/contact"
+      },
+      {
+        id: "asset-finance",
+        name: "Equipment & Asset Financing",
+        tagline: "Acquire generators, delivery vehicles, POS terminals, and machinery to scale operations.",
+        tenure: "6 to 24 Months",
+        minAmount: "₦250,000",
+        maxAmount: "₦25,000,000",
+        interestRate: "Fixed structured rates",
+        features: [
+          "Up to 80% financing of total equipment invoice value",
+          "Equipment itself serves as primary credit security",
+          "Direct disbursement to accredited machinery/vehicle vendors",
+          "Comprehensive insurance coverage arranged with partner underwriters"
+        ],
+        requirements: [
+          "Commercial invoice from recognized vendor or distributor",
+          "20% equity contribution deposit in RIMA Bank account",
+          "Proof of continuous business operations for at least 12 months",
+          "Completed asset finance application form and KYC verification"
+        ],
+        ctaText: "Apply for Asset Finance",
+        ctaLink: "/contact"
+      }
+    ]
+  },
+  savingsSection: {
+    badge: "Savings & Wealth Accumulation",
+    heading: "Make your money work toward your goals",
+    description: "Whether you are saving for business expansion, unexpected family emergencies, children's education, or long-term financial security, RIMA provides safe, high-yield deposit accounts.",
+    products: [
+      {
+        id: "regular",
+        name: "Regular Savings Account",
+        tagline: "Everyday secure savings with full liquidity and zero ledger maintenance charges.",
+        targetAudience: "Individuals, salary earners, artisans, and students who need accessible daily banking.",
+        benefits: [
+          "Interest credited directly to your account balance monthly",
+          "Free mobile banking and USSD transaction access",
+          "Verve debit card for nationwide ATM and POS transactions",
+          "No hidden maintenance deductions"
+        ],
+        requirements: [
+          "Valid Government ID (NIN, Voter's Card, or Driver's License)",
+          "Recent passport photograph",
+          "Proof of address (Utility bill)"
+        ]
+      },
+      {
+        id: "target",
+        name: "Target Goal Savings",
+        tagline: "Disciplined recurring savings structured for rent, inventory purchase, or school fees.",
+        targetAudience: "Traders, parents, and professionals saving toward a specific milestone.",
+        benefits: [
+          "High competitive interest yields on locked balances",
+          "Automated standing order deposits from your primary account",
+          "Flexible durations: 3, 6, 9, or 12 months",
+          "Guaranteed maturity payout without unexpected deductions"
+        ],
+        requirements: [
+          "Active RIMA Bank savings or current account",
+          "Defined goal amount and completion timeline",
+          "Automated deposit schedule authorization"
+        ]
+      },
+      {
+        id: "fixed",
+        name: "Fixed Term Deposit",
+        tagline: "Maximize capital growth with guaranteed premium returns for set investment tenures.",
+        targetAudience: "Entrepreneurs, cooperatives, and individuals with idle funds seeking maximum security.",
+        benefits: [
+          "Fixed, guaranteed interest rates insulated from market volatility",
+          "Tenure options from 30, 60, 90, 180 to 365 days",
+          "Can serve as cash collateral for credit facilities",
+          "Comprehensive certificate of deposit issued"
+        ],
+        requirements: [
+          "Minimum deposit balance starting from ₦50,000",
+          "Completed fixed deposit mandate form",
+          "Standard KYC identity verification"
+        ]
+      },
+      {
+        id: "esusu",
+        name: "Daily Contribution (Esusu / Ajo)",
+        tagline: "Convenient daily and weekly cash collections directly at your market stall or shop.",
+        targetAudience: "Market traders, shop owners, commercial drivers, and neighborhood retailers.",
+        benefits: [
+          "Bank relationship officers collect deposits directly from your shop",
+          "Instant SMS and receipt confirmation for every contribution",
+          "Seamless access to microcredit after consistent savings",
+          "Zero risk of community fund loss — 100% bank secured"
+        ],
+        requirements: [
+          "Basic shop or stall identity registration",
+          "Daily or weekly contribution commitment",
+          "Passport photograph & contact number"
+        ]
+      }
+    ]
+  },
+  digitalBankingSection: {
+    badge: "Digital Channels & Mobility",
+    heading: "Manage your money wherever you are",
+    description: "Experience fast, reliable banking on your smartphone or web browser. Enjoy 24/7 access to transfers, bill payments, and financial management.",
+    capabilities: [
+      {
+        title: "Instant Interbank Transfers",
+        desc: "Send money to any commercial or microfinance bank account in Nigeria with immediate electronic confirmation."
+      },
+      {
+        title: "Account Balance & History",
+        desc: "Check real-time balances, view detailed transaction ledgers, and track everyday income and expenditures."
+      },
+      {
+        title: "E-Statements on Demand",
+        desc: "Generate and download official, stamped account statements for business verification or loan records."
+      },
+      {
+        title: "Card Controls & Security",
+        desc: "Temporarily lock your Verve card, reset your transaction PIN, or adjust daily ATM withdrawal limits instantly."
+      },
+      {
+        title: "Bill Payments & Utility Tokens",
+        desc: "Pay electricity bills (PHED, IKEDC, EKEDC), renew DSTV/GOtv subscriptions, and buy airtime with zero delays."
+      },
+      {
+        title: "Biometric & 2FA Security",
+        desc: "Log in with Face ID or fingerprint recognition protected by multi-factor authentication protocols."
+      }
+    ],
+    ctaText: "Explore Digital Banking Features",
+    ctaLink: "/digital-banking"
+  },
+  financialEducationSection: {
+    badge: "Financial Literacy & Education",
+    heading: "Practical guides for your financial growth",
+    description: "We believe banking should empower you with practical knowledge to manage money, grow your enterprise, and safeguard your assets.",
+    guides: [
+      {
+        category: "Savings Strategy",
+        title: "How to save consistently with irregular business income",
+        excerpt: "Practical techniques for market traders and artisans to build emergency funds and goal savings without disrupting daily cash flow.",
+        readTime: "4 min read",
+        href: "/media"
+      },
+      {
+        category: "Business Cash Flow",
+        title: "5 practical ways to manage working capital in retail operations",
+        excerpt: "Learn how to forecast inventory cycles, avoid stockouts, and negotiate supplier credit to maintain business liquidity.",
+        readTime: "5 min read",
+        href: "/media"
+      },
+      {
+        category: "Security & Protection",
+        title: "How to bank safely on USSD and mobile phones",
+        excerpt: "Essential safety habits to protect your 4-digit PIN, avoid social engineering phone scams, and report suspicious transactions immediately.",
+        readTime: "3 min read",
+        href: "/media"
+      }
+    ],
+    ctaText: "View All Financial Guides",
+    ctaLink: "/media"
   },
   studentBanking: {
     badge: "Youth & Campus Banking",

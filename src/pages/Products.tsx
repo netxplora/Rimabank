@@ -146,36 +146,36 @@ export default function Products() {
             </div>
 
             <TabsContent value="savings" className="space-y-8 animate-in fade-in slide-in-from-bottom-6 duration-500">
-              <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-slate-200 border-t border-b border-slate-200">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-6">
                 {savingsProducts.map((product) => (
-                  <div key={product.name} className="py-8 md:p-6 lg:p-8 flex flex-col justify-between">
+                  <div key={product.name} className="bg-[#f0f9ff]/70 hover:bg-[#f0f9ff] border border-[#bae6fd]/60 hover:border-[#bae6fd] rounded-3xl p-5 sm:p-7 flex flex-col justify-between shadow-2xs hover:shadow-xs transition-all duration-300">
                     <div>
                       <div className="flex items-center justify-between mb-4">
                         <div 
-                          className="w-10 h-10 rounded-xl flex items-center justify-center"
-                          style={{ backgroundColor: product.bg, color: product.accent }}
+                          className="w-10 h-10 rounded-xl flex items-center justify-center bg-white border border-[#bae6fd]/60 shadow-2xs"
+                          style={{ color: product.accent }}
                         >
                           <product.icon className="h-5 w-5" />
                         </div>
-                        <span className="font-heading font-bold text-xs text-[#16a34a] bg-[#bcffbb] px-2.5 py-0.5 rounded-full">
+                        <span className="font-heading font-bold text-xs text-[#16a34a] bg-white border border-[#bae6fd]/60 px-2.5 py-0.5 rounded-full shadow-2xs">
                           {product.rate}
                         </span>
                       </div>
 
-                      <h3 className="font-heading text-lg font-semibold text-[#0a1e3f] mb-2">{product.name}</h3>
-                      <p className="text-xs text-[#64748b] leading-relaxed mb-5">{product.description}</p>
+                      <h3 className="font-heading text-base sm:text-lg font-bold text-[#0a1e3f] mb-2">{product.name}</h3>
+                      <p className="text-xs text-slate-600 leading-relaxed mb-5">{product.description}</p>
 
-                      <ul className="space-y-2 mb-5 pt-3 border-t border-[#e2e8f0]">
+                      <ul className="space-y-2 mb-5 pt-3 border-t border-[#bae6fd]/50">
                         {product.features.map((feature) => (
                           <li key={feature} className="flex items-center gap-2 text-xs text-[#0a1e3f]">
-                            <CheckCircle2 className="h-3.5 w-3.5 text-[#16a34a] shrink-0" />
+                            <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600 shrink-0" />
                             <span>{feature}</span>
                           </li>
                         ))}
                       </ul>
                     </div>
 
-                    <div className="pt-4 border-t border-[#e2e8f0]">
+                    <div className="pt-4 border-t border-[#bae6fd]/50">
                       <Button
                         variant="pill"
                         size="default"
@@ -194,36 +194,36 @@ export default function Products() {
             </TabsContent>
 
             <TabsContent value="loans" className="space-y-8 animate-fade-in">
-              <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-slate-200 border-t border-b border-slate-200">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-6">
                 {loanProducts.map((product) => (
-                  <div key={product.name} className="py-8 md:p-6 lg:p-8 flex flex-col justify-between">
+                  <div key={product.name} className="bg-[#f0f9ff]/70 hover:bg-[#f0f9ff] border border-[#bae6fd]/60 hover:border-[#bae6fd] rounded-3xl p-5 sm:p-7 flex flex-col justify-between shadow-2xs hover:shadow-xs transition-all duration-300">
                     <div>
                       <div className="flex items-center justify-between mb-4">
                         <div 
-                          className="w-10 h-10 rounded-xl flex items-center justify-center"
-                          style={{ backgroundColor: product.bg, color: product.accent }}
+                          className="w-10 h-10 rounded-xl flex items-center justify-center bg-white border border-[#bae6fd]/60 shadow-2xs"
+                          style={{ color: product.accent }}
                         >
                           <product.icon className="h-5 w-5" />
                         </div>
-                        <span className="font-heading font-bold text-xs text-[#0284c7] bg-[#f0f7ff] px-2.5 py-0.5 rounded-full">
+                        <span className="font-heading font-bold text-xs text-[#0284c7] bg-white border border-[#bae6fd]/60 px-2.5 py-0.5 rounded-full shadow-2xs">
                           {product.rate}
                         </span>
                       </div>
 
-                      <h3 className="font-heading text-lg font-semibold text-[#0a1e3f] mb-2">{product.name}</h3>
-                      <p className="text-xs text-[#64748b] leading-relaxed mb-5">{product.description}</p>
+                      <h3 className="font-heading text-base sm:text-lg font-bold text-[#0a1e3f] mb-2">{product.name}</h3>
+                      <p className="text-xs text-slate-600 leading-relaxed mb-5">{product.description}</p>
 
-                      <ul className="space-y-2 mb-5 pt-3 border-t border-[#e2e8f0]">
+                      <ul className="space-y-2 mb-5 pt-3 border-t border-[#bae6fd]/50">
                         {product.features.map((feature) => (
                           <li key={feature} className="flex items-center gap-2 text-xs text-[#0a1e3f]">
-                            <CheckCircle2 className="h-3.5 w-3.5 text-[#16a34a] shrink-0" />
+                            <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600 shrink-0" />
                             <span>{feature}</span>
                           </li>
                         ))}
                       </ul>
                     </div>
 
-                    <div className="pt-4 border-t border-[#e2e8f0]">
+                    <div className="pt-4 border-t border-[#bae6fd]/50">
                       <Button
                         variant="pill"
                         size="default"
@@ -242,36 +242,36 @@ export default function Products() {
             </TabsContent>
 
             <TabsContent value="accounts" className="space-y-8 animate-fade-in">
-              <div className="grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-slate-200 border-t border-b border-slate-200 max-w-4xl mx-auto">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6 max-w-4xl mx-auto">
                 {accountTypes.map((product) => (
-                  <div key={product.name} className="py-8 md:p-6 lg:p-8 flex flex-col justify-between">
+                  <div key={product.name} className="bg-[#f0f9ff]/70 hover:bg-[#f0f9ff] border border-[#bae6fd]/60 hover:border-[#bae6fd] rounded-3xl p-5 sm:p-7 flex flex-col justify-between shadow-2xs hover:shadow-xs transition-all duration-300">
                     <div>
                       <div className="flex items-center justify-between mb-4">
                         <div 
-                          className="w-10 h-10 rounded-xl flex items-center justify-center"
-                          style={{ backgroundColor: product.bg, color: product.accent }}
+                          className="w-10 h-10 rounded-xl flex items-center justify-center bg-white border border-[#bae6fd]/60 shadow-2xs"
+                          style={{ color: product.accent }}
                         >
                           <product.icon className="h-5 w-5" />
                         </div>
-                        <span className="text-[10px] uppercase font-bold text-[#64748b] bg-[#f0f7ff] px-2.5 py-0.5 rounded-full">
+                        <span className="text-[10px] uppercase font-bold text-slate-600 bg-white border border-[#bae6fd]/60 px-2.5 py-0.5 rounded-full shadow-2xs">
                           Min. Balance: {product.minBalance}
                         </span>
                       </div>
 
-                      <h3 className="font-heading text-lg font-semibold text-[#0a1e3f] mb-2">{product.name}</h3>
-                      <p className="text-xs text-[#64748b] leading-relaxed mb-5">{product.description}</p>
+                      <h3 className="font-heading text-base sm:text-lg font-bold text-[#0a1e3f] mb-2">{product.name}</h3>
+                      <p className="text-xs text-slate-600 leading-relaxed mb-5">{product.description}</p>
 
-                      <ul className="space-y-2 mb-5 pt-3 border-t border-[#e2e8f0]">
+                      <ul className="space-y-2 mb-5 pt-3 border-t border-[#bae6fd]/50">
                         {product.features.map((feature) => (
                           <li key={feature} className="flex items-center gap-2 text-xs text-[#0a1e3f]">
-                            <CheckCircle2 className="h-3.5 w-3.5 text-[#16a34a] shrink-0" />
+                            <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600 shrink-0" />
                             <span>{feature}</span>
                           </li>
                         ))}
                       </ul>
                     </div>
 
-                    <div className="pt-4 border-t border-[#e2e8f0]">
+                    <div className="pt-4 border-t border-[#bae6fd]/50">
                       <Button
                         variant="pill"
                         size="default"

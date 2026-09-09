@@ -241,21 +241,21 @@ export default function DigitalBanking() {
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-8 border-t border-[#e2e8f0] pt-6 sm:pt-8">
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-2.5 sm:gap-4 lg:gap-6 border-t border-[#e2e8f0] pt-6 sm:pt-8">
             {features.map((feature, index) => (
               <div 
                 key={index} 
-                className="flex flex-col justify-between"
+                className="bg-[#f0f9ff]/70 hover:bg-[#f0f9ff] border border-[#bae6fd]/60 hover:border-[#bae6fd] rounded-2xl p-3.5 sm:p-5 flex flex-col justify-between transition-all duration-200 shadow-2xs hover:shadow-xs"
               >
                 <div>
                   <div 
-                    className="w-10 h-10 rounded-xl flex items-center justify-center mb-3"
+                    className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl flex items-center justify-center mb-2.5 sm:mb-3 shadow-2xs"
                     style={{ backgroundColor: feature.bg, color: feature.color }}
                   >
-                    <feature.icon className="h-5 w-5" />
+                    <feature.icon className="h-4 w-4 sm:h-5 sm:w-5" />
                   </div>
-                  <h3 className="font-heading text-base font-semibold text-[#0a1e3f] mb-1">{feature.title}</h3>
-                  <p className="text-xs text-[#64748b] leading-relaxed">{feature.description}</p>
+                  <h3 className="font-heading text-xs sm:text-sm lg:text-base font-semibold text-[#0a1e3f] mb-1 leading-snug">{feature.title}</h3>
+                  <p className="text-[11px] sm:text-xs text-slate-600 leading-relaxed">{feature.description}</p>
                 </div>
               </div>
             ))}
@@ -263,7 +263,7 @@ export default function DigitalBanking() {
         </div>
       </section>
 
-      {/* 3-Step Onboarding Progression (Minimal Open Layout) */}
+      {/* 3-Step Onboarding Progression */}
       <section className="py-8 sm:py-10 md:py-12 bg-white border-b border-[#e2e8f0]/60">
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
           <div className="max-w-2xl mb-6 sm:mb-8">
@@ -275,26 +275,26 @@ export default function DigitalBanking() {
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
-            <div className="bg-[#f0f9ff]/70 hover:bg-[#f0f9ff] border border-[#bae6fd]/60 hover:border-[#bae6fd] rounded-2xl p-5 sm:p-6 transition-all shadow-2xs hover:shadow-sm space-y-2.5">
-              <div className="text-xs font-bold text-[#0284c7] uppercase tracking-widest bg-white inline-block px-2.5 py-1 rounded-full border border-[#bae6fd]/60 shadow-2xs">Step 01</div>
-              <h3 className="font-heading text-base font-semibold text-[#0a1e3f]">Download the Mobile App</h3>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-5">
+            <div className="bg-[#f0f9ff]/70 hover:bg-[#f0f9ff] border border-[#bae6fd]/60 hover:border-[#bae6fd] rounded-2xl p-4 sm:p-6 transition-all shadow-2xs hover:shadow-sm space-y-2">
+              <div className="text-[10px] sm:text-xs font-bold text-[#0284c7] uppercase tracking-widest bg-white inline-block px-2.5 py-0.5 sm:py-1 rounded-full border border-[#bae6fd]/60 shadow-2xs">Step 01</div>
+              <h3 className="font-heading text-sm sm:text-base font-semibold text-[#0a1e3f]">Download the Mobile App</h3>
               <p className="text-xs text-slate-600 leading-relaxed">
                 Download the Rima MFB Mobile Banking application from Google Play or Apple App Store.
               </p>
             </div>
 
-            <div className="bg-[#f0f9ff]/70 hover:bg-[#f0f9ff] border border-[#bae6fd]/60 hover:border-[#bae6fd] rounded-2xl p-5 sm:p-6 transition-all shadow-2xs hover:shadow-sm space-y-2.5">
-              <div className="text-xs font-bold text-[#0284c7] uppercase tracking-widest bg-white inline-block px-2.5 py-1 rounded-full border border-[#bae6fd]/60 shadow-2xs">Step 02</div>
-              <h3 className="font-heading text-base font-semibold text-[#0a1e3f]">Verify Credentials</h3>
+            <div className="bg-[#f0f9ff]/70 hover:bg-[#f0f9ff] border border-[#bae6fd]/60 hover:border-[#bae6fd] rounded-2xl p-4 sm:p-6 transition-all shadow-2xs hover:shadow-sm space-y-2">
+              <div className="text-[10px] sm:text-xs font-bold text-[#0284c7] uppercase tracking-widest bg-white inline-block px-2.5 py-0.5 sm:py-1 rounded-full border border-[#bae6fd]/60 shadow-2xs">Step 02</div>
+              <h3 className="font-heading text-sm sm:text-base font-semibold text-[#0a1e3f]">Verify Credentials</h3>
               <p className="text-xs text-slate-600 leading-relaxed">
                 Enter your registered BVN and National Identification Number (NIN) to verify your account in minutes.
               </p>
             </div>
 
-            <div className="bg-[#f0f9ff]/70 hover:bg-[#f0f9ff] border border-[#bae6fd]/60 hover:border-[#bae6fd] rounded-2xl p-5 sm:p-6 transition-all shadow-2xs hover:shadow-sm space-y-2.5">
-              <div className="text-xs font-bold text-[#0284c7] uppercase tracking-widest bg-white inline-block px-2.5 py-1 rounded-full border border-[#bae6fd]/60 shadow-2xs">Step 03</div>
-              <h3 className="font-heading text-base font-semibold text-[#0a1e3f]">Begin Banking</h3>
+            <div className="bg-[#f0f9ff]/70 hover:bg-[#f0f9ff] border border-[#bae6fd]/60 hover:border-[#bae6fd] rounded-2xl p-4 sm:p-6 transition-all shadow-2xs hover:shadow-sm space-y-2">
+              <div className="text-[10px] sm:text-xs font-bold text-[#0284c7] uppercase tracking-widest bg-white inline-block px-2.5 py-0.5 sm:py-1 rounded-full border border-[#bae6fd]/60 shadow-2xs">Step 03</div>
+              <h3 className="font-heading text-sm sm:text-base font-semibold text-[#0a1e3f]">Begin Banking</h3>
               <p className="text-xs text-slate-600 leading-relaxed">
                 Set your secure transaction PIN, fund your balance, and begin executing instant transfers immediately.
               </p>

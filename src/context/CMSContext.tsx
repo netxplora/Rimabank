@@ -162,11 +162,75 @@ interface CMSContextType {
   toggleSubscriberStatus: (id: string, user: { id: string; name: string; role: UserRole }) => Promise<{ ok: boolean; error?: string }>;
 }
 
+const mergeSiteContentWithDefaults = (remote: any): SiteContent => {
+  if (!remote) return initialSiteContent;
+  return {
+    ...initialSiteContent,
+    ...remote,
+    hero: { ...initialSiteContent.hero, ...(remote.hero || {}) },
+    trustStats: Array.isArray(remote.trustStats) && remote.trustStats.length > 0 ? remote.trustStats : initialSiteContent.trustStats,
+    aboutSnapshot: {
+      ...initialSiteContent.aboutSnapshot,
+      ...(remote.aboutSnapshot || {}),
+      stats: Array.isArray(remote.aboutSnapshot?.stats) && remote.aboutSnapshot.stats.length > 0 ? remote.aboutSnapshot.stats : initialSiteContent.aboutSnapshot.stats,
+      governanceTeam: Array.isArray(remote.aboutSnapshot?.governanceTeam) && remote.aboutSnapshot.governanceTeam.length > 0 ? remote.aboutSnapshot.governanceTeam : initialSiteContent.aboutSnapshot.governanceTeam
+    },
+    products: Array.isArray(remote.products) && remote.products.length > 0 ? remote.products : initialSiteContent.products,
+    agentBanking: { ...initialSiteContent.agentBanking, ...(remote.agentBanking || {}) },
+    smeBanking: {
+      ...initialSiteContent.smeBanking,
+      ...(remote.smeBanking || {}),
+      services: Array.isArray(remote.smeBanking?.services) && remote.smeBanking.services.length > 0 ? remote.smeBanking.services : initialSiteContent.smeBanking.services,
+      benefits: Array.isArray(remote.smeBanking?.benefits) && remote.smeBanking.benefits.length > 0 ? remote.smeBanking.benefits : initialSiteContent.smeBanking.benefits
+    },
+    customerJourney: {
+      ...initialSiteContent.customerJourney!,
+      ...(remote.customerJourney || {}),
+      steps: Array.isArray(remote.customerJourney?.steps) && remote.customerJourney.steps.length > 0 ? remote.customerJourney.steps : initialSiteContent.customerJourney!.steps
+    },
+    financingSection: {
+      ...initialSiteContent.financingSection!,
+      ...(remote.financingSection || {}),
+      workflowSteps: Array.isArray(remote.financingSection?.workflowSteps) && remote.financingSection.workflowSteps.length > 0 ? remote.financingSection.workflowSteps : initialSiteContent.financingSection!.workflowSteps,
+      facilities: Array.isArray(remote.financingSection?.facilities) && remote.financingSection.facilities.length > 0 ? remote.financingSection.facilities : initialSiteContent.financingSection!.facilities
+    },
+    savingsSection: {
+      ...initialSiteContent.savingsSection!,
+      ...(remote.savingsSection || {}),
+      products: Array.isArray(remote.savingsSection?.products) && remote.savingsSection.products.length > 0 ? remote.savingsSection.products : initialSiteContent.savingsSection!.products
+    },
+    digitalBankingSection: {
+      ...initialSiteContent.digitalBankingSection!,
+      ...(remote.digitalBankingSection || {}),
+      capabilities: Array.isArray(remote.digitalBankingSection?.capabilities) && remote.digitalBankingSection.capabilities.length > 0 ? remote.digitalBankingSection.capabilities : initialSiteContent.digitalBankingSection!.capabilities
+    },
+    financialEducationSection: {
+      ...initialSiteContent.financialEducationSection!,
+      ...(remote.financialEducationSection || {}),
+      guides: Array.isArray(remote.financialEducationSection?.guides) && remote.financialEducationSection.guides.length > 0 ? remote.financialEducationSection.guides : initialSiteContent.financialEducationSection!.guides
+    },
+    testimonials: Array.isArray(remote.testimonials) && remote.testimonials.length > 0 ? remote.testimonials : initialSiteContent.testimonials,
+    branches: Array.isArray(remote.branches) && remote.branches.length > 0 ? remote.branches : initialSiteContent.branches,
+    seo: { ...initialSiteContent.seo, ...(remote.seo || {}) }
+  };
+};
+
 const CMSContext = createContext<CMSContextType | undefined>(undefined);
 
 export const CMSProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   // 1. Initial State from localStorage / Defaults
-  const [siteContent, setSiteContent] = useState<SiteContent>(initialSiteContent);
+  const [siteContent, setSiteContent] = useState<SiteContent>(() => {
+    const saved = localStorage.getItem(CMS_STORAGE_KEYS.SITE_CONTENT);
+    if (saved) {
+      try {
+        const parsed = JSON.parse(saved);
+        return mergeSiteContentWithDefaults(parsed);
+      } catch {
+        return initialSiteContent;
+      }
+    }
+    return initialSiteContent;
+  });
 
   const [promotions, setPromotions] = useState<Promotion[]>(initialPromotions);
 
@@ -198,6 +262,11 @@ export const CMSProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
     return initialDefaultSubscribers;
   });
 
+  // Save siteContent to localStorage
+  useEffect(() => {
+    localStorage.setItem(CMS_STORAGE_KEYS.SITE_CONTENT, JSON.stringify(siteContent));
+  }, [siteContent]);
+
   // Save subscribers to localStorage
   useEffect(() => {
     localStorage.setItem(CMS_STORAGE_KEYS.SUBSCRIBERS, JSON.stringify(subscribers));
@@ -214,7 +283,7 @@ export const CMSProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
       // Sync Landing Page Content
       const remotePage = await SupabaseSync.fetchPageContent('home');
       if (remotePage) {
-        setSiteContent(prev => ({ ...prev, ...remotePage }));
+        setSiteContent(prev => mergeSiteContentWithDefaults({ ...prev, ...remotePage }));
       }
 
       // Sync Promotions
@@ -334,7 +403,7 @@ export const CMSProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
       .channel('public_cms_pages')
       .on('postgres_changes', { event: '*', schema: 'public', table: 'cms_pages' }, async () => {
         const remotePage = await SupabaseSync.fetchPageContent('home');
-        if (remotePage) setSiteContent(prev => ({ ...prev, ...remotePage }));
+        if (remotePage) setSiteContent(prev => mergeSiteContentWithDefaults({ ...prev, ...remotePage }));
       })
       .subscribe();
 

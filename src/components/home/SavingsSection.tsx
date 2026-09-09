@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { PiggyBank, Target, Calendar, Coins, CheckCircle2, ArrowRight, ShieldCheck } from "lucide-react";
+import { PiggyBank, Target, Calendar, Coins, CheckCircle2, ArrowRight, ShieldCheck, Wallet } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
+import { useCMS } from "@/context/CMSContext";
 
 interface SavingsProduct {
   id: string;
@@ -14,7 +15,7 @@ interface SavingsProduct {
   icon: React.ElementType;
 }
 
-const savingsProducts: SavingsProduct[] = [
+const defaultSavingsProducts: SavingsProduct[] = [
   {
     id: "regular",
     name: "Regular Savings Account",
@@ -89,9 +90,30 @@ const savingsProducts: SavingsProduct[] = [
   }
 ];
 
+const savingsIcons = [PiggyBank, Target, Calendar, Coins, Wallet];
+
 export function SavingsSection() {
-  const [activeTab, setActiveTab] = useState<string>("regular");
-  const selectedProduct = savingsProducts.find((p) => p.id === activeTab) || savingsProducts[0];
+  const { siteContent } = useCMS();
+  const ss = siteContent?.savingsSection;
+
+  const badge = ss?.badge || "Savings & Wealth Accumulation";
+  const heading = ss?.heading || "Make your money work toward your goals";
+  const description = ss?.description || "Whether you are saving for business expansion, unexpected family emergencies, children's education, or long-term financial security, RIMA provides safe, high-yield deposit accounts.";
+
+  const productList: SavingsProduct[] = ss?.products && ss.products.length > 0
+    ? ss.products.map((p, i) => ({
+        id: p.id,
+        name: p.name,
+        tagline: p.tagline,
+        targetAudience: p.targetAudience,
+        benefits: p.benefits || [],
+        requirements: p.requirements || [],
+        icon: savingsIcons[i % savingsIcons.length]
+      }))
+    : defaultSavingsProducts;
+
+  const [activeTab, setActiveTab] = useState<string>(productList[0]?.id || "regular");
+  const selectedProduct = productList.find((p) => p.id === activeTab) || productList[0];
   const Icon = selectedProduct.icon;
 
   return (
@@ -101,19 +123,19 @@ export function SavingsSection() {
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
           <span className="text-xs font-semibold uppercase tracking-wider text-[#0284c7] bg-sky-50 px-3.5 py-1.5 rounded-full border border-sky-100 inline-block mb-3">
-            Savings & Wealth Accumulation
+            {badge}
           </span>
           <h2 className="font-heading text-2xl sm:text-4xl font-bold text-[#0a1e3f] tracking-tight">
-            Make your money work toward your goals
+            {heading}
           </h2>
           <p className="text-xs sm:text-base text-slate-600 mt-2 max-w-2xl mx-auto leading-relaxed">
-            Whether you are saving for business expansion, unexpected family emergencies, children's education, or long-term financial security, RIMA provides safe, high-yield deposit accounts.
+            {description}
           </p>
         </div>
 
         {/* Product Selection Tabs - Clean pill row */}
         <div className="flex flex-wrap justify-center gap-2 mb-10 sm:mb-14">
-          {savingsProducts.map((p) => {
+          {productList.map((p) => {
             const TabIcon = p.icon;
             const isActive = activeTab === p.id;
             return (

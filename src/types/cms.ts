@@ -303,8 +303,74 @@ export interface SiteContent {
     heading: string;
     description: string;
     benefits: string[];
+    services?: { title: string; desc: string }[];
+    bannerHeading?: string;
+    bannerDescription?: string;
     ctaText: string;
     ctaLink: string;
+  };
+  customerJourney?: {
+    badge: string;
+    heading: string;
+    description: string;
+    steps: { step: string; title: string; desc: string }[];
+    ctaText?: string;
+    ctaLink?: string;
+  };
+  financingSection?: {
+    badge: string;
+    heading: string;
+    description: string;
+    backgroundImage?: string;
+    workflowSteps?: { step: string; name: string; desc: string }[];
+    facilities?: {
+      id: string;
+      name: string;
+      tagline: string;
+      tenure: string;
+      minAmount?: string;
+      maxAmount?: string;
+      interestRate?: string;
+      features?: string[];
+      requirements?: string[];
+      ctaText?: string;
+      ctaLink?: string;
+    }[];
+  };
+  savingsSection?: {
+    badge: string;
+    heading: string;
+    description: string;
+    products?: {
+      id: string;
+      name: string;
+      tagline: string;
+      targetAudience: string;
+      benefits: string[];
+      requirements: string[];
+    }[];
+  };
+  digitalBankingSection?: {
+    badge: string;
+    heading: string;
+    description: string;
+    capabilities?: { title: string; desc: string }[];
+    ctaText?: string;
+    ctaLink?: string;
+  };
+  financialEducationSection?: {
+    badge: string;
+    heading: string;
+    description: string;
+    guides?: {
+      category: string;
+      title: string;
+      excerpt: string;
+      readTime: string;
+      href: string;
+    }[];
+    ctaText?: string;
+    ctaLink?: string;
   };
   studentBanking: {
     badge: string;

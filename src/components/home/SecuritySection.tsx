@@ -33,41 +33,41 @@ const securityFeatures = [
 
 export function SecuritySection() {
   return (
-    <section className="py-16 md:py-20 bg-white border-b border-[#e2e8f0]">
+    <section className="py-12 sm:py-20 bg-white border-b border-[#e2e8f0]">
       <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
         
         {/* Header Grid */}
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-12">
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-8 sm:mb-12">
           <div>
             <span className="text-xs font-semibold uppercase tracking-wider text-[#0284c7] block mb-2">
               Safety & Protection
             </span>
-            <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-semibold text-[#0a1e3f] tracking-tight leading-[1.08]">
+            <h2 className="font-heading text-2xl sm:text-4xl font-bold text-[#0a1e3f] tracking-tight leading-tight">
               Security standards that protect your funds and data.
             </h2>
           </div>
-          <p className="text-[#64748b] text-sm leading-relaxed max-w-sm md:text-right">
+          <p className="text-slate-600 text-xs sm:text-sm leading-relaxed max-w-sm md:text-right">
             Strict compliance protocols to maintain full deposit security and transaction confidentiality.
           </p>
         </div>
 
-        {/* 4-Column Open Minimal Grid (No card containers) */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 border-t border-[#e2e8f0] pt-10">
+        {/* 4-Column Responsive Grid (2 cols on mobile, 2 on tablet, 4 on desktop) */}
+        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 border-t border-[#bae6fd]/60 pt-6 sm:pt-10">
           {securityFeatures.map((feature) => (
             <div
               key={feature.title}
-              className="flex flex-col justify-start"
+              className="bg-[#f0f9ff]/40 hover:bg-[#f0f9ff] border border-[#bae6fd]/50 rounded-xl sm:rounded-2xl p-3.5 sm:p-5 flex flex-col justify-start transition-colors"
             >
               <div 
-                className="w-10 h-10 rounded-xl flex items-center justify-center mb-4"
+                className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl flex items-center justify-center mb-2.5 sm:mb-3.5 shrink-0"
                 style={{ backgroundColor: feature.bg, color: feature.color }}
               >
-                <feature.icon className="h-5 w-5" />
+                <feature.icon className="h-4 w-4 sm:h-5 sm:w-5" />
               </div>
-              <h3 className="font-heading text-base font-semibold text-[#0a1e3f] mb-1.5">
+              <h3 className="font-heading text-xs sm:text-base font-bold text-[#0a1e3f] mb-1 leading-snug">
                 {feature.title}
               </h3>
-              <p className="text-xs text-[#64748b] leading-relaxed">
+              <p className="text-[11px] sm:text-xs text-slate-600 leading-relaxed line-clamp-4">
                 {feature.description}
               </p>
             </div>
@@ -75,44 +75,44 @@ export function SecuritySection() {
         </div>
 
         {/* Regulatory Strip - Clean minimal divider row */}
-        <div className="mt-12 pt-8 border-t border-[#e2e8f0] grid grid-cols-2 sm:grid-cols-4 gap-6">
-          <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-lg bg-[#f0f7ff] text-[#0284c7] flex items-center justify-center font-bold text-xs shrink-0">
+        <div className="mt-8 sm:mt-12 pt-6 sm:pt-8 border-t border-[#bae6fd]/60 grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-6">
+          <div className="flex items-center gap-2.5">
+            <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-[#f0f7ff] text-[#0284c7] flex items-center justify-center font-bold text-[10px] sm:text-xs shrink-0 border border-sky-100">
               CBN
             </div>
             <div>
-              <div className="text-xs font-semibold text-[#0a1e3f]">Central Bank</div>
-              <div className="text-[10px] text-[#64748b]">Licensed MFB</div>
+              <div className="text-[11px] sm:text-xs font-semibold text-[#0a1e3f]">Central Bank</div>
+              <div className="text-[9px] sm:text-[10px] text-slate-500">Licensed MFB</div>
             </div>
           </div>
 
-          <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-lg bg-[#f0fdf4] text-[#16a34a] flex items-center justify-center font-bold text-xs shrink-0">
+          <div className="flex items-center gap-2.5">
+            <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-[#f0fdf4] text-[#16a34a] flex items-center justify-center font-bold text-[10px] sm:text-xs shrink-0 border border-emerald-100">
               NDIC
             </div>
             <div>
-              <div className="text-xs font-semibold text-[#0a1e3f]">Insured Deposits</div>
-              <div className="text-[10px] text-[#64748b]">Statutory Cover</div>
+              <div className="text-[11px] sm:text-xs font-semibold text-[#0a1e3f]">Insured Deposits</div>
+              <div className="text-[9px] sm:text-[10px] text-slate-500">Statutory Cover</div>
             </div>
           </div>
 
-          <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-lg bg-[#f0f7ff] text-[#0369a1] flex items-center justify-center font-bold text-xs shrink-0">
-              PCI
-            </div>
-            <div>
-              <div className="text-xs font-semibold text-[#0a1e3f]">DSS Standard</div>
-              <div className="text-[10px] text-[#64748b]">Card Security</div>
-            </div>
-          </div>
-
-          <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-lg bg-[#f8fafc] text-[#0a1e3f] flex items-center justify-center font-bold text-xs shrink-0">
+          <div className="flex items-center gap-2.5">
+            <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-[#f0f7ff] text-[#0369a1] flex items-center justify-center font-bold text-[10px] sm:text-xs shrink-0 border border-sky-100">
               NIBSS
             </div>
             <div>
-              <div className="text-xs font-semibold text-[#0a1e3f]">Instant Settle</div>
-              <div className="text-[10px] text-[#64748b]">Real-Time Switching</div>
+              <div className="text-[11px] sm:text-xs font-semibold text-[#0a1e3f]">Instant Transfer</div>
+              <div className="text-[9px] sm:text-[10px] text-slate-500">Direct Settlement</div>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-2.5">
+            <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-[#f8fafc] text-[#0a1e3f] flex items-center justify-center font-bold text-[10px] sm:text-xs shrink-0 border border-slate-200">
+              256b
+            </div>
+            <div>
+              <div className="text-[11px] sm:text-xs font-semibold text-[#0a1e3f]">TLS Protected</div>
+              <div className="text-[9px] sm:text-[10px] text-slate-500">Encrypted Data</div>
             </div>
           </div>
         </div>

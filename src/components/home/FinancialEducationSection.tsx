@@ -1,8 +1,9 @@
 import { BookOpen, ArrowRight, ShieldCheck, TrendingUp, PiggyBank, Sparkles } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import { useCMS } from "@/context/CMSContext";
 
-const educationalGuides = [
+const defaultEducationalGuides = [
   {
     category: "Savings Strategy",
     title: "How to save consistently with irregular business income",
@@ -27,6 +28,16 @@ const educationalGuides = [
 ];
 
 export function FinancialEducationSection() {
+  const { siteContent } = useCMS();
+  const fe = siteContent?.financialEducationSection;
+
+  const badge = fe?.badge || "Financial Literacy & Education";
+  const heading = fe?.heading || "Practical guides for your financial growth";
+  const description = fe?.description || "We believe banking should empower you with practical knowledge to manage money, grow your enterprise, and safeguard your assets.";
+  const guides = fe?.guides && fe.guides.length > 0 ? fe.guides : defaultEducationalGuides;
+  const ctaText = fe?.ctaText || "View All Financial Guides";
+  const ctaLink = fe?.ctaLink || "/media";
+
   return (
     <section className="py-14 sm:py-20 bg-white border-b border-slate-100">
       <div className="max-w-[1240px] mx-auto px-4 sm:px-6">
@@ -35,13 +46,13 @@ export function FinancialEducationSection() {
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10 sm:mb-14">
           <div>
             <span className="text-xs font-semibold uppercase tracking-wider text-[#0284c7] bg-sky-50 px-3 py-1 rounded-full border border-sky-100 inline-block mb-3">
-              Financial Literacy & Education
+              {badge}
             </span>
             <h2 className="font-heading text-2xl sm:text-4xl font-bold text-[#0a1e3f] tracking-tight">
-              Practical guides for your financial growth
+              {heading}
             </h2>
             <p className="text-xs sm:text-sm text-slate-600 mt-2 max-w-xl leading-relaxed">
-              We believe banking should empower you with practical knowledge to manage money, grow your enterprise, and safeguard your assets.
+              {description}
             </p>
           </div>
 
@@ -51,8 +62,8 @@ export function FinancialEducationSection() {
             asChild
             className="rounded-full border-slate-300 text-[#0a1e3f] hover:bg-slate-50 text-xs font-semibold h-10 px-5 shrink-0 self-start md:self-auto"
           >
-            <Link to="/media">
-              <span>View All Financial Guides</span>
+            <Link to={ctaLink}>
+              <span>{ctaText}</span>
               <ArrowRight className="h-3.5 w-3.5 ml-1.5" />
             </Link>
           </Button>
@@ -60,7 +71,7 @@ export function FinancialEducationSection() {
 
         {/* Responsive Grid Design for Articles */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 pt-4">
-          {educationalGuides.map((guide) => (
+          {guides.map((guide) => (
             <Link
               key={guide.title}
               to={guide.href}
