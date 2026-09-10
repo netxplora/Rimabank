@@ -81,39 +81,55 @@ export function HeroSection() {
             </Button>
           </div>
 
-          {/* Grounded Institutional Metrics — centered horizontal strip on all screen sizes */}
-          <div className="pt-5 sm:pt-7 border-t border-slate-200/80 flex flex-row items-center justify-center gap-0 text-[#0a1e3f] w-full overflow-hidden">
+          {/* Institutional Metrics — 3-col grid on mobile, horizontal strip on desktop */}
+          <div className="pt-5 sm:pt-7 border-t border-slate-200/80 w-full">
 
-            {/* Metric 1 */}
-            <div className="flex items-center gap-1.5 px-3 sm:px-5 shrink-0">
-              <ShieldCheck className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-emerald-600 shrink-0" />
-              <div className="flex flex-col leading-tight min-w-0">
-                <span className="text-[10px] sm:text-xs font-semibold text-[#0a1e3f] whitespace-nowrap">CBN Licensed</span>
-                <span className="text-[9px] sm:text-[10px] text-slate-500 font-normal whitespace-nowrap">Regulatory Assurance</span>
+            {/* Mobile: 3 equal columns, stacked icon/stat/label */}
+            <div className="grid grid-cols-3 sm:hidden gap-2">
+              {/* Metric 1 */}
+              <div className="flex flex-col items-center text-center gap-1 px-1">
+                <ShieldCheck className="h-4 w-4 text-emerald-600 shrink-0" />
+                <span className="text-[11px] font-bold text-[#0a1e3f] leading-tight">CBN Licensed</span>
+                <span className="text-[9px] text-slate-500 leading-tight">Regulatory Assurance</span>
+              </div>
+              {/* Metric 2 */}
+              <div className="flex flex-col items-center text-center gap-1 px-1 border-x border-slate-200/60">
+                <Landmark className="h-4 w-4 text-[#0284c7] shrink-0" />
+                <span className="text-[11px] font-bold text-[#0a1e3f] leading-tight">{hero?.ratingScore || "25+ Years"}</span>
+                <span className="text-[9px] text-slate-500 leading-tight">{hero?.ratingLabel || "Serving Rivers State"}</span>
+              </div>
+              {/* Metric 3 */}
+              <div className="flex flex-col items-center text-center gap-1 px-1">
+                <Users className="h-4 w-4 text-[#0284c7] shrink-0" />
+                <span className="text-[11px] font-bold text-[#0a1e3f] leading-tight">{hero?.activeUsersCount || "50,000+"}</span>
+                <span className="text-[9px] text-slate-500 leading-tight">{hero?.activeUsersLabel || "Active Accountholders"}</span>
               </div>
             </div>
 
-            {/* Divider */}
-            <div className="h-6 w-px bg-slate-200/80 shrink-0" />
-
-            {/* Metric 2 */}
-            <div className="flex items-center gap-1.5 px-3 sm:px-5 shrink-0">
-              <Landmark className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-[#0284c7] shrink-0" />
-              <div className="flex flex-col leading-tight min-w-0">
-                <span className="text-[10px] sm:text-xs font-semibold text-[#0a1e3f] whitespace-nowrap">{hero?.ratingScore || "25+ Years"}</span>
-                <span className="text-[9px] sm:text-[10px] text-slate-500 font-normal whitespace-nowrap">{hero?.ratingLabel || "Serving Rivers State"}</span>
+            {/* Desktop (sm+): horizontal row with dividers */}
+            <div className="hidden sm:flex flex-row items-center gap-0">
+              <div className="flex items-center gap-2 pr-6">
+                <ShieldCheck className="h-5 w-5 text-emerald-600 shrink-0" />
+                <div className="flex flex-col leading-tight">
+                  <span className="text-sm font-semibold text-[#0a1e3f]">CBN Licensed</span>
+                  <span className="text-[11px] text-slate-500">Regulatory Assurance</span>
+                </div>
               </div>
-            </div>
-
-            {/* Divider */}
-            <div className="h-6 w-px bg-slate-200/80 shrink-0" />
-
-            {/* Metric 3 */}
-            <div className="flex items-center gap-1.5 px-3 sm:px-5 shrink-0">
-              <Users className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-[#0284c7] shrink-0" />
-              <div className="flex flex-col leading-tight min-w-0">
-                <span className="text-[10px] sm:text-xs font-semibold text-[#0a1e3f] whitespace-nowrap">{hero?.activeUsersCount || "50,000+"}</span>
-                <span className="text-[9px] sm:text-[10px] text-slate-500 font-normal whitespace-nowrap">{hero?.activeUsersLabel || "Active Accountholders"}</span>
+              <div className="h-8 w-px bg-slate-200/80 shrink-0" />
+              <div className="flex items-center gap-2 px-6">
+                <Landmark className="h-5 w-5 text-[#0284c7] shrink-0" />
+                <div className="flex flex-col leading-tight">
+                  <span className="text-sm font-semibold text-[#0a1e3f]">{hero?.ratingScore || "25+ Years"}</span>
+                  <span className="text-[11px] text-slate-500">{hero?.ratingLabel || "Serving Rivers State"}</span>
+                </div>
+              </div>
+              <div className="h-8 w-px bg-slate-200/80 shrink-0" />
+              <div className="flex items-center gap-2 pl-6">
+                <Users className="h-5 w-5 text-[#0284c7] shrink-0" />
+                <div className="flex flex-col leading-tight">
+                  <span className="text-sm font-semibold text-[#0a1e3f]">{hero?.activeUsersCount || "50,000+"}</span>
+                  <span className="text-[11px] text-slate-500">{hero?.activeUsersLabel || "Active Accountholders"}</span>
+                </div>
               </div>
             </div>
 
