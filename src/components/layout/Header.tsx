@@ -600,240 +600,263 @@ export function Header() {
         )}
       </header>
 
-      {/* ── 4. Polished Mobile Navigation Drawer with Dedicated Header & Accordions ── */}
-      {isMobileMenuOpen && (
-        <div className="fixed inset-0 z-50 bg-white lg:hidden flex flex-col h-full overflow-hidden animate-in fade-in duration-200">
-          
-          {/* Mobile Navigation Header */}
-          <div className="h-[68px] px-4 flex items-center justify-between border-b border-[#bae6fd]/60 bg-white shrink-0">
-            <Link to="/" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center gap-2.5">
-              <div className="h-9 w-9 rounded-xl bg-[#f0f9ff] flex items-center justify-center border border-[#bae6fd]/70 p-1 shadow-2xs">
-                <img
-                  src="/rima-logo.png"
-                  alt="RIMA Microfinance Bank"
-                  className="h-full w-auto object-contain"
-                />
-              </div>
-              <div className="flex flex-col leading-tight">
-                <span className="font-heading text-base font-bold text-[#0a1e3f] tracking-tight">
-                  RIMA Bank
-                </span>
-                <span className="text-[8px] text-slate-500 font-semibold uppercase tracking-widest">
-                  Microfinance Bank
-                </span>
-              </div>
-            </Link>
+      {/* ── 4. Right-Side Sliding Mobile Navigation Drawer ── */}
 
+      {/* Backdrop overlay — click to close */}
+      <div
+        className={cn(
+          "fixed inset-0 z-40 lg:hidden transition-all duration-300",
+          isMobileMenuOpen
+            ? "bg-[#0a1e3f]/50 backdrop-blur-sm pointer-events-auto"
+            : "bg-transparent pointer-events-none"
+        )}
+        aria-hidden="true"
+        onClick={() => setIsMobileMenuOpen(false)}
+      />
+
+      {/* Right-side slide-in drawer panel */}
+      <div
+        className={cn(
+          "fixed top-0 right-0 z-50 h-full w-[82vw] max-w-sm bg-white flex flex-col shadow-[−20px_0_60px_rgba(10,30,63,0.18)] lg:hidden transition-transform duration-300 ease-[cubic-bezier(0.32,0.72,0,1)]",
+          isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
+        )}
+        aria-label="Mobile navigation menu"
+      >
+        {/* ── Drawer Header ── */}
+        <div className="h-[64px] px-4 flex items-center justify-between border-b border-[#bae6fd]/60 bg-white shrink-0">
+          <Link
+            to="/"
+            onClick={() => setIsMobileMenuOpen(false)}
+            className="flex items-center gap-2.5 group"
+          >
+            <div className="h-8 w-8 rounded-xl bg-[#f0f9ff] flex items-center justify-center border border-[#bae6fd]/70 p-1 shadow-2xs">
+              <img
+                src="/rima-logo.png"
+                alt="RIMA Microfinance Bank"
+                className="h-full w-auto object-contain"
+              />
+            </div>
+            <div className="flex flex-col leading-tight">
+              <span className="font-heading text-sm font-bold text-[#0a1e3f] tracking-tight">
+                RIMA Bank
+              </span>
+              <span className="text-[8px] text-slate-500 font-semibold uppercase tracking-widest">
+                Microfinance Bank
+              </span>
+            </div>
+          </Link>
+
+          {/* Close button — right aligned */}
+          <button
+            type="button"
+            onClick={() => setIsMobileMenuOpen(false)}
+            className="ml-auto p-2 rounded-xl border border-slate-200 bg-slate-50 hover:bg-[#f0f9ff] hover:border-[#bae6fd] active:scale-95 transition-all"
+            aria-label="Close navigation menu"
+          >
+            <X className="h-4.5 w-4.5 text-[#0a1e3f]" />
+          </button>
+        </div>
+
+        {/* ── Scrollable Drawer Body ── */}
+        <div className="flex-1 overflow-y-auto overscroll-contain py-4 px-4 space-y-3 pb-24">
+
+          {/* Primary CTA */}
+          <Button
+            variant="pill"
+            size="default"
+            asChild
+            className="w-full bg-[#0284c7] hover:bg-[#0369a1] text-white text-xs font-semibold h-10 justify-center shadow-xs"
+          >
+            <Link to="/contact" onClick={() => setIsMobileMenuOpen(false)}>
+              <span>Create Account</span>
+              <ArrowRight className="h-3.5 w-3.5 ml-1.5" />
+            </Link>
+          </Button>
+
+          {/* Section divider label */}
+          <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400 px-1 pt-1">
+            Navigation
+          </p>
+
+          {/* Accordion: What We Offer */}
+          <div className="border border-[#bae6fd]/70 rounded-2xl overflow-hidden bg-white shadow-2xs">
             <button
               type="button"
-              onClick={() => setIsMobileMenuOpen(false)}
-              className="p-2 rounded-xl border border-slate-200 text-slate-700 bg-slate-50 hover:bg-slate-100 active:scale-95 transition-all"
-              aria-label="Close Navigation Menu"
+              className={cn(
+                "w-full px-4 py-3 flex items-center justify-between text-left font-semibold text-sm transition-colors",
+                expandedMobileCategory === "offer"
+                  ? "text-[#0284c7] bg-[#f0f9ff]"
+                  : "text-[#0a1e3f] bg-white"
+              )}
+              onClick={() =>
+                setExpandedMobileCategory(
+                  expandedMobileCategory === "offer" ? null : "offer"
+                )
+              }
             >
-              <X className="h-5 w-5 text-[#0a1e3f]" />
+              <span className="flex items-center gap-2.5">
+                <Wallet className="h-4 w-4 text-[#0284c7] shrink-0" />
+                What We Offer
+              </span>
+              <ChevronDown
+                className={cn(
+                  "h-4 w-4 text-slate-400 transition-transform duration-200 shrink-0",
+                  expandedMobileCategory === "offer" && "rotate-180 text-[#0284c7]"
+                )}
+              />
             </button>
+
+            {expandedMobileCategory === "offer" && (
+              <div className="border-t border-[#bae6fd]/40 divide-y divide-slate-100">
+                {whatWeOfferMenu.groups.map((group) => {
+                  const GroupIcon = group.icon || Layers;
+                  const isGroupExpanded = expandedMobileGroup === group.title;
+                  return (
+                    <div key={group.title} className="bg-white">
+                      <button
+                        type="button"
+                        className="w-full flex items-center justify-between px-4 py-2.5 text-left text-xs font-semibold text-slate-600 hover:bg-[#f8fafc]"
+                        onClick={() =>
+                          setExpandedMobileGroup(isGroupExpanded ? null : group.title)
+                        }
+                      >
+                        <span className="flex items-center gap-2">
+                          <GroupIcon className="h-3.5 w-3.5 text-[#0284c7]" />
+                          {group.title}
+                        </span>
+                        <ChevronDown
+                          className={cn(
+                            "h-3 w-3 text-slate-400 transition-transform duration-200",
+                            isGroupExpanded && "rotate-180 text-[#0284c7]"
+                          )}
+                        />
+                      </button>
+                      {isGroupExpanded && (
+                        <div className="pb-2 bg-[#f8fafc]">
+                          {group.items.map((item) => (
+                            <Link
+                              key={item.name}
+                              to={item.href}
+                              onClick={() => setIsMobileMenuOpen(false)}
+                              className="flex items-center justify-between py-2 pl-9 pr-4 text-xs text-slate-600 hover:text-[#0284c7] hover:bg-[#f0f9ff] font-medium transition-colors"
+                            >
+                              <span>{item.name}</span>
+                              <ChevronRight className="h-3 w-3 text-slate-300 shrink-0" />
+                            </Link>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            )}
           </div>
 
-          {/* Scrollable Navigation Body */}
-          <div className="flex-1 overflow-y-auto p-4 space-y-4 pb-28">
-            
-            {/* Prominent Action CTA at top */}
-            <div className="p-3 rounded-2xl bg-[#f0f9ff] border border-[#bae6fd]/60">
-              <Button
-                variant="pill"
-                size="default"
-                asChild
-                className="w-full bg-[#0284c7] hover:bg-[#0369a1] text-white text-xs font-semibold h-10 justify-center shadow-xs"
-              >
-                <Link to="/contact" onClick={() => setIsMobileMenuOpen(false)}>
-                  <span>Create Account</span>
-                  <ArrowRight className="h-3.5 w-3.5 ml-1.5" />
-                </Link>
-              </Button>
-            </div>
-
-            {/* Accordion Category 1: What We Offer */}
-            <div className="border border-[#bae6fd]/60 rounded-2xl overflow-hidden bg-white shadow-2xs">
-              <button
-                type="button"
-                className="w-full p-3.5 flex items-center justify-between text-left font-heading font-bold text-sm text-[#0a1e3f] bg-white border-b border-slate-100"
-                onClick={() =>
-                  setExpandedMobileCategory(
-                    expandedMobileCategory === "offer" ? null : "offer"
-                  )
-                }
-              >
-                <span className="flex items-center gap-2">
-                  <Wallet className="h-4 w-4 text-[#0284c7]" />
-                  What We Offer
-                </span>
-                <ChevronDown
-                  className={cn(
-                    "h-4 w-4 text-slate-400 transition-transform duration-200",
-                    expandedMobileCategory === "offer" && "rotate-180 text-[#0284c7]"
-                  )}
-                />
-              </button>
-
-              {expandedMobileCategory === "offer" && (
-                <div className="p-2.5 space-y-2.5 bg-[#f8fafc]/50">
-                  {whatWeOfferMenu.groups.map((group) => {
-                    const GroupIcon = group.icon || Layers;
-                    const isGroupExpanded = expandedMobileGroup === group.title;
-                    return (
-                      <div key={group.title} className="border border-slate-200/80 rounded-xl p-2.5 bg-white shadow-2xs">
-                        <button
-                          type="button"
-                          className="w-full flex items-center justify-between text-left font-semibold text-xs text-[#0a1e3f]"
-                          onClick={() => setExpandedMobileGroup(isGroupExpanded ? null : group.title)}
-                        >
-                          <span className="flex items-center gap-2">
-                            <GroupIcon className="h-3.5 w-3.5 text-[#0284c7]" />
-                            {group.title}
-                          </span>
-                          <ChevronDown
-                            className={cn(
-                              "h-3 w-3 text-slate-400 transition-transform duration-200",
-                              isGroupExpanded && "rotate-180 text-[#0284c7]"
-                            )}
-                          />
-                        </button>
-
-                        {isGroupExpanded && (
-                          <div className="mt-2 pt-2 border-t border-slate-100 space-y-1">
-                            {group.items.map((item) => (
-                              <Link
-                                key={item.name}
-                                to={item.href}
-                                onClick={() => setIsMobileMenuOpen(false)}
-                                className="block py-1.5 px-2 rounded-lg text-xs text-slate-700 hover:text-[#0284c7] hover:bg-[#f0f9ff] font-medium"
-                              >
-                                {item.name}
-                              </Link>
-                            ))}
-                          </div>
-                        )}
-                      </div>
-                    );
-                  })}
-                </div>
+          {/* Accordion: Who We Are */}
+          <div className="border border-[#bae6fd]/70 rounded-2xl overflow-hidden bg-white shadow-2xs">
+            <button
+              type="button"
+              className={cn(
+                "w-full px-4 py-3 flex items-center justify-between text-left font-semibold text-sm transition-colors",
+                expandedMobileCategory === "about"
+                  ? "text-[#0284c7] bg-[#f0f9ff]"
+                  : "text-[#0a1e3f] bg-white"
               )}
-            </div>
+              onClick={() =>
+                setExpandedMobileCategory(
+                  expandedMobileCategory === "about" ? null : "about"
+                )
+              }
+            >
+              <span className="flex items-center gap-2.5">
+                <Building2 className="h-4 w-4 text-[#0284c7] shrink-0" />
+                Who We Are
+              </span>
+              <ChevronDown
+                className={cn(
+                  "h-4 w-4 text-slate-400 transition-transform duration-200 shrink-0",
+                  expandedMobileCategory === "about" && "rotate-180 text-[#0284c7]"
+                )}
+              />
+            </button>
 
-            {/* Accordion Category 2: Who We Are */}
-            <div className="border border-[#bae6fd]/60 rounded-2xl overflow-hidden bg-white shadow-2xs">
-              <button
-                type="button"
-                className="w-full p-3.5 flex items-center justify-between text-left font-heading font-bold text-sm text-[#0a1e3f] bg-white border-b border-slate-100"
-                onClick={() =>
-                  setExpandedMobileCategory(
-                    expandedMobileCategory === "about" ? null : "about"
-                  )
-                }
-              >
-                <span className="flex items-center gap-2">
-                  <Building2 className="h-4 w-4 text-[#0284c7]" />
-                  Who We Are
-                </span>
-                <ChevronDown
-                  className={cn(
-                    "h-4 w-4 text-slate-400 transition-transform duration-200",
-                    expandedMobileCategory === "about" && "rotate-180 text-[#0284c7]"
-                  )}
-                />
-              </button>
-
-              {expandedMobileCategory === "about" && (
-                <div className="p-2.5 space-y-2.5 bg-[#f8fafc]/50">
-                  {whoWeAreMenu.groups.map((group) => {
-                    const GroupIcon = group.icon || Layers;
-                    const isGroupExpanded = expandedMobileGroup === group.title;
-                    return (
-                      <div key={group.title} className="border border-slate-200/80 rounded-xl p-2.5 bg-white shadow-2xs">
-                        <button
-                          type="button"
-                          className="w-full flex items-center justify-between text-left font-semibold text-xs text-[#0a1e3f]"
-                          onClick={() => setExpandedMobileGroup(isGroupExpanded ? null : group.title)}
-                        >
-                          <span className="flex items-center gap-2">
-                            <GroupIcon className="h-3.5 w-3.5 text-[#0284c7]" />
-                            {group.title}
-                          </span>
-                          <ChevronDown
-                            className={cn(
-                              "h-3 w-3 text-slate-400 transition-transform duration-200",
-                              isGroupExpanded && "rotate-180 text-[#0284c7]"
-                            )}
-                          />
-                        </button>
-
-                        {isGroupExpanded && (
-                          <div className="mt-2 pt-2 border-t border-slate-100 space-y-1">
-                            {group.items.map((item) => (
-                              <Link
-                                key={item.name}
-                                to={item.href}
-                                onClick={() => setIsMobileMenuOpen(false)}
-                                className="block py-1.5 px-2 rounded-lg text-xs text-slate-700 hover:text-[#0284c7] hover:bg-[#f0f9ff] font-medium"
-                              >
-                                {item.name}
-                              </Link>
-                            ))}
-                          </div>
-                        )}
-                      </div>
-                    );
-                  })}
-                </div>
-              )}
-            </div>
-
-            {/* Direct Quick Nav Links */}
-            <div className="p-2 rounded-2xl border border-slate-200/80 bg-white space-y-1 shadow-2xs">
-              <Link
-                to="/agent-banking"
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="flex items-center justify-between py-2 px-3 rounded-xl text-xs font-semibold text-[#0a1e3f] hover:bg-[#f0f9ff] hover:text-[#0284c7]"
-              >
-                <span>Agency Banking</span>
-                <ChevronRight className="h-3.5 w-3.5 text-slate-400" />
-              </Link>
-              <Link
-                to="/media"
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="flex items-center justify-between py-2 px-3 rounded-xl text-xs font-semibold text-[#0a1e3f] hover:bg-[#f0f9ff] hover:text-[#0284c7]"
-              >
-                <span>News & Publications</span>
-                <ChevronRight className="h-3.5 w-3.5 text-slate-400" />
-              </Link>
-              <Link
-                to="/branches"
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="flex items-center justify-between py-2 px-3 rounded-xl text-xs font-semibold text-[#0a1e3f] hover:bg-[#f0f9ff] hover:text-[#0284c7]"
-              >
-                <span>Branches & Locations</span>
-                <ChevronRight className="h-3.5 w-3.5 text-slate-400" />
-              </Link>
-              <Link
-                to="/contact"
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="flex items-center justify-between py-2 px-3 rounded-xl text-xs font-semibold text-[#0a1e3f] hover:bg-[#f0f9ff] hover:text-[#0284c7]"
-              >
-                <span>Customer Support Desk</span>
-                <ChevronRight className="h-3.5 w-3.5 text-slate-400" />
-              </Link>
-            </div>
-
-            {/* Regulatory Footer Pill inside Menu */}
-            <div className="p-3 rounded-2xl bg-slate-50 border border-slate-200 text-center text-[10px] text-slate-500 space-y-1">
-              <p className="font-semibold text-[#0a1e3f]">Central Bank of Nigeria (CBN) Licensed MFB</p>
-              <p>Deposits insured by Nigeria Deposit Insurance Corporation (NDIC)</p>
-              <p className="font-mono text-[#0284c7] font-semibold pt-1">USSD: *966*808#</p>
-            </div>
-
+            {expandedMobileCategory === "about" && (
+              <div className="border-t border-[#bae6fd]/40 divide-y divide-slate-100">
+                {whoWeAreMenu.groups.map((group) => {
+                  const GroupIcon = group.icon || Layers;
+                  const isGroupExpanded = expandedMobileGroup === group.title;
+                  return (
+                    <div key={group.title} className="bg-white">
+                      <button
+                        type="button"
+                        className="w-full flex items-center justify-between px-4 py-2.5 text-left text-xs font-semibold text-slate-600 hover:bg-[#f8fafc]"
+                        onClick={() =>
+                          setExpandedMobileGroup(isGroupExpanded ? null : group.title)
+                        }
+                      >
+                        <span className="flex items-center gap-2">
+                          <GroupIcon className="h-3.5 w-3.5 text-[#0284c7]" />
+                          {group.title}
+                        </span>
+                        <ChevronDown
+                          className={cn(
+                            "h-3 w-3 text-slate-400 transition-transform duration-200",
+                            isGroupExpanded && "rotate-180 text-[#0284c7]"
+                          )}
+                        />
+                      </button>
+                      {isGroupExpanded && (
+                        <div className="pb-2 bg-[#f8fafc]">
+                          {group.items.map((item) => (
+                            <Link
+                              key={item.name}
+                              to={item.href}
+                              onClick={() => setIsMobileMenuOpen(false)}
+                              className="flex items-center justify-between py-2 pl-9 pr-4 text-xs text-slate-600 hover:text-[#0284c7] hover:bg-[#f0f9ff] font-medium transition-colors"
+                            >
+                              <span>{item.name}</span>
+                              <ChevronRight className="h-3 w-3 text-slate-300 shrink-0" />
+                            </Link>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            )}
           </div>
+
+          {/* Quick Direct Links */}
+          <div className="border border-slate-200/80 rounded-2xl overflow-hidden bg-white shadow-2xs divide-y divide-slate-100">
+            {[
+              { label: "Agency Banking", to: "/agent-banking" },
+              { label: "News & Publications", to: "/media" },
+              { label: "Branches & Locations", to: "/branches" },
+              { label: "Customer Support Desk", to: "/contact" },
+            ].map(({ label, to }) => (
+              <Link
+                key={to}
+                to={to}
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="flex items-center justify-between px-4 py-3 text-xs font-semibold text-[#0a1e3f] hover:bg-[#f0f9ff] hover:text-[#0284c7] transition-colors"
+              >
+                <span>{label}</span>
+                <ChevronRight className="h-3.5 w-3.5 text-slate-400 shrink-0" />
+              </Link>
+            ))}
+          </div>
+
+          {/* Regulatory footer pill */}
+          <div className="rounded-2xl bg-slate-50 border border-slate-200 px-4 py-3 text-center space-y-0.5">
+            <p className="text-[10px] font-bold text-[#0a1e3f]">CBN Licensed Microfinance Bank</p>
+            <p className="text-[10px] text-slate-500">Deposits insured by NDIC</p>
+            <p className="text-[10px] font-mono text-[#0284c7] font-semibold pt-0.5">USSD: *966*808#</p>
+          </div>
+
         </div>
-      )}
+      </div>
     </>
   );
 }
