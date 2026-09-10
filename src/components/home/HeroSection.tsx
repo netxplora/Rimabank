@@ -31,8 +31,8 @@ export function HeroSection() {
         <div className="absolute inset-0 bg-gradient-to-t from-[#e0f2fe]/90 via-[#bae6fd]/50 to-transparent sm:hidden" />
       </div>
 
-      <div className="relative z-10 w-full max-w-[1240px] mx-auto px-4 sm:px-8 lg:px-10 py-12 sm:py-20 lg:py-24 my-auto flex flex-col justify-center">
-        <div className="max-w-3xl space-y-5 sm:space-y-7 animate-fade-in-up">
+      <div className="relative z-10 w-full max-w-[1240px] mx-auto px-4 sm:px-8 lg:px-10 py-16 sm:py-24 lg:py-32 my-auto flex flex-col justify-center">
+        <div className="max-w-3xl space-y-6 sm:space-y-8 animate-fade-in-up">
 
           {/* Institutional Trust Badge */}
           <div>
@@ -43,19 +43,19 @@ export function HeroSection() {
           </div>
 
           {/* Primary Hero Headline */}
-          <div className="space-y-3 sm:space-y-4">
-            <h1 className="font-heading text-3xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight leading-[1.08] text-[#0a1e3f] text-balance">
+          <div className="space-y-4 sm:space-y-6 mt-2">
+            <h1 className="font-heading text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight leading-[1.1] text-[#0a1e3f] text-balance">
               {headingPart1} <span className="text-[#0284c7]">{headingHighlight}</span>{headingPart2 ? ` ${headingPart2}` : "."}
             </h1>
 
             {/* Editorial Sub-copy with comfortable max-width */}
-            <p className="text-slate-700 text-sm sm:text-base lg:text-lg font-normal leading-relaxed max-w-2xl">
+            <p className="text-slate-700 text-base sm:text-lg lg:text-xl font-normal leading-relaxed max-w-2xl">
               {description}
             </p>
           </div>
 
           {/* Interactive CTAs - Responsive Flow (No Overlaps, No Button Clipping) */}
-          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 pt-2 w-full sm:w-auto">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 sm:gap-5 pt-4 w-full sm:w-auto">
             <Button
               variant="pill"
               size="lg"
@@ -82,8 +82,8 @@ export function HeroSection() {
           </div>
 
           {/* Grounded Institutional Metrics */}
-          <div className="pt-5 sm:pt-7 border-t border-slate-200/80 grid grid-cols-2 sm:flex sm:flex-row sm:flex-wrap items-center gap-4 sm:gap-10 text-[#0a1e3f]">
-            <div className="flex items-center gap-2.5">
+          <div className="pt-6 sm:pt-8 border-t border-slate-200/80 grid grid-cols-2 sm:flex sm:flex-row sm:flex-wrap items-center gap-6 sm:gap-10 text-[#0a1e3f]">
+            <div className="flex items-center gap-3">
               <ShieldCheck className="h-4 w-4 sm:h-5 sm:w-5 text-emerald-600 shrink-0" />
               <div className="flex flex-col leading-tight">
                 <span className="text-xs sm:text-sm font-semibold text-[#0a1e3f]">CBN Licensed</span>

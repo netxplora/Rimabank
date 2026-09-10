@@ -25,7 +25,6 @@ import {
   BadgePercent,
   Smartphone,
   Sparkles,
-  LogIn,
   PiggyBank,
   GraduationCap
 } from "lucide-react";
@@ -420,7 +419,7 @@ export function Header() {
             </div>
 
             {/* Mobile Header Right: Hamburger Menu Trigger Strictly Positioned on Far Right */}
-            <div className="flex items-center lg:hidden">
+            <div className="flex items-center lg:hidden ml-auto">
               <button
                 type="button"
                 className="p-2 rounded-xl border border-[#bae6fd]/80 text-[#0a1e3f] bg-white hover:bg-[#f0f9ff] active:scale-95 transition-all shadow-2xs"
@@ -638,27 +637,17 @@ export function Header() {
           {/* Scrollable Navigation Body */}
           <div className="flex-1 overflow-y-auto p-4 space-y-4 pb-28">
             
-            {/* Prominent Action CTAs at top */}
-            <div className="grid grid-cols-2 gap-2.5 p-3 rounded-2xl bg-[#f0f9ff] border border-[#bae6fd]/60">
+            {/* Prominent Action CTA at top */}
+            <div className="p-3 rounded-2xl bg-[#f0f9ff] border border-[#bae6fd]/60">
               <Button
                 variant="pill"
                 size="default"
                 asChild
-                className="bg-[#0284c7] hover:bg-[#0369a1] text-white text-xs font-semibold h-10 justify-center shadow-xs"
+                className="w-full bg-[#0284c7] hover:bg-[#0369a1] text-white text-xs font-semibold h-10 justify-center shadow-xs"
               >
                 <Link to="/contact" onClick={() => setIsMobileMenuOpen(false)}>
                   <span>Create Account</span>
-                </Link>
-              </Button>
-
-              <Button
-                variant="outline"
-                size="default"
-                asChild
-                className="rounded-full bg-white hover:bg-slate-50 text-[#0a1e3f] border-slate-200 text-xs font-semibold h-10 justify-center"
-              >
-                <Link to="/contact" onClick={() => setIsMobileMenuOpen(false)}>
-                  <span>Sign In</span>
+                  <ArrowRight className="h-3.5 w-3.5 ml-1.5" />
                 </Link>
               </Button>
             </div>

@@ -64,8 +64,8 @@ const features = [
   },
   {
     icon: ShieldCheck,
-    title: "Biometric Sign-In Security",
-    description: "Sign in with Touch ID or Face ID for fast, biometric authentication with 256-bit encryption protecting all sessions.",
+    title: "Biometric Account Security",
+    description: "Authenticate with Touch ID or Face ID for fast, biometric security with 256-bit encryption protecting all sessions.",
     bg: "#f5ffbb",
     color: "#0a1e3f"
   },

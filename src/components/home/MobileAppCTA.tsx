@@ -28,7 +28,7 @@ export function MobileAppCTA() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 py-1">
                 {[
                   "Instant inter-bank transfers via NIBSS",
-                  "Biometric fingerprint & Face ID login",
+                  "Biometric fingerprint & Face ID authentication",
                   "Airtime, data, and utility bill payments",
                   "Download PDF bank statements directly",
                 ].map((item, idx) => (

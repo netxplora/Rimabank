@@ -31,7 +31,7 @@ const defaultCapabilities = [
   },
   {
     title: "Biometric & 2FA Security",
-    desc: "Log in with Face ID or fingerprint recognition protected by multi-factor authentication protocols.",
+    desc: "Authenticate with Face ID or fingerprint recognition protected by multi-factor authentication protocols.",
     icon: ShieldCheck
   }
 ];
