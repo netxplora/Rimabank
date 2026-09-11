@@ -27,6 +27,7 @@ import UssdBanking from "./pages/UssdBanking";
 import Savings from "./pages/Savings";
 import Cards from "./pages/Cards";
 import FinancialEducation from "./pages/FinancialEducation";
+import AppDistribution from "./pages/AppDistribution";
 
 // CMS Context & Auth
 import { CMSProvider } from "./context/CMSContext";
@@ -84,6 +85,7 @@ const App = () => (
               <Route path="/internet-banking" element={<InternetBanking />} />
               <Route path="/ussd-banking" element={<UssdBanking />} />
               <Route path="/financial-education" element={<FinancialEducation />} />
+              <Route path="/app" element={<AppDistribution />} />
               <Route path="/media" element={<Media />} />
               <Route path="/media/:slug" element={<MediaPost />} />
               <Route path="/contact" element={<Contact />} />

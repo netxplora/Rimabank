@@ -145,7 +145,7 @@ interface CMSContextType {
 
   // Settings
   systemSettings: SystemSettings;
-  updateSystemSettings: (settings: Partial<SystemSettings>, user: { id: string; name: string; role: UserRole }) => void;
+  updateSystemSettings: (settings: Partial<SystemSettings>, user: { id: string; name: string; role: UserRole }) => Promise<{ok: boolean, error?: string}>;
 
   // Popup Configs
   popupConfigs: PopupConfig[];

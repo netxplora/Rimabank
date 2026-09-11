@@ -489,5 +489,10 @@ export interface SystemSettings {
   apkDownloadUrl?: string;
   ussdCode?: string;
   mobileAppStatus?: 'live' | 'coming_soon' | 'maintenance';
+  appWebUrl?: string;
+  iosAppScheme?: string;
+  androidAppScheme?: string;
+  minimumSupportedIosVersion?: string;
+  minimumSupportedAndroidVersion?: string;
 }
 

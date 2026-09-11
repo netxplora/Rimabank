@@ -1,0 +1,14 @@
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appID": "TEAMID.com.rimabank.mobile",
+        "paths": [
+          "/app",
+          "/app/*"
+        ]
+      }
+    ]
+  }
+}

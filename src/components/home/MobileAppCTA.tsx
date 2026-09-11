@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { useCMS } from "@/context/CMSContext";
 import { motion } from "framer-motion";
 import { DownloadAppDialog } from "@/components/modals/DownloadAppDialog";
+import { RimaQrCode } from "@/components/ui/RimaQrCode";
 
 const appFeatures = [
   "Instant Interbank Money Transfers",
@@ -96,7 +97,7 @@ export function MobileAppSection() {
             >
               <div className="relative w-full max-w-[420px]">
                 {/* Background photo */}
-                <div className="rounded-3xl overflow-hidden shadow-xl border border-white/90 h-64 sm:h-80 lg:h-96 bg-white">
+                <div className="rounded-3xl overflow-hidden shadow-xl border border-white/90 h-64 sm:h-80 lg:h-96 bg-white relative">
                   <img
                     src="/images/mobile-banking.jpg"
                     alt="Person using RIMA mobile banking app on a smartphone"
@@ -104,6 +105,11 @@ export function MobileAppSection() {
                     loading="lazy"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#0a1e3f]/50 via-transparent to-transparent" />
+                </div>
+                
+                {/* Desktop QR Code Floater */}
+                <div className="absolute -bottom-6 -left-12 hidden lg:block animate-in fade-in slide-in-from-bottom-4 duration-700 delay-300">
+                  <RimaQrCode size={110} className="shadow-2xl border-white" />
                 </div>
               </div>
             </motion.div>

@@ -230,6 +230,48 @@ export default function SystemSettingsView() {
                 <p className="text-[10px] text-slate-400 mt-1">Shortcode dialed by customers for offline banking (*966*808#).</p>
               </div>
 
+              <div>
+                <label className="block text-xs font-semibold text-[#0a1e3f] mb-1">
+                  Mobile App Landing Page URL
+                </label>
+                <input
+                  type="url"
+                  placeholder="https://rimamfb.com/mobile-banking"
+                  value={formData.appWebUrl || ''}
+                  onChange={(e) => setFormData({ ...formData, appWebUrl: e.target.value })}
+                  className="w-full p-2.5 rounded-xl border border-[#e2e8f0] text-xs font-medium focus:border-[#0284c7] outline-none"
+                />
+                <p className="text-[10px] text-slate-400 mt-1">Desktop fallback destination for QR scans (e.g. /mobile-banking).</p>
+              </div>
+
+              <div>
+                <label className="block text-xs font-semibold text-[#0a1e3f] mb-1">
+                  iOS Native App Scheme
+                </label>
+                <input
+                  type="text"
+                  placeholder="rimabank://"
+                  value={formData.iosAppScheme || ''}
+                  onChange={(e) => setFormData({ ...formData, iosAppScheme: e.target.value })}
+                  className="w-full p-2.5 rounded-xl border border-[#e2e8f0] text-xs font-medium focus:border-[#0284c7] outline-none font-mono"
+                />
+                <p className="text-[10px] text-slate-400 mt-1">Custom deep link scheme for iOS (optional).</p>
+              </div>
+
+              <div>
+                <label className="block text-xs font-semibold text-[#0a1e3f] mb-1">
+                  Android Native App Scheme
+                </label>
+                <input
+                  type="text"
+                  placeholder="rimabank://"
+                  value={formData.androidAppScheme || ''}
+                  onChange={(e) => setFormData({ ...formData, androidAppScheme: e.target.value })}
+                  className="w-full p-2.5 rounded-xl border border-[#e2e8f0] text-xs font-medium focus:border-[#0284c7] outline-none font-mono"
+                />
+                <p className="text-[10px] text-slate-400 mt-1">Custom deep link scheme for Android (optional).</p>
+              </div>
+
               <div className="sm:col-span-2">
                 <label className="block text-xs font-semibold text-[#0a1e3f] mb-1">
                   Mobile App Release Status
