@@ -157,7 +157,7 @@ export default function Contact() {
       {/* ── 2. Direct Support Channels (3-Column Fast Cards) ── */}
       <section className="py-6 sm:py-8 bg-slate-50/70 border-b border-[#e2e8f0]/60">
         <div className="max-w-[1240px] mx-auto px-4 sm:px-6">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {supportChannels.map((channel, idx) => (
               <div
                 key={idx}

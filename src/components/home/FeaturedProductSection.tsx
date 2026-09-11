@@ -89,7 +89,7 @@ export function FeaturedProductSection() {
               >
                 <span className="inline-flex items-center justify-center gap-2">
                   <Download className="h-4 w-4" />
-                  <span>Download the App</span>
+                  <span>Get the App</span>
                 </span>
               </Button>
 

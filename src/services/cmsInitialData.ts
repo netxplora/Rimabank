@@ -17,7 +17,7 @@ export const initialSiteContent: SiteContent = {
     headingHighlight: "business",
     headingPart2: "",
     description: "Simple banking, practical financial services and access to the funds you need to manage, grow and move your money.",
-    primaryCtaText: "Download App",
+    primaryCtaText: "Get the App",
     primaryCtaLink: "/contact",
     secondaryCtaText: "Explore Our Services",
     secondaryCtaLink: "/personal-banking",
@@ -25,9 +25,9 @@ export const initialSiteContent: SiteContent = {
     supportEmail: "support@rimamfb.com",
     heroImage: "/images/hero-home.png",
     activeUsersCount: "50,000+",
-    activeUsersLabel: "Active Accountholders",
+    activeUsersLabel: "Active Accounts",
     ratingScore: "25+ Years",
-    ratingLabel: "Serving Rivers State"
+    ratingLabel: "Trusted Heritage"
   },
   appStoreLinks: {
     androidUrl: "",
@@ -41,10 +41,10 @@ export const initialSiteContent: SiteContent = {
   ],
   regulatoryText: "Rima Microfinance Bank is fully licensed by the Central Bank of Nigeria (CBN) and all deposits are insured by the Nigeria Deposit Insurance Corporation (NDIC).",
   aboutSnapshot: {
-    eyebrow: "Our Institutional Purpose",
-    heading: "Building Community Prosperity Through Inclusive Financial Services",
-    description1: "Rima Microfinance Bank was established with a singular vision: to democratize access to financial capital, elevate micro, small, and medium enterprises, and provide reliable savings solutions for families across Nigeria.",
-    description2: "Combining strong local community relationships with contemporary digital banking technology, we ensure every artisan, merchant, entrepreneur, and student receives the attention and financial support they deserve.",
+    eyebrow: "About RIMA Bank",
+    heading: "Banking with purpose.",
+    description1: "RIMA Microfinance Bank is a CBN-licensed institution providing practical banking services to individuals, entrepreneurs, traders and small businesses across Rivers State. We offer savings, loans, everyday banking and access to the financial tools you need to manage your money and grow.",
+    description2: "Our branches, agent network, mobile app and USSD channel put accessible banking within reach for every customer.",
     featuredImage: "/images/hero-about.png",
     stats: [
       { value: '15+ Years', label: 'Institutional Heritage' },
@@ -162,7 +162,7 @@ export const initialSiteContent: SiteContent = {
         desc: "Expand your enterprise, build emergency reserves, and achieve long-term financial security."
       }
     ],
-    ctaText: "Start Your Journey Today",
+    ctaText: "Get the App",
     ctaLink: "/contact"
   },
   financingSection: {
@@ -474,10 +474,10 @@ export const initialSiteContent: SiteContent = {
   branches: [
     {
       id: '1',
-      name: 'Main Headquarters & Flagship Branch',
-      address: 'Plot 14, Commercial Avenue, Central Business District',
-      city: 'Abuja',
-      state: 'FCT',
+      name: 'Head Office & Main Branch',
+      address: 'Plot 1, Stadium Road, Rumuola',
+      city: 'Port Harcourt',
+      state: 'Rivers State',
       phone: '+234 (0) 803 123 4567',
       email: 'hq@rimamfb.com',
       hours: 'Mon - Fri: 8:00 AM - 4:00 PM',
@@ -485,27 +485,27 @@ export const initialSiteContent: SiteContent = {
     },
     {
       id: '2',
-      name: 'Wuse Commercial Branch',
-      address: 'Shop 24, Zone 4 Commercial Plaza',
-      city: 'Abuja',
-      state: 'FCT',
+      name: 'Mile 1 Market Branch',
+      address: 'Shop 14, Mile 1 Market Road',
+      city: 'Port Harcourt',
+      state: 'Rivers State',
       phone: '+234 (0) 803 123 4568',
-      email: 'wuse@rimamfb.com',
+      email: 'mile1@rimamfb.com',
       hours: 'Mon - Fri: 8:00 AM - 4:00 PM'
     },
     {
       id: '3',
-      name: 'Garki Retail Center',
-      address: '12 Herbert Macaulay Way, Garki Area 11',
-      city: 'Abuja',
-      state: 'FCT',
+      name: 'Trans-Amadi Branch',
+      address: '22 Trans-Amadi Industrial Layout',
+      city: 'Port Harcourt',
+      state: 'Rivers State',
       phone: '+234 (0) 803 123 4569',
-      email: 'garki@rimamfb.com',
+      email: 'transamadi@rimamfb.com',
       hours: 'Mon - Fri: 8:00 AM - 4:00 PM'
     }
   ],
   contactInfo: {
-    headquarters: "Plot 14, Commercial Avenue, Central Business District, Abuja, Nigeria",
+    headquarters: "Plot 1, Stadium Road, Rumuola, Port Harcourt, Rivers State, Nigeria",
     phone: "+234 (0) 803 123 4567",
     whatsapp: "+234 803 123 4567",
     email: "contact@rimamfb.com",
@@ -522,14 +522,64 @@ export const initialSiteContent: SiteContent = {
     instagramUrl: "https://instagram.com/rimamfb"
   },
   seo: {
-    metaTitle: "Rima Microfinance Bank | Inclusive Banking & Commercial Credit",
-    metaDescription: "Licensed by CBN and insured by NDIC. Open high-yield savings accounts, access commercial SME loans, and experience trusted community banking across Nigeria.",
+    metaTitle: "Rima Microfinance Bank | Save, Borrow, Bank in Rivers State",
+    metaDescription: "RIMA Microfinance Bank offers savings accounts, personal and business loans, agent banking, mobile banking and everyday banking services in Rivers State, Nigeria.",
     canonicalUrl: "https://rimamfb.com",
-    ogTitle: "Rima Microfinance Bank - Empowering Your Financial Future",
-    ogDescription: "Safe, accessible, and technology-driven banking for families, entrepreneurs, and SMEs.",
+    ogTitle: "Rima Microfinance Bank | CBN Licensed MFB — Rivers State",
+    ogDescription: "Licensed by the Central Bank of Nigeria and insured by NDIC. Savings accounts, SME loans, agent banking and mobile banking for individuals and businesses.",
     ogImage: "/images/hero-home.png",
-    keywords: ["Rima Microfinance Bank", "SME Loans Nigeria", "POS Agent Banking", "CBN Licensed MFB", "Fixed Deposit Abuja"],
+    keywords: ["Rima Microfinance Bank", "SME Loans Rivers State", "POS Agent Banking Port Harcourt", "CBN Licensed MFB", "Savings Account Rivers State"],
     allowIndexing: true
+  },
+  coreBankingSection: {
+    badge: "Direct Financial Services",
+    heading: "What can we help you do today?",
+    description: "Direct access to everyday banking, high-yield savings, fast financing, and practical tools to build your financial future."
+  },
+  featuredProductSection: {
+    badge: "Featured Savings Plan",
+    heading: "A structured savings account built around your milestones",
+    description: "Save consistently toward your business inventory, rent, or family goals with automated standing orders and guaranteed daily interest accrual.",
+    benefits: [
+      { title: "Up to 12.5% p.a. Yield", desc: "Interest calculated daily and credited directly to your balance." },
+      { title: "Flexible Tenures", desc: "Choose 3, 6, 12, or 24 month structured durations." },
+      { title: "Zero Maintenance Fees", desc: "No monthly ledger deductions, card dues, or account keeping fees." },
+      { title: "NDIC Insured", desc: "100% statutory deposit protection under CBN regulatory rules." }
+    ],
+    primaryCtaText: "Download the App",
+    secondaryCtaText: "View All Savings Plans",
+    secondaryCtaLink: "/savings"
+  },
+  waysToBankSection: {
+    badge: "Omnichannel Banking Network",
+    heading: "Bank your way, anywhere.",
+    description: "Convenient digital, remote, agent, and in-person touchpoints designed around your daily lifestyle and enterprise needs."
+  },
+  mobileAppSection: {
+    badge: "RIMA Mobile Banking",
+    heading: "Your bank, directly in your hands.",
+    description: "Manage personal and commercial transactions on the go with biometric security, instant notifications, and 24/7 account access.",
+    features: [
+      "Instant Interbank Money Transfers",
+      "Real-time Account Balance & Alerts",
+      "Airtime, Data & Utility Bill Payments",
+      "Target & Fixed Savings Management",
+      "Quick Business & Personal Loan Access",
+      "Instant PDF e-Statement Generation"
+    ],
+    primaryCtaText: "Download Mobile App",
+    secondaryCtaText: "Explore App Features",
+    secondaryCtaLink: "/mobile-banking",
+    securityNote: "256-bit encrypted data • Biometric Touch ID & Face ID support"
+  },
+  finalCTASection: {
+    eyebrow: "Get Started with RIMA Bank",
+    heading: "Ready to experience practical banking that works for you?",
+    description: "Download our mobile app or dial our USSD code to start banking today. Enjoy instant transfers, high-yield savings, and accessible commercial credit.",
+    primaryCtaText: "Download the App",
+    secondaryCtaText: "Learn About RIMA",
+    secondaryCtaLink: "/about",
+    regulatoryNote: "Licensed by the Central Bank of Nigeria • Deposits insured by NDIC"
   }
 };
 

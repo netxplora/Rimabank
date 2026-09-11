@@ -1,8 +1,9 @@
-import { UserPlus, Wallet, Smartphone, Landmark, TrendingUp, ArrowRight, ShieldCheck, Sparkles } from "lucide-react";
-import { Link } from "react-router-dom";
+import { UserPlus, Wallet, Smartphone, Landmark, TrendingUp, ArrowRight, ShieldCheck, Sparkles, Download } from "lucide-react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { useCMS } from "@/context/CMSContext";
+import { DownloadAppDialog } from "@/components/modals/DownloadAppDialog";
 
 const defaultJourneySteps = [
   {
@@ -62,6 +63,7 @@ const cardVariants = {
 export function CustomerJourneySection() {
   const { siteContent } = useCMS();
   const cj = siteContent?.customerJourney;
+  const [showAppDialog, setShowAppDialog] = useState(false);
 
   const badge = cj?.badge || "Simple & Transparent Process";
   const heading = cj?.heading || "How banking works with RIMA";
@@ -96,7 +98,7 @@ export function CustomerJourneySection() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-40px" }}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 sm:gap-5 relative"
+          className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-5 gap-3 sm:gap-4 lg:gap-5 relative"
         >
           {steps.map((item, idx) => {
             const Icon = (item as any).icon || stepIcons[idx % stepIcons.length] || UserPlus;
@@ -148,17 +150,20 @@ export function CustomerJourneySection() {
           <Button
             variant="pill"
             size="lg"
-            asChild
-            className="bg-[#0284c7] hover:bg-[#0369a1] text-white text-xs sm:text-sm font-semibold h-12 px-8 shadow-md"
+            onClick={() => setShowAppDialog(true)}
+            className="bg-[#0284c7] hover:bg-[#0369a1] text-white text-xs sm:text-sm font-semibold h-12 px-8 shadow-md cursor-pointer"
           >
-            <Link to={ctaLink} className="inline-flex items-center gap-2">
-              <span>{ctaText}</span>
-              <ArrowRight className="h-4 w-4" />
-            </Link>
+            <span className="inline-flex items-center gap-2">
+              <Download className="h-4 w-4" />
+              <span>Get the App</span>
+            </span>
           </Button>
         </div>
 
       </div>
+
+      {/* App Download Dialog */}
+      <DownloadAppDialog open={showAppDialog} onOpenChange={setShowAppDialog} />
     </section>
   );
 }

@@ -71,7 +71,7 @@ export function MobileAppSection() {
                 >
                   <span className="inline-flex items-center gap-2">
                     <Download className="h-4 w-4" />
-                    <span>Download Mobile App</span>
+                    <span>Get the App</span>
                   </span>
                 </Button>
                 
@@ -96,7 +96,7 @@ export function MobileAppSection() {
             >
               <div className="relative w-full max-w-[420px]">
                 {/* Background photo */}
-                <div className="rounded-3xl overflow-hidden shadow-xl border border-white/90 h-72 sm:h-88 lg:h-96 bg-white">
+                <div className="rounded-3xl overflow-hidden shadow-xl border border-white/90 h-64 sm:h-80 lg:h-96 bg-white">
                   <img
                     src="/images/mobile-banking.jpg"
                     alt="Person using RIMA mobile banking app on a smartphone"

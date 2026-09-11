@@ -410,7 +410,7 @@ export function Header() {
                 className="bg-[#0284c7] hover:bg-[#0369a1] text-white shadow-brand text-xs font-semibold px-5 h-9"
                 onClick={() => setShowAppDialog(true)}
               >
-                <span>Download App</span>
+                <span>Get the App</span>
                 <ArrowRight className="h-3.5 w-3.5 ml-1.5" />
               </Button>
             </div>
@@ -667,7 +667,7 @@ export function Header() {
               setShowAppDialog(true);
             }}
           >
-            <span>Download App</span>
+            <span>Get the App</span>
             <ArrowRight className="h-3.5 w-3.5 ml-1.5" />
           </Button>
 

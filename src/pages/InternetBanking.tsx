@@ -170,7 +170,7 @@ export default function InternetBanking() {
       </section>
 
       {/* Feature Grid */}
-      <section className="py-20 bg-[#f8fafc]">
+      <section className="py-12 sm:py-16 lg:py-20 bg-[#f8fafc]">
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
           <div className="text-center max-w-3xl mx-auto mb-16">
             <span className="text-xs font-semibold uppercase tracking-wider text-[#0284c7] bg-sky-50 px-3.5 py-1.5 rounded-full border border-sky-100 inline-block mb-3">
@@ -184,7 +184,7 @@ export default function InternetBanking() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-6 max-w-4xl mx-auto">
             {portalFeatures.map((f) => (
               <div 
                 key={f.title}
@@ -204,7 +204,7 @@ export default function InternetBanking() {
       </section>
 
       {/* Corporate Sign-Up & Security Charter */}
-      <section className="py-20 bg-white border-t border-slate-100">
+      <section className="py-12 sm:py-16 lg:py-20 bg-white border-t border-slate-100">
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
           <div className="bg-[#0a1e3f] text-white rounded-3xl p-8 sm:p-12 shadow-xl">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">

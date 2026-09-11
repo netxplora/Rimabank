@@ -155,7 +155,7 @@ export function WaysToBankSection() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-40px" }}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5"
+          className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-5"
         >
           {channels.map((ch) => {
             const Icon = ch.icon;
@@ -168,7 +168,7 @@ export function WaysToBankSection() {
               >
                 <Link
                   to={ch.href}
-                  className="group relative h-full flex flex-col justify-between p-5 sm:p-6 rounded-2xl bg-white hover:bg-white border border-slate-200/90 hover:border-[#0284c7]/40 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden"
+                  className="group relative h-full flex flex-col justify-between p-4 sm:p-5 lg:p-6 rounded-2xl bg-white hover:bg-white border border-slate-200/90 hover:border-[#0284c7]/40 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden"
                 >
                   {/* Subtle top edge hover gradient light sweep */}
                   <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#0284c7] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -188,7 +188,7 @@ export function WaysToBankSection() {
                       {ch.title}
                     </h3>
 
-                    <p className="font-sans text-xs sm:text-[13px] text-slate-600 mt-2 leading-relaxed">
+                    <p className="font-sans text-[11px] sm:text-xs lg:text-[13px] text-slate-600 mt-2 leading-relaxed line-clamp-2 sm:line-clamp-none">
                       {ch.desc}
                     </p>
                   </div>

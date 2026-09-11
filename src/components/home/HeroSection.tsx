@@ -29,7 +29,7 @@ export function HeroSection() {
   const headingPart2 = hero?.headingPart2 || "";
   const eyebrow = hero?.eyebrow || "Central Bank of Nigeria Licensed • NDIC Insured";
   const description = hero?.description || "Simple banking, practical financial services and access to the funds you need to manage, grow and move your money.";
-  const primaryCtaText = hero?.primaryCtaText || "Download App";
+  const primaryCtaText = hero?.primaryCtaText || "Get the App";
   const primaryCtaLink = hero?.primaryCtaLink || "/contact";
   const secondaryCtaText = hero?.secondaryCtaText || "Explore Our Services";
   const secondaryCtaLink = hero?.secondaryCtaLink || "/personal-banking";
@@ -146,7 +146,7 @@ export function HeroSection() {
             </motion.div>
 
             {/* Feature Highlights Pills */}
-            <motion.div variants={itemVariants} className="flex flex-nowrap sm:flex-wrap gap-2.5 sm:gap-3 pt-1 overflow-x-auto scrollbar-thin scrollbar-thumb-[#0284c7] scrollbar-track-transparent">
+            <motion.div variants={itemVariants} className="flex flex-wrap gap-2 sm:gap-2.5 pt-1">
               <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/80 border border-slate-200/80 text-xs font-medium text-slate-700 shadow-2xs">
                 <CheckCircle2 className="h-3.5 w-3.5 text-[#0284c7] shrink-0" />
                 <span>Zero Hidden Fees</span>
@@ -163,7 +163,7 @@ export function HeroSection() {
 
             {/* Primary & Secondary Call to Actions */}
             <motion.div variants={itemVariants} className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 sm:gap-4 pt-2">
-              {primaryCtaText.toLowerCase().includes("download") ? (
+              {(primaryCtaText.toLowerCase().includes("app") || primaryCtaText.toLowerCase().includes("download")) ? (
                 <Button
                   variant="pill"
                   size="lg"
@@ -244,8 +244,8 @@ export function HeroSection() {
             </motion.div>
           </motion.div>
 
-          {/* Right Column: High-End Interactive Showcase with Floating Cards (5 cols on lg) */}
-          <div className="lg:col-span-5 relative mt-4 lg:mt-0">
+          {/* Right Column: Interactive Showcase — Desktop only */}
+          <div className="hidden lg:block lg:col-span-5 relative mt-4 lg:mt-0">
             <div className="relative mx-auto max-w-[440px] lg:max-w-none">
               
               {/* Main Decorative Frame: Realistic Banking Imagery */}

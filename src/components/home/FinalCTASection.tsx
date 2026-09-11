@@ -29,7 +29,7 @@ export function FinalCTASection() {
 
           {/* Subtitle */}
           <p className="relative z-10 font-sans text-slate-300 text-sm sm:text-base max-w-lg mb-8 leading-relaxed">
-            Download our mobile app or dial our USSD code to start banking today. Enjoy instant transfers, high-yield savings, and accessible commercial credit.
+            Get the app or dial our USSD code to start banking today. Instant transfers, high-yield savings, and accessible commercial credit.
           </p>
 
           {/* CTAs */}
@@ -42,7 +42,7 @@ export function FinalCTASection() {
             >
               <span className="inline-flex items-center gap-2">
                 <Download className="h-4 w-4" />
-                <span>Download the App</span>
+                <span>Get the App</span>
               </span>
             </Button>
             

@@ -11,6 +11,7 @@ import {
   ShieldCheck
 } from "lucide-react";
 import { motion } from "framer-motion";
+import { useCMS } from "@/context/CMSContext";
 
 const actions = [
   {
@@ -99,6 +100,11 @@ const itemVariants = {
 };
 
 export function CoreBankingActions() {
+  const { siteContent } = useCMS();
+  const cms = siteContent?.coreBankingSection;
+  const badge = cms?.badge || "Direct Financial Services";
+  const heading = cms?.heading || "What can we help you do today?";
+  const description = cms?.description || "Direct access to everyday banking, high-yield savings, fast financing, and practical tools to build your financial future.";
   return (
     <section className="relative py-16 sm:py-20 bg-[#ffffff] border-b border-slate-200/70 overflow-hidden">
       {/* Subtle architectural background accents */}
@@ -113,15 +119,15 @@ export function CoreBankingActions() {
         <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-14 space-y-3">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#f0f9ff] border border-[#bae6fd] text-[#0284c7] text-xs font-semibold uppercase tracking-wider shadow-2xs">
             <span className="w-1.5 h-1.5 rounded-full bg-[#0284c7]" />
-            <span>Direct Financial Services</span>
+            <span>{badge}</span>
           </div>
 
           <h2 className="font-heading text-2xl sm:text-3xl lg:text-4xl font-bold text-[#0a1e3f] tracking-tight">
-            What can we help you do today?
+            {heading}
           </h2>
           
           <p className="font-sans text-sm sm:text-base text-slate-600 leading-relaxed max-w-lg mx-auto">
-            Direct access to everyday banking, high-yield savings, fast financing, and practical tools to build your financial future.
+            {description}
           </p>
         </div>
 
@@ -131,7 +137,7 @@ export function CoreBankingActions() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-40px" }}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4 sm:gap-5"
+          className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-3 sm:gap-4 lg:gap-5"
         >
           {actions.map((item) => {
             const Icon = item.icon;
@@ -144,7 +150,7 @@ export function CoreBankingActions() {
               >
                 <Link
                   to={item.href}
-                  className="group relative h-full p-5 sm:p-6 rounded-2xl bg-white hover:bg-white border border-slate-200/90 hover:border-[#0284c7]/40 transition-all duration-300 shadow-sm hover:shadow-xl flex flex-col justify-between overflow-hidden"
+                  className="group relative h-full p-4 sm:p-5 lg:p-6 rounded-2xl bg-white hover:bg-white border border-slate-200/90 hover:border-[#0284c7]/40 transition-all duration-300 shadow-sm hover:shadow-xl flex flex-col justify-between overflow-hidden"
                 >
                   {/* Subtle top edge gradient highlight on hover */}
                   <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#0284c7] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -164,7 +170,7 @@ export function CoreBankingActions() {
                       {item.title}
                     </h3>
                     
-                    <p className="font-sans text-xs sm:text-[13px] text-slate-600 mt-2 leading-relaxed">
+                    <p className="font-sans text-[11px] sm:text-xs lg:text-[13px] text-slate-600 mt-2 leading-relaxed line-clamp-2 sm:line-clamp-none">
                       {item.desc}
                     </p>
                   </div>

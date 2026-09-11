@@ -255,7 +255,7 @@ export default function PersonalBanking() {
       </section>
 
       {/* Account Options Grid */}
-      <section className="py-20 bg-[#f8fafc]">
+      <section className="py-12 sm:py-16 lg:py-20 bg-[#f8fafc]">
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
           <div className="text-center max-w-3xl mx-auto mb-16">
             <span className="text-xs font-semibold uppercase tracking-wider text-[#0284c7] bg-sky-50 px-3.5 py-1.5 rounded-full border border-sky-100 inline-block mb-3">
@@ -269,7 +269,7 @@ export default function PersonalBanking() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
             {personalAccounts.map((account) => (
               <div 
                 key={account.id} 
@@ -321,7 +321,7 @@ export default function PersonalBanking() {
       </section>
 
       {/* Account Opening Requirements / KYC Checklist */}
-      <section className="py-20 bg-white border-t border-slate-100">
+      <section className="py-12 sm:py-16 lg:py-20 bg-white border-t border-slate-100">
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
             <div className="lg:col-span-5">
@@ -408,7 +408,7 @@ export default function PersonalBanking() {
       {/* Connected Channels Banner */}
       <section className="py-16 bg-[#0a1e3f] text-white">
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 items-center">
             <div className="md:col-span-2">
               <span className="text-xs font-semibold uppercase tracking-wider text-sky-300 bg-sky-950/60 px-3 py-1 rounded-full border border-sky-800/60 inline-block mb-3">
                 Omnichannel Access

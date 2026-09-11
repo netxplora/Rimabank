@@ -398,6 +398,44 @@ export interface SiteContent {
     description: string;
     features: { title: string; desc: string }[];
   };
+  coreBankingSection?: {
+    badge: string;
+    heading: string;
+    description: string;
+  };
+  featuredProductSection?: {
+    badge: string;
+    heading: string;
+    description: string;
+    benefits: { title: string; desc: string }[];
+    primaryCtaText: string;
+    secondaryCtaText: string;
+    secondaryCtaLink: string;
+  };
+  waysToBankSection?: {
+    badge: string;
+    heading: string;
+    description: string;
+  };
+  mobileAppSection?: {
+    badge: string;
+    heading: string;
+    description: string;
+    features: string[];
+    primaryCtaText: string;
+    secondaryCtaText: string;
+    secondaryCtaLink: string;
+    securityNote: string;
+  };
+  finalCTASection?: {
+    eyebrow: string;
+    heading: string;
+    description: string;
+    primaryCtaText: string;
+    secondaryCtaText: string;
+    secondaryCtaLink: string;
+    regulatoryNote: string;
+  };
   products: ProductItem[];
   testimonials: TestimonialItem[];
   branches: BranchItem[];
