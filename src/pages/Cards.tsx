@@ -3,7 +3,6 @@ import { Layout } from "@/components/layout/Layout";
 import { Link } from "react-router-dom";
 import { 
   CreditCard, 
-  Wifi, 
   ShieldCheck, 
   MapPin, 
   ArrowRight, 
@@ -134,58 +133,23 @@ export default function Cards() {
               </div>
             </motion.div>
 
-            {/* 3D Realistic Debit Card Showcase */}
+            {/* Official ATM Card Photo */}
             <motion.div 
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5, delay: 0.15 }}
               className="lg:col-span-5 flex justify-center"
             >
-              <div className="w-full max-w-[380px] rounded-3xl bg-gradient-to-tr from-[#0a1e3f] via-[#112d5e] to-[#061329] p-7 text-white shadow-2xl relative overflow-hidden border border-blue-400/20">
-                <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-transparent pointer-events-none" />
-                <div className="absolute top-0 right-0 w-32 h-32 bg-[#0284c7]/20 rounded-full blur-2xl pointer-events-none" />
-
-                {/* Card Header */}
-                <div className="flex justify-between items-start mb-8 relative z-10">
-                  <div>
-                    <span className="text-[10px] text-blue-200/80 uppercase tracking-widest block font-bold">
-                      RIMA Microfinance Bank
-                    </span>
-                    <span className="font-heading text-sm font-semibold tracking-wide text-sky-300">
-                      Debit Card
-                    </span>
-                  </div>
-                  <div className="w-9 h-9 rounded-xl bg-[#0284c7] flex items-center justify-center font-bold text-sm shadow-md text-white">
-                    R
-                  </div>
-                </div>
-
-                {/* EMV Chip & Contactless Icon */}
-                <div className="flex items-center gap-3 mb-6 relative z-10">
-                  <div className="w-11 h-8 rounded-md bg-gradient-to-tr from-amber-300 via-yellow-200 to-amber-400 border border-yellow-500/40 flex items-center justify-center shadow-inner">
-                    <div className="w-7 h-5 border border-amber-600/30 rounded-xs" />
-                  </div>
-                  <Wifi className="w-5 h-5 text-blue-200 rotate-90" />
-                </div>
-
-                {/* Card Number */}
-                <div className="font-mono text-lg tracking-[0.22em] text-white/95 mb-6 relative z-10">
-                  5061 •••• •••• 8821
-                </div>
-
-                {/* Cardholder & Expiry */}
-                <div className="flex justify-between items-end text-[10px] text-blue-200/80 relative z-10 pt-4 border-t border-white/10">
-                  <div>
-                    <span className="text-[8px] uppercase tracking-widest text-blue-200/50 block">Cardholder Name</span>
-                    <span className="font-semibold text-white/95 text-xs tracking-wider">VALUED CUSTOMER</span>
-                  </div>
-                  <div className="text-right">
-                    <span className="text-[8px] uppercase tracking-widest text-blue-200/50 block">Valid Thru</span>
-                    <span className="font-mono text-xs text-white/95 font-semibold">12/29</span>
-                  </div>
-                  <div className="bg-white/10 px-3 py-1 rounded text-xs font-bold tracking-widest text-white border border-white/20">
-                    VERVE
-                  </div>
+              <div className="relative group max-w-[400px] w-full">
+                <div className="absolute inset-0 -z-10 rounded-3xl bg-sky-100/60 blur-2xl scale-90 opacity-70 group-hover:opacity-100 transition-opacity duration-500" />
+                <img
+                  src="/images/atm-card.jpg"
+                  alt="Rima MFB Official Debit Card"
+                  className="w-full h-auto object-contain drop-shadow-2xl transform group-hover:-rotate-1 group-hover:scale-[1.02] transition-transform duration-500"
+                />
+                <div className="mt-4 flex items-center justify-center gap-2 text-[11px] text-slate-500 font-medium">
+                  <span className="w-2 h-2 rounded-full bg-[#16a34a] animate-pulse" />
+                  EMV Chip &amp; PIN Protected • Nationwide Acceptance
                 </div>
               </div>
             </motion.div>
