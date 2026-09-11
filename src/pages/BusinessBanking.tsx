@@ -354,11 +354,11 @@ export default function BusinessBanking() {
             <div className="lg:col-span-6 flex items-center justify-center">
               <div className="relative group max-w-[380px] w-full">
                 {/* Ambient glow */}
-                <div className="absolute inset-0 -z-10 rounded-3xl bg-sky-100/60 blur-2xl scale-90 opacity-60 group-hover:opacity-100 transition-opacity duration-500" />
                 <img
                   src="/images/pos-terminal.jpg"
                   alt="Rima MFB Official Merchant POS Terminal"
-                  className="w-full h-auto object-contain drop-shadow-2xl rounded-2xl transform group-hover:scale-[1.02] group-hover:-rotate-1 transition-transform duration-500"
+                  className="w-full h-auto object-contain mix-blend-multiply transform group-hover:scale-[1.02] group-hover:-rotate-1 transition-transform duration-500"
+                  style={{ filter: 'drop-shadow(0px 20px 40px rgba(0,0,0,0.10)) drop-shadow(0px 6px 12px rgba(0,0,0,0.07))' }}
                 />
                 <div className="mt-4 flex items-center justify-center gap-2 text-[11px] text-slate-500 font-medium">
                   <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />

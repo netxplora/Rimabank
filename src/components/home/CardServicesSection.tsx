@@ -36,11 +36,11 @@ export function CardServicesSection() {
           <div className="lg:col-span-5 order-2 lg:order-1">
             <div className="rounded-2xl bg-gradient-to-br from-[#f0f7ff] to-white border border-[#e2e8f0] p-6 sm:p-8 flex flex-col items-center text-center">
               <div className="relative group w-full max-w-sm">
-                <div className="absolute inset-0 -z-10 rounded-3xl bg-sky-100/60 blur-2xl scale-90 opacity-70 group-hover:opacity-100 transition-opacity duration-500" />
                 <img
                   src="/images/atm-card.jpg"
                   alt="Rima MFB Official Debit Card"
-                  className="w-full h-auto object-contain drop-shadow-xl transform group-hover:-rotate-1 group-hover:scale-[1.02] transition-transform duration-500"
+                  className="w-full h-auto object-contain mix-blend-multiply transform group-hover:-rotate-1 group-hover:scale-[1.02] transition-transform duration-500"
+                  style={{ filter: 'drop-shadow(0px 20px 40px rgba(0,0,0,0.10)) drop-shadow(0px 6px 12px rgba(0,0,0,0.07))' }}
                 />
               </div>
               <div className="space-y-1 mt-6 pt-4 border-t border-[#e2e8f0] w-full">

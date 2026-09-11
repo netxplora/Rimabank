@@ -143,7 +143,7 @@ export function HeroSection() {
             </motion.div>
 
             {/* Feature Highlights Pills */}
-            <motion.div variants={itemVariants} className="flex flex-wrap gap-2.5 sm:gap-3 pt-1">
+            <motion.div variants={itemVariants} className="flex flex-nowrap sm:flex-wrap gap-2.5 sm:gap-3 pt-1 overflow-x-auto scrollbar-thin scrollbar-thumb-[#0284c7] scrollbar-track-transparent">
               <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/80 border border-slate-200/80 text-xs font-medium text-slate-700 shadow-2xs">
                 <CheckCircle2 className="h-3.5 w-3.5 text-[#0284c7] shrink-0" />
                 <span>Zero Hidden Fees</span>

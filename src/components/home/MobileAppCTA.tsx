@@ -107,15 +107,7 @@ export function MobileAppSection() {
                   <div className="absolute inset-0 bg-gradient-to-t from-[#0a1e3f]/50 via-transparent to-transparent" />
                 </div>
                 
-                {/* Floating Mockup Badge */}
-                <div className="absolute -bottom-5 -right-3 sm:-right-5 w-36 sm:w-44 rounded-2xl overflow-hidden shadow-2xl border-2 border-white bg-white hidden sm:block p-1">
-                  <img
-                    src="/images/mobile-app.jpg"
-                    alt="Rima MFB Mobile Banking App interface"
-                    className="w-full h-auto object-contain block rounded-xl"
-                    loading="lazy"
-                  />
-                </div>
+
               </div>
             </motion.div>
 

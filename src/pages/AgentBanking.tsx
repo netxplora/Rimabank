@@ -105,11 +105,11 @@ export default function AgentBanking() {
             <div className="lg:col-span-5 flex items-center justify-center animate-in fade-in slide-in-from-bottom-8 duration-700 delay-200">
               <div className="relative group max-w-[340px] w-full">
                 {/* Soft glow behind the device */}
-                <div className="absolute inset-0 -z-10 rounded-3xl bg-sky-100/60 blur-2xl scale-90 opacity-70 group-hover:opacity-100 transition-opacity duration-500" />
                 <img
                   src="/images/pos-terminal.jpg"
                   alt="Rima MFB Official POS Terminal"
-                  className="w-full h-auto object-contain drop-shadow-2xl transform group-hover:-rotate-1 group-hover:scale-[1.02] transition-transform duration-500 rounded-2xl"
+                  className="w-full h-auto object-contain mix-blend-multiply transform group-hover:-rotate-1 group-hover:scale-[1.02] transition-transform duration-500"
+                  style={{ filter: 'drop-shadow(0px 20px 40px rgba(0,0,0,0.10)) drop-shadow(0px 6px 12px rgba(0,0,0,0.07))' }}
                 />
                 {/* Caption badge */}
                 <div className="mt-4 flex items-center justify-center gap-2 text-[11px] text-[#64748b] font-medium">
