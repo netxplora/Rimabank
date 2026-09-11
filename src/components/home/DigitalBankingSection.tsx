@@ -47,7 +47,7 @@ export function DigitalBankingSection() {
   const description = db?.description || "Experience fast, reliable banking on your smartphone or web browser. Enjoy 24/7 access to transfers, bill payments, and financial management.";
   const capabilities = db?.capabilities && db.capabilities.length > 0 ? db.capabilities : defaultCapabilities;
   const ctaText = db?.ctaText || "Explore Digital Banking Features";
-  const ctaLink = db?.ctaLink || "/digital-banking";
+  const ctaLink = db?.ctaLink || "/mobile-banking";
 
   return (
     <section className="py-12 sm:py-20 bg-[#f8fafc]/50 border-b border-slate-100">

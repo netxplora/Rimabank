@@ -1,101 +1,123 @@
-import { Download, Star, ShieldCheck, CheckCircle2 } from "lucide-react";
+import { CheckCircle2, Smartphone, ArrowRight, ShieldCheck, Download, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
+import { useCMS } from "@/context/CMSContext";
+import { motion } from "framer-motion";
 
-export function MobileAppCTA() {
+const appFeatures = [
+  "Instant Interbank Money Transfers",
+  "Real-time Account Balance & Alerts",
+  "Airtime, Data & Utility Bill Payments",
+  "Target & Fixed Savings Management",
+  "Quick Business & Personal Loan Access",
+  "Instant PDF e-Statement Generation",
+];
+
+export function MobileAppSection() {
+  const { siteContent } = useCMS();
+  const appLinks = (siteContent as any)?.appLinks;
+
   return (
-    <section className="py-12 sm:py-20 bg-white">
-      <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
-        <div className="rounded-2xl sm:rounded-3xl bg-gradient-to-br from-[#f0f7ff] via-white to-[#f0f7ff] border border-[#bae6fd]/70 p-5 sm:p-10 lg:p-14 shadow-sm relative overflow-hidden">
-          
-          {/* Ambient light wash */}
-          <div className="absolute top-0 right-0 w-80 h-80 bg-[#0284c7]/10 rounded-full blur-3xl pointer-events-none" />
+    <section className="relative py-16 sm:py-24 bg-[#ffffff] border-b border-slate-200/80 overflow-hidden">
+      <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="rounded-3xl bg-gradient-to-br from-[#f0f7ff] via-[#ffffff] to-[#e0f2fe]/60 border border-[#bae6fd]/80 p-8 sm:p-12 lg:p-16 shadow-lg relative overflow-hidden">
 
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center relative z-10">
-            
-            {/* Left Content (6 cols) */}
-            <div className="lg:col-span-6 space-y-4 sm:space-y-6">
-              <span className="text-xs font-semibold uppercase tracking-wider text-[#0284c7] block">
-                Digital Mobile Banking
-              </span>
-              <h2 className="font-heading text-2xl sm:text-4xl lg:text-5xl font-bold text-[#0a1e3f] tracking-tight leading-tight">
-                Manage your accounts from any mobile device.
-              </h2>
-              <p className="text-slate-600 text-xs sm:text-base leading-relaxed max-w-xl">
-                Transfer funds instantly, generate account statements, pay utility bills, and monitor account balances with the official Rima MFB Mobile Banking application.
-              </p>
+          {/* Ambient Lighting Orbs */}
+          <div className="absolute -top-24 -right-24 w-96 h-96 bg-[#0284c7]/15 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-[#38bdf8]/15 rounded-full blur-3xl pointer-events-none" />
 
-              {/* 2-Column Responsive App Features Grid */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 py-1">
-                {[
-                  "Instant inter-bank transfers via NIBSS",
-                  "Biometric fingerprint & Face ID authentication",
-                  "Airtime, data, and utility bill payments",
-                  "Download PDF bank statements directly",
-                ].map((item, idx) => (
-                  <div key={idx} className="flex items-center gap-2 text-xs font-medium text-[#0a1e3f]">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center relative z-10">
+
+            {/* Left Content */}
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+              className="lg:col-span-6 space-y-6"
+            >
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-[#bae6fd] text-[#0284c7] text-xs font-semibold uppercase tracking-wider shadow-2xs">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#0284c7]" />
+                <span>RIMA Mobile Banking</span>
+              </div>
+
+              <div className="space-y-3">
+                <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-bold text-[#0a1e3f] tracking-tight leading-tight">
+                  Your bank, directly in your hands.
+                </h2>
+                <p className="font-sans text-slate-600 text-sm sm:text-base leading-relaxed max-w-xl">
+                  Manage personal and commercial transactions on the go with biometric security, instant notifications, and 24/7 account access.
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-1">
+                {appFeatures.map((item) => (
+                  <div key={item} className="flex items-center gap-2.5 p-2.5 rounded-xl bg-white/80 border border-slate-200/80 shadow-2xs">
                     <CheckCircle2 className="h-4 w-4 text-emerald-600 shrink-0" />
-                    <span>{item}</span>
+                    <span className="font-sans text-xs font-medium text-[#0a1e3f] leading-snug">{item}</span>
                   </div>
                 ))}
               </div>
 
-              {/* Rating Pill */}
-              <div className="inline-flex items-center gap-2.5 bg-white px-3 py-1.5 rounded-xl border border-sky-100 shadow-2xs text-xs font-semibold text-[#0a1e3f]">
-                <div className="flex text-[#0284c7] gap-0.5">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="h-3.5 w-3.5 fill-current" />
-                  ))}
-                </div>
-                <span>4.8 / 5.0 Rating</span>
-              </div>
-
-              {/* Download Buttons - Responsive Stack on Mobile */}
-              <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full sm:w-auto">
-                <Button
-                  variant="pill"
-                  size="lg"
-                  asChild
-                  className="bg-[#0284c7] hover:bg-[#0369a1] text-white shadow-brand h-11 px-6 text-xs font-semibold justify-center w-full sm:w-auto text-center"
-                >
-                  <a href="#download-ios" className="inline-flex items-center justify-center gap-2">
-                    <Download className="h-4 w-4" />
-                    <span>Download for iOS</span>
-                  </a>
-                </Button>
-                <Button
-                  variant="outlineNeutral"
-                  size="lg"
-                  asChild
-                  className="rounded-full bg-white hover:bg-[#f0f7ff] border-slate-200 h-11 px-6 text-xs font-semibold justify-center w-full sm:w-auto text-center"
-                >
-                  <a href="#download-android" className="inline-flex items-center justify-center gap-2">
-                    <Download className="h-4 w-4" />
-                    <span>Download for Android</span>
-                  </a>
-                </Button>
-              </div>
-
-              <p className="text-[10px] sm:text-[11px] text-slate-500">
-                * Compatible with iOS 13+ and Android 8+. Protected by biometric authentication.
-              </p>
-            </div>
-
-            {/* Right Mobile Showcase (6 cols) */}
-            <div className="lg:col-span-6 flex justify-center items-center py-2">
-              <div className="relative group w-full max-w-[320px] sm:max-w-[400px] lg:max-w-[440px] flex justify-center">
-                {/* Backdrop Soft Brand Glow */}
-                <div className="absolute inset-0 bg-[#0284c7]/15 rounded-3xl blur-2xl transform scale-95" />
+              <div className="pt-3 flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5">
+                {appLinks?.googlePlay ? (
+                  <Button variant="pill" size="lg" asChild className="bg-[#0284c7] hover:bg-[#0369a1] text-white shadow-md h-12 px-7 text-xs sm:text-sm font-semibold justify-center">
+                    <a href={appLinks.googlePlay} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2">
+                      <Download className="h-4 w-4" />
+                      <span>Get on Google Play</span>
+                    </a>
+                  </Button>
+                ) : (
+                  <Button variant="pill" size="lg" asChild className="bg-[#0284c7] hover:bg-[#0369a1] text-white shadow-md h-12 px-7 text-xs sm:text-sm font-semibold justify-center">
+                    <Link to="/mobile-banking" className="inline-flex items-center gap-2">
+                      <span>Explore Mobile Banking</span>
+                      <ArrowRight className="h-4 w-4" />
+                    </Link>
+                  </Button>
+                )}
                 
-                {/* Main App Showcase Card */}
-                <div className="relative w-full rounded-2xl sm:rounded-3xl overflow-hidden shadow-lg border border-white/90 bg-white">
+                <Button variant="outlineNeutral" size="lg" asChild className="rounded-full bg-white hover:bg-slate-50 border-slate-300 h-12 px-7 text-xs sm:text-sm font-semibold justify-center shadow-2xs">
+                  <Link to="/ussd-banking">View USSD Code (*966*808#)</Link>
+                </Button>
+              </div>
+
+              <div className="flex items-center gap-2 text-[11px] text-slate-500">
+                <ShieldCheck className="h-4 w-4 text-emerald-600" />
+                <span>256-bit encrypted data • Biometric Touch ID & Face ID support</span>
+              </div>
+            </motion.div>
+
+            {/* Right: Photo + Layered Mockup */}
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
+              className="lg:col-span-6 flex justify-center"
+            >
+              <div className="relative w-full max-w-[420px]">
+                {/* Background photo */}
+                <div className="rounded-3xl overflow-hidden shadow-xl border border-white/90 h-72 sm:h-88 lg:h-96 bg-white">
                   <img
-                    src="/images/Mobile-App.png"
-                    alt="RIMA MFB Mobile Banking App"
-                    className="w-full h-auto object-contain block"
+                    src="/images/mobile-banking.jpg"
+                    alt="Person using RIMA mobile banking app on a smartphone"
+                    className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0a1e3f]/50 via-transparent to-transparent" />
+                </div>
+                
+                {/* Floating Mockup Badge */}
+                <div className="absolute -bottom-5 -right-3 sm:-right-5 w-36 sm:w-44 rounded-2xl overflow-hidden shadow-2xl border-2 border-white bg-white hidden sm:block p-1">
+                  <img
+                    src="/images/mobile-app.jpg"
+                    alt="Rima MFB Mobile Banking App interface"
+                    className="w-full h-auto object-contain block rounded-xl"
+                    loading="lazy"
                   />
                 </div>
               </div>
-            </div>
+            </motion.div>
 
           </div>
         </div>
@@ -103,3 +125,4 @@ export function MobileAppCTA() {
     </section>
   );
 }
+

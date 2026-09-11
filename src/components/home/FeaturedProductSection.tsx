@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight, CheckCircle2, ShieldCheck, Sparkles, Calculator } from "lucide-react";
+import { ArrowRight, CheckCircle2, ShieldCheck, Sparkles, Calculator, TrendingUp, Lock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
 import { motion } from "framer-motion";
@@ -15,96 +15,96 @@ export function FeaturedProductSection() {
   const estimatedTotal = principal + estimatedInterest;
 
   return (
-    <section className="py-14 sm:py-20 bg-[#f8fafc]/60 border-b border-slate-100">
-      <div className="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="relative py-16 sm:py-24 bg-[#f8fbff] border-b border-slate-200/80 overflow-hidden">
+      <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
         
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
           
-          {/* Left Content Column (7 cols) - Open Layout */}
+          {/* Left Content Column (7 cols) */}
           <motion.div 
             initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="lg:col-span-7 space-y-5 sm:space-y-6"
+            className="lg:col-span-7 space-y-6"
           >
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-sky-50 text-[#0284c7] text-xs font-semibold uppercase tracking-wider border border-sky-100/80">
-              <Sparkles className="h-3.5 w-3.5 text-[#0284c7]" />
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-[#bae6fd] text-[#0284c7] text-xs font-semibold uppercase tracking-wider shadow-2xs backdrop-blur-md">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#0284c7]" />
               <span>Featured Savings Plan</span>
             </div>
 
-            <div className="space-y-2.5">
-              <h2 className="font-heading text-2xl sm:text-3xl lg:text-4xl font-bold text-[#0a1e3f] tracking-tight leading-tight">
-                A savings account built around your goals
+            <div className="space-y-3">
+              <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-bold text-[#0a1e3f] tracking-tight leading-tight">
+                A structured savings account built around your milestones
               </h2>
-              <p className="text-slate-600 text-sm sm:text-base leading-relaxed max-w-xl">
-                Save consistently and work toward your business or family milestones with automated standing orders and guaranteed daily interest yields.
+              <p className="font-sans text-slate-600 text-sm sm:text-base leading-relaxed max-w-xl">
+                Save consistently toward your business inventory, rent, or family goals with automated standing orders and guaranteed daily interest accrual.
               </p>
             </div>
 
-            {/* Key Benefits - Clean Typographic List without Heavy Card Boxes */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
-              <div className="flex items-start gap-3">
+            {/* Key Benefits Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 pt-1">
+              <div className="flex items-start gap-3 p-3.5 rounded-2xl bg-white border border-slate-200/90 shadow-2xs">
                 <CheckCircle2 className="h-5 w-5 text-emerald-600 shrink-0 mt-0.5" />
                 <div>
-                  <span className="font-bold text-[#0a1e3f] block text-sm">12.5% p.a. Yield</span>
-                  <span className="text-xs text-slate-500 leading-relaxed">Interest credited directly to your balance.</span>
+                  <span className="font-heading font-bold text-[#0a1e3f] block text-sm">Up to 12.5% p.a. Yield</span>
+                  <span className="font-sans text-xs text-slate-600 leading-relaxed">Interest calculated daily and credited directly to your balance.</span>
                 </div>
               </div>
 
-              <div className="flex items-start gap-3">
+              <div className="flex items-start gap-3 p-3.5 rounded-2xl bg-white border border-slate-200/90 shadow-2xs">
                 <CheckCircle2 className="h-5 w-5 text-emerald-600 shrink-0 mt-0.5" />
                 <div>
-                  <span className="font-bold text-[#0a1e3f] block text-sm">Flexible Tenures</span>
-                  <span className="text-xs text-slate-500 leading-relaxed">Choose 3, 6, 12, or 24 month duration.</span>
+                  <span className="font-heading font-bold text-[#0a1e3f] block text-sm">Flexible Tenures</span>
+                  <span className="font-sans text-xs text-slate-600 leading-relaxed">Choose 3, 6, 12, or 24 month structured durations.</span>
                 </div>
               </div>
 
-              <div className="flex items-start gap-3">
+              <div className="flex items-start gap-3 p-3.5 rounded-2xl bg-white border border-slate-200/90 shadow-2xs">
                 <CheckCircle2 className="h-5 w-5 text-emerald-600 shrink-0 mt-0.5" />
                 <div>
-                  <span className="font-bold text-[#0a1e3f] block text-sm">Zero Maintenance Fees</span>
-                  <span className="text-xs text-slate-500 leading-relaxed">No monthly ledger deductions or charges.</span>
+                  <span className="font-heading font-bold text-[#0a1e3f] block text-sm">Zero Maintenance Fees</span>
+                  <span className="font-sans text-xs text-slate-600 leading-relaxed">No monthly ledger deductions, card dues, or account keeping fees.</span>
                 </div>
               </div>
 
-              <div className="flex items-start gap-3">
+              <div className="flex items-start gap-3 p-3.5 rounded-2xl bg-white border border-slate-200/90 shadow-2xs">
                 <CheckCircle2 className="h-5 w-5 text-emerald-600 shrink-0 mt-0.5" />
                 <div>
-                  <span className="font-bold text-[#0a1e3f] block text-sm">NDIC Insured</span>
-                  <span className="text-xs text-slate-500 leading-relaxed">100% statutory deposit protection.</span>
+                  <span className="font-heading font-bold text-[#0a1e3f] block text-sm">NDIC Insured</span>
+                  <span className="font-sans text-xs text-slate-600 leading-relaxed">100% statutory deposit protection under CBN regulatory rules.</span>
                 </div>
               </div>
             </div>
 
             {/* CTAs */}
-            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-2 w-full sm:w-auto">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 pt-2 w-full sm:w-auto">
               <Button
                 variant="pill"
-                size="default"
+                size="lg"
                 asChild
-                className="bg-[#0284c7] hover:bg-[#0369a1] text-white text-xs sm:text-sm font-semibold h-11 px-6 shadow-brand w-full sm:w-auto text-center"
+                className="bg-[#0284c7] hover:bg-[#0369a1] text-white text-xs sm:text-sm font-semibold h-12 px-7 shadow-md w-full sm:w-auto text-center"
               >
-                <Link to="/contact" className="inline-flex items-center justify-center gap-1.5">
-                  <span>Open Account</span>
+                <Link to="/contact" className="inline-flex items-center justify-center gap-2">
+                  <span>Open Account Now</span>
                   <ArrowRight className="h-4 w-4" />
                 </Link>
               </Button>
 
               <Button
                 variant="outlineNeutral"
-                size="default"
+                size="lg"
                 asChild
-                className="rounded-full border-slate-300 text-[#0a1e3f] hover:bg-white text-xs sm:text-sm font-semibold h-11 px-5 w-full sm:w-auto text-center"
+                className="rounded-full border-slate-300 bg-white hover:bg-slate-50 text-[#0a1e3f] text-xs sm:text-sm font-semibold h-12 px-6 w-full sm:w-auto text-center shadow-2xs"
               >
                 <Link to="/personal-banking#savings" className="inline-flex items-center justify-center">
-                  <span>View All Plans</span>
+                  <span>View All Savings Plans</span>
                 </Link>
               </Button>
             </div>
           </motion.div>
 
-          {/* Right Interactive Yield Calculator Card (5 cols) - Lightweight Skyblue */}
+          {/* Right Interactive Yield Calculator Console (5 cols) */}
           <motion.div 
             initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -112,19 +112,22 @@ export function FeaturedProductSection() {
             transition={{ duration: 0.5, delay: 0.15 }}
             className="lg:col-span-5"
           >
-            <div className="bg-[#f0f9ff] text-[#0a1e3f] rounded-3xl p-6 sm:p-7 space-y-4 shadow-xs border border-[#bae6fd]/70 relative overflow-hidden">
-              <div className="space-y-1 relative z-10">
+            <div className="bg-white rounded-3xl p-6 sm:p-8 space-y-5 shadow-xl border border-slate-200/90 relative overflow-hidden">
+              {/* Top Accent Line */}
+              <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-[#0284c7] via-[#38bdf8] to-[#0a1e3f]" />
+
+              <div className="space-y-1 relative z-10 pt-1">
                 <div className="flex items-center justify-between">
                   <span className="text-xs uppercase tracking-wider font-semibold text-[#0284c7] flex items-center gap-1.5">
-                    <Calculator className="h-3.5 w-3.5" />
-                    Yield Calculator
+                    <Calculator className="h-4 w-4" />
+                    Interactive Yield Calculator
                   </span>
-                  <span className="text-[11px] font-bold px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">
+                  <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">
                     12.5% p.a.
                   </span>
                 </div>
-                <h3 className="font-heading font-bold text-lg text-[#0a1e3f]">
-                  Watch your savings grow
+                <h3 className="font-heading font-bold text-lg sm:text-xl text-[#0a1e3f]">
+                  Calculate your return
                 </h3>
               </div>
 
@@ -133,14 +136,14 @@ export function FeaturedProductSection() {
                 <div className="space-y-2">
                   <div className="flex justify-between items-center text-xs">
                     <span className="text-slate-600 font-medium">Monthly Contribution:</span>
-                    <span className="font-mono font-bold text-sm text-[#0284c7] bg-white px-2.5 py-0.5 rounded border border-sky-100">
+                    <span className="font-mono font-bold text-sm text-[#0284c7] bg-[#f0f9ff] px-3 py-1 rounded-lg border border-[#bae6fd]">
                       ₦{monthlyAmount.toLocaleString()}
                     </span>
                   </div>
                   <Slider
                     value={[monthlyAmount]}
                     min={10000}
-                    max={300000}
+                    max={500000}
                     step={5000}
                     onValueChange={(vals) => setMonthlyAmount(vals[0])}
                     className="cursor-pointer"
@@ -148,46 +151,46 @@ export function FeaturedProductSection() {
                 </div>
 
                 <div className="space-y-2">
-                  <span className="block text-xs text-slate-600 font-medium">Duration:</span>
+                  <span className="block text-xs text-slate-600 font-medium">Savings Duration:</span>
                   <div className="grid grid-cols-4 gap-2">
                     {[3, 6, 12, 24].map((m) => (
                       <button
                         key={m}
                         type="button"
                         onClick={() => setMonths(m)}
-                        className={`py-1.5 text-xs font-bold rounded-xl border transition-all ${
+                        className={`py-2 text-xs font-bold rounded-xl border transition-all ${
                           months === m
-                            ? "bg-[#0284c7] text-white border-[#0284c7] shadow-xs"
-                            : "bg-white text-slate-700 border-sky-200/80 hover:bg-sky-50"
+                            ? "bg-[#0a1e3f] text-white border-[#0a1e3f] shadow-sm"
+                            : "bg-[#f8fbff] text-slate-700 border-slate-200 hover:bg-white"
                         }`}
                       >
-                        {m}M
+                        {m} Months
                       </button>
                     ))}
                   </div>
                 </div>
               </div>
 
-              {/* Results Card */}
-              <div className="space-y-2 bg-white rounded-2xl p-3.5 border border-sky-100 relative z-10 text-xs shadow-2xs">
+              {/* Results Console */}
+              <div className="space-y-2.5 bg-[#f8fbff] rounded-2xl p-4 border border-slate-200/80 relative z-10 text-xs shadow-2xs">
                 <div className="flex justify-between items-center text-xs">
-                  <span className="text-slate-500">Capital Saved:</span>
-                  <span className="font-bold text-[#0a1e3f] font-mono">₦{principal.toLocaleString()}</span>
+                  <span className="text-slate-500">Total Capital Saved:</span>
+                  <span className="font-bold text-[#0a1e3f] font-mono text-sm">₦{principal.toLocaleString()}</span>
                 </div>
                 <div className="flex justify-between items-center text-xs">
-                  <span className="text-emerald-600 font-medium">Est. Interest Yield:</span>
-                  <span className="font-bold text-emerald-600 font-mono">+₦{estimatedInterest.toLocaleString()}</span>
+                  <span className="text-emerald-700 font-semibold">Estimated Interest Yield:</span>
+                  <span className="font-bold text-emerald-700 font-mono text-sm">+₦{estimatedInterest.toLocaleString()}</span>
                 </div>
-                <div className="pt-2 border-t border-slate-100 flex justify-between items-center">
-                  <span className="text-slate-600 font-bold text-xs">Est. Maturity Payout:</span>
-                  <span className="text-base sm:text-lg font-bold text-[#0284c7] font-mono">
+                <div className="pt-2.5 border-t border-slate-200/80 flex justify-between items-center">
+                  <span className="text-[#0a1e3f] font-bold text-xs">Maturity Payout:</span>
+                  <span className="text-lg sm:text-xl font-bold text-[#0284c7] font-mono">
                     ₦{estimatedTotal.toLocaleString()}
                   </span>
                 </div>
               </div>
 
               <div className="flex items-center gap-2 text-[11px] text-slate-500 relative z-10">
-                <ShieldCheck className="h-3.5 w-3.5 text-emerald-600 shrink-0" />
+                <ShieldCheck className="h-4 w-4 text-emerald-600 shrink-0" />
                 <span>Approved rates under CBN microfinance guidelines.</span>
               </div>
             </div>
@@ -198,5 +201,6 @@ export function FeaturedProductSection() {
     </section>
   );
 }
+
 
 

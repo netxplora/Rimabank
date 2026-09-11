@@ -30,13 +30,13 @@ const quickLinks = [
 ];
 
 const products = [
-  { name: "Savings Accounts", href: "/personal-banking#savings" },
-  { name: "Current Accounts", href: "/personal-banking#current" },
-  { name: "Student Banking", href: "/personal-banking#student" },
-  { name: "SME Banking", href: "/business-banking#sme" },
-  { name: "Corporate Accounts", href: "/business-banking#corporate" },
-  { name: "Credit Facilities", href: "/loans" },
-  { name: "Agency Banking", href: "/agent-banking" },
+  { name: "Savings Accounts", href: "/savings" },
+  { name: "Personal Banking", href: "/personal-banking" },
+  { name: "Business Banking", href: "/business-banking" },
+  { name: "Loans & Financing", href: "/loans" },
+  { name: "Mobile Banking", href: "/mobile-banking" },
+  { name: "ATM & Debit Cards", href: "/cards" },
+  { name: "Agent Banking", href: "/agent-banking" },
 ];
 
 const legal = [

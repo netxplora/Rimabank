@@ -13,20 +13,24 @@ import {
   Landmark,
   Scale,
   Lock,
-  CheckCircle2
+  CheckCircle2,
+  Building2,
+  Clock,
+  Sparkles
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { LeadershipTeam } from "@/components/about/LeadershipTeam";
 import { useCMS } from "@/context/CMSContext";
+import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 const stats = [
-  { value: "15+", label: "Years of Operations", desc: "Serving Port Harcourt and Rivers State since 2009" },
-  { value: "50,000+", label: "Active Customers", desc: "Entrepreneurs, market traders, civil servants & families" },
-  { value: "200+", label: "Agency Banking Points", desc: "Verified neighborhood merchant cash-in/cash-out access" },
-  { value: "₦2.5B+", label: "Credit Disbursed", desc: "Structured working capital and MSME micro-facilities" },
-  { value: "100%", label: "NDIC Deposit Coverage", desc: "Eligible deposits protected under statutory insurance" },
+  { value: "15+", label: "Years of Heritage", desc: "Serving Rivers State communities since 2009" },
+  { value: "50,000+", label: "Active Accountholders", desc: "Entrepreneurs, market traders & salary earners" },
+  { value: "200+", label: "Agency Banking Points", desc: "Neighborhood cash-in and cash-out access" },
+  { value: "₦2.5B+", label: "Credit Disbursed", desc: "Structured MSME working capital & loans" },
+  { value: "100%", label: "NDIC Deposit Coverage", desc: "Protected under statutory deposit insurance" },
 ];
 
 const coreValues = [
@@ -34,50 +38,44 @@ const coreValues = [
     icon: Shield,
     title: "Integrity",
     description: "We uphold strict ethical banking standards, transparent fee disclosures, and rigorous compliance across all customer transactions.",
-    bg: "#f0f7ff",
-    color: "#0284c7"
+    bg: "bg-sky-50 text-[#0284c7] border-sky-200/80"
   },
   {
     icon: Handshake,
     title: "Customer Focus",
     description: "Our customers are central to every service we provide. We focus on long-term relationships, tailored advisory, and mutual growth.",
-    bg: "#e2e8f0",
-    color: "#477ee9"
+    bg: "bg-blue-50 text-blue-600 border-blue-200/80"
   },
   {
     icon: ShieldCheck,
     title: "Operational Rigor",
     description: "We implement dependable core banking systems and structured financial workflows built for transaction integrity and uptime.",
-    bg: "#bcffbb",
-    color: "#16a34a"
+    bg: "bg-emerald-50 text-emerald-600 border-emerald-200/80"
   },
   {
     icon: Users,
     title: "Community Inclusion",
     description: "We are committed to the economic stability and growth of regional communities, artisans, and commercial markets across Rivers State.",
-    bg: "#f5ffbb",
-    color: "#0a1e3f"
+    bg: "bg-amber-50 text-amber-700 border-amber-200/80"
   },
   {
     icon: Award,
     title: "Service Excellence",
     description: "We maintain fast credit turnaround times, dedicated relationship managers, and prompt enquiry resolution across all touchpoints.",
-    bg: "#f0f7ff",
-    color: "#0284c7"
+    bg: "bg-indigo-50 text-indigo-600 border-indigo-200/80"
   },
   {
     icon: Heart,
     title: "Practical Empathy",
     description: "We understand the real-world cash flow realities of traders, families, students, and expanding enterprise businesses.",
-    bg: "#f0f7ff",
-    color: "#0284c7"
+    bg: "bg-rose-50 text-rose-600 border-rose-200/80"
   }
 ];
 
 const operationalPillars = [
   {
     id: "governance",
-    title: "Governance & Capital Stewardship",
+    title: "Governance & Stewardship",
     badge: "Regulatory Discipline",
     icon: Scale,
     headline: "Conservative balance sheet management with strict Central Bank of Nigeria oversight.",
@@ -89,7 +87,7 @@ const operationalPillars = [
   },
   {
     id: "commercial",
-    title: "Real-Economy Commercial Finance",
+    title: "Real-Economy Finance",
     badge: "SME Enablement",
     icon: Landmark,
     headline: "Fueling the daily operations of traders, contractors, and growing regional businesses.",
@@ -106,14 +104,14 @@ const operationalPillars = [
     icon: Users,
     headline: "Extending modern banking services to retail markets and underbanked communities.",
     points: [
-      "Extensive network of over 200 accredited agency banking POS terminals for immediate cash deposits and withdrawals.",
+      "An active network of accredited agency banking POS terminals for immediate cash deposits and withdrawals.",
       "Tier-1 instant account opening requiring simple verification, eliminating bureaucratic delays.",
       "Offline USSD (*966*808#) banking capabilities ensuring reliable access on any basic mobile device."
     ]
   },
   {
     id: "security",
-    title: "Infrastructure & Security Controls",
+    title: "Infrastructure & Security",
     badge: "Digital Integrity",
     icon: Lock,
     headline: "Enterprise-grade financial infrastructure connected directly to national settlement rails.",
@@ -130,7 +128,7 @@ const milestones = [
     year: "2009",
     tag: "CBN License",
     title: "Banking License Granted",
-    event: "Rima Microfinance Bank licensed by the Central Bank of Nigeria to commence specialized retail banking in Port Harcourt."
+    event: "RIMA Microfinance Bank licensed by the Central Bank of Nigeria to commence specialized retail banking in Port Harcourt."
   },
   {
     year: "2013",
@@ -159,8 +157,8 @@ const milestones = [
   {
     year: "2025",
     tag: "Agency Network",
-    title: "Agency Banking Scale",
-    event: "Expanded neighborhood agency banking network to 200+ certified merchant POS locations across Rivers State communities."
+    title: "Agency Banking Expansion",
+    event: "Continued expansion of the certified merchant agency banking network across Rivers State communities."
   }
 ];
 
@@ -173,42 +171,57 @@ export default function About() {
   const about = siteContent?.aboutSnapshot;
 
   return (
-    <Layout>
+    <Layout
+      title="About RIMA Microfinance Bank | Rivers State, Nigeria"
+      description="Learn about RIMA Microfinance Bank — a CBN-licensed institution serving individuals, traders and businesses across Rivers State since 2009."
+    >
       {/* ── 1. Editorial Hero Section ── */}
-      <section className="relative bg-white pt-6 pb-8 sm:pt-10 sm:pb-12 lg:pt-12 lg:pb-14 border-b border-[#e2e8f0]/60 overflow-hidden">
-        <div className="absolute top-0 right-0 w-[450px] h-[450px] bg-[#f0f7ff] rounded-full blur-3xl -z-10 opacity-70 pointer-events-none" />
-        <div className="absolute -bottom-20 left-10 w-[350px] h-[350px] bg-[#0a1e3f]/5 rounded-full blur-3xl -z-10 opacity-60 pointer-events-none" />
+      <section className="relative bg-[#f8fbff] py-16 sm:py-24 border-b border-slate-200/80 overflow-hidden text-[#0a1e3f]">
+        {/* Ambient lighting meshes */}
+        <div className="absolute inset-0 pointer-events-none overflow-hidden">
+          <div 
+            className="absolute inset-0 opacity-[0.3]"
+            style={{
+              backgroundImage: "radial-gradient(#0284c7 0.75px, transparent 0.75px), radial-gradient(#0a1e3f 0.75px, #f8fbff 0.75px)",
+              backgroundSize: "32px 32px",
+              backgroundPosition: "0 0, 16px 16px",
+            }}
+          />
+          <div className="absolute -top-32 -left-32 w-[500px] h-[500px] bg-[#38bdf8]/15 rounded-full blur-3xl" />
+          <div className="absolute top-1/2 right-[-10%] w-[500px] h-[500px] bg-[#0284c7]/10 rounded-full blur-3xl" />
+        </div>
 
-        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 relative">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-center">
+        <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
             
-            <div className="lg:col-span-7 space-y-4 animate-in fade-in slide-in-from-bottom-8 duration-700">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#f0f7ff] border border-[#e2e8f0] text-[#0a1e3f] text-xs font-semibold uppercase tracking-wider">
-                <span className="w-2 h-2 rounded-full bg-[#16a34a]" />
+            <div className="lg:col-span-7 space-y-6">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-[#bae6fd] text-[#0284c7] text-xs font-semibold uppercase tracking-wider shadow-2xs backdrop-blur-md">
+                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
                 <span>Central Bank of Nigeria Licensed • Est. 2009</span>
               </div>
 
-              <h1 className="font-heading text-2xl sm:text-3xl lg:text-4xl font-semibold text-[#0a1e3f] tracking-tight leading-[1.1]">
+              <h1 className="font-heading text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-[#0a1e3f] tracking-tight leading-[1.1] text-balance">
                 Empowering regional growth with <span className="text-[#0284c7]">stability</span> and <span className="text-[#0284c7]">trust</span>.
               </h1>
 
-              <p className="text-[#0a1e3f]/80 text-xs sm:text-sm leading-relaxed max-w-xl">
-                For over 15 years, Rima Microfinance Bank has delivered structured, ethical, and accessible financial services to registered enterprises, small business owners, market traders, and families across Rivers State.
+              <p className="font-sans text-slate-600 text-sm sm:text-base lg:text-lg leading-relaxed max-w-xl">
+                For over 15 years, RIMA Microfinance Bank has delivered structured, ethical, and accessible financial services to registered enterprises, small business owners, market traders, and families across Rivers State.
               </p>
 
-              <div className="pt-1 flex flex-wrap items-center gap-3">
+              <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5">
                 <Button
                   variant="pill"
-                  size="default"
+                  size="lg"
                   asChild
-                  className="bg-[#0284c7] hover:bg-[#0369a1] text-white shadow-md shadow-sky-500/20 transform hover:-translate-y-0.5 transition-all text-xs h-10 px-5"
+                  className="bg-[#0284c7] hover:bg-[#0369a1] text-white shadow-md h-12 px-7 text-xs sm:text-sm font-semibold justify-center"
                 >
-                  <Link to="/contact">
+                  <Link to="/contact" className="inline-flex items-center gap-2">
                     <span>Open an Account</span>
-                    <ArrowRight className="h-3.5 w-3.5 ml-1.5" />
+                    <ArrowRight className="h-4 w-4" />
                   </Link>
                 </Button>
-                <Button variant="outlineNeutral" size="default" asChild className="rounded-full text-xs h-10 px-5">
+                
+                <Button variant="outlineNeutral" size="lg" asChild className="rounded-full bg-white hover:bg-slate-50 border-slate-300 text-xs sm:text-sm font-semibold h-12 px-6 justify-center shadow-2xs">
                   <Link to="/branches">
                     <span>Branch & ATM Directory</span>
                   </Link>
@@ -216,40 +229,42 @@ export default function About() {
               </div>
             </div>
 
-            {/* Right 3D Institutional Credentials Card */}
-            <div className="lg:col-span-5 perspective-1000 animate-in fade-in slide-in-from-bottom-8 duration-700 delay-200">
-              <div className="rounded-2xl bg-gradient-to-br from-[#0a1e3f] via-[#0f2a50] to-[#081730] text-white p-5 sm:p-6 shadow-xl border border-white/10 space-y-4">
-                <div className="flex items-center justify-between pb-2.5 border-b border-white/10">
-                  <div className="flex items-center gap-2">
-                    <ShieldCheck className="h-4 w-4 text-[#38bdf8]" />
-                    <span className="font-heading text-xs sm:text-sm font-bold text-white">Institutional Credentials</span>
+            {/* Right Institutional Credentials Card */}
+            <div className="lg:col-span-5">
+              <div className="rounded-3xl bg-[#0a1e3f] text-white p-6 sm:p-8 shadow-2xl border border-white/10 space-y-5 relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-48 h-48 bg-[#0284c7]/20 rounded-full blur-2xl pointer-events-none" />
+
+                <div className="flex items-center justify-between pb-4 border-b border-white/10 relative z-10">
+                  <div className="flex items-center gap-2.5">
+                    <ShieldCheck className="h-5 w-5 text-[#38bdf8]" />
+                    <span className="font-heading text-sm sm:text-base font-bold text-white">Institutional Status</span>
                   </div>
-                  <span className="px-2 py-0.5 rounded-full text-[9px] font-bold bg-[#16a34a] text-white tracking-wider">
+                  <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500 text-white tracking-wider">
                     REGULATED
                   </span>
                 </div>
 
-                <div className="space-y-2 text-xs">
-                  <div className="flex items-start justify-between p-2 rounded-lg bg-white/5 border border-white/5">
-                    <span className="text-white/60">Regulatory License:</span>
+                <div className="space-y-2.5 text-xs relative z-10">
+                  <div className="flex items-start justify-between p-3 rounded-xl bg-white/5 border border-white/10">
+                    <span className="text-slate-300">Regulatory License:</span>
                     <span className="font-semibold text-white text-right">Central Bank of Nigeria (CBN)</span>
                   </div>
-                  <div className="flex items-start justify-between p-2 rounded-lg bg-white/5 border border-white/5">
-                    <span className="text-white/60">Deposit Insurance:</span>
-                    <span className="font-semibold text-[#4ade80] text-right">NDIC Insured</span>
+                  <div className="flex items-start justify-between p-3 rounded-xl bg-white/5 border border-white/10">
+                    <span className="text-slate-300">Deposit Insurance:</span>
+                    <span className="font-semibold text-emerald-400 text-right">NDIC Statutory Cover</span>
                   </div>
-                  <div className="flex items-start justify-between p-2 rounded-lg bg-white/5 border border-white/5">
-                    <span className="text-white/60">Inter-Bank Routing:</span>
-                    <span className="font-semibold text-white text-right">NIBSS Code: 090547</span>
+                  <div className="flex items-start justify-between p-3 rounded-xl bg-white/5 border border-white/10">
+                    <span className="text-slate-300">Inter-Bank Clearing:</span>
+                    <span className="font-semibold text-white text-right">NIBSS Settlement Rails</span>
                   </div>
-                  <div className="flex items-start justify-between p-2 rounded-lg bg-white/5 border border-white/5">
-                    <span className="text-white/60">Head Office:</span>
+                  <div className="flex items-start justify-between p-3 rounded-xl bg-white/5 border border-white/10">
+                    <span className="text-slate-300">Corporate Head Office:</span>
                     <span className="font-semibold text-white text-right">Port Harcourt, Rivers State</span>
                   </div>
                 </div>
 
-                <div className="pt-1.5 text-center text-[10px] text-blue-200/80 border-t border-white/10">
-                  Over 15 Years of Disciplined Banking Operations
+                <div className="pt-2 text-center text-xs text-[#38bdf8] font-medium border-t border-white/10 relative z-10">
+                  15+ Years of Disciplined Banking Operations
                 </div>
               </div>
             </div>
@@ -258,19 +273,19 @@ export default function About() {
         </div>
       </section>
 
-      {/* ── 2. Impact & Operating Numbers Strip (Compact Divided Layout) ── */}
-      <section className="py-6 sm:py-8 bg-slate-50 border-b border-[#e2e8f0]">
-        <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-6 divide-y sm:divide-y-0 sm:divide-x divide-slate-200">
+      {/* ── 2. Impact & Operating Numbers Strip ── */}
+      <section className="py-10 sm:py-14 bg-white border-b border-slate-200/80">
+        <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-6">
             {stats.map((stat, idx) => (
-              <div key={idx} className={cn("pt-3 sm:pt-0 sm:px-3 first:pt-0 first:pl-0", idx > 0 && "sm:pl-5")}>
-                <span className="font-heading text-xl sm:text-2xl lg:text-3xl font-bold text-[#0a1e3f] block leading-none">
+              <div key={idx} className="p-4 sm:p-5 rounded-2xl bg-[#f8fbff] border border-slate-200/80 shadow-2xs">
+                <span className="font-heading text-2xl sm:text-3xl font-bold text-[#0a1e3f] block leading-none">
                   {stat.value}
                 </span>
-                <span className="font-heading text-[11px] sm:text-xs font-semibold text-[#0284c7] block mt-1 mb-0.5">
+                <span className="font-heading text-xs font-semibold text-[#0284c7] block mt-1.5 mb-1">
                   {stat.label}
                 </span>
-                <p className="text-[10px] sm:text-[11px] text-slate-500 leading-snug">
+                <p className="font-sans text-[11px] text-slate-500 leading-snug">
                   {stat.desc}
                 </p>
               </div>
@@ -279,26 +294,26 @@ export default function About() {
         </div>
       </section>
 
-      {/* ── 3. Mission & Vision (Responsive Grid Design) ── */}
-      <section id="vision" className="scroll-mt-24 py-10 sm:py-14 bg-white border-b border-[#e2e8f0]/60">
-        <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
-            <div className="bg-[#f0f9ff]/70 hover:bg-[#f0f9ff] border border-[#bae6fd]/60 hover:border-[#bae6fd] rounded-2xl p-6 sm:p-8 space-y-3 transition-all shadow-2xs hover:shadow-sm">
-              <div className="w-10 h-10 rounded-xl bg-white text-[#16a34a] border border-[#bae6fd]/60 shadow-2xs flex items-center justify-center">
-                <Target className="h-5 w-5" />
+      {/* ── 3. Mission & Vision ── */}
+      <section id="vision" className="scroll-mt-24 py-16 sm:py-20 bg-[#f8fbff] border-b border-slate-200/80">
+        <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
+            <div className="bg-white border border-slate-200/90 rounded-3xl p-7 sm:p-9 space-y-4 shadow-sm">
+              <div className="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-600 border border-emerald-200/80 shadow-2xs flex items-center justify-center">
+                <Target className="h-6 w-6" />
               </div>
-              <h2 className="font-heading text-xl font-bold text-[#0a1e3f]">Our Mission</h2>
-              <p className="text-slate-600 text-xs sm:text-sm leading-relaxed">
+              <h2 className="font-heading text-2xl font-bold text-[#0a1e3f]">Our Mission</h2>
+              <p className="font-sans text-slate-600 text-sm sm:text-base leading-relaxed">
                 {about?.mission || "To deliver accessible, dependable, and sustainable financial services that enable individuals, small businesses, and commercial institutions to achieve financial stability and long-term economic growth."}
               </p>
             </div>
             
-            <div className="bg-[#f0f9ff]/70 hover:bg-[#f0f9ff] border border-[#bae6fd]/60 hover:border-[#bae6fd] rounded-2xl p-6 sm:p-8 space-y-3 transition-all shadow-2xs hover:shadow-sm">
-              <div className="w-10 h-10 rounded-xl bg-white text-[#0284c7] border border-[#bae6fd]/60 shadow-2xs flex items-center justify-center">
-                <Eye className="h-5 w-5" />
+            <div className="bg-white border border-slate-200/90 rounded-3xl p-7 sm:p-9 space-y-4 shadow-sm">
+              <div className="w-12 h-12 rounded-2xl bg-sky-50 text-[#0284c7] border border-sky-200/80 shadow-2xs flex items-center justify-center">
+                <Eye className="h-6 w-6" />
               </div>
-              <h2 className="font-heading text-xl font-bold text-[#0a1e3f]">Our Vision</h2>
-              <p className="text-slate-600 text-xs sm:text-sm leading-relaxed">
+              <h2 className="font-heading text-2xl font-bold text-[#0a1e3f]">Our Vision</h2>
+              <p className="font-sans text-slate-600 text-sm sm:text-base leading-relaxed">
                 {about?.vision || "To be the benchmark microfinance bank in Rivers State, recognized for regulatory discipline, technological reliability, and lasting positive community impact."}
               </p>
             </div>
@@ -306,65 +321,66 @@ export default function About() {
         </div>
       </section>
 
-      {/* ── 4. Strategic Operational Pillars (Interactive Blueprint) ── */}
-      <section id="governance" className="scroll-mt-24 py-8 sm:py-12 bg-slate-50/70 border-b border-[#e2e8f0]/60">
-        <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
-          <div className="max-w-2xl mb-6 sm:mb-8">
-            <span className="text-xs font-semibold uppercase tracking-wider text-[#0284c7] block mb-1">
-              Institutional Framework
-            </span>
-            <h2 className="font-heading text-xl sm:text-2xl lg:text-3xl font-semibold text-[#0a1e3f] tracking-tight leading-tight">
+      {/* ── 4. Strategic Operational Pillars ── */}
+      <section id="governance" className="scroll-mt-24 py-16 sm:py-20 bg-white border-b border-slate-200/80">
+        <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-2xl mb-8 sm:mb-12 space-y-3">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#f0f9ff] border border-[#bae6fd] text-[#0284c7] text-xs font-semibold uppercase tracking-wider shadow-2xs">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#0284c7]" />
+              <span>Institutional Framework</span>
+            </div>
+            <h2 className="font-heading text-3xl sm:text-4xl font-bold text-[#0a1e3f] tracking-tight leading-tight">
               How RIMA Bank operates with excellence.
             </h2>
-            <p className="text-[#0a1e3f]/70 text-xs sm:text-sm mt-1.5">
+            <p className="font-sans text-slate-600 text-sm sm:text-base leading-relaxed">
               Our banking operations are anchored on structural pillars designed to protect capital, foster commerce, and empower our host communities.
             </p>
           </div>
 
-          {/* Interactive Selector Chips */}
-          <div className="flex flex-wrap gap-2 pb-4 sm:pb-6">
+          {/* Interactive Selector Tabs */}
+          <div className="flex flex-wrap gap-2.5 pb-6 sm:pb-8">
             {operationalPillars.map((pillar) => (
               <button
                 key={pillar.id}
                 onClick={() => setActivePillar(pillar.id)}
                 className={cn(
-                  "px-3.5 py-2 rounded-xl text-xs font-semibold transition-all text-left flex items-center gap-2",
+                  "px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all text-left flex items-center gap-2.5",
                   activePillar === pillar.id
-                    ? "bg-[#0284c7] text-white shadow-xs"
-                    : "bg-white text-slate-700 border border-slate-200 hover:bg-slate-100"
+                    ? "bg-[#0a1e3f] text-white shadow-md translate-y-[-1px]"
+                    : "bg-[#f8fbff] text-slate-700 border border-slate-200/80 hover:bg-white shadow-2xs"
                 )}
               >
-                <pillar.icon className={cn("h-3.5 w-3.5", activePillar === pillar.id ? "text-white" : "text-[#0284c7]")} />
+                <pillar.icon className={cn("h-4 w-4", activePillar === pillar.id ? "text-[#38bdf8]" : "text-[#0284c7]")} />
                 <span>{pillar.title}</span>
               </button>
             ))}
           </div>
 
           {/* Active Pillar Details Card */}
-          <div className="bg-white rounded-2xl border border-[#e2e8f0] p-5 sm:p-6 lg:p-8 shadow-xs">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
-              <div className="lg:col-span-5 space-y-3">
-                <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#f0f7ff] text-[#0284c7] text-[10px] font-bold uppercase tracking-wider">
-                  <PillarIcon className="h-3 w-3" />
+          <div className="bg-[#f8fbff] rounded-3xl border border-slate-200/90 p-6 sm:p-10 shadow-sm">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+              <div className="lg:col-span-5 space-y-4">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white text-[#0284c7] text-xs font-bold uppercase tracking-wider border border-[#bae6fd]">
+                  <PillarIcon className="h-3.5 w-3.5" />
                   <span>{selectedPillar.badge}</span>
                 </div>
-                <h3 className="font-heading text-lg sm:text-xl font-bold text-[#0a1e3f] leading-snug">
+                <h3 className="font-heading text-xl sm:text-2xl font-bold text-[#0a1e3f] leading-snug">
                   {selectedPillar.headline}
                 </h3>
-                <p className="text-xs text-slate-600 leading-relaxed">
+                <p className="font-sans text-xs sm:text-sm text-slate-600 leading-relaxed">
                   Every decision at RIMA Bank is guided by institutional stability, regulatory compliance, and a genuine commitment to the economic prosperity of our stakeholders.
                 </p>
               </div>
 
-              <div className="lg:col-span-7 space-y-2.5 border-t lg:border-t-0 lg:border-l border-slate-200 pt-5 lg:pt-0 lg:pl-6">
-                <h4 className="font-heading text-[11px] font-bold uppercase tracking-wider text-[#0a1e3f]">
+              <div className="lg:col-span-7 space-y-3 border-t lg:border-t-0 lg:border-l border-slate-200/80 pt-6 lg:pt-0 lg:pl-8">
+                <h4 className="font-heading text-xs font-bold uppercase tracking-wider text-slate-500">
                   Operational Standards & Safeguards
                 </h4>
-                <div className="space-y-2">
+                <div className="space-y-2.5">
                   {selectedPillar.points.map((point, i) => (
-                    <div key={i} className="flex items-start gap-2.5 p-2.5 rounded-lg bg-slate-50 border border-slate-100">
-                      <CheckCircle2 className="h-3.5 w-3.5 text-[#16a34a] shrink-0 mt-0.5" />
-                      <p className="text-xs text-slate-700 leading-relaxed font-medium">
+                    <div key={i} className="flex items-start gap-3 p-3.5 rounded-2xl bg-white border border-slate-200/80 shadow-2xs">
+                      <CheckCircle2 className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />
+                      <p className="font-sans text-xs sm:text-[13px] text-slate-700 leading-relaxed font-medium">
                         {point}
                       </p>
                     </div>
@@ -377,29 +393,34 @@ export default function About() {
       </section>
 
       {/* ── 5. Institutional Values ── */}
-      <section className="py-10 sm:py-14 bg-white border-b border-[#e2e8f0]/60">
-        <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
-          <div className="max-w-2xl mb-6 sm:mb-8">
-            <span className="text-xs font-semibold uppercase tracking-wider text-[#0284c7] block mb-1">
-              Institutional Values
-            </span>
-            <h2 className="font-heading text-xl sm:text-2xl lg:text-3xl font-semibold text-[#0a1e3f] tracking-tight leading-tight">
+      <section className="py-16 sm:py-24 bg-[#f8fbff] border-b border-slate-200/80">
+        <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-2xl mb-10 sm:mb-14 space-y-3">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-[#bae6fd] text-[#0284c7] text-xs font-semibold uppercase tracking-wider shadow-2xs">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#0284c7]" />
+              <span>Core Values</span>
+            </div>
+            <h2 className="font-heading text-3xl sm:text-4xl font-bold text-[#0a1e3f] tracking-tight leading-tight">
               The principles guiding our banking operations.
             </h2>
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-2.5 sm:gap-4 lg:gap-6 pt-2 sm:pt-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             {coreValues.map((value) => (
               <div 
                 key={value.title} 
-                className="bg-[#f0f9ff]/70 hover:bg-[#f0f9ff] border border-[#bae6fd]/60 hover:border-[#bae6fd] rounded-xl sm:rounded-2xl p-3.5 sm:p-5 transition-all duration-200 shadow-2xs hover:shadow-xs flex flex-col justify-between group"
+                className="bg-white border border-slate-200/90 hover:border-[#0284c7]/40 rounded-3xl p-6 sm:p-7 transition-all duration-300 shadow-2xs hover:shadow-xl flex flex-col justify-between group"
               >
                 <div>
-                  <div className="h-8 w-8 sm:h-10 sm:w-10 rounded-lg sm:rounded-xl bg-white text-[#0284c7] border border-[#bae6fd]/60 shadow-2xs flex items-center justify-center mb-2.5 sm:mb-3.5 group-hover:bg-[#0284c7] group-hover:text-white transition-all">
-                    <value.icon className="h-4 w-4 sm:h-5 sm:w-5" />
+                  <div className={`w-12 h-12 rounded-2xl border flex items-center justify-center mb-4 shrink-0 shadow-2xs ${value.bg}`}>
+                    <value.icon className="h-6 w-6" />
                   </div>
-                  <h3 className="font-heading text-xs sm:text-base font-bold text-[#0a1e3f] group-hover:text-[#0284c7] transition-colors mb-1 leading-snug">{value.title}</h3>
-                  <p className="text-[11px] sm:text-xs text-slate-600 leading-relaxed line-clamp-4">{value.description}</p>
+                  <h3 className="font-heading text-base sm:text-lg font-bold text-[#0a1e3f] group-hover:text-[#0284c7] transition-colors mb-2 leading-snug">
+                    {value.title}
+                  </h3>
+                  <p className="font-sans text-xs sm:text-[13px] text-slate-600 leading-relaxed">
+                    {value.description}
+                  </p>
                 </div>
               </div>
             ))}
@@ -408,16 +429,17 @@ export default function About() {
       </section>
 
       {/* ── 6. Corporate Governance & Executive Leadership ── */}
-      <section className="py-8 sm:py-12 bg-white border-b border-[#e2e8f0]/60">
-        <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
-          <div className="mb-6 sm:mb-8">
-            <span className="text-xs font-semibold uppercase tracking-wider text-[#0284c7] block mb-1">
-              Corporate Governance
-            </span>
-            <h2 className="font-heading text-xl sm:text-2xl lg:text-3xl font-semibold text-[#0a1e3f] tracking-tight leading-tight">
+      <section className="py-16 sm:py-24 bg-white border-b border-slate-200/80">
+        <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="mb-10 sm:mb-14 space-y-3">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#f0f9ff] border border-[#bae6fd] text-[#0284c7] text-xs font-semibold uppercase tracking-wider shadow-2xs">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#0284c7]" />
+              <span>Corporate Governance</span>
+            </div>
+            <h2 className="font-heading text-3xl sm:text-4xl font-bold text-[#0a1e3f] tracking-tight leading-tight">
               {about?.governanceHeading || "Experienced executive leadership."}
             </h2>
-            <p className="text-[#0a1e3f]/70 text-xs sm:text-sm mt-1 max-w-2xl">
+            <p className="font-sans text-slate-600 text-sm sm:text-base max-w-2xl leading-relaxed">
               {about?.governanceSubheading || "Guided by experienced financial professionals with decades of combined commercial banking expertise, corporate governance rigor, and regulatory knowledge."}
             </p>
           </div>
@@ -426,65 +448,66 @@ export default function About() {
         </div>
       </section>
 
-      {/* ── 7. Historical Milestones & Chronology of Growth ── */}
-      <section className="py-10 sm:py-14 bg-[#f0f9ff] text-[#0a1e3f] border-b border-[#bae6fd]/70">
-        <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
-          <div className="max-w-2xl mb-6 sm:mb-8">
-            <span className="text-xs font-semibold uppercase tracking-wider text-[#0284c7] bg-white px-3 py-1 rounded-full border border-[#bae6fd]/60 shadow-2xs inline-block mb-2">
-              Chronology of Growth
-            </span>
-            <h2 className="font-heading text-xl sm:text-2xl lg:text-3xl font-bold text-[#0a1e3f] tracking-tight leading-tight">
+      {/* ── 7. Historical Milestones ── */}
+      <section className="py-16 sm:py-24 bg-[#f8fbff] text-[#0a1e3f] border-b border-slate-200/80">
+        <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-2xl mb-10 sm:mb-14 space-y-3">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-[#bae6fd] text-[#0284c7] text-xs font-semibold uppercase tracking-wider shadow-2xs">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#0284c7]" />
+              <span>Chronology of Growth</span>
+            </div>
+            <h2 className="font-heading text-3xl sm:text-4xl font-bold text-[#0a1e3f] tracking-tight leading-tight">
               Decades of banking milestones in Rivers State.
             </h2>
-            <p className="text-slate-600 text-xs sm:text-sm mt-1">
+            <p className="font-sans text-slate-600 text-sm sm:text-base leading-relaxed">
               From our licensing by the Central Bank of Nigeria in 2009 to a diversified financial institution serving over 50,000 customers.
             </p>
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-2.5 sm:gap-4 lg:gap-6 pt-2 sm:pt-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             {milestones.map((m) => (
               <div 
                 key={m.year} 
-                className="bg-white p-3.5 sm:p-5 rounded-xl sm:rounded-2xl border border-[#bae6fd]/70 space-y-2 shadow-2xs"
+                className="bg-white p-5 sm:p-6 rounded-3xl border border-slate-200/90 space-y-3 shadow-2xs hover:shadow-md transition-shadow"
               >
                 <div className="flex items-center justify-between">
-                  <span className="font-heading font-bold text-base sm:text-xl text-[#0284c7]">{m.year}</span>
-                  <span className="text-[10px] text-slate-500 font-medium px-2 py-0.5 rounded bg-sky-50">{m.tag}</span>
+                  <span className="font-heading font-bold text-xl sm:text-2xl text-[#0284c7]">{m.year}</span>
+                  <span className="text-[10px] font-bold text-slate-500 uppercase px-2.5 py-0.5 rounded-full bg-slate-100 border border-slate-200">{m.tag}</span>
                 </div>
-                <h3 className="font-heading font-bold text-xs sm:text-sm text-[#0a1e3f] leading-snug">{m.title}</h3>
-                <p className="text-[11px] sm:text-xs text-slate-600 leading-relaxed line-clamp-4">{m.event}</p>
+                <h3 className="font-heading font-bold text-sm sm:text-base text-[#0a1e3f] leading-snug">{m.title}</h3>
+                <p className="font-sans text-xs text-slate-600 leading-relaxed">{m.event}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ── 8. Regulatory Disclosure & Direct Action ── */}
-      <section className="py-8 sm:py-12 bg-white">
-        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 text-center">
-          <div className="max-w-2xl mx-auto space-y-3">
-            <div className="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-[#f0f7ff] text-[#0284c7] mx-auto mb-1">
-              <Landmark className="h-5 w-5" />
+      {/* ── 8. Regulatory Disclosure & Final Action ── */}
+      <section className="py-16 sm:py-24 bg-white">
+        <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <div className="max-w-2xl mx-auto space-y-4">
+            <div className="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-[#f0f9ff] text-[#0284c7] mx-auto border border-[#bae6fd]">
+              <Landmark className="h-6 w-6" />
             </div>
-            <h3 className="font-heading text-xl sm:text-2xl font-semibold text-[#0a1e3f]">
+            <h3 className="font-heading text-2xl sm:text-3xl font-bold text-[#0a1e3f]">
               Central Bank of Nigeria Licensed Institution
             </h3>
-            <p className="text-xs sm:text-sm text-[#64748b] leading-relaxed">
-              Rima Microfinance Bank is fully licensed and supervised by the Central Bank of Nigeria (CBN). All eligible customer deposits are insured by the Nigeria Deposit Insurance Corporation (NDIC).
+            <p className="font-sans text-xs sm:text-sm text-slate-600 leading-relaxed">
+              RIMA Microfinance Bank is fully licensed and supervised by the Central Bank of Nigeria (CBN). All eligible customer deposits are insured by the Nigeria Deposit Insurance Corporation (NDIC).
             </p>
-            <div className="pt-2 flex flex-wrap justify-center gap-3">
+            <div className="pt-3 flex flex-col sm:flex-row justify-center gap-3.5">
               <Button
                 variant="pill"
-                size="default"
+                size="lg"
                 asChild
-                className="bg-[#0284c7] hover:bg-[#0369a1] text-white shadow-md shadow-sky-500/20 transform hover:-translate-y-0.5 transition-all text-xs h-10 px-5"
+                className="bg-[#0284c7] hover:bg-[#0369a1] text-white shadow-md text-xs sm:text-sm font-semibold h-12 px-7 justify-center"
               >
-                <Link to="/contact">
+                <Link to="/contact" className="inline-flex items-center gap-2">
                   <span>Open an Account</span>
-                  <ArrowRight className="h-3.5 w-3.5 ml-1.5" />
+                  <ArrowRight className="h-4 w-4" />
                 </Link>
               </Button>
-              <Button variant="outlineNeutral" size="default" asChild className="rounded-full text-xs h-10 px-5">
+              <Button variant="outlineNeutral" size="lg" asChild className="rounded-full bg-white hover:bg-slate-50 border-slate-300 text-xs sm:text-sm font-semibold h-12 px-7 justify-center shadow-2xs">
                 <Link to="/branches">
                   <span>Find a Branch</span>
                 </Link>

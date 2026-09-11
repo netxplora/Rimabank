@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Layout } from "@/components/layout/Layout";
-import { Store, Users, DollarSign, Smartphone, CheckCircle2, ArrowRight, ShieldCheck, Calculator, Wifi, BatteryMedium, CreditCard, Receipt } from "lucide-react";
+import { Store, Users, DollarSign, Smartphone, CheckCircle2, ArrowRight, ShieldCheck, Calculator } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { Slider } from "@/components/ui/slider";
@@ -88,72 +88,33 @@ export default function AgentBanking() {
                 </Button>
               </div>
 
-              {/* Agent Benefits Stats */}
-              <div className="pt-4 grid grid-cols-3 gap-4 border-t border-[#e2e8f0]">
-                <div>
-                  <span className="font-heading text-lg sm:text-xl font-bold text-[#0a1e3f]">200+</span>
-                  <span className="block text-[11px] text-[#64748b]">Active Agent Hubs</span>
-                </div>
+              {/* Agent Service Highlights */}
+              <div className="pt-4 grid grid-cols-2 gap-4 border-t border-[#e2e8f0]">
                 <div>
                   <span className="font-heading text-lg sm:text-xl font-bold text-[#16a34a]">Instant</span>
                   <span className="block text-[11px] text-[#64748b]">Wallet Settlement</span>
                 </div>
                 <div>
-                  <span className="font-heading text-lg sm:text-xl font-bold text-[#0284c7]">48 Hours</span>
-                  <span className="block text-[11px] text-[#64748b]">Terminal Deployment</span>
+                  <span className="font-heading text-lg sm:text-xl font-bold text-[#0284c7]">CBN</span>
+                  <span className="block text-[11px] text-[#64748b]">Licensed Agent Network</span>
                 </div>
               </div>
             </div>
 
-            {/* Right 3D Interactive Smart POS Mockup (5 cols) */}
-            <div className="lg:col-span-5 perspective-1000 animate-in fade-in slide-in-from-bottom-8 duration-700 delay-200">
-              <div className="relative mx-auto max-w-[320px] rounded-[36px] bg-[#0a1e3f] p-5 shadow-2xl border-4 border-[#1e293b] transform hover:-rotate-1 transition-transform duration-500">
-                {/* POS Receipt Paper Slot */}
-                <div className="w-28 h-2 bg-[#1e293b] rounded-full mx-auto mb-4" />
-                
-                {/* POS Screen */}
-                <div className="rounded-[24px] bg-gradient-to-b from-[#0f2a50] to-[#081730] p-4 text-white space-y-4 border border-white/10">
-                  {/* Status Bar */}
-                  <div className="flex items-center justify-between text-[10px] text-white/70 pb-2 border-b border-white/10">
-                    <span className="font-bold text-[#38bdf8]">RIMA POS #8042</span>
-                    <div className="flex items-center gap-1.5">
-                      <Wifi className="h-3 w-3 text-[#4ade80]" />
-                      <BatteryMedium className="h-3.5 w-3.5 text-white/80" />
-                    </div>
-                  </div>
-
-                  {/* Ready for Transaction */}
-                  <div className="p-3.5 rounded-2xl bg-white/5 border border-white/10 text-center space-y-1">
-                    <span className="text-[10px] text-white/60 uppercase tracking-wider block">Terminal Ready</span>
-                    <div className="font-heading text-xl font-bold text-[#4ade80]">
-                      Insert or Tap Card
-                    </div>
-                    <span className="text-[10px] text-white/50 block">Supports Verve • Mastercard • Visa</span>
-                  </div>
-
-                  {/* Service Shortcut Chips */}
-                  <div className="grid grid-cols-2 gap-2 text-xs">
-                    <div className="p-2.5 rounded-xl bg-white/10 flex items-center gap-2">
-                      <CreditCard className="h-4 w-4 text-[#38bdf8]" />
-                      <span className="font-medium text-[11px]">Withdrawal</span>
-                    </div>
-                    <div className="p-2.5 rounded-xl bg-white/10 flex items-center gap-2">
-                      <Receipt className="h-4 w-4 text-[#facc15]" />
-                      <span className="font-medium text-[11px]">Bill Payment</span>
-                    </div>
-                  </div>
-
-                  {/* Today's Commission Summary */}
-                  <div className="p-3 rounded-xl bg-[#0284c7]/20 border border-[#0284c7]/40 flex items-center justify-between text-xs">
-                    <span className="text-[10px] text-blue-200">Today's Commission:</span>
-                    <span className="font-heading font-bold text-[#38bdf8]">₦8,450.00</span>
-                  </div>
-                </div>
-
-                {/* EMV Chip Card Inset Mockup */}
-                <div className="mt-3 p-2 rounded-xl bg-[#1e293b] flex items-center justify-center gap-2 text-[10px] text-white/60">
-                  <span className="w-2 h-2 rounded-full bg-[#4ade80]" />
-                  <span>Contactless NFC & EMV Enabled</span>
+            {/* Right — Official POS Terminal Photo (5 cols) */}
+            <div className="lg:col-span-5 flex items-center justify-center animate-in fade-in slide-in-from-bottom-8 duration-700 delay-200">
+              <div className="relative group max-w-[340px] w-full">
+                {/* Soft glow behind the device */}
+                <div className="absolute inset-0 -z-10 rounded-3xl bg-sky-100/60 blur-2xl scale-90 opacity-70 group-hover:opacity-100 transition-opacity duration-500" />
+                <img
+                  src="/images/pos-terminal.jpg"
+                  alt="Rima MFB Official POS Terminal"
+                  className="w-full h-auto object-contain drop-shadow-2xl transform group-hover:-rotate-1 group-hover:scale-[1.02] transition-transform duration-500 rounded-2xl"
+                />
+                {/* Caption badge */}
+                <div className="mt-4 flex items-center justify-center gap-2 text-[11px] text-[#64748b] font-medium">
+                  <span className="w-2 h-2 rounded-full bg-[#16a34a] animate-pulse" />
+                  NIBSS-connected • CBN Approved Terminal
                 </div>
               </div>
             </div>

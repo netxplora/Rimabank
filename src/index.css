@@ -25,6 +25,13 @@
     --color-cobalt-blue: #0284c7;
     --color-emerald-green: #10b981;
 
+    /* Background Rhythm System */
+    --bg-page: #f7f9fc;         /* sophisticated off-white — base page */
+    --bg-surface: #ffffff;      /* elevated white card/section surface */
+    --bg-section-tint: #f0f6ff; /* very light sky brand tint */
+    --bg-section-warm: #f8fafc; /* neutral alternating */
+    --bg-section-sky: #f0f9ff;  /* sky light — hero-adjacent use */
+
     /* Semantic HSL tokens for shadcn/tailwind compatibility */
     --background: 0 0% 100%;
     --foreground: 218 72% 14%; /* #0a1e3f Navy */
@@ -106,15 +113,15 @@
 
   html {
     scroll-behavior: smooth;
-    background-color: var(--color-paper-white);
+    background-color: var(--bg-page);
     overflow-x: hidden;
   }
 
   body {
-    @apply bg-background text-foreground antialiased;
+    @apply text-foreground antialiased;
     font-family: 'Inter', 'Roboto', sans-serif;
     color: var(--color-ink-roast);
-    background-color: var(--color-paper-white);
+    background-color: var(--bg-page);
     overflow-x: hidden;
     width: 100%;
   }
@@ -273,5 +280,42 @@
   img {
     max-width: 100%;
     height: auto;
+  }
+
+  /* Background rhythm utility classes */
+  .bg-page     { background-color: var(--bg-page); }
+  .bg-surface  { background-color: var(--bg-surface); }
+  .bg-section-tint { background-color: var(--bg-section-tint); }
+  .bg-section-warm { background-color: var(--bg-section-warm); }
+  .bg-section-sky  { background-color: var(--bg-section-sky); }
+
+  /* Scroll-reveal keyframes */
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeInLeft {
+    from { opacity: 0; transform: translateX(-20px); }
+    to   { opacity: 1; transform: translateX(0); }
+  }
+  @keyframes fadeInRight {
+    from { opacity: 0; transform: translateX(20px); }
+    to   { opacity: 1; transform: translateX(0); }
+  }
+
+  .animate-fade-in-up   { animation: fadeInUp 0.55s ease-out both; }
+  .animate-fade-in-left { animation: fadeInLeft 0.55s ease-out both; }
+  .animate-fade-in-right{ animation: fadeInRight 0.55s ease-out both; }
+
+  /* Image hover zoom for editorial sections */
+  .img-zoom { transition: transform 0.6s ease; }
+  .img-zoom:hover { transform: scale(1.04); }
+
+  /* Respect reduced-motion preference */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
   }
 }

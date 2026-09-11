@@ -373,8 +373,8 @@ export const initialSiteContent: SiteContent = {
         desc: "Log in with Face ID or fingerprint recognition protected by multi-factor authentication protocols."
       }
     ],
-    ctaText: "Explore Digital Banking Features",
-    ctaLink: "/digital-banking"
+    ctaText: "Explore Mobile Banking Features",
+    ctaLink: "/mobile-banking"
   },
   financialEducationSection: {
     badge: "Financial Literacy & Education",

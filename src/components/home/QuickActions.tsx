@@ -29,12 +29,12 @@ const actions = [
   },
   {
     icon: Smartphone,
-    title: "Digital Banking",
-    description: "24/7 online transfers and mobile operations",
-    href: "/digital-banking",
+    title: "Mobile Banking",
+    description: "Manage your account, transfer money and pay bills on the go",
+    href: "/mobile-banking",
     color: "#0284c7",
     bg: "#e0f2fe",
-    badge: "Instant NIBSS"
+    badge: "24/7 Access"
   },
   {
     icon: Download,

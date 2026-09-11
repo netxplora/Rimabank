@@ -234,7 +234,9 @@ export const CMSProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
 
   const [promotions, setPromotions] = useState<Promotion[]>(initialPromotions);
 
-  const [announcements, setAnnouncements] = useState<Announcement[]>(initialAnnouncements);
+  // Initialize as empty — Supabase sync populates this from the database.
+  // Never use initialAnnouncements as default: it causes paused/draft items to flash on first render.
+  const [announcements, setAnnouncements] = useState<Announcement[]>([]);
 
   const [publications, setPublications] = useState<Publication[]>(initialPublications);
 

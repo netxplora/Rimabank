@@ -7,7 +7,6 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 // Public Pages
 import Index from "./pages/Index";
 import About from "./pages/About";
-import DigitalBanking from "./pages/DigitalBanking";
 import Media from "./pages/Media";
 import MediaPost from "./pages/MediaPost";
 import Contact from "./pages/Contact";
@@ -20,8 +19,14 @@ import BusinessBanking from "./pages/BusinessBanking";
 import LoanServices from "./pages/banking/LoanServices";
 import PersonalBanking from "./pages/PersonalBanking";
 import AgentBanking from "./pages/AgentBanking";
-import Products from "./pages/Products";
-import Support from "./pages/Support";
+
+// New MFB-focused pages
+import MobileBanking from "./pages/MobileBanking";
+import InternetBanking from "./pages/InternetBanking";
+import UssdBanking from "./pages/UssdBanking";
+import Savings from "./pages/Savings";
+import Cards from "./pages/Cards";
+import FinancialEducation from "./pages/FinancialEducation";
 
 // CMS Context & Auth
 import { CMSProvider } from "./context/CMSContext";
@@ -66,34 +71,42 @@ const App = () => (
           <Sonner />
           <BrowserRouter basename={import.meta.env.BASE_URL}>
             <Routes>
-              {/* Public Website Routes */}
+              {/* ── Public Website Routes ── */}
               <Route path="/" element={<Index />} />
               <Route path="/about" element={<About />} />
               <Route path="/personal-banking" element={<PersonalBanking />} />
               <Route path="/business-banking" element={<BusinessBanking />} />
+              <Route path="/savings" element={<Savings />} />
               <Route path="/loans" element={<LoanServices />} />
+              <Route path="/cards" element={<Cards />} />
               <Route path="/agent-banking" element={<AgentBanking />} />
-              <Route path="/digital-banking" element={<DigitalBanking />} />
+              <Route path="/mobile-banking" element={<MobileBanking />} />
+              <Route path="/internet-banking" element={<InternetBanking />} />
+              <Route path="/ussd-banking" element={<UssdBanking />} />
+              <Route path="/financial-education" element={<FinancialEducation />} />
               <Route path="/media" element={<Media />} />
               <Route path="/media/:slug" element={<MediaPost />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/branches" element={<Branches />} />
               <Route path="/whistle-blowing" element={<WhistleBlowing />} />
+              <Route path="/faq" element={<FAQ />} />
 
-              {/* Legal & Information Routes */}
+              {/* ── Legal & Information Routes ── */}
               <Route path="/privacy" element={<Legal />} />
               <Route path="/terms" element={<Legal />} />
               <Route path="/cookies" element={<Legal />} />
               <Route path="/complaints" element={<Legal />} />
-              <Route path="/faq" element={<FAQ />} />
-              <Route path="/support" element={<Support />} />
-              <Route path="/products" element={<Products />} />
+
+              {/* ── Redirects for removed / renamed routes ── */}
+              <Route path="/products" element={<Navigate to="/personal-banking" replace />} />
+              <Route path="/support" element={<Navigate to="/contact" replace />} />
+              <Route path="/digital-banking" element={<Navigate to="/mobile-banking" replace />} />
 
               {/* ============================================================ */}
               {/* 1. EXECUTIVE ADMIN PORTAL (Strictly Admin / Full Access)      */}
               {/* ============================================================ */}
               <Route path="/admin/login" element={<AdminLogin />} />
-              
+
               <Route
                 path="/admin"
                 element={
@@ -112,7 +125,6 @@ const App = () => (
                 <Route path="media" element={<MediaLibrary />} />
                 <Route path="popups" element={<PopupManager />} />
 
-                {/* Governance (Admin Only) */}
                 <Route
                   path="staff"
                   element={
@@ -140,7 +152,7 @@ const App = () => (
               </Route>
 
               {/* ============================================================ */}
-              {/* 2. STAFF OPERATIONS PORTAL (Strictly Staff / Restricted)    */}
+              {/* 2. STAFF OPERATIONS PORTAL (Strictly Staff / Restricted)     */}
               {/* ============================================================ */}
               <Route path="/staff/login" element={<StaffLogin />} />
 

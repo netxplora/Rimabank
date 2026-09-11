@@ -12,11 +12,8 @@ import {
   Apple,
   Smartphone,
   CheckCircle2,
-  Lock,
-  ArrowUpRight,
-  ArrowDownLeft,
-  RefreshCw,
   CreditCard,
+  RefreshCw,
   Shield,
   Wifi
 } from "lucide-react";
@@ -142,85 +139,18 @@ export default function DigitalBanking() {
               </div>
             </div>
 
-            {/* Right 3D Interactive App Mockup (5 cols) */}
-            <div className="lg:col-span-5 perspective-1000 animate-in fade-in slide-in-from-bottom-8 duration-700 delay-200">
-              <div className="relative mx-auto max-w-[340px] rounded-[36px] bg-[#0a1e3f] p-4 shadow-2xl border-4 border-[#1e293b] transform hover:rotate-1 transition-transform duration-500">
-                {/* Phone Speaker Notch */}
-                <div className="w-24 h-4 bg-[#1e293b] rounded-full mx-auto mb-3" />
-                
-                {/* Simulated App Screen */}
-                <div className="rounded-[28px] bg-gradient-to-b from-[#0f2a50] to-[#081730] p-4 text-white space-y-4 border border-white/10">
-                  {/* Account Header */}
-                  <div className="flex items-center justify-between pb-3 border-b border-white/10">
-                    <div>
-                      <span className="text-[10px] text-white/60 uppercase tracking-wider block">Rima Premium Account</span>
-                      <span className="text-xs font-bold text-white">0123 •••• 890</span>
-                    </div>
-                    <span className="w-2.5 h-2.5 rounded-full bg-[#16a34a]" />
-                  </div>
-
-                  {/* Balance Display */}
-                  <div className="p-4 rounded-2xl bg-white/5 border border-white/10 space-y-1">
-                    <span className="text-[10px] text-white/60">Available Balance</span>
-                    <div className="font-heading text-2xl font-bold text-white tracking-tight">
-                      ₦2,450,800.00
-                    </div>
-                    <div className="flex items-center gap-1 text-[10px] text-[#4ade80]">
-                      <ArrowUpRight className="h-3 w-3" />
-                      <span>+₦350,000 received today</span>
-                    </div>
-                  </div>
-
-                  {/* Quick Action Grid */}
-                  <div className="grid grid-cols-4 gap-2 text-center text-[9px]">
-                    <div className="p-2 rounded-xl bg-white/10 hover:bg-white/15 transition-colors cursor-pointer space-y-1">
-                      <ArrowUpRight className="h-4 w-4 mx-auto text-[#38bdf8]" />
-                      <span>Send</span>
-                    </div>
-                    <div className="p-2 rounded-xl bg-white/10 hover:bg-white/15 transition-colors cursor-pointer space-y-1">
-                      <ArrowDownLeft className="h-4 w-4 mx-auto text-[#4ade80]" />
-                      <span>Receive</span>
-                    </div>
-                    <div className="p-2 rounded-xl bg-white/10 hover:bg-white/15 transition-colors cursor-pointer space-y-1">
-                      <ReceiptText className="h-4 w-4 mx-auto text-[#facc15]" />
-                      <span>Bills</span>
-                    </div>
-                    <div className="p-2 rounded-xl bg-white/10 hover:bg-white/15 transition-colors cursor-pointer space-y-1">
-                      <Lock className="h-4 w-4 mx-auto text-[#f43f5e]" />
-                      <span>Cards</span>
-                    </div>
-                  </div>
-
-                  {/* Recent Activity Live Card */}
-                  <div className="space-y-2 pt-1">
-                    <span className="text-[10px] text-white/60 font-semibold block">Recent Transactions</span>
-                    
-                    <div className="p-2.5 rounded-xl bg-white/5 border border-white/5 flex items-center justify-between text-xs">
-                      <div className="flex items-center gap-2">
-                        <div className="w-7 h-7 rounded-lg bg-[#38bdf8]/20 text-[#38bdf8] flex items-center justify-center font-bold text-[10px]">
-                          PH
-                        </div>
-                        <div>
-                          <div className="text-[11px] font-semibold text-white">PHED Token</div>
-                          <div className="text-[9px] text-white/50">Electricity Bill</div>
-                        </div>
-                      </div>
-                      <span className="font-semibold text-white/90 text-[11px]">-₦15,000</span>
-                    </div>
-
-                    <div className="p-2.5 rounded-xl bg-white/5 border border-white/5 flex items-center justify-between text-xs">
-                      <div className="flex items-center gap-2">
-                        <div className="w-7 h-7 rounded-lg bg-[#4ade80]/20 text-[#4ade80] flex items-center justify-center font-bold text-[10px]">
-                          TX
-                        </div>
-                        <div>
-                          <div className="text-[11px] font-semibold text-white">Salary Credit</div>
-                          <div className="text-[9px] text-white/50">Direct Deposit</div>
-                        </div>
-                      </div>
-                      <span className="font-semibold text-[#4ade80] text-[11px]">+₦350,000</span>
-                    </div>
-                  </div>
+            {/* Right — Official Mobile App Photo (5 cols) */}
+            <div className="lg:col-span-5 flex items-center justify-center animate-in fade-in slide-in-from-bottom-8 duration-700 delay-200">
+              <div className="relative group max-w-[320px] w-full">
+                <div className="absolute inset-0 -z-10 rounded-3xl bg-sky-100/60 blur-2xl scale-90 opacity-70 group-hover:opacity-100 transition-opacity duration-500" />
+                <img
+                  src="/images/mobile-app.jpg"
+                  alt="Rima MFB Mobile Banking App"
+                  className="w-full h-auto object-contain drop-shadow-2xl transform group-hover:rotate-1 group-hover:scale-[1.02] transition-transform duration-500"
+                />
+                <div className="mt-4 flex items-center justify-center gap-2 text-[11px] text-[#64748b] font-medium">
+                  <span className="w-2 h-2 rounded-full bg-[#16a34a] animate-pulse" />
+                  Available on iOS &amp; Android
                 </div>
               </div>
             </div>

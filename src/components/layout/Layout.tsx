@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode, useEffect } from "react";
 import { Header } from "./Header";
 import { Footer } from "./Footer";
 import { ScrollToTop } from "./ScrollToTop";
@@ -12,9 +12,16 @@ import { MaintenanceView } from "./MaintenanceView";
 
 interface LayoutProps {
   children: ReactNode;
+  title?: string;
+  description?: string;
 }
 
-export function Layout({ children }: LayoutProps) {
+export function Layout({ children, title, description }: LayoutProps) {
+  useEffect(() => {
+    if (title) document.title = title;
+    const metaDesc = document.querySelector('meta[name="description"]');
+    if (description && metaDesc) metaDesc.setAttribute('content', description);
+  }, [title, description]);
   const { systemSettings } = useCMS();
   const { isAuthenticated } = useAuth();
 

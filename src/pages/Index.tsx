@@ -1,67 +1,66 @@
 import { Layout } from "@/components/layout/Layout";
 import { HeroSection } from "@/components/home/HeroSection";
+import { AboutRimaSection } from "@/components/home/AboutRimaSection";
 import { CoreBankingActions } from "@/components/home/CoreBankingActions";
 import { FeaturedProductSection } from "@/components/home/FeaturedProductSection";
 import { SavingsSection } from "@/components/home/SavingsSection";
 import { FinancingSection } from "@/components/home/FinancingSection";
 import { SMEBankingSection } from "@/components/home/SMEBankingSection";
-import { AgentBankingSection } from "@/components/home/AgentBankingSection";
-import { USSDBankingSection } from "@/components/home/USSDBankingSection";
-import { DigitalBankingSection } from "@/components/home/DigitalBankingSection";
-import { FinancialInclusionSection } from "@/components/home/FinancialInclusionSection";
+import { MobileAppSection } from "@/components/home/MobileAppCTA";
+import { WaysToBankSection } from "@/components/home/WaysToBankSection";
 import { CustomerJourneySection } from "@/components/home/CustomerJourneySection";
-import { FinancialEducationSection } from "@/components/home/FinancialEducationSection";
-import { TestimonialsSection } from "@/components/home/TestimonialsSection";
 import { SecuritySection } from "@/components/home/SecuritySection";
-import { MobileAppCTA } from "@/components/home/MobileAppCTA";
+import { FinancialEducationSection } from "@/components/home/FinancialEducationSection";
+import { NewsSection } from "@/components/home/NewsSection";
+import { FinalCTASection } from "@/components/home/FinalCTASection";
 
 const Index = () => {
   return (
-    <Layout>
-      {/* 1. Hero: 'The bank for all business' */}
+    <Layout
+      title="RIMA Microfinance Bank | Save, Borrow, Bank in Rivers State"
+      description="RIMA Microfinance Bank offers savings accounts, personal and business loans, agent banking, mobile banking and everyday banking services in Rivers State, Nigeria."
+    >
+      {/* 01. HERO — "The bank for all business" */}
       <HeroSection />
 
-      {/* 2. Core Actions: 'What can we help you do?' */}
+      {/* 02. ABOUT RIMA — "Banking with purpose." */}
+      <AboutRimaSection />
+
+      {/* 03. WHAT CAN WE HELP YOU DO? — Save / Borrow / Bank / Pay / Grow / Access */}
       <CoreBankingActions />
 
-      {/* 3. Featured Strategic Product: 'A savings account built around your goals' */}
+      {/* 04. FEATURED PRODUCT */}
       <FeaturedProductSection />
 
-      {/* 4. Savings Pillar: 'Make your money work toward your goals' */}
+      {/* 05. SAVINGS — "Save with confidence." */}
       <SavingsSection />
 
-      {/* 5. Loans & Credit: 'Need funds to move forward?' (5-step process) */}
+      {/* 06. LOANS & FINANCING — "Need funds to move forward?" */}
       <FinancingSection />
 
-      {/* 6. Business Banking: 'Built around your business' */}
+      {/* 07. BUSINESS BANKING — "Built around your business." */}
       <SMEBankingSection />
 
-      {/* 7. Agent Banking: 'Banking, closer to you' & 'Become an Agent' */}
-      <AgentBankingSection />
+      {/* 08. MOBILE BANKING APP — "Your bank, in your hands." */}
+      <MobileAppSection />
 
-      {/* 8. USSD Banking: 'Bank without internet' (*966*808#) */}
-      <USSDBankingSection />
+      {/* 09. WAYS TO BANK — All 7 channels */}
+      <WaysToBankSection />
 
-      {/* 9. Digital Banking: 'Manage your money wherever you are' */}
-      <DigitalBankingSection />
-
-      {/* 10. Financial Inclusion: 'Banking that works for real life' */}
-      <FinancialInclusionSection />
-
-      {/* 11. Customer Experience Roadmap: 'How banking works with RIMA' */}
+      {/* 10. BANKING DESIGNED AROUND YOU — Simple & Transparent Process */}
       <CustomerJourneySection />
 
-      {/* 12. Financial Education & Guides */}
-      <FinancialEducationSection />
-
-      {/* 13. Customer Proof & Testimonials */}
-      <TestimonialsSection />
-
-      {/* 14. Regulatory Compliance & Security (CBN & NDIC) */}
+      {/* 11. TRUST & SECURITY */}
       <SecuritySection />
 
-      {/* 15. Final Account Opening Action */}
-      <MobileAppCTA />
+      {/* 12. MONEY & BUSINESS — Financial Education */}
+      <FinancialEducationSection />
+
+      {/* 13. NEWS & ANNOUNCEMENTS */}
+      <NewsSection />
+
+      {/* 14. FINAL CTA — "Ready to start banking with RIMA?" */}
+      <FinalCTASection />
     </Layout>
   );
 };

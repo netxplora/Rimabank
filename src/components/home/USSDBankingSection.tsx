@@ -173,7 +173,7 @@ export function USSDBankingSection() {
                       Reset
                     </button>
                     <Link
-                      to="/digital-banking#ussd"
+                      to="/ussd-banking"
                       className="flex-1 py-1.5 rounded-lg bg-[#0284c7] text-white text-xs font-semibold text-center hover:bg-[#0369a1] transition-colors"
                     >
                       Full Matrix
