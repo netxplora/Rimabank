@@ -15,7 +15,8 @@ import {
   Clock,
   Bell,
   RefreshCw,
-  Database
+  Database,
+  Smartphone
 } from 'lucide-react';
 import { useCMS } from '@/context/CMSContext';
 import { useAuth } from '@/context/AuthContext';
@@ -27,7 +28,7 @@ export default function SystemSettingsView() {
   const { user, can } = useAuth();
   const [formData, setFormData] = useState(systemSettings);
   const [isSaving, setIsSaving] = useState(false);
-  const [activeTab, setActiveTab] = useState<'general' | 'channel' | 'security' | 'storage'>('general');
+  const [activeTab, setActiveTab] = useState<'general' | 'mobile' | 'channel' | 'security' | 'storage'>('general');
 
   useEffect(() => {
     setFormData(systemSettings);
@@ -112,6 +113,17 @@ export default function SystemSettingsView() {
 
         <button
           type="button"
+          onClick={() => setActiveTab('mobile')}
+          className={`flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-semibold whitespace-nowrap shrink-0 transition-all ${
+            activeTab === 'mobile' ? 'bg-white text-[#0a1e3f] shadow-xs' : 'text-slate-600 hover:text-[#0a1e3f]'
+          }`}
+        >
+          <Smartphone className="h-4 w-4 text-[#0284c7]" />
+          <span>Mobile App & URLs</span>
+        </button>
+
+        <button
+          type="button"
           onClick={() => setActiveTab('channel')}
           className={`flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-semibold whitespace-nowrap shrink-0 transition-all ${
             activeTab === 'channel' ? 'bg-white text-[#0a1e3f] shadow-xs' : 'text-slate-600 hover:text-[#0a1e3f]'
@@ -145,6 +157,98 @@ export default function SystemSettingsView() {
       </div>
 
       <form onSubmit={handleSave} className="space-y-6">
+        {/* Tab: Mobile App & URLs */}
+        {activeTab === 'mobile' && (
+          <div className="bg-white rounded-2xl border border-[#e2e8f0] p-5 sm:p-6 shadow-xs space-y-5 animate-in fade-in-50">
+            <div className="border-b border-slate-100 pb-3 flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <Smartphone className="h-4 w-4 text-[#0284c7]" />
+                <h3 className="font-heading font-bold text-sm text-[#0a1e3f]">
+                  Mobile Application & USSD Channel Configuration
+                </h3>
+              </div>
+            </div>
+
+            <p className="text-xs text-slate-500">
+              Manage the official store links for Android and iOS mobile applications, direct APK downloads, and the offline USSD banking dial code displayed across the website and in download popups.
+            </p>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-xs font-semibold text-[#0a1e3f] mb-1">
+                  Google Play Store App URL
+                </label>
+                <input
+                  type="url"
+                  placeholder="https://play.google.com/store/apps/details?id=com.rimabank.mobile"
+                  value={formData.androidAppUrl || ''}
+                  onChange={(e) => setFormData({ ...formData, androidAppUrl: e.target.value })}
+                  className="w-full p-2.5 rounded-xl border border-[#e2e8f0] text-xs font-medium focus:border-[#0284c7] outline-none"
+                />
+                <p className="text-[10px] text-slate-400 mt-1">Direct URL to the Android app on Google Play Store.</p>
+              </div>
+
+              <div>
+                <label className="block text-xs font-semibold text-[#0a1e3f] mb-1">
+                  Apple App Store URL
+                </label>
+                <input
+                  type="url"
+                  placeholder="https://apps.apple.com/app/rima-mobile-banking/id123456789"
+                  value={formData.iosAppUrl || ''}
+                  onChange={(e) => setFormData({ ...formData, iosAppUrl: e.target.value })}
+                  className="w-full p-2.5 rounded-xl border border-[#e2e8f0] text-xs font-medium focus:border-[#0284c7] outline-none"
+                />
+                <p className="text-[10px] text-slate-400 mt-1">Direct URL to the iOS app on Apple App Store.</p>
+              </div>
+
+              <div>
+                <label className="block text-xs font-semibold text-[#0a1e3f] mb-1">
+                  Direct Android APK Download URL (Optional)
+                </label>
+                <input
+                  type="url"
+                  placeholder="https://rimamfb.com/downloads/rima-mobile.apk"
+                  value={formData.apkDownloadUrl || ''}
+                  onChange={(e) => setFormData({ ...formData, apkDownloadUrl: e.target.value })}
+                  className="w-full p-2.5 rounded-xl border border-[#e2e8f0] text-xs font-medium focus:border-[#0284c7] outline-none"
+                />
+                <p className="text-[10px] text-slate-400 mt-1">Direct APK download link for customers downloading outside Google Play.</p>
+              </div>
+
+              <div>
+                <label className="block text-xs font-semibold text-[#0a1e3f] mb-1">
+                  Official USSD Dial Code
+                </label>
+                <input
+                  type="text"
+                  placeholder="*966*808#"
+                  value={formData.ussdCode || '*966*808#'}
+                  onChange={(e) => setFormData({ ...formData, ussdCode: e.target.value })}
+                  className="w-full p-2.5 rounded-xl border border-[#e2e8f0] text-xs font-medium focus:border-[#0284c7] outline-none font-mono"
+                />
+                <p className="text-[10px] text-slate-400 mt-1">Shortcode dialed by customers for offline banking (*966*808#).</p>
+              </div>
+
+              <div className="sm:col-span-2">
+                <label className="block text-xs font-semibold text-[#0a1e3f] mb-1">
+                  Mobile App Release Status
+                </label>
+                <select
+                  value={formData.mobileAppStatus || 'live'}
+                  onChange={(e) => setFormData({ ...formData, mobileAppStatus: e.target.value as any })}
+                  className="w-full p-2.5 rounded-xl border border-[#e2e8f0] text-xs font-medium focus:border-[#0284c7] outline-none bg-white"
+                >
+                  <option value="live">Live — Available for Download</option>
+                  <option value="coming_soon">Coming Soon — Store Review in Progress</option>
+                  <option value="maintenance">Maintenance — Scheduled App Upgrade</option>
+                </select>
+                <p className="text-[10px] text-slate-400 mt-1">Controls the badge and download status in public banners and dialogs.</p>
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* Tab 1: General Profile */}
         {activeTab === 'general' && (
           <div className="bg-white rounded-2xl border border-[#e2e8f0] p-5 sm:p-6 shadow-xs space-y-5 animate-in fade-in-50">

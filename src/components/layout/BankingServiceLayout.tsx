@@ -28,7 +28,7 @@ export function BankingServiceLayout({
   benefits,
   requirements,
   fees,
-  ctaText = "Open Account",
+  ctaText = "Get the App",
   children
 }: BankingServiceLayoutProps) {
   useEffect(() => {

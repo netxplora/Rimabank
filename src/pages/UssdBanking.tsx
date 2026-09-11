@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { Layout } from "@/components/layout/Layout";
-import { Shield, CheckCircle2, Smartphone, Lock, RotateCcw, ArrowRight } from "lucide-react";
+import { Shield, CheckCircle2, Smartphone, Lock, RotateCcw, ArrowRight, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
+import { DownloadAppDialog } from "@/components/modals/DownloadAppDialog";
 
 const quickCodes = [
   { label: "Main Menu",      code: "*966*808#",   prompt: "Welcome to RIMA Bank MFB\n1. Check Balance\n2. Transfer Money\n3. Buy Airtime/Data\n4. Pay Utilities" },
@@ -30,6 +31,7 @@ export default function UssdBanking() {
   const [activeCode, setActiveCode] = useState(quickCodes[0]);
   const [dialing, setDialing] = useState(false);
   const [showMatrix, setShowMatrix] = useState(false);
+  const [showAppDialog, setShowAppDialog] = useState(false);
 
   const handleSelectCode = (item: typeof quickCodes[0]) => {
     setDialing(true);
@@ -59,11 +61,17 @@ export default function UssdBanking() {
               No data? No smartphone? No problem. Access your RIMA account directly from any mobile phone using our official USSD code. Works on any network, anywhere in Nigeria.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button variant="pill" size="lg" className="bg-[#0284c7] hover:bg-[#0369a1] text-white shadow-md" asChild>
-                <Link to="/contact">Open an Account</Link>
+              <Button 
+                variant="pill" 
+                size="lg" 
+                onClick={() => setShowAppDialog(true)}
+                className="bg-[#0284c7] hover:bg-[#0369a1] text-white shadow-md cursor-pointer"
+              >
+                <Download className="mr-2 h-4 w-4" />
+                <span>Get the App</span>
               </Button>
               <Button variant="outlineNeutral" size="lg" className="rounded-full" asChild>
-                <Link to="/mobile-banking">Try Mobile App Instead</Link>
+                <Link to="/mobile-banking">Explore App Features</Link>
               </Button>
             </div>
           </div>
@@ -337,6 +345,8 @@ export default function UssdBanking() {
         </div>
       </section>
 
+      {/* Download App Dialog Popup */}
+      <DownloadAppDialog open={showAppDialog} onOpenChange={setShowAppDialog} />
     </Layout>
   );
 }

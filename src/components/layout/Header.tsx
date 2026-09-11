@@ -30,6 +30,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { DownloadAppDialog } from "@/components/modals/DownloadAppDialog";
 
 interface NavSubItem {
   name: string;
@@ -171,6 +172,7 @@ const whoWeAreMenu: MegaMenuCategory = {
 export function Header() {
   const location = useLocation();
   const [isScrolled, setIsScrolled] = useState(false);
+  const [showAppDialog, setShowAppDialog] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [expandedMobileCategory, setExpandedMobileCategory] = useState<string | null>("offer");
   const [expandedMobileGroup, setExpandedMobileGroup] = useState<string | null>("Personal Banking");
@@ -400,18 +402,16 @@ export function Header() {
               </Link>
             </nav>
 
-            {/* Desktop Action: Create Account CTA */}
+            {/* Desktop Action: Download App CTA */}
             <div className="hidden lg:flex items-center gap-3 shrink-0">
               <Button
                 variant="pill"
                 size="default"
-                asChild
                 className="bg-[#0284c7] hover:bg-[#0369a1] text-white shadow-brand text-xs font-semibold px-5 h-9"
+                onClick={() => setShowAppDialog(true)}
               >
-                <Link to="/contact">
-                  <span>Create Account</span>
-                  <ArrowRight className="h-3.5 w-3.5 ml-1.5" />
-                </Link>
+                <span>Download App</span>
+                <ArrowRight className="h-3.5 w-3.5 ml-1.5" />
               </Button>
             </div>
 
@@ -661,13 +661,14 @@ export function Header() {
           <Button
             variant="pill"
             size="default"
-            asChild
             className="w-full bg-[#0284c7] hover:bg-[#0369a1] text-white text-xs font-semibold h-10 justify-center shadow-xs"
+            onClick={() => {
+              setIsMobileMenuOpen(false);
+              setShowAppDialog(true);
+            }}
           >
-            <Link to="/contact" onClick={() => setIsMobileMenuOpen(false)}>
-              <span>Create Account</span>
-              <ArrowRight className="h-3.5 w-3.5 ml-1.5" />
-            </Link>
+            <span>Download App</span>
+            <ArrowRight className="h-3.5 w-3.5 ml-1.5" />
           </Button>
 
           {/* Section divider label */}
@@ -854,6 +855,9 @@ export function Header() {
 
         </div>
       </div>
+
+      {/* Download App Dialog Popup */}
+      <DownloadAppDialog open={showAppDialog} onOpenChange={setShowAppDialog} />
     </>
   );
 }

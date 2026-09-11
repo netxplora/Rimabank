@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight, CheckCircle2, ShieldCheck, Sparkles, Calculator, TrendingUp, Lock } from "lucide-react";
+import { ArrowRight, CheckCircle2, ShieldCheck, Sparkles, Calculator, TrendingUp, Lock, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
 import { motion } from "framer-motion";
+import { DownloadAppDialog } from "@/components/modals/DownloadAppDialog";
 
 export function FeaturedProductSection() {
+  const [showAppDialog, setShowAppDialog] = useState(false);
   const [monthlyAmount, setMonthlyAmount] = useState<number>(50000);
   const [months, setMonths] = useState<number>(12);
 
@@ -82,13 +84,13 @@ export function FeaturedProductSection() {
               <Button
                 variant="pill"
                 size="lg"
-                asChild
-                className="bg-[#0284c7] hover:bg-[#0369a1] text-white text-xs sm:text-sm font-semibold h-12 px-7 shadow-md w-full sm:w-auto text-center"
+                onClick={() => setShowAppDialog(true)}
+                className="bg-[#0284c7] hover:bg-[#0369a1] text-white text-xs sm:text-sm font-semibold h-12 px-7 shadow-md w-full sm:w-auto text-center cursor-pointer"
               >
-                <Link to="/contact" className="inline-flex items-center justify-center gap-2">
-                  <span>Open Account Now</span>
-                  <ArrowRight className="h-4 w-4" />
-                </Link>
+                <span className="inline-flex items-center justify-center gap-2">
+                  <Download className="h-4 w-4" />
+                  <span>Download the App</span>
+                </span>
               </Button>
 
               <Button
@@ -97,7 +99,7 @@ export function FeaturedProductSection() {
                 asChild
                 className="rounded-full border-slate-300 bg-white hover:bg-slate-50 text-[#0a1e3f] text-xs sm:text-sm font-semibold h-12 px-6 w-full sm:w-auto text-center shadow-2xs"
               >
-                <Link to="/personal-banking#savings" className="inline-flex items-center justify-center">
+                <Link to="/savings" className="inline-flex items-center justify-center">
                   <span>View All Savings Plans</span>
                 </Link>
               </Button>
@@ -198,6 +200,9 @@ export function FeaturedProductSection() {
 
         </div>
       </div>
+
+      {/* Download App Dialog Popup */}
+      <DownloadAppDialog open={showAppDialog} onOpenChange={setShowAppDialog} />
     </section>
   );
 }

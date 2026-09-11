@@ -13,11 +13,13 @@ import {
   HelpCircle,
   Building,
   Sparkles,
-  ChevronRight
+  ChevronRight,
+  Download
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import { DownloadAppDialog } from "@/components/modals/DownloadAppDialog";
 
 const personalAccounts = [
   {
@@ -125,6 +127,7 @@ const kycTiers = [
 
 export default function PersonalBanking() {
   const [selectedTier, setSelectedTier] = useState(0);
+  const [showAppDialog, setShowAppDialog] = useState(false);
 
   return (
     <Layout
@@ -153,14 +156,16 @@ export default function PersonalBanking() {
               </p>
               
               <div className="flex flex-wrap items-center gap-4 mb-10">
-                <Button size="lg" className="rounded-full bg-[#0284c7] hover:bg-[#0369a1] text-white px-7 shadow-sm" asChild>
-                  <Link to="/contact">
-                    Open an Account Today
-                    <ArrowRight className="ml-2 h-4 w-4" />
-                  </Link>
+                <Button 
+                  size="lg" 
+                  onClick={() => setShowAppDialog(true)}
+                  className="rounded-full bg-[#0284c7] hover:bg-[#0369a1] text-white px-7 shadow-sm cursor-pointer"
+                >
+                  <Download className="mr-2 h-4 w-4" />
+                  <span>Get the App</span>
                 </Button>
                 <Button variant="outline" size="lg" className="rounded-full border-slate-200 text-[#0a1e3f] hover:bg-slate-50 px-6" asChild>
-                  <Link to="/mobile-banking">Download Mobile App</Link>
+                  <Link to="/ussd-banking">View USSD Code (*966*808#)</Link>
                 </Button>
               </div>
 
@@ -426,6 +431,9 @@ export default function PersonalBanking() {
           </div>
         </div>
       </section>
+
+      {/* Download App Dialog Popup */}
+      <DownloadAppDialog open={showAppDialog} onOpenChange={setShowAppDialog} />
     </Layout>
   );
 }

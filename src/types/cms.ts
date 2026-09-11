@@ -273,6 +273,18 @@ export interface GovernanceMember {
 
 export interface SiteContent {
   hero: HeroContent;
+  appStoreLinks?: {
+    androidUrl: string;
+    iosUrl: string;
+    apkUrl?: string;
+    ussdCode?: string;
+  };
+  appLinks?: {
+    googlePlay?: string;
+    appleStore?: string;
+    apkUrl?: string;
+    ussdCode?: string;
+  };
   trustStats: TrustStat[];
   regulatoryText: string;
   aboutSnapshot: {
@@ -433,5 +445,11 @@ export interface SystemSettings {
   passwordPolicyMinLength: number;
   maxUploadSizeBytes: number; // default 5MB (5242880)
   require2FAForAdmin?: boolean;
+  // Mobile Application & Channels configuration
+  androidAppUrl?: string;
+  iosAppUrl?: string;
+  apkDownloadUrl?: string;
+  ussdCode?: string;
+  mobileAppStatus?: 'live' | 'coming_soon' | 'maintenance';
 }
 

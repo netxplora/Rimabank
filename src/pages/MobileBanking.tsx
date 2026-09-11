@@ -20,6 +20,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { useCMS } from "@/context/CMSContext";
 import { motion } from "framer-motion";
+import { DownloadAppDialog } from "@/components/modals/DownloadAppDialog";
 
 const appFeatures = [
   { 
@@ -75,6 +76,7 @@ const onboardingSteps = [
 
 export default function MobileBanking() {
   const { siteContent } = useCMS();
+  const [showAppDialog, setShowAppDialog] = useState(false);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const appLinks = (siteContent as any)?.appLinks;
 
@@ -105,21 +107,17 @@ export default function MobileBanking() {
               </p>
 
               <div className="flex flex-wrap items-center gap-4 pt-2">
-                {appLinks?.googlePlay ? (
-                  <Button size="lg" className="rounded-full bg-[#0284c7] hover:bg-[#0369a1] text-white shadow-md px-7" asChild>
-                    <a href={appLinks.googlePlay} target="_blank" rel="noopener noreferrer">
-                      <Download className="mr-2 h-4 w-4" />
-                      Get on Google Play
-                    </a>
-                  </Button>
-                ) : (
-                  <Button size="lg" className="rounded-full bg-[#0a1e3f] text-white cursor-default opacity-90 px-7" disabled>
-                    <Download className="mr-2 h-4 w-4" />
-                    Android & iOS App — Coming Soon
-                  </Button>
-                )}
+                <Button 
+                  size="lg" 
+                  onClick={() => setShowAppDialog(true)}
+                  className="rounded-full bg-[#0284c7] hover:bg-[#0369a1] text-white shadow-md px-7 cursor-pointer"
+                >
+                  <Download className="mr-2 h-4 w-4" />
+                  <span>Download App & Scan QR</span>
+                </Button>
+                
                 <Button variant="outline" size="lg" className="rounded-full border-slate-200 text-[#0a1e3f] hover:bg-slate-50 px-6" asChild>
-                  <Link to="/contact">Request Mobile Access</Link>
+                  <Link to="/ussd-banking">View USSD Code (*966*808#)</Link>
                 </Button>
               </div>
 
@@ -270,6 +268,9 @@ export default function MobileBanking() {
           </div>
         </div>
       </section>
+
+      {/* Download App Dialog Popup */}
+      <DownloadAppDialog open={showAppDialog} onOpenChange={setShowAppDialog} />
     </Layout>
   );
 }

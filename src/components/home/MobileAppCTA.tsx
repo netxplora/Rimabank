@@ -1,8 +1,10 @@
+import React, { useState } from "react";
 import { CheckCircle2, Smartphone, ArrowRight, ShieldCheck, Download, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { useCMS } from "@/context/CMSContext";
 import { motion } from "framer-motion";
+import { DownloadAppDialog } from "@/components/modals/DownloadAppDialog";
 
 const appFeatures = [
   "Instant Interbank Money Transfers",
@@ -15,6 +17,7 @@ const appFeatures = [
 
 export function MobileAppSection() {
   const { siteContent } = useCMS();
+  const [showAppDialog, setShowAppDialog] = useState(false);
   const appLinks = (siteContent as any)?.appLinks;
 
   return (
@@ -60,24 +63,20 @@ export function MobileAppSection() {
               </div>
 
               <div className="pt-3 flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5">
-                {appLinks?.googlePlay ? (
-                  <Button variant="pill" size="lg" asChild className="bg-[#0284c7] hover:bg-[#0369a1] text-white shadow-md h-12 px-7 text-xs sm:text-sm font-semibold justify-center">
-                    <a href={appLinks.googlePlay} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2">
-                      <Download className="h-4 w-4" />
-                      <span>Get on Google Play</span>
-                    </a>
-                  </Button>
-                ) : (
-                  <Button variant="pill" size="lg" asChild className="bg-[#0284c7] hover:bg-[#0369a1] text-white shadow-md h-12 px-7 text-xs sm:text-sm font-semibold justify-center">
-                    <Link to="/mobile-banking" className="inline-flex items-center gap-2">
-                      <span>Explore Mobile Banking</span>
-                      <ArrowRight className="h-4 w-4" />
-                    </Link>
-                  </Button>
-                )}
+                <Button 
+                  variant="pill" 
+                  size="lg" 
+                  onClick={() => setShowAppDialog(true)}
+                  className="bg-[#0284c7] hover:bg-[#0369a1] text-white shadow-md h-12 px-7 text-xs sm:text-sm font-semibold justify-center cursor-pointer"
+                >
+                  <span className="inline-flex items-center gap-2">
+                    <Download className="h-4 w-4" />
+                    <span>Download Mobile App</span>
+                  </span>
+                </Button>
                 
                 <Button variant="outlineNeutral" size="lg" asChild className="rounded-full bg-white hover:bg-slate-50 border-slate-300 h-12 px-7 text-xs sm:text-sm font-semibold justify-center shadow-2xs">
-                  <Link to="/ussd-banking">View USSD Code (*966*808#)</Link>
+                  <Link to="/mobile-banking">Explore App Features</Link>
                 </Button>
               </div>
 
@@ -106,14 +105,15 @@ export function MobileAppSection() {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#0a1e3f]/50 via-transparent to-transparent" />
                 </div>
-                
-
               </div>
             </motion.div>
 
           </div>
         </div>
       </div>
+
+      {/* Download App Dialog Popup */}
+      <DownloadAppDialog open={showAppDialog} onOpenChange={setShowAppDialog} />
     </section>
   );
 }

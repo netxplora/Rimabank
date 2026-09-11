@@ -16,7 +16,8 @@ import {
   CheckCircle2,
   Building2,
   Clock,
-  Sparkles
+  Sparkles,
+  Download
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
@@ -24,6 +25,7 @@ import { LeadershipTeam } from "@/components/about/LeadershipTeam";
 import { useCMS } from "@/context/CMSContext";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
+import { DownloadAppDialog } from "@/components/modals/DownloadAppDialog";
 
 const stats = [
   { value: "15+", label: "Years of Heritage", desc: "Serving Rivers State communities since 2009" },
@@ -164,6 +166,7 @@ const milestones = [
 
 export default function About() {
   const { siteContent } = useCMS();
+  const [showAppDialog, setShowAppDialog] = useState(false);
   const [activePillar, setActivePillar] = useState(operationalPillars[0].id);
 
   const selectedPillar = operationalPillars.find(p => p.id === activePillar) || operationalPillars[0];
@@ -212,13 +215,13 @@ export default function About() {
                 <Button
                   variant="pill"
                   size="lg"
-                  asChild
-                  className="bg-[#0284c7] hover:bg-[#0369a1] text-white shadow-md h-12 px-7 text-xs sm:text-sm font-semibold justify-center"
+                  onClick={() => setShowAppDialog(true)}
+                  className="bg-[#0284c7] hover:bg-[#0369a1] text-white shadow-md h-12 px-7 text-xs sm:text-sm font-semibold justify-center cursor-pointer"
                 >
-                  <Link to="/contact" className="inline-flex items-center gap-2">
-                    <span>Open an Account</span>
-                    <ArrowRight className="h-4 w-4" />
-                  </Link>
+                  <span className="inline-flex items-center gap-2">
+                    <Download className="h-4 w-4" />
+                    <span>Download the App</span>
+                  </span>
                 </Button>
                 
                 <Button variant="outlineNeutral" size="lg" asChild className="rounded-full bg-white hover:bg-slate-50 border-slate-300 text-xs sm:text-sm font-semibold h-12 px-6 justify-center shadow-2xs">
@@ -499,13 +502,13 @@ export default function About() {
               <Button
                 variant="pill"
                 size="lg"
-                asChild
-                className="bg-[#0284c7] hover:bg-[#0369a1] text-white shadow-md text-xs sm:text-sm font-semibold h-12 px-7 justify-center"
+                onClick={() => setShowAppDialog(true)}
+                className="bg-[#0284c7] hover:bg-[#0369a1] text-white shadow-md text-xs sm:text-sm font-semibold h-12 px-7 justify-center cursor-pointer"
               >
-                <Link to="/contact" className="inline-flex items-center gap-2">
-                  <span>Open an Account</span>
-                  <ArrowRight className="h-4 w-4" />
-                </Link>
+                <span className="inline-flex items-center gap-2">
+                  <Download className="h-4 w-4" />
+                  <span>Download the App</span>
+                </span>
               </Button>
               <Button variant="outlineNeutral" size="lg" asChild className="rounded-full bg-white hover:bg-slate-50 border-slate-300 text-xs sm:text-sm font-semibold h-12 px-7 justify-center shadow-2xs">
                 <Link to="/branches">
@@ -516,6 +519,9 @@ export default function About() {
           </div>
         </div>
       </section>
+
+      {/* Download App Dialog Popup */}
+      <DownloadAppDialog open={showAppDialog} onOpenChange={setShowAppDialog} />
     </Layout>
   );
 }

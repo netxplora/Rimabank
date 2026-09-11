@@ -17,7 +17,7 @@ export const initialSiteContent: SiteContent = {
     headingHighlight: "business",
     headingPart2: "",
     description: "Simple banking, practical financial services and access to the funds you need to manage, grow and move your money.",
-    primaryCtaText: "Create Account",
+    primaryCtaText: "Download App",
     primaryCtaLink: "/contact",
     secondaryCtaText: "Explore Our Services",
     secondaryCtaLink: "/personal-banking",
@@ -28,6 +28,10 @@ export const initialSiteContent: SiteContent = {
     activeUsersLabel: "Active Accountholders",
     ratingScore: "25+ Years",
     ratingLabel: "Serving Rivers State"
+  },
+  appStoreLinks: {
+    androidUrl: "",
+    iosUrl: ""
   },
   trustStats: [
     { id: '1', value: '₦15B+', label: 'Deposits Protected', description: 'Safeguarded with top-tier regulatory security' },
@@ -124,7 +128,7 @@ export const initialSiteContent: SiteContent = {
     ],
     bannerHeading: "Ready to open a dedicated Business Account?",
     bannerDescription: "Equip your enterprise with a full corporate checking account, POS terminal, and relationship officer support.",
-    ctaText: "Open Business Account",
+    ctaText: "Get the App",
     ctaLink: "/contact"
   },
   customerJourney: {
@@ -950,5 +954,10 @@ export const initialSystemSettings: SystemSettings = {
   allowPublicEnquiries: true,
   sessionTimeoutMinutes: 30,
   passwordPolicyMinLength: 8,
-  maxUploadSizeBytes: 5242880 // 5MB
+  maxUploadSizeBytes: 5242880, // 5MB
+  androidAppUrl: 'https://play.google.com/store/apps/details?id=com.rimabank.mobile',
+  iosAppUrl: 'https://apps.apple.com/app/rima-mobile-banking/id123456789',
+  apkDownloadUrl: '',
+  ussdCode: '*966*808#',
+  mobileAppStatus: 'live'
 };

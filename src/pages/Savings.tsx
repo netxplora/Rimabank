@@ -13,10 +13,12 @@ import {
   Coins, 
   Sparkles,
   Lock,
-  Percent
+  Percent,
+  Download
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
+import { DownloadAppDialog } from "@/components/modals/DownloadAppDialog";
 
 const savingsProducts = [
   {
@@ -98,6 +100,7 @@ const savingsProducts = [
 ];
 
 export default function Savings() {
+  const [showAppDialog, setShowAppDialog] = useState(false);
   // Calculator state
   const [depositAmount, setDepositAmount] = useState<number>(20000);
   const [durationMonths, setDurationMonths] = useState<number>(6);
@@ -450,13 +453,26 @@ export default function Savings() {
             ))}
           </div>
 
-          <div className="mt-12 text-center">
-            <Button size="lg" className="rounded-full bg-[#0284c7] hover:bg-[#0369a1] text-white px-8" asChild>
-              <Link to="/contact">Visit Branch to Open Account</Link>
+          <div className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-3.5">
+            <Button
+              size="lg"
+              onClick={() => setShowAppDialog(true)}
+              className="rounded-full bg-[#0284c7] hover:bg-[#0369a1] text-white px-8 cursor-pointer"
+            >
+              <span className="inline-flex items-center gap-2">
+                <Download className="h-4 w-4" />
+                <span>Get the App to Save</span>
+              </span>
+            </Button>
+            <Button variant="outline" size="lg" className="rounded-full border-slate-300 text-[#0a1e3f] px-7" asChild>
+              <Link to="/branches">Locate a Branch</Link>
             </Button>
           </div>
         </div>
       </section>
+
+      {/* Download App Dialog Popup */}
+      <DownloadAppDialog open={showAppDialog} onOpenChange={setShowAppDialog} />
     </Layout>
   );
 }

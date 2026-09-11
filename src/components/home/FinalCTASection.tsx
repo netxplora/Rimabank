@@ -1,8 +1,12 @@
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight, ShieldCheck, Sparkles, Building2, CheckCircle2 } from "lucide-react";
+import { ArrowRight, ShieldCheck, Download, Smartphone } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { DownloadAppDialog } from "@/components/modals/DownloadAppDialog";
 
 export function FinalCTASection() {
+  const [showAppDialog, setShowAppDialog] = useState(false);
+
   return (
     <section className="relative py-16 sm:py-24 bg-[#f8fbff] overflow-hidden">
       <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
@@ -15,7 +19,7 @@ export function FinalCTASection() {
           {/* Eyebrow */}
           <div className="relative z-10 inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 border border-white/20 text-[#38bdf8] text-xs font-semibold uppercase tracking-wider mb-5 backdrop-blur-md">
             <span className="w-1.5 h-1.5 rounded-full bg-[#38bdf8]" />
-            <span>Open An Account Today</span>
+            <span>Get Started with RIMA Bank</span>
           </div>
 
           {/* Heading */}
@@ -25,7 +29,7 @@ export function FinalCTASection() {
 
           {/* Subtitle */}
           <p className="relative z-10 font-sans text-slate-300 text-sm sm:text-base max-w-lg mb-8 leading-relaxed">
-            Open an individual or business account in minutes. Enjoy instant transfers, high-yield savings, and accessible commercial credit.
+            Download our mobile app or dial our USSD code to start banking today. Enjoy instant transfers, high-yield savings, and accessible commercial credit.
           </p>
 
           {/* CTAs */}
@@ -33,13 +37,13 @@ export function FinalCTASection() {
             <Button
               variant="pill"
               size="lg"
-              asChild
-              className="bg-[#0284c7] hover:bg-[#0369a1] text-white border-none shadow-lg h-12 px-8 text-xs sm:text-sm font-semibold justify-center"
+              onClick={() => setShowAppDialog(true)}
+              className="bg-[#0284c7] hover:bg-[#0369a1] text-white border-none shadow-lg h-12 px-8 text-xs sm:text-sm font-semibold justify-center cursor-pointer"
             >
-              <Link to="/contact" className="inline-flex items-center gap-2">
-                <span>Create Your Account</span>
-                <ArrowRight className="h-4 w-4" />
-              </Link>
+              <span className="inline-flex items-center gap-2">
+                <Download className="h-4 w-4" />
+                <span>Download the App</span>
+              </span>
             </Button>
             
             <Button
@@ -60,6 +64,9 @@ export function FinalCTASection() {
 
         </div>
       </div>
+
+      {/* Download App Dialog Popup */}
+      <DownloadAppDialog open={showAppDialog} onOpenChange={setShowAppDialog} />
     </section>
   );
 }

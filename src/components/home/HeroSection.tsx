@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { 
   ArrowRight, 
@@ -16,9 +17,11 @@ import {
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { useCMS } from "@/context/CMSContext";
+import { DownloadAppDialog } from "@/components/modals/DownloadAppDialog";
 
 export function HeroSection() {
   const { siteContent } = useCMS();
+  const [showAppDialog, setShowAppDialog] = useState(false);
   const hero = siteContent?.hero;
 
   const headingPart1 = hero?.headingPart1 || "The bank for all";
@@ -26,7 +29,7 @@ export function HeroSection() {
   const headingPart2 = hero?.headingPart2 || "";
   const eyebrow = hero?.eyebrow || "Central Bank of Nigeria Licensed • NDIC Insured";
   const description = hero?.description || "Simple banking, practical financial services and access to the funds you need to manage, grow and move your money.";
-  const primaryCtaText = hero?.primaryCtaText || "Create Account";
+  const primaryCtaText = hero?.primaryCtaText || "Download App";
   const primaryCtaLink = hero?.primaryCtaLink || "/contact";
   const secondaryCtaText = hero?.secondaryCtaText || "Explore Our Services";
   const secondaryCtaLink = hero?.secondaryCtaLink || "/personal-banking";
@@ -160,17 +163,31 @@ export function HeroSection() {
 
             {/* Primary & Secondary Call to Actions */}
             <motion.div variants={itemVariants} className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 sm:gap-4 pt-2">
-              <Button
-                variant="pill"
-                size="lg"
-                asChild
-                className="group relative overflow-hidden bg-[#0284c7] hover:bg-[#0369a1] text-white text-sm font-semibold shadow-md hover:shadow-lg h-12 sm:h-[52px] px-7 sm:px-8 justify-center transition-all duration-200 w-full sm:w-auto text-center"
-              >
-                <Link to={primaryCtaLink} className="flex items-center justify-center gap-2">
-                  <span>{primaryCtaText}</span>
-                  <ArrowRight className="h-4 w-4 shrink-0 transition-transform duration-200 group-hover:translate-x-1" />
-                </Link>
-              </Button>
+              {primaryCtaText.toLowerCase().includes("download") ? (
+                <Button
+                  variant="pill"
+                  size="lg"
+                  onClick={() => setShowAppDialog(true)}
+                  className="group relative overflow-hidden bg-[#0284c7] hover:bg-[#0369a1] text-white text-sm font-semibold shadow-md hover:shadow-lg h-12 sm:h-[52px] px-7 sm:px-8 justify-center transition-all duration-200 w-full sm:w-auto text-center cursor-pointer"
+                >
+                  <span className="flex items-center justify-center gap-2">
+                    <span>{primaryCtaText}</span>
+                    <ArrowRight className="h-4 w-4 shrink-0 transition-transform duration-200 group-hover:translate-x-1" />
+                  </span>
+                </Button>
+              ) : (
+                <Button
+                  variant="pill"
+                  size="lg"
+                  asChild
+                  className="group relative overflow-hidden bg-[#0284c7] hover:bg-[#0369a1] text-white text-sm font-semibold shadow-md hover:shadow-lg h-12 sm:h-[52px] px-7 sm:px-8 justify-center transition-all duration-200 w-full sm:w-auto text-center"
+                >
+                  <Link to={primaryCtaLink} className="flex items-center justify-center gap-2">
+                    <span>{primaryCtaText}</span>
+                    <ArrowRight className="h-4 w-4 shrink-0 transition-transform duration-200 group-hover:translate-x-1" />
+                  </Link>
+                </Button>
+              )}
 
               <Button
                 variant="outlineNeutral"
@@ -321,6 +338,9 @@ export function HeroSection() {
 
         </div>
       </div>
+
+      {/* Download App Dialog Popup */}
+      <DownloadAppDialog open={showAppDialog} onOpenChange={setShowAppDialog} />
     </section>
   );
 }
