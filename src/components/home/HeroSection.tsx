@@ -29,7 +29,9 @@ export function HeroSection() {
   const headingPart2 = hero?.headingPart2 || "";
   const eyebrow = hero?.eyebrow || "Central Bank of Nigeria Licensed • NDIC Insured";
   const description = hero?.description || "Simple banking, practical financial services and access to the funds you need to manage, grow and move your money.";
-  const primaryCtaText = hero?.primaryCtaText || "Get the App";
+  // If the stored CMS value is the old "Open an Account" wording, override it to the correct button label
+  const rawCtaText = hero?.primaryCtaText || "Get the app";
+  const primaryCtaText = rawCtaText.toLowerCase() === "open an account" ? "Get the app" : rawCtaText;
   const primaryCtaLink = hero?.primaryCtaLink || "/contact";
   const secondaryCtaText = hero?.secondaryCtaText || "Explore Our Services";
   const secondaryCtaLink = hero?.secondaryCtaLink || "/personal-banking";

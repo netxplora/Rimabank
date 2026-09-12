@@ -17,7 +17,7 @@ export const initialSiteContent: SiteContent = {
     headingHighlight: "business",
     headingPart2: "",
     description: "Simple banking, practical financial services and access to the funds you need to manage, grow and move your money.",
-    primaryCtaText: "Get the App",
+    primaryCtaText: "Get the app",
     primaryCtaLink: "/contact",
     secondaryCtaText: "Explore Our Services",
     secondaryCtaLink: "/personal-banking",
@@ -546,7 +546,7 @@ export const initialSiteContent: SiteContent = {
       { title: "Zero Maintenance Fees", desc: "No monthly ledger deductions, card dues, or account keeping fees." },
       { title: "NDIC Insured", desc: "100% statutory deposit protection under CBN regulatory rules." }
     ],
-    primaryCtaText: "Download the App",
+    primaryCtaText: "Get the app",
     secondaryCtaText: "View All Savings Plans",
     secondaryCtaLink: "/savings"
   },
@@ -576,7 +576,7 @@ export const initialSiteContent: SiteContent = {
     eyebrow: "Get Started with RIMA Bank",
     heading: "Ready to experience practical banking that works for you?",
     description: "Download our mobile app or dial our USSD code to start banking today. Enjoy instant transfers, high-yield savings, and accessible commercial credit.",
-    primaryCtaText: "Download the App",
+    primaryCtaText: "Get the app",
     secondaryCtaText: "Learn About RIMA",
     secondaryCtaLink: "/about",
     regulatoryNote: "Licensed by the Central Bank of Nigeria • Deposits insured by NDIC"

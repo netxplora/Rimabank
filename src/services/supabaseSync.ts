@@ -486,11 +486,13 @@ export const SupabaseSync = {
           subject: item.subject || 'General Customer Inquiry',
           category: (item.category as any) || 'General Support',
           message: item.message,
-          status: item.status === 'resolved' || item.status === 'closed'
-            ? (item.status as any)
+          status: item.status === 'closed'
+            ? 'closed'
+            : item.status === 'resolved'
+            ? 'resolved'
             : item.status === 'in_progress' || item.status === 'pending'
             ? 'in_progress'
-            : 'unread',
+            : 'unread', // 'open' and anything else maps to unread
           priority: (item.priority as any) || 'normal',
           assignedTo: item.assigned_to || undefined,
           assignedToName: item.assigned_to_name || undefined,
@@ -559,9 +561,15 @@ export const SupabaseSync = {
       };
 
       if (updates.status) {
-        payload.status = updates.status === 'resolved' || updates.status === 'closed'
-          ? 'closed'
-          : (updates.status === 'unread' ? 'open' : 'pending');
+        // Map app status values → DB column values (bidirectional, lossless)
+        const statusMap: Record<string, string> = {
+          unread: 'open',
+          in_progress: 'in_progress',
+          resolved: 'resolved',
+          closed: 'closed',
+          read: 'in_progress', // legacy 'read' treated as in_progress
+        };
+        payload.status = statusMap[updates.status] ?? updates.status;
       }
 
       if (updates.assignedTo !== undefined) {

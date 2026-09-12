@@ -220,7 +220,7 @@ export default function About() {
                 >
                   <span className="inline-flex items-center gap-2">
                     <Download className="h-4 w-4" />
-                    <span>Download the App</span>
+                    <span>Get the app</span>
                   </span>
                 </Button>
                 
@@ -507,7 +507,7 @@ export default function About() {
               >
                 <span className="inline-flex items-center gap-2">
                   <Download className="h-4 w-4" />
-                  <span>Download the App</span>
+                  <span>Get the app</span>
                 </span>
               </Button>
               <Button variant="outlineNeutral" size="lg" asChild className="rounded-full bg-white hover:bg-slate-50 border-slate-300 text-xs sm:text-sm font-semibold h-12 px-7 justify-center shadow-2xs">

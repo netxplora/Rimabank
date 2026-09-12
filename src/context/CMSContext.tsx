@@ -116,12 +116,12 @@ interface CMSContextType {
 
   // Enquiries
   enquiries: Enquiry[];
-  addEnquiry: (enquiry: Omit<Enquiry, 'id' | 'ticketNumber' | 'createdAt' | 'updatedAt' | 'internalNotes' | 'responses'>) => void;
-  updateEnquiryStatus: (id: string, status: Enquiry['status'], user: { id: string; name: string; role: UserRole }) => void;
-  assignEnquiry: (id: string, staffId: string, staffName: string, user: { id: string; name: string; role: UserRole }) => void;
-  addEnquiryNote: (id: string, note: string, author: string) => void;
-  respondToEnquiry: (id: string, message: string, user: { id: string; name: string; role: UserRole }) => void;
-  deleteEnquiry: (id: string, user: { id: string; name: string; role: UserRole }) => void;
+  addEnquiry: (enquiry: Omit<Enquiry, 'id' | 'ticketNumber' | 'createdAt' | 'updatedAt' | 'internalNotes' | 'responses'>) => Promise<{ok: boolean, error?: string}>;
+  updateEnquiryStatus: (id: string, status: Enquiry['status'], user: { id: string; name: string; role: UserRole }) => Promise<{ok: boolean, error?: string, updatedEnquiry?: Enquiry}>;
+  assignEnquiry: (id: string, staffId: string, staffName: string, user: { id: string; name: string; role: UserRole }) => Promise<{ok: boolean, error?: string, updatedEnquiry?: Enquiry}>;
+  addEnquiryNote: (id: string, note: string, author: string) => Promise<{ok: boolean, error?: string, updatedEnquiry?: Enquiry}>;
+  respondToEnquiry: (id: string, message: string, user: { id: string; name: string; role: UserRole }) => Promise<{ok: boolean, error?: string, updatedEnquiry?: Enquiry}>;
+  deleteEnquiry: (id: string, user: { id: string; name: string; role: UserRole }) => Promise<{ok: boolean, error?: string}>;
 
   // Media Operations & Asset Management
   mediaAssets: MediaAsset[];
@@ -240,7 +240,9 @@ export const CMSProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
 
   const [publications, setPublications] = useState<Publication[]>(initialPublications);
 
-  const [enquiries, setEnquiries] = useState<Enquiry[]>(initialEnquiries);
+  // Initialize as empty — Supabase sync populates from contact_messages table.
+  // Never seed with initialEnquiries to avoid dummy data flashing before DB loads.
+  const [enquiries, setEnquiries] = useState<Enquiry[]>([]);
 
   const [mediaAssets, setMediaAssets] = useState<MediaAsset[]>(initialMediaAssets);
 
@@ -434,6 +436,17 @@ export const CMSProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
       })
       .subscribe();
 
+    // ── Real-time: system_settings ─────────────────────────────────────────
+    // This ensures maintenance mode and all other settings take effect
+    // immediately on all open tabs as soon as an admin saves changes.
+    const settingsChannel = supabase
+      .channel('public_system_settings')
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'system_settings' }, async () => {
+        const updated = await SupabaseSync.fetchSystemSettings();
+        if (updated) setSystemSettings(updated);
+      })
+      .subscribe();
+
     return () => {
       supabase.removeChannel(promotionsChannel);
       supabase.removeChannel(announcementsChannel);
@@ -444,6 +457,7 @@ export const CMSProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
       supabase.removeChannel(pagesChannel);
       supabase.removeChannel(mediaChannel);
       supabase.removeChannel(popupsChannel);
+      supabase.removeChannel(settingsChannel);
     };
   }, []);
 
@@ -700,13 +714,13 @@ export const CMSProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
     return { ok: true };
   };
 
-  const updateEnquiryStatus = async (id: string, status: Enquiry['status'], user: { id: string; name: string; role: UserRole }): Promise<{ok: boolean, error?: string}> => {
+  const updateEnquiryStatus = async (id: string, status: Enquiry['status'], user: { id: string; name: string; role: UserRole }): Promise<{ok: boolean, error?: string, updatedEnquiry?: Enquiry}> => {
     const e = enquiries.find(item => item.id === id);
     if (!e) return { ok: false, error: 'Not found' };
     const updated = { ...e, status, updatedAt: new Date().toISOString() };
     const res = await SupabaseSync.updateContactMessage(id, { status });
-    if (!res) return { ok: false, error: 'Update failed' }; // Note: updateContactMessage returns boolean currently! wait, let's just check res.success if it returns that, but in supabaseSync updateContactMessage returns boolean!
-    // Ah, updateContactMessage returns boolean. I will just check res.
+    if (!res) return { ok: false, error: 'Update failed' };
+    
     setEnquiries(prev => prev.map(item => item.id === id ? updated : item));
     logAuditAction({
       userId: user.id,
@@ -718,10 +732,10 @@ export const CMSProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
       resourceTitle: `Ticket ${e.ticketNumber}`,
       details: `Changed enquiry status to ${status}`
     });
-    return { ok: true };
+    return { ok: true, updatedEnquiry: updated };
   };
 
-  const assignEnquiry = async (id: string, staffId: string, staffName: string, user: { id: string; name: string; role: UserRole }): Promise<{ok: boolean, error?: string}> => {
+  const assignEnquiry = async (id: string, staffId: string, staffName: string, user: { id: string; name: string; role: UserRole }): Promise<{ok: boolean, error?: string, updatedEnquiry?: Enquiry}> => {
     const e = enquiries.find(item => item.id === id);
     if (!e) return { ok: false, error: 'Not found' };
     const newStatus = e.status === 'unread' ? 'in_progress' : e.status;
@@ -749,10 +763,10 @@ export const CMSProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
       resourceTitle: `Ticket ${e.ticketNumber}`,
       details: `Assigned enquiry ticket ${e.ticketNumber} to ${staffName}`
     });
-    return { ok: true };
+    return { ok: true, updatedEnquiry: updated };
   };
 
-  const addEnquiryNote = async (id: string, note: string, author: string): Promise<{ok: boolean, error?: string}> => {
+  const addEnquiryNote = async (id: string, note: string, author: string): Promise<{ok: boolean, error?: string, updatedEnquiry?: Enquiry}> => {
     const e = enquiries.find(item => item.id === id);
     if (!e) return { ok: false, error: 'Not found' };
     const newNote = {
@@ -761,14 +775,15 @@ export const CMSProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
       note,
       createdAt: new Date().toISOString()
     };
-    const updatedNotes = [...e.internalNotes, newNote];
+    const updatedNotes = [...(e.internalNotes || []), newNote];
     const res = await SupabaseSync.updateContactMessage(id, { internalNotes: updatedNotes });
-    if (!res) return { ok: false, error: 'Failed to update' };
-    setEnquiries(prev => prev.map(item => item.id === id ? { ...item, internalNotes: updatedNotes, updatedAt: new Date().toISOString() } : item));
-    return { ok: true };
+    if (!res) return { ok: false, error: 'Failed to save note to database' };
+    const updatedEnquiry = { ...e, internalNotes: updatedNotes, updatedAt: new Date().toISOString() };
+    setEnquiries(prev => prev.map(item => item.id === id ? updatedEnquiry : item));
+    return { ok: true, updatedEnquiry };
   };
 
-  const respondToEnquiry = async (id: string, message: string, user: { id: string; name: string; role: UserRole }): Promise<{ok: boolean, error?: string}> => {
+  const respondToEnquiry = async (id: string, message: string, user: { id: string; name: string; role: UserRole }): Promise<{ok: boolean, error?: string, updatedEnquiry?: Enquiry}> => {
     const e = enquiries.find(item => item.id === id);
     if (!e) return { ok: false, error: 'Not found' };
     const response = {
@@ -778,19 +793,21 @@ export const CMSProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
       message,
       sentAt: new Date().toISOString()
     };
-    const updatedResponses = [...e.responses, response];
+    const updatedResponses = [...(e.responses || []), response];
+    // Mark in_progress if first reply, resolved thereafter
+    const newStatus: Enquiry['status'] = e.responses && e.responses.length > 0 ? 'resolved' : 'in_progress';
     const updated: Enquiry = {
       ...e,
       responses: updatedResponses,
-      status: 'resolved',
+      status: newStatus,
       updatedAt: new Date().toISOString()
     };
     const res = await SupabaseSync.updateContactMessage(id, {
       responses: updatedResponses,
-      status: 'resolved',
+      status: newStatus,
       adminReply: message
     });
-    if (!res) return { ok: false, error: 'Failed to update' };
+    if (!res) return { ok: false, error: 'Failed to save reply to database' };
     setEnquiries(prev => prev.map(item => item.id === id ? updated : item));
     logAuditAction({
       userId: user.id,
@@ -800,9 +817,9 @@ export const CMSProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
       resourceType: 'ENQUIRY',
       resourceId: id,
       resourceTitle: `Ticket ${e.ticketNumber}`,
-      details: `Sent official email reply to ${e.email} for ticket ${e.ticketNumber}`
+      details: `Sent reply to ${e.email} for ticket ${e.ticketNumber}`
     });
-    return { ok: true };
+    return { ok: true, updatedEnquiry: updated };
   };
 
   const deleteEnquiry = async (id: string, user: { id: string; name: string; role: UserRole }): Promise<{ok: boolean, error?: string}> => {

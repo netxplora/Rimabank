@@ -30,7 +30,7 @@ export default function AppDownloadDialog({ open, onClose }: AppDownloadDialogPr
         >
           <X className="h-5 w-5" />
         </button>
-        <h2 className="text-lg font-semibold mb-4">Download the App</h2>
+        <h2 className="text-lg font-semibold mb-4">Get the app</h2>
         <p className="mb-4 text-sm text-gray-600">Select your device type:</p>
         <div className="flex space-x-4 mb-4">
           <button

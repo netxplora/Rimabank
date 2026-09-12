@@ -66,7 +66,7 @@ export default function EnquiriesManager() {
     if (staff) {
       const res = await assignEnquiry(selectedEnquiry.id, staff.id, staff.name, { id: user.id, name: user.name, role: user.role });
       if (res.ok) {
-        setSelectedEnquiry(prev => prev ? { ...prev, assignedTo: staff.id, assignedToName: staff.name } : null);
+        if (res.updatedEnquiry) setSelectedEnquiry(res.updatedEnquiry);
         toast.success(`Ticket assigned to ${staff.name}`);
       } else {
         toast.error(res.error || 'Failed to assign ticket');
@@ -74,7 +74,7 @@ export default function EnquiriesManager() {
     } else {
       const res = await assignEnquiry(selectedEnquiry.id, '', '', { id: user.id, name: user.name, role: user.role });
       if (res.ok) {
-        setSelectedEnquiry(prev => prev ? { ...prev, assignedTo: undefined, assignedToName: undefined } : null);
+        if (res.updatedEnquiry) setSelectedEnquiry(res.updatedEnquiry);
         toast.success('Ticket unassigned');
       } else {
         toast.error(res.error || 'Failed to unassign ticket');
@@ -86,7 +86,7 @@ export default function EnquiriesManager() {
     if (!selectedEnquiry || !user) return;
     const res = await updateEnquiryStatus(selectedEnquiry.id, status, { id: user.id, name: user.name, role: user.role });
     if (res.ok) {
-      setSelectedEnquiry(prev => prev ? { ...prev, status } : null);
+      if (res.updatedEnquiry) setSelectedEnquiry(res.updatedEnquiry);
       toast.success(`Ticket marked as ${status.replace('_', ' ')}`);
     } else {
       toast.error(res.error || 'Failed to update status');
@@ -99,9 +99,9 @@ export default function EnquiriesManager() {
     const res = await addEnquiryNote(selectedEnquiry.id, newNote, user.name);
     if (res.ok) {
       setNewNote('');
-      toast.success('Internal note added.');
-      const updated = enquiries.find(e => e.id === selectedEnquiry.id);
-      if (updated) setSelectedEnquiry(updated);
+      // Use the returned updatedEnquiry to avoid stale state lookup
+      if (res.updatedEnquiry) setSelectedEnquiry(res.updatedEnquiry);
+      toast.success('Internal note saved.');
     } else {
       toast.error(res.error || 'Failed to add note');
     }
@@ -113,9 +113,9 @@ export default function EnquiriesManager() {
     const res = await respondToEnquiry(selectedEnquiry.id, replyMessage, { id: user.id, name: user.name, role: user.role });
     if (res.ok) {
       setReplyMessage('');
-      toast.success(`Official reply dispatched to ${selectedEnquiry.email}`);
-      const updated = enquiries.find(e => e.id === selectedEnquiry.id);
-      if (updated) setSelectedEnquiry(updated);
+      // Use the returned updatedEnquiry to avoid stale state lookup
+      if (res.updatedEnquiry) setSelectedEnquiry(res.updatedEnquiry);
+      toast.success(`Reply saved for ${selectedEnquiry.email}`);
     } else {
       toast.error(res.error || 'Failed to send reply');
     }
