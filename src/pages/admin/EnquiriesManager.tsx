@@ -39,6 +39,13 @@ export default function EnquiriesManager() {
   // Note & Response form inputs
   const [newNote, setNewNote] = useState('');
   const [replyMessage, setReplyMessage] = useState('');
+  // Inline delete confirmation (replaces window.confirm)
+  const [confirmDeleteId, setConfirmDeleteId] = useState<string | null>(null);
+  const [isBulkDeleting, setIsBulkDeleting] = useState(false);
+
+  // Detect seed/demo records (non-UUID IDs like 'enq-1')
+  const isUUID = (id: string) => /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(id);
+  const hasSeedData = enquiries.some(e => !isUUID(e.id));
 
   const filteredEnquiries = enquiries.filter(e => {
     const matchesSearch = e.name.toLowerCase().includes(search.toLowerCase()) ||
@@ -121,24 +128,47 @@ export default function EnquiriesManager() {
     }
   };
 
-  const handleDelete = async (id: string, ticket: string) => {
+  const handleDelete = async (id: string) => {
     if (!user) return;
     if (!can('delete', 'enquiries')) {
-      toast.error('Staff officers cannot delete enquiry tickets.');
+      toast.error('Only administrators can permanently delete enquiry tickets.');
       return;
     }
-    if (window.confirm(`Delete enquiry ticket ${ticket}?`)) {
-      const res = await deleteEnquiry(id, { id: user.id, name: user.name, role: user.role });
-      if (res.ok) {
-        if (selectedEnquiry?.id === id) {
-          setSelectedEnquiry(null);
-          setIsFullMessageModalOpen(false);
-        }
-        toast.success('Enquiry ticket removed.');
-      } else {
-        toast.error(res.error || 'Failed to delete ticket');
-      }
+    // First click sets the confirm state, second click executes
+    if (confirmDeleteId !== id) {
+      setConfirmDeleteId(id);
+      return;
     }
+    setConfirmDeleteId(null);
+    const target = enquiries.find(e => e.id === id);
+    const res = await deleteEnquiry(id, { id: user.id, name: user.name, role: user.role });
+    if (res.ok) {
+      if (selectedEnquiry?.id === id) {
+        setSelectedEnquiry(null);
+        setIsFullMessageModalOpen(false);
+      }
+      toast.success(`Ticket ${target?.ticketNumber || ''} permanently deleted.`);
+    } else {
+      toast.error(res.error || 'Failed to delete ticket. Check database permissions.');
+    }
+  };
+
+  // Bulk-remove all seed/demo records that aren't in the database
+  const handleClearSeedData = async () => {
+    if (!user || !can('delete', 'enquiries')) return;
+    setIsBulkDeleting(true);
+    const seedRecords = enquiries.filter(e => !isUUID(e.id));
+    let removed = 0;
+    for (const enq of seedRecords) {
+      const res = await deleteEnquiry(enq.id, { id: user.id, name: user.name, role: user.role });
+      if (res.ok) removed++;
+    }
+    setIsBulkDeleting(false);
+    if (selectedEnquiry && !isUUID(selectedEnquiry.id)) {
+      setSelectedEnquiry(null);
+      setIsFullMessageModalOpen(false);
+    }
+    toast.success(`Cleared ${removed} demo record${removed !== 1 ? 's' : ''} from inbox.`);
   };
 
   const copyToClipboard = (text: string, label: string) => {
@@ -163,6 +193,18 @@ export default function EnquiriesManager() {
             Review, assign, and respond to incoming customer inquiries, support tickets, and account questions.
           </p>
         </div>
+        {/* Admin-only: clear seed/demo data from inbox */}
+        {can('delete', 'enquiries') && hasSeedData && (
+          <Button
+            type="button"
+            onClick={handleClearSeedData}
+            disabled={isBulkDeleting}
+            className="h-9 px-4 rounded-xl bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 text-xs font-semibold flex items-center gap-2 shrink-0"
+          >
+            <Trash2 className="h-3.5 w-3.5" />
+            {isBulkDeleting ? 'Clearing...' : 'Clear Demo Data'}
+          </Button>
+        )}
       </div>
 
       {/* Filter & Search Bar */}
@@ -313,15 +355,27 @@ export default function EnquiriesManager() {
 
               <div className="flex items-center gap-1.5">
                 {can('delete', 'enquiries') && (
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => handleDelete(selectedEnquiry.id, selectedEnquiry.ticketNumber)}
-                    className="h-8 px-2.5 text-rose-600 hover:text-rose-700 hover:bg-rose-50 rounded-lg text-xs"
-                  >
-                    <Trash2 className="h-3.5 w-3.5 mr-1" />
-                    Delete
-                  </Button>
+                  confirmDeleteId === selectedEnquiry.id ? (
+                    <div className="flex items-center gap-1.5">
+                      <span className="text-[11px] text-rose-600 font-semibold">Confirm delete?</span>
+                      <Button variant="ghost" size="sm"
+                        onClick={() => handleDelete(selectedEnquiry.id)}
+                        className="h-7 px-2 text-rose-700 hover:bg-rose-100 rounded-lg text-xs font-bold"
+                      >Yes, delete</Button>
+                      <Button variant="ghost" size="sm"
+                        onClick={() => setConfirmDeleteId(null)}
+                        className="h-7 px-2 text-slate-500 hover:bg-slate-100 rounded-lg text-xs"
+                      >Cancel</Button>
+                    </div>
+                  ) : (
+                    <Button variant="ghost" size="sm"
+                      onClick={() => handleDelete(selectedEnquiry.id)}
+                      className="h-8 px-2.5 text-rose-600 hover:text-rose-700 hover:bg-rose-50 rounded-lg text-xs"
+                    >
+                      <Trash2 className="h-3.5 w-3.5 mr-1" />
+                      Delete
+                    </Button>
+                  )
                 )}
                 <button
                   onClick={() => setSelectedEnquiry(null)}
@@ -695,15 +749,27 @@ export default function EnquiriesManager() {
             {/* Modal Footer */}
             <div className="px-5 py-3 border-t border-[#e2e8f0] bg-slate-50 flex items-center justify-between shrink-0">
               {can('delete', 'enquiries') ? (
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={() => handleDelete(selectedEnquiry.id, selectedEnquiry.ticketNumber)}
-                  className="text-rose-600 hover:text-rose-700 hover:bg-rose-50 rounded-lg text-xs"
-                >
-                  <Trash2 className="h-3.5 w-3.5 mr-1" />
-                  Delete Ticket
-                </Button>
+                confirmDeleteId === selectedEnquiry.id ? (
+                  <div className="flex items-center gap-1.5">
+                    <span className="text-[11px] text-rose-600 font-semibold">Confirm delete?</span>
+                    <Button variant="ghost" size="sm"
+                      onClick={() => handleDelete(selectedEnquiry.id)}
+                      className="h-7 px-2 text-rose-700 hover:bg-rose-100 rounded-lg text-xs font-bold"
+                    >Yes, delete</Button>
+                    <Button variant="ghost" size="sm"
+                      onClick={() => setConfirmDeleteId(null)}
+                      className="h-7 px-2 text-slate-500 hover:bg-slate-100 rounded-lg text-xs"
+                    >Cancel</Button>
+                  </div>
+                ) : (
+                  <Button variant="ghost" size="sm"
+                    onClick={() => handleDelete(selectedEnquiry.id)}
+                    className="text-rose-600 hover:text-rose-700 hover:bg-rose-50 rounded-lg text-xs"
+                  >
+                    <Trash2 className="h-3.5 w-3.5 mr-1" />
+                    Delete Ticket
+                  </Button>
+                )
               ) : <div />}
 
               <Button

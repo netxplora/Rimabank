@@ -603,24 +603,30 @@ export const SupabaseSync = {
   },
 
   async updateContactMessageStatus(id: string, status: string, adminReply?: string): Promise<{success: boolean; error?: string}> {
-    return SupabaseSync.updateContactMessage(id, {
-      status,
-      adminReply
-    });
+    const ok = await SupabaseSync.updateContactMessage(id, { status, adminReply });
+    return ok ? { success: true } : { success: false, error: 'Update failed' };
   },
 
   async deleteContactMessage(id: string): Promise<{success: boolean; error?: string}> {
     try {
       if (!(await isSupabaseAvailable())) return { success: false };
+
       const isUUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(id);
-      if (!isUUID) return { success: true };
 
-      const { error } = await supabase
-        .from('contact_messages')
-        .delete()
-        .eq('id', id);
+      if (isUUID) {
+        // Real DB record — permanently delete from Supabase
+        const { error } = await supabase
+          .from('contact_messages')
+          .delete()
+          .eq('id', id);
 
-      if (error) throw error;
+        if (error) {
+          console.error('[SupabaseSync] deleteContactMessage error:', error);
+          return { success: false, error: error.message };
+        }
+      }
+      // Non-UUID IDs are seed/local records — skip DB delete but report success
+      // so the caller removes them from local state
       return { success: true };
     } catch (err) {
       console.warn('[SupabaseSync] deleteContactMessage error:', err);
