@@ -50,7 +50,7 @@ const cardVariants = {
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.45, ease: "easeOut" },
+    transition: { duration: 0.45, ease: "easeOut" as const },
   },
 };
 
@@ -64,8 +64,15 @@ export function CustomerJourneySection() {
   const description = cj?.description || "From your initial deposit to accessing commercial financing, we keep every step straightforward, transparent, and supportive of your goals.";
   const ctaText = cj?.ctaText || "Start Your Journey Today";
   const ctaLink = cj?.ctaLink || "/contact";
-  const steps = cj?.steps && cj.steps.length > 0 ? cj.steps : defaultJourneySteps;
-
+  const rawSteps = cj?.steps && cj.steps.length > 0 ? cj.steps : defaultJourneySteps;
+  
+  // Force removal of "Access Financing" to override any cached localStorage or DB data
+  const steps = rawSteps
+    .filter((s: any) => s.title !== "Access Financing")
+    .map((s: any, idx: number) => ({
+      ...s,
+      step: `0${idx + 1}`
+    }));
   return (
     <section className="relative py-16 sm:py-24 bg-[#f8fbff] border-b border-slate-200/80 overflow-hidden">
       <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">

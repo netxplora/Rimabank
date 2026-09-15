@@ -153,11 +153,6 @@ export const initialSiteContent: SiteContent = {
       },
       {
         step: "04",
-        title: "Access Financing",
-        desc: "Qualify for flexible business working capital or microcredit facilities based on your savings history."
-      },
-      {
-        step: "05",
         title: "Grow Your Goals",
         desc: "Expand your enterprise, build emergency reserves, and achieve long-term financial security."
       }
