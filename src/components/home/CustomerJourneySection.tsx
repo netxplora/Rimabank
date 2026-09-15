@@ -26,19 +26,13 @@ const defaultJourneySteps = [
   },
   {
     step: "04",
-    title: "Access Financing",
-    desc: "Qualify for flexible business working capital or personal credit facilities based on transaction history.",
-    icon: Landmark
-  },
-  {
-    step: "05",
     title: "Grow Your Capital",
     desc: "Expand your enterprise, build structured goal savings, and secure your financial future.",
     icon: TrendingUp
   }
 ];
 
-const stepIcons = [UserPlus, Wallet, Smartphone, Landmark, TrendingUp];
+const stepIcons = [UserPlus, Wallet, Smartphone, TrendingUp];
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -56,7 +50,7 @@ const cardVariants = {
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.45, ease: [0.22, 1, 0.36, 1] },
+    transition: { duration: 0.45, ease: "easeOut" },
   },
 };
 
@@ -98,11 +92,11 @@ export function CustomerJourneySection() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-40px" }}
-          className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-5 gap-3 sm:gap-4 lg:gap-5 relative"
+          className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-5 relative"
         >
           {steps.map((item, idx) => {
             const Icon = (item as any).icon || stepIcons[idx % stepIcons.length] || UserPlus;
-            const isLastOddOnMobile = idx === 4 && steps.length === 5;
+            const isLastOddOnMobile = idx === steps.length - 1 && steps.length % 2 !== 0;
             
             return (
               <motion.div

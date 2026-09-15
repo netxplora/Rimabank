@@ -45,7 +45,7 @@ const actions = [
     href: "/personal-banking",
   },
   {
-    title: "Pay",
+    title: "Transact",
     badge: "Instant",
     desc: "Send money, settle vendor invoices, and manage utility bills seamlessly.",
     icon: ArrowLeftRight,
@@ -94,7 +94,7 @@ const itemVariants = {
     y: 0, 
     transition: { 
       duration: 0.5, 
-      ease: [0.22, 1, 0.36, 1] 
+      ease: "easeOut" 
     } 
   },
 };
