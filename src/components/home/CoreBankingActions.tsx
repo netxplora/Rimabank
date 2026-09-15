@@ -25,7 +25,7 @@ const actions = [
     href: "/savings",
   },
   {
-    title: "Borrow",
+    title: "Loan",
     badge: "Fast Approval",
     desc: "Access working capital and personal credit tailored to your cash flow.",
     icon: Landmark,
