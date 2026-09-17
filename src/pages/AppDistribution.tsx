@@ -30,16 +30,19 @@ export default function AppDistribution() {
     setDeviceType(detectedDevice);
     console.log(`[Analytics] app_qr_scan: detected platform = ${detectedDevice}`);
 
-    if (detectedDevice === 'ios') {
-      window.location.replace(iosUrl);
+    // Delay the redirect to allow CMSContext to finish loading real settings from Supabase.
+    const timer = setTimeout(() => {
+      if (detectedDevice === 'ios') {
+        window.location.replace(iosUrl);
+      } else if (detectedDevice === 'android') {
+        window.location.replace(androidUrl);
+      } else if (detectedDevice === 'unknown') {
+        window.location.replace(fallbackWebUrl);
+      }
       setHasRedirected(true);
-    } else if (detectedDevice === 'android') {
-      window.location.replace(androidUrl);
-      setHasRedirected(true);
-    } else if (detectedDevice === 'unknown') {
-      window.location.replace(fallbackWebUrl);
-      setHasRedirected(true);
-    }
+    }, 1500);
+
+    return () => clearTimeout(timer);
   }, [androidUrl, iosUrl, fallbackWebUrl]);
 
   // ── Redirecting state ──────────────────────────────────────────────────────
